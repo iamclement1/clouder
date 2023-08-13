@@ -1,12 +1,10 @@
-
+import React from "react";
 import AppProvider from "@/Redux/AppProvider";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Sidebar from "@/components/common/Sidebar";
 import Navbar from "@/components/common/Navbar";
 import { Footer } from "@/components/common/Footer";
-import { useRouter } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 

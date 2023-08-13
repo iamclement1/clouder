@@ -1,8 +1,7 @@
 "use client";
-
+import React from "react";
 import {
   Container,
-  Icon,
   Box,
   Stack,
   Text,
@@ -96,7 +95,7 @@ export const Footer = () => {
               <Image
                 src={useColorModeValue(
                   "/splitbee-badge.svg",
-                  "/splitbee-badge-dark.svg"
+                  "/splitbee-badge-dark.svg",
                 )}
                 width={114}
                 height={45}

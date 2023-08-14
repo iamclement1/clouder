@@ -23,7 +23,6 @@
     "eslint-config-next": "13.4.13",
     "formik": "^2.4.3",
     "framer-motion": "^10.15.1",
-    "husky": "^8.0.3",
     "lint-staged": "^14.0.0",
     "next": "13.4.13",
     "prettier": "^3.0.1",
@@ -35,11 +34,13 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
     "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@typescript-eslint/parser": "^6.3.0",
     "eslint": "^8.47.0",
     "eslint-plugin-react": "^7.33.1",
-    "husky": "^8.0.0"
+    "husky": "^8.0.3"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
@@ -49,5 +50,10 @@
     "src/**/*.{json,css,scss,md}": [
       "prettier -w ."
     ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }

@@ -23,7 +23,6 @@
     "eslint-config-next": "13.4.13",
     "formik": "^2.4.3",
     "framer-motion": "^10.15.1",
-    "lint-staged": "^14.0.0",
     "next": "13.4.13",
     "prettier": "^3.0.1",
     "react": "18.2.0",
@@ -40,15 +39,16 @@
     "@typescript-eslint/parser": "^6.3.0",
     "eslint": "^8.47.0",
     "eslint-plugin-react": "^7.33.1",
-    "husky": "^8.0.3"
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.0"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": [
+    "src/**/*.{js,jsx,ts,tsx,md}": [
       "eslint --max-warnings=0",
-      "prettier -w ."
+      "prettier --write"
     ],
     "src/**/*.{json,css,scss,md}": [
-      "prettier -w ."
+      "prettier --write"
     ]
   },
   "husky": {

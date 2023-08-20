@@ -8,7 +8,8 @@ import Navbar from "@/components/common/Navbar";
 import { Footer } from "@/components/common/Footer";
 import { usePathname } from "next/navigation";
 import Sidebar from "@/components/common/Sidebar";
-
+import { IconButton } from "@chakra-ui/react";
+import { FaArrowUp } from "react-icons/fa";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -31,6 +33,24 @@ export default function RootLayout({
           {pathname === "/dashboard" && <Sidebar />}
           {children}
           {pathname === "/" && <Footer />}
+          {/* back top button */}
+
+          <IconButton
+            aria-label="back-to-top"
+            pos={"fixed"}
+            right={"5rem"}
+            bottom={"2rem"}
+            icon={<FaArrowUp />}
+            boxSize={"4.5rem"}
+            fontSize={"2rem"}
+            cursor={"pointer"}
+            bgColor={"primary_2"}
+            href="#top"
+            as="a"
+            rounded={"full"}
+            _hover={{}}
+            _active={{}}
+          />
         </AppProvider>
       </body>
     </html>

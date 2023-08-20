@@ -11,6 +11,8 @@ interface CustomButtonProps extends ButtonProps {
   px?: string[] | number;
   py?: string[] | number;
   handleClick?: NonNullable<unknown>;
+  bg?: string | string[];
+  h?: string | string[];
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
@@ -23,10 +25,13 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   fontWeight,
   px,
   py,
+  bg = "primary",
+  h,
   ...rest
 }) => {
   return (
     <Button
+      bg={bg}
       width={width || "100%"}
       bgColor={"primary"}
       isDisabled={isLoading}
@@ -37,8 +42,9 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       color={color || "white"}
       _hover={{}}
       _active={{ opacity: "0.5" }}
-      fontSize={fontSize || "0.9375rem"}
+      fontSize={fontSize || ["0.8rem", null, "0.9375rem"]}
       fontWeight={fontWeight || "500"}
+      h={h || ["2.5rem", null, "3.5rem"]}
     >
       {isLoading ? <Spinner width="sm" /> : customText || children}
     </Button>

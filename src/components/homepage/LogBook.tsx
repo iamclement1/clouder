@@ -4,23 +4,23 @@ import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import Typography from "@/components/common/Typograph";
 import ScreenSize from "@/layouts/ScreenSize";
 
-import Doctor from "@/assests/images/heroDoc.svg";
+import LogBookPic from "@/assests/images/logBook.svg";
 import Image from "next/image";
 import CustomButton from "../common/CustomButton";
 
-const Hero = () => {
+const LogBook = () => {
   return (
-    <Box py="5rem">
+    <Box py="5rem" bgColor={"white"}>
       <ScreenSize>
         <SimpleGrid columns={[1, 2]} spacing={"4.27rem"}>
           <Flex align={"center"} justify={"center"}>
-            <Box w="100%">
-              <Typography variant="heading1">
-                Easy Way To <br /> Your Medical{" "}
+            <Box maxW={["100%", null, "31.21875rem"]}>
+              <Typography variant="heading1" color="black">
+                Fill Up Your Logbook In A More{" "}
                 <Text as="span" color="primary">
-                  {" "}
-                  Portfolio{" "}
-                </Text>
+                  Convenient
+                </Text>{" "}
+                Way
               </Typography>
 
               <Box maxW="31.21875rem" mt="1.88rem">
@@ -38,7 +38,7 @@ const Hero = () => {
                   maxW="fit-content"
                   fontSize={["1.125rem"]}
                 >
-                  Explore
+                  Join Us
                 </CustomButton>
               </Box>
             </Box>
@@ -46,7 +46,7 @@ const Hero = () => {
 
           <Box>
             <Image
-              src={Doctor}
+              src={LogBookPic}
               alt="Doctor illustration"
               // width={"100%"}
             />
@@ -57,4 +57,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default LogBook;

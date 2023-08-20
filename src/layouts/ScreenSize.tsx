@@ -11,7 +11,7 @@ export default function ScreenSize({ children, ...props }: Props) {
   // const { children } = props;
   return (
     <Box
-      px={["1rem", null, "2rem"]}
+      px={["14px", null, "2rem", "2rem"]}
       w="100%"
       maxW="1440px"
       mx="auto"

@@ -4,22 +4,28 @@ import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import Typography from "@/components/common/Typograph";
 import ScreenSize from "@/layouts/ScreenSize";
 
-import Doctor from "@/assests/images/heroDoc.svg";
+import Doctor from "@/assests/images/actitiesDoc.png";
 import Image from "next/image";
 import CustomButton from "../common/CustomButton";
 
-const Hero = () => {
+const Activities = () => {
   return (
-    <Box py="5rem">
+    <Box py="5rem" bgColor={"primary_1"}>
       <ScreenSize>
         <SimpleGrid columns={[1, 2]} spacing={"4.27rem"}>
-          <Flex align={"center"} justify={"center"}>
-            <Box w="100%">
-              <Typography variant="heading1">
-                Easy Way To <br /> Your Medical{" "}
+          <Box>
+            <Image
+              src={Doctor}
+              alt="Doctor illustration"
+              // width={"100%"}
+            />
+          </Box>
+          <Flex align={"center"} justify={""}>
+            <Box maxW={["100%", null, "28.45313rem"]}>
+              <Typography variant="heading1" color="white">
+                Keep Track On Your Quality Improvement{" "}
                 <Text as="span" color="primary">
-                  {" "}
-                  Portfolio{" "}
+                  Activities
                 </Text>
               </Typography>
 
@@ -38,23 +44,15 @@ const Hero = () => {
                   maxW="fit-content"
                   fontSize={["1.125rem"]}
                 >
-                  Explore
+                  Register
                 </CustomButton>
               </Box>
             </Box>
           </Flex>
-
-          <Box>
-            <Image
-              src={Doctor}
-              alt="Doctor illustration"
-              // width={"100%"}
-            />
-          </Box>
         </SimpleGrid>
       </ScreenSize>
     </Box>
   );
 };
 
-export default Hero;
+export default Activities;

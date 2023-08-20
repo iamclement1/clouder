@@ -14,6 +14,7 @@ interface Props {
   fontSize?: string[] | string;
   fontWeight?: string | number;
   mt?: string | string[];
+  color?: string | string[];
 }
 
 const Typography = ({
@@ -22,6 +23,7 @@ const Typography = ({
   fontWeight,
   children,
   mt,
+  color,
   ...rest
 }: Props) => {
   const getVariantStyle = () => {
@@ -41,7 +43,7 @@ const Typography = ({
       case "heading3":
         return {
           as: "h3",
-          fontSize: fontSize || ["lg", "xl", "2xl", "3xl"],
+          fontSize: fontSize || ["lg", "xl", "2xl", "1.6875rem"],
           fontWeight: fontWeight || "bold",
         };
       case "heading4":
@@ -83,7 +85,7 @@ const Typography = ({
   const variantStyle = getVariantStyle() as TextProps;
 
   return (
-    <Text {...variantStyle} {...rest} mt={mt}>
+    <Text {...variantStyle} {...rest} mt={mt} color={color}>
       {children}
     </Text>
   );

@@ -4,22 +4,28 @@ import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import Typography from "@/components/common/Typograph";
 import ScreenSize from "@/layouts/ScreenSize";
 
-import Doctor from "@/assests/images/heroDoc.svg";
+import Doctor from "@/assests/images/researchDoc.svg";
 import Image from "next/image";
 import CustomButton from "../common/CustomButton";
 
-const Hero = () => {
+const Research = () => {
   return (
-    <Box py="5rem">
+    <Box py="5rem" bgColor={"white"}>
       <ScreenSize>
         <SimpleGrid columns={[1, 2]} spacing={"4.27rem"}>
+          <Box>
+            <Image
+              src={Doctor}
+              alt="Doctor illustration"
+              // width={"100%"}
+            />
+          </Box>
           <Flex align={"center"} justify={"center"}>
-            <Box w="100%">
-              <Typography variant="heading1">
-                Easy Way To <br /> Your Medical{" "}
+            <Box maxW={["100%", null, "35rem"]}>
+              <Typography variant="heading1" color="black">
+                Maintain Steady Progress With Your{" "}
                 <Text as="span" color="primary">
-                  {" "}
-                  Portfolio{" "}
+                  Research
                 </Text>
               </Typography>
 
@@ -43,18 +49,10 @@ const Hero = () => {
               </Box>
             </Box>
           </Flex>
-
-          <Box>
-            <Image
-              src={Doctor}
-              alt="Doctor illustration"
-              // width={"100%"}
-            />
-          </Box>
         </SimpleGrid>
       </ScreenSize>
     </Box>
   );
 };
 
-export default Hero;
+export default Research;

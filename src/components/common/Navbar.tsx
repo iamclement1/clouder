@@ -68,6 +68,7 @@ export default function Navbar() {
         color={"black"}
         py={2}
         shadow={"sm"}
+        id="top"
       >
         <ScreenSize>
           <Flex
@@ -91,7 +92,11 @@ export default function Navbar() {
               ))}
             </HStack>
 
-            <CustomButton maxW="fit-content" display={["none", null, "block"]}>
+            <CustomButton
+              maxW="fit-content"
+              display={["none", null, "block"]}
+              h="2.5rem"
+            >
               Register Now
             </CustomButton>
 

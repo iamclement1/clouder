@@ -23,7 +23,6 @@ import {
   BUY_ME_A_COFFEE_LINK,
 } from "../../config/constant";
 // import { Logo } from "#/components/Logo";
-import { ReactNode } from "react";
 
 const SOCIAL_LINKS = [
   {
@@ -44,7 +43,7 @@ const SOCIAL_LINKS = [
   },
 ];
 
-const ListHeader = ({ children }: { children: ReactNode }) => {
+const ListHeader = ({ children }: { children: React.ReactNode }) => {
   return (
     <Text fontWeight={"500"} fontSize={"lg"} mb={2}>
       {children}

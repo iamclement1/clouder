@@ -224,7 +224,7 @@ const Sidebar = () => {
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        width="full"
+        // width="full"
       >
         <DrawerContent>
           <SidebarContent onClose={onClose} />

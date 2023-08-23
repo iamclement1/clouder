@@ -15,6 +15,7 @@ interface Props {
   fontWeight?: string | number;
   mt?: string | string[];
   color?: string | string[];
+  noOfLines?: number | number[];
 }
 
 const Typography = ({
@@ -24,6 +25,7 @@ const Typography = ({
   children,
   mt,
   color,
+  noOfLines,
   ...rest
 }: Props) => {
   const getVariantStyle = () => {
@@ -85,7 +87,13 @@ const Typography = ({
   const variantStyle = getVariantStyle() as TextProps;
 
   return (
-    <Text {...variantStyle} {...rest} mt={mt} color={color}>
+    <Text
+      {...rest}
+      {...variantStyle}
+      mt={mt}
+      color={color}
+      noOfLines={noOfLines}
+    >
       {children}
     </Text>
   );

@@ -8,8 +8,7 @@ import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import { usePathname } from "next/navigation";
 import Sidebar from "@/components/common/Sidebar";
-import { IconButton } from "@chakra-ui/react";
-import { FaArrowUp } from "react-icons/fa";
+import BackToTop from "@/components/common/BackToTop";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,24 +34,7 @@ export default function RootLayout({
           <Footer />
           {/* back top button */}
 
-          <IconButton
-            aria-label="back-to-top"
-            pos={"fixed"}
-            right={["1rem", "3rem", "4rem", "5rem"]}
-            bottom={["1rem", "1.5rem", "2rem"]}
-            icon={<FaArrowUp />}
-            boxSize={["2.5rem", "3.5rem", ""]}
-            fontSize={["1rem", null, "1.5rem"]}
-            cursor={"pointer"}
-            color={"white"}
-            bgColor={"primary_2"}
-            href="#top"
-            as="a"
-            rounded={"full"}
-            _hover={{}}
-            _active={{}}
-            shadow={"2xl"}
-          />
+          <BackToTop />
         </AppProvider>
       </body>
     </html>

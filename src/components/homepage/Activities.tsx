@@ -23,17 +23,20 @@ const Activities = () => {
           <Flex align={"center"} justify={""}>
             <Box maxW={["100%", null, "28.45313rem"]}>
               <Typography variant="heading1" color="white">
-                Keep Track On Your Quality Improvement{" "}
+                Leadership and Personal{" "}
                 <Text as="span" color="primary">
-                  Activities
+                  Development
                 </Text>
               </Typography>
 
-              <Box maxW="31.21875rem" mt="1.88rem">
-                <Typography variant="body">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+              <Box maxW="36.21875rem" mt="1.88rem">
+                <Typography variant="body" color={"white"}>
+                  Our platform allows you to keep a continuous record of your
+                  accomplishments in leadership. Input your challenges and
+                  experiences from serving in students/professional
+                  associations, upload evidence and curate your successes and
+                  lessons continuously. Reflect on lessons and challenges
+                  related to your research projects and teaching.
                 </Typography>
               </Box>
               <Box mt="3.75rem">

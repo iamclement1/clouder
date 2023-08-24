@@ -23,17 +23,18 @@ const Research = () => {
           <Flex align={"center"} justify={"center"}>
             <Box maxW={["100%", null, "35rem"]}>
               <Typography variant="heading1" color="black">
-                Maintain Steady Progress With Your{" "}
+                Exploring the Clinical Audit{" "}
                 <Text as="span" color="primary">
-                  Research
+                  Process
                 </Text>
               </Typography>
 
               <Box maxW="31.21875rem" mt="1.88rem">
                 <Typography variant="body">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  Learn about clinical audits and how you can start and complete
+                  an audit cycle while reflecting on your experience. Record and
+                  share your results with a wider audience in the professional
+                  and academic community.
                 </Typography>
               </Box>
               <Box mt="3.75rem">

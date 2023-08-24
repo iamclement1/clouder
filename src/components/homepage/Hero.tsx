@@ -25,9 +25,13 @@ const Hero = () => {
 
               <Box maxW="31.21875rem" mt="1.88rem">
                 <Typography variant="body">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  Clouder is Nigeria’s first e-portfolio platform for students
+                  in the health sciences and health care practitioners. We help
+                  you curate and maintain access to every aspect of your
+                  continuous academic and professional progress by creating the
+                  most intuitive and secure online platform to keep and
+                  constantly update all aspects of your professional and
+                  personal development
                 </Typography>
               </Box>
               <Box mt="3.75rem">

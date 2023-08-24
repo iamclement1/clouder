@@ -15,6 +15,7 @@ import Image from "next/image";
 import Logo from "@/assests/images/logo.png";
 import ScreenSize from "@/layouts/ScreenSize";
 import CustomButton from "./CustomButton";
+import Link from "next/link";
 
 interface Props {
   text?: string;
@@ -23,18 +24,22 @@ interface Props {
 
 const Links = [
   {
+    id: 1,
     href: "/about",
     text: "About us",
   },
   {
+    id: 2,
     href: "/service",
     text: "Our Service",
   },
   {
+    id: 3,
     href: "/contact",
     text: "Contact Us",
   },
   {
+    id: 4,
     href: "/pricing",
     text: "Pricing",
   },
@@ -67,7 +72,7 @@ export default function Navbar() {
         bg={useColorModeValue("white", "white")}
         color={"black"}
         py={2}
-        shadow={"sm"}
+        // shadow={"sm"}
         id="top"
       >
         <ScreenSize>
@@ -77,8 +82,10 @@ export default function Navbar() {
             justifyContent={"space-between"}
             gap={"14px"}
           >
-            <HStack spacing={8} alignItems={"center"}>
-              <Image src={Logo} alt="logo" width="200" />
+            <HStack spacing={8} alignItems={"center"} cursor={"pointer"}>
+              <Link href={"/"}>
+                <Image src={Logo} alt="logo" width="200" />
+              </Link>
             </HStack>
             <HStack
               as={"nav"}
@@ -87,8 +94,8 @@ export default function Navbar() {
               shouldWrapChildren={false}
               flexShrink={0}
             >
-              {Links.map((link, i) => (
-                <NavLink key={i} text={link.text} href={link.href} />
+              {Links.map((link) => (
+                <NavLink key={link.id} text={link.text} href={link.href} />
               ))}
             </HStack>
 

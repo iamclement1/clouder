@@ -29,10 +29,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AppProvider>
-          {pathname === "/" && <Navbar />}
+          <Navbar />
           {pathname === "/dashboard" && <Sidebar />}
           {children}
-          {pathname === "/" && <Footer />}
+          <Footer />
           {/* back top button */}
 
           <IconButton

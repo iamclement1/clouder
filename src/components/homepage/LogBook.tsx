@@ -13,21 +13,24 @@ const LogBook = () => {
     <Box py="5rem" bgColor={"white"}>
       <ScreenSize>
         <SimpleGrid columns={[1, 2]} spacing={"4.27rem"}>
-          <Flex align={"center"} justify={"center"}>
-            <Box maxW={["100%", null, "31.21875rem"]}>
+          <Flex align={"center"} justify={""}>
+            <Box maxW={["100%", null, "40.21875rem"]}>
               <Typography variant="heading1" color="black">
                 Fill Up Your Logbook In A More{" "}
                 <Text as="span" color="primary">
-                  Convenient
+                  Convenient Way
                 </Text>{" "}
-                Way
               </Typography>
 
               <Box maxW="31.21875rem" mt="1.88rem">
                 <Typography variant="body">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  The medical and surgical logbooks provided on our platform
+                  enable you to record, edit and have constant access to your
+                  most important clinical experiences. You can record case
+                  reviews, reflect on the lessons you have learnt, discuss your
+                  professional and ethical challenges, generate new learning
+                  needs, and obtain feedback from your supervisors and
+                  colleagues.
                 </Typography>
               </Box>
               <Box mt="3.75rem">

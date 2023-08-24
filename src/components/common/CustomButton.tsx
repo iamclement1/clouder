@@ -26,7 +26,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   px,
   py,
   bg = "primary",
-  h,
+  // h,
   ...rest
 }) => {
   return (
@@ -36,17 +36,17 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       bgColor={"primary"}
       isDisabled={isLoading}
       {...rest}
-      px={px || "1.5rem"}
-      py={py || "0.7rem"}
+      px={px ?? ["0.75rem", "1.5rem"]}
+      py={py ?? "0.7rem"}
       rounded="0.375rem"
-      color={color || "white"}
+      color={color ?? "white"}
       _hover={{}}
       _active={{ opacity: "0.5" }}
-      fontSize={fontSize || ["0.8rem", null, "0.9375rem"]}
-      fontWeight={fontWeight || "500"}
-      h={h || ["2.5rem", null, "3.5rem"]}
+      fontSize={fontSize ?? ["0.82rem", null, "0.9375rem"]}
+      fontWeight={fontWeight ?? "500"}
+      // h={h || ["2.5rem", null, "3.5rem"]}
     >
-      {isLoading ? <Spinner width="sm" /> : customText || children}
+      {isLoading ? <Spinner width="sm" /> : customText ?? children}
     </Button>
   );
 };

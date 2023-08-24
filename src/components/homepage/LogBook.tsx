@@ -13,7 +13,7 @@ const LogBook = () => {
     <Box py="5rem" bgColor={"white"}>
       <ScreenSize>
         <SimpleGrid columns={[1, 2]} spacing={"4.27rem"}>
-          <Flex align={"center"} justify={"center"}>
+          <Flex align={"center"} justify={""}>
             <Box maxW={["100%", null, "31.21875rem"]}>
               <Typography variant="heading1" color="black">
                 Fill Up Your Logbook In A More{" "}

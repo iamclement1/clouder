@@ -1,3 +1,7 @@
 html {
   scroll-behavior: smooth;
 }
+.testimonyBox {
+  border-radius: 0rem 7.10756rem 7.10756rem 7.10756rem;
+  border: 0.75px solid #03a9f4;
+}

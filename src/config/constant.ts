@@ -4,22 +4,27 @@ export const PRODUCTION_URL = "https://chakra-templates.dev";
 /**
  * LINKS
  */
-export const BUY_ME_A_COFFEE_LINK = "https://www.buymeacoffee.com/hauptrolle";
-export const TWITTER_LINK_ACHIM = "https://twitter.com/hauptrolle_";
-export const TEMPLATES_LINK = "/page-sections/hero";
-export const DISCORD_INVITE_LINK = "https://discord.gg/4Y3bQk6sTb";
-export const GITHUB_LINK = "https://github.com/hauptrolle/chakra-templates";
-export const ANALYTICS_LINK =
-  "https://app.splitbee.io/public/chakra-templates.dev";
-export const TWITTER_LINK = "https://twitter.com/ChakraTemplates";
-export const FIGMA_LINK =
-  "https://www.figma.com/community/file/935959613109017886/Chakra-Templates-UI-Kit";
-export const CONTRIBUTORS_LINK =
-  "https://github.com/hauptrolle/chakra-templates/graphs/contributors";
-export const CONTRIBUTE_LINK =
-  "https://github.com/hauptrolle/chakra-templates/blob/main/CONTRIBUTING.md";
-export const SUGGEST_TEMPLATE_LINK =
-  "https://github.com/hauptrolle/chakra-templates/issues/new?assignees=&labels=&template=template_request.md";
+// export const BUY_ME_A_COFFEE_LINK = "https://www.buymeacoffee.com/hauptrolle";
+export const TWITTER_LINK = "https://twitter.com/hauptrolle_";
+export const LINKDLE_LINK = "https://twitter.com/hauptrolle_";
+export const INSTRAGRAM_LINK = "https://twitter.com/hauptrolle_";
+export const FACEBOOK_LINK = "https://twitter.com/hauptrolle_";
+export const YOUTUBE_LINK = "https://twitter.com/hauptrolle_";
+
+// export const TEMPLATES_LINK = "/page-sections/hero";
+// export const DISCORD_INVITE_LINK = "https://discord.gg/4Y3bQk6sTb";
+// export const GITHUB_LINK = "https://github.com/hauptrolle/chakra-templates";
+// export const ANALYTICS_LINK =
+//   "https://app.splitbee.io/public/chakra-templates.dev";
+// export const TWITTER_LINK = "https://twitter.com/ChakraTemplates";
+// export const FIGMA_LINK =
+//   "https://www.figma.com/community/file/935959613109017886/Chakra-Templates-UI-Kit";
+// export const CONTRIBUTORS_LINK =
+//   "https://github.com/hauptrolle/chakra-templates/graphs/contributors";
+// export const CONTRIBUTE_LINK =
+//   "https://github.com/hauptrolle/chakra-templates/blob/main/CONTRIBUTING.md";
+// export const SUGGEST_TEMPLATE_LINK =
+//   "https://github.com/hauptrolle/chakra-templates/issues/new?assignees=&labels=&template=template_request.md";
 
 /**
  * Splitbee events

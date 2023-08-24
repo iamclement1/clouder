@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Navbar from "./Navbar";
-import { Footer } from "./Footer";
+import Footer from "./Footer";
 import Sidebar from "./Sidebar";
 import { usePathname } from "next/navigation";
 

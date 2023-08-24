@@ -6,6 +6,7 @@ import Activities from "@/components/homepage/Activities";
 import LogBook from "@/components/homepage/LogBook";
 import Research from "@/components/homepage/Research";
 import RegCard from "@/components/homepage/RegCard";
+import Testimonies from "@/components/homepage/Testimonies";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Activities />
       <LogBook />
       <Research />
+      <Testimonies />
       <RegCard />
     </Box>
   );

@@ -51,6 +51,7 @@ export default function RootLayout({
             rounded={"full"}
             _hover={{}}
             _active={{}}
+            shadow={"2xl"}
           />
         </AppProvider>
       </body>

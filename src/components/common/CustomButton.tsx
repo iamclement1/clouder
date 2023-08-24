@@ -42,7 +42,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       color={color || "white"}
       _hover={{}}
       _active={{ opacity: "0.5" }}
-      fontSize={fontSize || ["0.2rem", null, "0.9375rem"]}
+      fontSize={fontSize || ["0.82rem", null, "0.9375rem"]}
       fontWeight={fontWeight || "500"}
       // h={h || ["2.5rem", null, "3.5rem"]}
     >

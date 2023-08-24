@@ -33,53 +33,53 @@ const Typography = ({
       case "heading1":
         return {
           as: "h1",
-          fontSize: fontSize || ["2xl", "3xl", "4xl", "2.8125rem"],
-          fontWeight: fontWeight || "600",
+          fontSize: fontSize ?? ["2xl", "3xl", "4xl", "2.8125rem"],
+          fontWeight: fontWeight ?? "600",
         };
       case "heading2":
         return {
           as: "h2",
-          fontSize: fontSize || ["xl", "3xl", "3xlx", "3xlx"],
-          fontWeight: fontWeight || "bold",
+          fontSize: fontSize ?? ["xl", "3xl", "3xlx", "3xlx"],
+          fontWeight: fontWeight ?? "bold",
         };
       case "heading3":
         return {
           as: "h3",
-          fontSize: fontSize || ["lg", "xl", "2xl", "1.6875rem"],
-          fontWeight: fontWeight || "bold",
+          fontSize: fontSize ?? ["lg", "xl", "2xl", "1.6875rem"],
+          fontWeight: fontWeight ?? "bold",
         };
       case "heading4":
         return {
           as: "h4",
-          fontSize: fontSize || ["lg", "lg", "xl", "2xl"],
-          fontWeight: fontWeight || "500",
+          fontSize: fontSize ?? ["lg", "lg", "xl", "2xl"],
+          fontWeight: fontWeight ?? "500",
         };
 
       case "heading5":
         return {
           as: "h5",
-          fontSize: fontSize || ["lg"],
-          fontWeight: fontWeight || "bold",
+          fontSize: fontSize ?? ["lg"],
+          fontWeight: fontWeight ?? "bold",
         };
       case "body":
         return {
-          fontSize: fontSize || ["0.9rem", null, "1.3125rem"],
-          fontWeight: fontWeight || "regular",
+          fontSize: fontSize ?? ["0.9rem", null, "1.3125rem"],
+          fontWeight: fontWeight ?? "regular",
         };
       case "bodyBold":
         return {
-          fontSize: fontSize || ["md", "lg", "md", "lg"],
-          fontWeight: fontWeight || "bold",
+          fontSize: fontSize ?? ["md", "lg", "md", "lg"],
+          fontWeight: fontWeight ?? "bold",
         };
       case "bodyLight":
         return {
-          fontSize: fontSize || ["md", "lg", "md", "lg"],
-          fontWeight: fontWeight || "light",
+          fontSize: fontSize ?? ["md", "lg", "md", "lg"],
+          fontWeight: fontWeight ?? "light",
         };
       default:
         return {
-          fontSize: fontSize || ["md"],
-          fontWeight: fontWeight || "regular",
+          fontSize: fontSize ?? ["md"],
+          fontWeight: fontWeight ?? "regular",
         };
     }
   };

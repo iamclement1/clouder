@@ -22,9 +22,9 @@ export const loading = () => {
         justifyContent="center"
         gap={3}
       >
-        <Spinner size="sm" color="blue.400" />
-        <Spinner size="sm" color="blue.400" />
-        <Spinner size="sm" color="blue.400" />
+        <Spinner boxSize="sm" color="blue.400" />
+        <Spinner boxSize="sm" color="blue.400" />
+        <Spinner boxSize="sm" color="blue.400" />
       </Flex>
     </Flex>
   );

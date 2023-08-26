@@ -72,7 +72,7 @@ export default function Navbar() {
         bg={useColorModeValue("white", "white")}
         color={"black"}
         py={2}
-        // shadow={"sm"}
+        shadow={"sm"}
         id="top"
       >
         <ScreenSize>

@@ -9,6 +9,7 @@ import Footer from "@/components/common/Footer";
 import { usePathname } from "next/navigation";
 import Sidebar from "@/components/common/Sidebar";
 import BackToTop from "@/components/common/BackToTop";
+import SEO from "@/components/common/SEO";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,12 +29,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AppProvider>
+          <SEO title="Clouder" />
           <Navbar />
           {pathname === "/dashboard" && <Sidebar />}
           {children}
           <Footer />
           {/* back top button */}
-
           <BackToTop />
         </AppProvider>
       </body>

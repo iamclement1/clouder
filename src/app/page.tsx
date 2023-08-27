@@ -8,9 +8,12 @@ import Research from "@/components/homepage/Research";
 import RegCard from "@/components/homepage/RegCard";
 import Testimonies from "@/components/homepage/Testimonies";
 
+import SEO from "@/components/common/SEO";
+
 export default function Home() {
   return (
     <Box pos="relative">
+      <SEO title="Clouder | Home" />
       <Hero />
       <Activities />
       <LogBook />

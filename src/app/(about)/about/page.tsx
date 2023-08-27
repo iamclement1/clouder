@@ -19,24 +19,32 @@ const page = () => {
               </Text>{" "}
             </Text>
           </Typography>
-
-          <Typography color={"grey_1"} mt="1.87rem">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure Lorem ipsum dolor
-            sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat. Duis aute irure Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure
+          <Typography color={"grey_1"} mt="1.87rem" mx={"3rem"}>
+            Clouder is Nigeria’s first continuing medical education e-portfolio
+            platform for students and professionals in healthcare. We have a
+            commitment to ensure our users get a pleasurable experience curating
+            their own academic and professional progress, reflecting on the
+            lessons learned, granting and obtaining feedback from colleagues and
+            teachers.
+          </Typography>
+          <Typography color={"grey_1"} mt="1.87rem" mx={"3rem"}>
+            Our platform offers a user-friendly interface that allows you to
+            create and manage your e-portfolio with ease. With just a few
+            clicks, you can upload documents, images, videos, and other evidence
+            of your clinical skills and achievements. This means you can easily
+            demonstrate your progress and competence to future employers,
+            mentors, and colleagues.
+          </Typography>
+          <Typography color={"grey_1"} mt="1.87rem" mx={"3rem"}>
+            Clouder was created out of the maxim ‘create something you would
+            have used if you had access to it’. The creators understand how an
+            e-portfolio can be the best way to develop, one entry at a time,
+            into a professional that is deeply grounded and engaged in
+            continuing development.
+          </Typography>
+          <Typography color={"grey_1"} mt="1.87rem" mx={"3rem"}>
+            We are an ethical platform that offers no adverts and do not share
+            any information that has been entrusted with us with a third party.
           </Typography>
         </Box>
       </ScreenSize>

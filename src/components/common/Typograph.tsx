@@ -63,7 +63,7 @@ const Typography = ({
         };
       case "body":
         return {
-          fontSize: fontSize ?? ["0.9rem", null, "1.3125rem"],
+          fontSize: fontSize ?? ["0.9rem", null, "1.125rem"],
           fontWeight: fontWeight ?? "regular",
         };
       case "bodyBold":

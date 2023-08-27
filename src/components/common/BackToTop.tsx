@@ -1,3 +1,4 @@
+"use client";
 import { IconButton } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa";

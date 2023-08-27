@@ -14,6 +14,7 @@ interface Props {
   fontSize?: string[] | string;
   fontWeight?: string | number;
   mt?: string | string[];
+  mx?: string | string[];
   color?: string | string[];
   noOfLines?: number | number[];
 }
@@ -24,6 +25,7 @@ const Typography = ({
   fontWeight,
   children,
   mt,
+  mx,
   color,
   noOfLines,
   ...rest
@@ -91,6 +93,7 @@ const Typography = ({
       {...rest}
       {...variantStyle}
       mt={mt}
+      mx={mx}
       color={color}
       noOfLines={noOfLines}
     >

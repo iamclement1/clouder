@@ -30,16 +30,11 @@ const Links = [
   },
   {
     id: 2,
-    href: "/service",
-    text: "Our Service",
-  },
-  {
-    id: 3,
     href: "/contact",
     text: "Contact Us",
   },
   {
-    id: 4,
+    id: 3,
     href: "/pricing",
     text: "Pricing",
   },

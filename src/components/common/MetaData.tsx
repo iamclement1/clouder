@@ -1,50 +1,25 @@
-import Head from "next/head";
 import React from "react";
+import Head from "next/head";
 
-interface MetaDataProps {
+type Props = {
   title?: string;
-  //   templateTitle?: string;
-  siteName?: string;
+  keywords?: string;
   description?: string;
-  url?: string;
-  type?: string;
-  robots?: string;
-  image?: string;
-}
-
-const defaultMeta: MetaDataProps = {
-  title: "Clouder",
-  siteName: "Clouder",
-  description: "Easy Way To Your Medical Portfolio",
-  url: "clouder.com",
-  type: "progressive web app",
-  robots: "follow, index",
-  image: "/src/assests/images/logo.png",
 };
 
-const MetaData: React.FC<MetaDataProps> = (props) => {
-  const meta: MetaDataProps = {
-    ...defaultMeta,
-    ...props,
-  };
-  meta.title = props.title ? `${props.title} | ${meta.siteName}` : meta.title;
+export const Meta = ({
+  title = "Clouder",
+  keywords = "A medical portfolio",
+  description = "Get the latest news in web dev",
+}: Props) => {
   return (
-    <div>
-      {" "}
-      <Head>
-        <title>{meta.title}</title>
-        <meta name="robots" content={meta.robots} />
-        <meta content={meta.description} name="description" />
-
-        <meta name="msapplication-TileColor" content="#ffffff" />
-        <meta
-          name="msapplication-TileImage"
-          content="/favicon/ms-icon-144x144.png"
-        />
-        <meta name="theme-color" content="#ffffff" />
-      </Head>
-    </div>
+    <Head>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="keywords" content={keywords} />
+      <meta name="description" content={description} />
+      <meta charSet="utf-8" />
+      <link rel="icon" href="/favicon.ico" />
+      <title>{title}</title>
+    </Head>
   );
 };
-
-export default MetaData;

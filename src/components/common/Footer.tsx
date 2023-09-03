@@ -146,9 +146,8 @@ export default Footer;
 
 const FooterData = {
   company: [
-    { text: "About us", href: "" },
-    { text: "Our service", href: "" },
-    { text: "Contact us", href: "" },
+    { text: "About us", href: "/about" },
+    { text: "Contact us", href: "/contact" },
   ],
   terms: [
     { text: "Terms of use", href: "" },

@@ -2,8 +2,8 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
-import sessionStorage from "redux-persist/lib/storage/session";
 import authReducer from "./feature/auth/authSlice";
+import storage from "redux-persist/lib/storage";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
 
 const persistConfig = {
   key: "persisitRoot",
-  storage: sessionStorage,
+  storage,
   // blacklist: ["auth"]
 };
 

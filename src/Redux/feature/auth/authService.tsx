@@ -14,14 +14,16 @@ interface UserResponse {
   password: string;
 }
 
-interface RegisterUserData {
+export interface RegisterUserData {
   email?: string;
   name?: string;
   password?: string;
 }
 
 //register user
-const registerUser = async (registerData: RegisterUserData) => {
+const registerUser = async (
+  registerData: RegisterUserData,
+): Promise<RegisterUserData> => {
   try {
     const response: AxiosResponse = await Axios.post(
       API_URL + "users/register",
@@ -29,7 +31,8 @@ const registerUser = async (registerData: RegisterUserData) => {
     );
     return response?.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    return {} as RegisterUserData;
   }
 };
 

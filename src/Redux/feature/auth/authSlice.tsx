@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import authService, { RegisterUserData } from "./authService";
-import { useRouter } from "next/router";
-
-const router = useRouter();
+import Router from "next/router";
 
 type AuthState = {
   user?: [];
@@ -41,9 +39,7 @@ export const signUpUser = createAsyncThunk(
     } catch (error: unknown) {
       const typedError = error as CustomError;
       const message =
-        (typedError.response && typedError.response.message) ||
-        typedError.error ||
-        error?.toString();
+        typedError?.response?.message ?? typedError?.error ?? error?.toString();
       return thunkAPI.rejectWithValue(message);
     }
   },
@@ -91,7 +87,7 @@ export const authSlice = createSlice({
         (state, action: PayloadAction<RegisterUserData>) => {
           state.isLoading = false;
           state.userInitialData = action.payload;
-          router.push("/dashboard");
+          Router.push("/dashboard");
         },
       );
   },

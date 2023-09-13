@@ -26,7 +26,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   px,
   py,
   bg = "primary",
-  // h,
+  handleClick,
   ...rest
 }) => {
   return (
@@ -44,6 +44,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       _active={{ opacity: "0.5" }}
       fontSize={fontSize ?? ["0.82rem", null, "0.9375rem"]}
       fontWeight={fontWeight ?? "500"}
+      onClick={handleClick}
       // h={h || ["2.5rem", null, "3.5rem"]}
     >
       {isLoading ? <Spinner width="sm" /> : customText ?? children}

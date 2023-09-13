@@ -10,7 +10,7 @@ interface CustomButtonProps extends ButtonProps {
   fontWeight?: string | number;
   px?: string[] | number;
   py?: string[] | number;
-  handleClick?: NonNullable<unknown>;
+  handleClick?: () => void;
   bg?: string | string[];
   h?: string | string[];
 }

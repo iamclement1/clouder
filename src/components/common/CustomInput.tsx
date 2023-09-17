@@ -43,7 +43,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
     setShowPassWord(!showPassWord);
   };
   return (
-    <FormControl isInvalid={!!errors[name] && touched[name]} mt="16px">
+    <FormControl isInvalid={!!errors[name] && touched[name]} mt="12px">
       <FormLabel
         htmlFor={name}
         fontSize="0.84375rem"

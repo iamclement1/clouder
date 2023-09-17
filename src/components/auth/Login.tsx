@@ -102,7 +102,7 @@ const Login: React.FC = () => {
             Don’t have an account?
             <Text
               as="a"
-              href="/register"
+              href="/auth/register"
               display="inline"
               fontSize={"0.75rem"}
               color="black_2"

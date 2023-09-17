@@ -1,49 +1,88 @@
-// import { Box } from '@chakra-ui/react';
-// import { Field } from 'formik';
-// import React from 'react'
+import React from "react";
+import { Box, FormLabel, Select } from "@chakra-ui/react";
+import { ErrorMessage, Field, FieldProps } from "formik";
 
-// type Props = {}
+type Option = {
+  countryCode: string;
+  isoCode: string;
+  latitude: string;
+  longitude: string;
+  name: string;
+};
 
-// const CustomSelect = (props: Props) => {
-//   return (
-//       <Box mt="16px" w="100%">
-//           <Field
-//               h="56px"
-//               as={Select}
-//               id="category"
-//               name="category"
-//               bgColor="white"
-//               placeholder="Select Category"
-//             //   className={errors.category && touched.category ? "error" : ""}
-//               fontSize="15px"
-//               // px={"20px"}
-//               // py="12px"
-//               display="inline-block"
-//               _focusVisible={{
-//                   border: "1px",
-//                   borderColor: "grey_5",
-//               }}
-//               border="1px"
-//               borderColor="grey_5"
-//               rounded="5px"
-//               color="grey_6"
-//           >
-//               {optionData.map((item, i) => {
-//                   return (
-//                       <option key={i} value={item.label}>
-//                           {" "}
-//                           {item.label}{" "}
-//                       </option>
-//                   );
-//               })}
-//           </Field>
-//           <ErrorMessage
-//               name="category"
-//               component="div"
-//               className="error-message"
-//           />
-//       </Box>
-//   );
-// }
+type CustomSelectProps = {
+  name: string;
+  label: string;
+  options: Option[] | { name: string }[];
+  placeholder?: string;
+  errors: { [key: string]: string };
+  touched: { [key: string]: boolean };
+};
 
-// export default CustomSelect
+const CustomSelect: React.FC<CustomSelectProps> = ({
+  name,
+  label,
+  options,
+  placeholder = "Select Category",
+  errors,
+  touched,
+}) => {
+  return (
+    <Box mt="16px" w="100%">
+      <Field name={name}>
+        {({ field }: FieldProps) => (
+          <>
+            <FormLabel
+              htmlFor={name}
+              fontSize="0.84375rem"
+              color="grey_5"
+              fontWeight={"normal"}
+            >
+              {label}
+            </FormLabel>
+            <Select
+              {...field}
+              id={name}
+              bgColor="white"
+              placeholder={placeholder}
+              display="inline-block"
+              _focusVisible={{
+                border: "1px",
+                borderColor: "grey_3",
+              }}
+              _active={{
+                border: "1px",
+                borderColor: "grey_3",
+              }}
+              border="1px"
+              borderColor={
+                errors[name] && touched[name]
+                  ? "red" // Change to your error color
+                  : "grey_3"
+              }
+              rounded="5px"
+              color="grey_6"
+              h="3.23438rem"
+              fontSize={"0.75rem"}
+            >
+              {options.map((item) => (
+                <option key={item.name} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
+            </Select>
+            {errors[name] && touched[name] && (
+              <ErrorMessage
+                name={name}
+                component="div"
+                className="error-message"
+              />
+            )}
+          </>
+        )}
+      </Field>
+    </Box>
+  );
+};
+
+export default CustomSelect;

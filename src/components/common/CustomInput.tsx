@@ -1,6 +1,5 @@
 "use client";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Field } from "formik";
 import {
   Box,
@@ -42,6 +41,11 @@ const CustomInput: React.FC<CustomInputProps> = ({
   const handleShowPassword = () => {
     setShowPassWord(!showPassWord);
   };
+
+  let inputType;
+  if (type === "password") {
+    inputType = showPassWord ? "text" : "password";
+  }
   return (
     <FormControl isInvalid={!!errors[name] && touched[name]} mt="12px">
       <FormLabel
@@ -58,9 +62,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
           as={Field}
           id={name}
           name={name}
-          type={
-            type === "password" ? (showPassWord ? "text" : "password") : "text"
-          }
+          type={inputType}
           placeholder={placeholder}
           fontSize={"0.75rem"}
           px={"20px"}

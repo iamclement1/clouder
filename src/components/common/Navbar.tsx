@@ -94,13 +94,16 @@ export default function Navbar() {
               ))}
             </HStack>
 
-            <CustomButton
-              maxW="fit-content"
-              display={["none", null, "block"]}
-              h="2.5rem"
-            >
-              Register Now
-            </CustomButton>
+            <Link href="/auth/login">
+              <CustomButton
+                handleClick={onOpen}
+                maxW="fit-content"
+                display={["none", null, "block"]}
+                h="2.5rem"
+              >
+                Register Now
+              </CustomButton>
+            </Link>
 
             {/* humbuger  */}
             <Icon

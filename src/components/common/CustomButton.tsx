@@ -10,7 +10,7 @@ interface CustomButtonProps extends ButtonProps {
   fontWeight?: string | number;
   px?: string[] | number;
   py?: string[] | number;
-  handleClick?: NonNullable<unknown>;
+  handleClick?: () => void;
   bg?: string | string[];
   h?: string | string[];
 }
@@ -25,8 +25,9 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   fontWeight,
   px,
   py,
+  h,
   bg = "primary",
-  // h,
+  handleClick,
   ...rest
 }) => {
   return (
@@ -44,7 +45,8 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       _active={{ opacity: "0.5" }}
       fontSize={fontSize ?? ["0.82rem", null, "0.9375rem"]}
       fontWeight={fontWeight ?? "500"}
-      // h={h || ["2.5rem", null, "3.5rem"]}
+      onClick={handleClick}
+      h={h || ["2.5rem", null, "3.5rem"]}
     >
       {isLoading ? <Spinner width="sm" /> : customText ?? children}
     </Button>

@@ -28,6 +28,7 @@ const Typography = ({
   mx,
   color,
   noOfLines,
+
   ...rest
 }: Props) => {
   const getVariantStyle = () => {
@@ -41,7 +42,7 @@ const Typography = ({
       case "heading2":
         return {
           as: "h2",
-          fontSize: fontSize ?? ["xl", "3xl", "3xlx", "3xlx"],
+          fontSize: fontSize ?? ["xl", "3xl", "3xl", "3xl"],
           fontWeight: fontWeight ?? "bold",
         };
       case "heading3":

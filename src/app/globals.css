@@ -1,7 +1,14 @@
 html {
   scroll-behavior: smooth;
+  font-size: 16px;
 }
 .testimonyBox {
   border-radius: 0rem 7.10756rem 7.10756rem 7.10756rem;
   border: 0.75px solid #03a9f4;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 8px;
 }

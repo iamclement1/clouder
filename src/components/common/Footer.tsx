@@ -59,9 +59,17 @@ const Footer = () => {
                 <Typography fontWeight={600}>Company</Typography>
                 <Stack spacing={"0.55rem"} mt="1.11rem" fontSize={"0.9375rem"}>
                   {FooterData?.company.map(
-                    ({ text, href }: { text: string; href: string }, i) => {
+                    ({
+                      id,
+                      text,
+                      href,
+                    }: {
+                      id: number;
+                      text: string;
+                      href: string;
+                    }) => {
                       return (
-                        <Link key={i} href={href}>
+                        <Link key={id} href={href}>
                           {" "}
                           {text}{" "}
                         </Link>
@@ -75,9 +83,17 @@ const Footer = () => {
                 <Typography fontWeight={600}>Terms and Privacy</Typography>
                 <Stack spacing={"0.55rem"} mt="1.11rem" fontSize={"0.9375rem"}>
                   {FooterData?.terms.map(
-                    ({ text, href }: { text: string; href: string }, i) => {
+                    ({
+                      id,
+                      text,
+                      href,
+                    }: {
+                      id: number;
+                      text: string;
+                      href: string;
+                    }) => {
                       return (
-                        <Link key={i} href={href}>
+                        <Link key={id} href={href}>
                           {" "}
                           {text}{" "}
                         </Link>
@@ -91,9 +107,17 @@ const Footer = () => {
                 <Typography fontWeight={600}>Contact us</Typography>
                 <Stack spacing={"0.55rem"} mt="1.11rem" fontSize={"0.9375rem"}>
                   {FooterData?.contact.map(
-                    ({ text, href }: { text: string; href: string }, i) => {
+                    ({
+                      id,
+                      text,
+                      href,
+                    }: {
+                      id: number;
+                      text: string;
+                      href: string;
+                    }) => {
                       return (
-                        <Link key={i} href={href}>
+                        <Link key={id} href={href}>
                           {" "}
                           {text}{" "}
                         </Link>
@@ -103,20 +127,19 @@ const Footer = () => {
                 </Stack>
                 <Flex align={"center"} gap={"0.75rem"} mt="1.5rem">
                   {FooterData?.socials.map(
-                    (
-                      {
-                        icon,
-                        href,
-                        label,
-                      }: {
-                        icon: React.ReactElement;
-                        href: string;
-                        label: string;
-                      },
-                      i,
-                    ) => {
+                    ({
+                      id,
+                      icon,
+                      href,
+                      label,
+                    }: {
+                      id: number;
+                      icon: React.ReactElement;
+                      href: string;
+                      label: string;
+                    }) => {
                       return (
-                        <Link key={i} href={href} target="_blank">
+                        <Link key={id} href={href} target="_blank">
                           <Icon
                             aria-label={label}
                             boxSize={"1.71875rem"}
@@ -146,45 +169,50 @@ export default Footer;
 
 const FooterData = {
   company: [
-    { text: "About us", href: "" },
-    { text: "Our service", href: "" },
-    { text: "Contact us", href: "" },
+    { id: 1, text: "About us", href: "/about" },
+    { id: 2, text: "Contact us", href: "/contact" },
   ],
   terms: [
-    { text: "Terms of use", href: "" },
-    { text: "Privacy policy", href: "" },
-    { text: "Bye-law", href: "" },
-    { text: "Disclaimer", href: "" },
+    { id: 1, text: "Terms of use", href: "" },
+    { id: 2, text: "Privacy policy", href: "" },
+    { id: 3, text: "Bye-law", href: "" },
+    { id: 4, text: "Disclaimer", href: "" },
   ],
   contact: [
     {
+      id: 1,
       text: "support@Clouder.com",
       href: "",
     },
   ],
   socials: [
     {
+      id: 1,
       icon: <FaLinkedin />,
       href: LINKDLE_LINK,
       label: "Linkdle Account",
     },
 
     {
+      id: 2,
       icon: <FaInstagram />,
       href: INSTRAGRAM_LINK,
       label: "Instagram Account",
     },
     {
+      id: 3,
       icon: <FaTwitter />,
       href: TWITTER_LINK,
       label: "Twitter Account",
     },
     {
+      id: 4,
       icon: <FaFacebook />,
       href: FACEBOOK_LINK,
       label: "Twitter Account",
     },
     {
+      id: 5,
       icon: <FaYoutube />,
       href: YOUTUBE_LINK,
       label: "Twitter Account",

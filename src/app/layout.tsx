@@ -8,7 +8,6 @@ import Footer from "@/components/common/Footer";
 import { usePathname } from "next/navigation";
 import Sidebar from "@/components/common/Sidebar";
 import BackToTop from "@/components/common/BackToTop";
-import { Meta } from "@/components/common/MetaData";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,13 +18,12 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
 
-  const showNavigation = ["/", "/about", "/services", "/contact"].includes(
+  const showNavigation = ["/", "/about", "/contact", "/pricing"].includes(
     pathname,
   );
 
   return (
     <html lang="en">
-      <Meta title="Clouder" />
       <body className={inter.className}>
         <AppProvider>
           {showNavigation && <Navbar />}

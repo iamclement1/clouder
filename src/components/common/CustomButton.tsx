@@ -25,6 +25,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   fontWeight,
   px,
   py,
+  h,
   bg = "primary",
   handleClick,
   ...rest
@@ -45,7 +46,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       fontSize={fontSize ?? ["0.82rem", null, "0.9375rem"]}
       fontWeight={fontWeight ?? "500"}
       onClick={handleClick}
-      // h={h || ["2.5rem", null, "3.5rem"]}
+      h={h || ["2.5rem", null, "3.5rem"]}
     >
       {isLoading ? <Spinner width="sm" /> : customText ?? children}
     </Button>

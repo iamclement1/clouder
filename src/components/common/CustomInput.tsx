@@ -16,10 +16,10 @@ import {
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
 interface CustomInputProps {
-  label: string;
+  label?: string;
   name: string;
   type: string;
-  placeholder: string;
+  placeholder?: string;
   errors: {
     [key: string]: string | undefined;
   };
@@ -46,9 +46,9 @@ const CustomInput: React.FC<CustomInputProps> = ({
     <FormControl isInvalid={!!errors[name] && touched[name]} mt="16px">
       <FormLabel
         htmlFor={name}
-        fontSize="14px"
-        color="accent_2"
-        fontWeight={600}
+        fontSize="0.84375rem"
+        color="grey_5"
+        fontWeight={"normal"}
       >
         {label}
       </FormLabel>
@@ -62,19 +62,19 @@ const CustomInput: React.FC<CustomInputProps> = ({
             type === "password" ? (showPassWord ? "text" : "password") : "text"
           }
           placeholder={placeholder}
-          fontSize={"15px"}
+          fontSize={"0.75rem"}
           px={"20px"}
           py="12px"
-          pl={name === "phone_number" ? "70px" : ""}
-          pr={name === "store_domain" ? "155px" : "unset"}
           display="inline-block"
           _focusVisible={{
             border: "1px",
-            borderColor: "dark_4",
+            borderColor: "grey_3",
           }}
           border="1px"
-          borderColor="dark_4"
+          borderColor="grey_3"
+          color="grey_4"
           rounded="5px"
+          h="3.23438rem"
         />
         {type === "password" && (
           <Icon
@@ -103,7 +103,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
             top="9px"
             bottom="9px"
             left="1px"
-            fontSize="15px"
+            fontSize="0.75rem"
             justify="center"
             align="center"
             color="accent_2"

@@ -1,33 +1,40 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import authService, { RegisterUserData } from "./authService";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import authService, { RegisterUserData, UserData } from "./authService";
 import Router from "next/router";
 
 type AuthState = {
   user?: [];
-  userInitialData?: RegisterUserData;
+  userInitialData?: [];
   userToken?: string | null;
   isError?: boolean;
   isSuccess?: boolean;
   isLoading?: boolean;
-  message?: string;
+  message?: "";
 };
 
-const initialState: AuthState = {
+const initialState = {
   user: [],
-  userInitialData: undefined,
+  userInitialData: [],
   userToken: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: "",
-};
+} as AuthState;
 
-interface CustomError {
+// interface CustomError {
+//   response?: {
+//     message?: string;
+//   };
+//   error?: string;
+// }
+
+type Error = {
   response?: {
     message?: string;
   };
   error?: string;
-}
+};
 
 //create a slice to register users
 
@@ -36,8 +43,8 @@ export const signUpUser = createAsyncThunk(
   async (registerData: RegisterUserData, thunkAPI) => {
     try {
       return await authService?.registerUser(registerData);
-    } catch (error: unknown) {
-      const typedError = error as CustomError;
+    } catch (error) {
+      const typedError = error as Error;
       const message =
         typedError?.response?.message ?? typedError?.error ?? error?.toString();
       return thunkAPI.rejectWithValue(message);
@@ -45,54 +52,53 @@ export const signUpUser = createAsyncThunk(
   },
 );
 
-// export const login = createAsyncThunk(
-//   "auth/login",
-//   async (userData, thunkAPI) => {
-//     try {
-//       const response = await authService.login(userData);
-//       return response;
-//     } catch (error: string) {
-//       const message =
-//         (error.response && error.response.message) ||
-//         error.error ||
-//         error?.toString();
-//       return thunkAPI.rejectWithValue(message);
-//     }
-//   }
-// );
+export const login = createAsyncThunk(
+  "auth/login",
+  async (userData: UserData, thunkAPI) => {
+    try {
+      const response = await authService.login(userData);
+      return response;
+    } catch (error) {
+      const typedError = error as Error;
+      const message =
+        typedError?.response?.message ?? typedError?.error ?? error?.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  },
+);
 
-// //Logout
-// export const logout = createAsyncThunk("auth/logout", () => {
-//   authService?.logout();
-// });
+//Logout
+export const logout = createAsyncThunk("auth/logout", () => {
+  authService?.logout();
+});
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    resestAuthDetails: (state) => {
-      state.user = [];
-      state.isError = false;
-      state.isSuccess = false;
-      state.isLoading = false;
+    setUser: (state, action) => {
+      state.user = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(signUpUser.pending, (state) => {
+      .addCase(login.pending, (state) => {
         state.isLoading = true;
+        state.message = "";
       })
-      .addCase(
-        signUpUser.fulfilled,
-        (state, action: PayloadAction<RegisterUserData>) => {
-          state.isLoading = false;
-          state.userInitialData = action.payload;
-          Router.push("/dashboard");
-        },
-      );
+      .addCase(login.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userInitialData = action.payload;
+        state.message = action.payload;
+        Router.push("/dashboard");
+      })
+      .addCase(login.rejected, (state) => {
+        state.isLoading = false;
+        // state.message = action.payload as string;
+      });
   },
 });
 
-export const { resestAuthDetails } = authSlice.actions;
+export const { setUser } = authSlice.actions;
 
-export default authSlice?.reducer;
+export default authSlice.reducer;

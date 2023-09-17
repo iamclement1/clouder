@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
 
-  const showNavigation = ["/", "/about", "/services", "/contact"].includes(
+  const showNavigation = ["/", "/about", "/contact", "/pricing"].includes(
     pathname,
   );
 

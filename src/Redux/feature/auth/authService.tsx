@@ -48,10 +48,29 @@ const logout = () => {
   sessionStorage.removeItem("user");
 };
 
+//refresh token
+const refreshToken = async (token: string) => {
+  const config = {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  };
+  try {
+    const response: AxiosResponse = await Axios.post(
+      API_URL + "auth/refresh",
+      config,
+    );
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const authService = {
   registerUser,
   login,
   logout,
+  refreshToken,
 };
 
 export default authService;

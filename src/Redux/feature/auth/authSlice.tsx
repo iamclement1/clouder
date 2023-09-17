@@ -10,6 +10,7 @@ type AuthState = {
   isSuccess?: boolean;
   isLoading?: boolean;
   message?: "";
+  token?: string;
 };
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   message: "",
+  token: "",
 } as AuthState;
 
 // interface CustomError {
@@ -67,6 +69,9 @@ export const login = createAsyncThunk(
   },
 );
 
+// refresh token
+export const refresh = createAsyncThunk("auth/refreshToken", () => {});
+
 //Logout
 export const logout = createAsyncThunk("auth/logout", () => {
   authService?.logout();
@@ -78,6 +83,12 @@ export const authSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
+    },
+    setToken: (state, action) => {
+      state.token = action.payload;
+    },
+    clearUser: (state) => {
+      state.user = [];
     },
   },
   extraReducers: (builder) => {
@@ -99,6 +110,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setUser } = authSlice.actions;
+export const { setUser, setToken, clearUser } = authSlice.actions;
 
 export default authSlice.reducer;

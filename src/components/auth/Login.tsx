@@ -5,6 +5,8 @@ import CustomInput from "../common/CustomInput";
 import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
 import LoginWithIcon from "./LoginWithIcon";
+import { useMutation } from "@tanstack/react-query";
+import axios from "@/utils/axios";
 
 interface FormValues {
   email: string;
@@ -12,6 +14,12 @@ interface FormValues {
 }
 
 const Login: React.FC = () => {
+  //used mutation from react-query for action
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (user: FormValues) => {
+      return axios.post("/auth/signin", user);
+    },
+  });
   return (
     <Box px="16px">
       <Typography variant="heading2">Welcome back!</Typography>
@@ -20,7 +28,6 @@ const Login: React.FC = () => {
         <Formik
           initialValues={{
             email: "",
-
             password: "",
           }}
           validate={(values: FormValues) => {
@@ -36,6 +43,11 @@ const Login: React.FC = () => {
             return errors;
           }}
           onSubmit={(values: FormValues) => {
+            const payload = {
+              email: values.email,
+              password: values.password,
+            };
+            mutate(payload);
             console.log(values);
           }}
         >
@@ -75,7 +87,7 @@ const Login: React.FC = () => {
                 type="submit"
                 mt="1.59rem"
                 h="3.2rem"
-                isLoading={false}
+                isLoading={isLoading}
               >
                 Sign in
               </CustomButton>

@@ -7,6 +7,8 @@ import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
 import CustomSelect from "../common/CustomSelect";
 import { State } from "country-state-city";
+import { useMutation } from "@tanstack/react-query";
+import axios from "@/utils/axios";
 
 interface FormValues {
   fName: string;
@@ -16,12 +18,20 @@ interface FormValues {
   phoneNo: number | string;
 }
 
+// type SignUpUserThunk = ReturnType<typeof signUpUser>;
+
 const Register: React.FC = () => {
   const [isAccept, setIsAccept] = useState<boolean>(true);
 
   const handleAccept = () => {
     setIsAccept(!isAccept);
   };
+
+  const mutation = useMutation({
+    mutationFn: (user: FormValues) => {
+      return axios.post("/auth/signin", user);
+    },
+  });
 
   const currentLocations = State.getStatesOfCountry("NG");
 
@@ -64,6 +74,14 @@ const Register: React.FC = () => {
           }}
           onSubmit={(values: FormValues) => {
             console.log(values);
+            const payload = {
+              fName: values.fName,
+              email: values.email,
+              password: values.password,
+              phoneNo: values.phoneNo,
+              location: values.location,
+            };
+            mutation.mutate(payload);
           }}
         >
           {({ handleSubmit, errors, touched }) => (

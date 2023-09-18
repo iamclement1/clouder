@@ -42,9 +42,9 @@ const CustomInput: React.FC<CustomInputProps> = ({
     setShowPassWord(!showPassWord);
   };
 
-  let inputType;
+  let passwordInputType;
   if (type === "password") {
-    inputType = showPassWord ? "text" : "password";
+    passwordInputType = showPassWord ? "text" : "password";
   }
   return (
     <FormControl isInvalid={!!errors[name] && touched[name]} mt="12px">
@@ -62,7 +62,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
           as={Field}
           id={name}
           name={name}
-          type={inputType}
+          type={passwordInputType}
           placeholder={placeholder}
           fontSize={"0.75rem"}
           px={"20px"}

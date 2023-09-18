@@ -15,7 +15,7 @@ interface FormValues {
 
 const Login: React.FC = () => {
   //used mutation from react-query for action
-  const mutation = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: (user: FormValues) => {
       return axios.post("/auth/signin", user);
     },
@@ -47,7 +47,7 @@ const Login: React.FC = () => {
               email: values.email,
               password: values.password,
             };
-            mutation.mutate(payload);
+            mutate(payload);
             console.log(values);
           }}
         >
@@ -87,7 +87,7 @@ const Login: React.FC = () => {
                 type="submit"
                 mt="1.59rem"
                 h="3.2rem"
-                isLoading={false}
+                isLoading={isLoading}
               >
                 Sign in
               </CustomButton>

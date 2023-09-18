@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import AppProvider from "@/Redux/AppProvider";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/common/Navbar";
@@ -26,16 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AppProvider>
-          <TanstackProvider>
-            {showNavigation && <Navbar />}
-            {pathname === "/dashboard" && <Sidebar />}
-            {children}
-            {showNavigation && <Footer />}
-            {/* back top button */}
-            <BackToTop />
-          </TanstackProvider>
-        </AppProvider>
+        <TanstackProvider>
+          {showNavigation && <Navbar />}
+          {pathname === "/dashboard" && <Sidebar />}
+          {children}
+          {showNavigation && <Footer />}
+          {/* back top button */}
+          <BackToTop />
+        </TanstackProvider>
       </body>
     </html>
   );

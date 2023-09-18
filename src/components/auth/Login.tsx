@@ -14,7 +14,7 @@ interface FormValues {
 }
 
 const Login: React.FC = () => {
-  //used for dispaching all actions from the store
+  //used mutation from react-query for action
   const mutation = useMutation({
     mutationFn: (user: FormValues) => {
       return axios.post("/auth/signin", user);
@@ -48,7 +48,6 @@ const Login: React.FC = () => {
               password: values.password,
             };
             mutation.mutate(payload);
-            // dispatch(login(payload));
             console.log(values);
           }}
         >

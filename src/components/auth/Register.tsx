@@ -7,17 +7,16 @@ import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
 import CustomSelect from "../common/CustomSelect";
 import { State } from "country-state-city";
-import { signUpUser } from "@/Redux/feature/auth/authSlice";
-import { RegisterUserData } from "@/Redux/feature/auth/authService";
-import { useAppDispatch } from "@/Redux/store";
+import { useMutation } from "@tanstack/react-query";
+import axios from "@/utils/axios";
 
-// interface FormValues{
-//   fName: string;
-//   email: string;
-//   password: string;
-//   location: string;
-//   phoneNo: number | string;
-// }r
+interface FormValues {
+  fName: string;
+  email: string;
+  password: string;
+  location: string;
+  phoneNo: number | string;
+}
 
 // type SignUpUserThunk = ReturnType<typeof signUpUser>;
 
@@ -28,9 +27,13 @@ const Register: React.FC = () => {
     setIsAccept(!isAccept);
   };
 
-  const currentLocations = State.getStatesOfCountry("NG");
+  const mutation = useMutation({
+    mutationFn: (user: FormValues) => {
+      return axios.post("/auth/signin", user);
+    },
+  });
 
-  const dispatch = useAppDispatch();
+  const currentLocations = State.getStatesOfCountry("NG");
 
   return (
     <Box py="2rem">
@@ -49,8 +52,8 @@ const Register: React.FC = () => {
             location: "",
             phoneNo: "",
           }}
-          validate={(values: RegisterUserData) => {
-            const errors: Partial<RegisterUserData> = {};
+          validate={(values: FormValues) => {
+            const errors: Partial<FormValues> = {};
             if (!values.fName) {
               errors.fName = "Required";
             }
@@ -69,7 +72,7 @@ const Register: React.FC = () => {
 
             return errors;
           }}
-          onSubmit={(values: RegisterUserData) => {
+          onSubmit={(values: FormValues) => {
             console.log(values);
             const payload = {
               fName: values.fName,
@@ -78,8 +81,7 @@ const Register: React.FC = () => {
               phoneNo: values.phoneNo,
               location: values.location,
             };
-
-            dispatch(signUpUser(payload));
+            mutation.mutate(payload);
           }}
         >
           {({ handleSubmit, errors, touched }) => (

@@ -8,10 +8,10 @@ export interface UserData {
 }
 
 export interface RegisterUserData {
-  firstName?: string;
-  lastName?: string;
+  fName?: string;
   email?: string;
   location?: string;
+  phoneNo?: number | string;
   password?: string;
 }
 
@@ -22,10 +22,10 @@ const registerUser = async (registerData: RegisterUserData) => {
       API_URL + "auth/signup",
       registerData,
     );
-    return response?.data;
+    return response?.data as UserData;
   } catch (error) {
     console.error(error);
-    // return {} as RegisterUserData;
+    return {} as RegisterUserData;
   }
 };
 

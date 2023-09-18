@@ -7,14 +7,19 @@ import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
 import CustomSelect from "../common/CustomSelect";
 import { State } from "country-state-city";
+import { signUpUser } from "@/Redux/feature/auth/authSlice";
+import { RegisterUserData } from "@/Redux/feature/auth/authService";
+import { useAppDispatch } from "@/Redux/store";
 
-interface FormValues {
-  fName: string;
-  email: string;
-  password: string;
-  location: string;
-  phoneNo: number | string;
-}
+// interface FormValues{
+//   fName: string;
+//   email: string;
+//   password: string;
+//   location: string;
+//   phoneNo: number | string;
+// }r
+
+// type SignUpUserThunk = ReturnType<typeof signUpUser>;
 
 const Register: React.FC = () => {
   const [isAccept, setIsAccept] = useState<boolean>(true);
@@ -24,6 +29,8 @@ const Register: React.FC = () => {
   };
 
   const currentLocations = State.getStatesOfCountry("NG");
+
+  const dispatch = useAppDispatch();
 
   return (
     <Box py="2rem">
@@ -42,8 +49,8 @@ const Register: React.FC = () => {
             location: "",
             phoneNo: "",
           }}
-          validate={(values: FormValues) => {
-            const errors: Partial<FormValues> = {};
+          validate={(values: RegisterUserData) => {
+            const errors: Partial<RegisterUserData> = {};
             if (!values.fName) {
               errors.fName = "Required";
             }
@@ -62,8 +69,17 @@ const Register: React.FC = () => {
 
             return errors;
           }}
-          onSubmit={(values: FormValues) => {
+          onSubmit={(values: RegisterUserData) => {
             console.log(values);
+            const payload = {
+              fName: values.fName,
+              email: values.email,
+              password: values.password,
+              phoneNo: values.phoneNo,
+              location: values.location,
+            };
+
+            dispatch(signUpUser(payload));
           }}
         >
           {({ handleSubmit, errors, touched }) => (

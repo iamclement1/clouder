@@ -3,33 +3,28 @@ import authService, { RegisterUserData, UserData } from "./authService";
 import Router from "next/router";
 
 type AuthState = {
-  user?: [];
-  userInitialData?: [];
+  user?: null;
+  userInitialData?: null;
   userToken?: string | null;
   isError?: boolean;
   isSuccess?: boolean;
   isLoading?: boolean;
   message?: "";
   token?: string;
+  logOut?: null;
 };
 
 const initialState = {
-  user: [],
-  userInitialData: [],
+  user: null,
+  userInitialData: null,
   userToken: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: "",
   token: "",
+  logOut: null,
 } as AuthState;
-
-// interface CustomError {
-//   response?: {
-//     message?: string;
-//   };
-//   error?: string;
-// }
 
 type Error = {
   response?: {
@@ -88,7 +83,8 @@ export const authSlice = createSlice({
       state.token = action.payload;
     },
     clearUser: (state) => {
-      state.user = [];
+      state.user = null;
+      state.token = "";
     },
   },
   extraReducers: (builder) => {
@@ -105,6 +101,7 @@ export const authSlice = createSlice({
       })
       .addCase(login.rejected, (state) => {
         state.isLoading = false;
+        state.user = null;
         // state.message = action.payload as string;
       });
   },

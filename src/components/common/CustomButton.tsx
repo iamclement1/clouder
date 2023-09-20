@@ -48,7 +48,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       onClick={handleClick}
       h={h || ["2.5rem", null, "3.5rem"]}
     >
-      {isLoading ? <Spinner width="sm" /> : customText ?? children}
+      {isLoading ? <Spinner /> : customText ?? children}
     </Button>
   );
 };

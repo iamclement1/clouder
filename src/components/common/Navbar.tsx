@@ -96,7 +96,6 @@ export default function Navbar() {
 
             <Link href="/auth/login">
               <CustomButton
-                handleClick={onOpen}
                 maxW="fit-content"
                 display={["none", null, "block"]}
                 h="2.5rem"

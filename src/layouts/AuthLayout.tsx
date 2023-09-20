@@ -2,7 +2,14 @@ import Typography from "@/components/common/Typograph";
 import { Box, Flex, Image, Link } from "@chakra-ui/react";
 import React from "react";
 
-const AuthLayout = ({ children, ...props }: { children: React.ReactNode }) => {
+const AuthLayout = ({
+  children,
+  isModal,
+  ...props
+}: {
+  isModal?: boolean;
+  children: React.ReactNode;
+}) => {
   return (
     <Flex {...props} minH="100vh" justify={"center"}>
       <Flex
@@ -54,10 +61,28 @@ const AuthLayout = ({ children, ...props }: { children: React.ReactNode }) => {
         justify="center"
         align="center"
         w="100%"
+        pos="relative"
       >
-        <Box maxW="28.4rem" w="100%">
-          {children}
-        </Box>
+        {!isModal ? (
+          <Box maxW="28.4rem" w="100%">
+            {children}
+          </Box>
+        ) : (
+          <Flex
+            bgColor={"rgba(0,0,0,.5)"}
+            position="absolute"
+            top="0"
+            left="0"
+            bottom="0"
+            right="0"
+            w="100%"
+            justify="center"
+            align="center"
+            px="16px"
+          >
+            <Box w="100%">{children}</Box>
+          </Flex>
+        )}
       </Flex>
     </Flex>
   );

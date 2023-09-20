@@ -1,7 +1,7 @@
 // import axios from "@/utils/axios";
-// import { useQuery } from "@tanstack/react-query";
-// import axios from "axios";
-// import { getCookie } from "cookies-next";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { getCookie } from "cookies-next";
 
 export interface User {
   id: number;
@@ -12,24 +12,21 @@ export interface User {
 }
 
 const UserProfile = () => {
-  // const userToken = getCookie('userToken')
-  // const fetchUser = () =>
-  //    axios
-  //       .get<User[]>("/user/profile")
-  //       .then((response) => response.data);
-  // return useQuery<User[], Error>({
-  //    queryKey: ["user"],
-  //    queryFn: fetchUser,
-  // });
-  // const {} = useQuery({
-  //    queryKey: ["userInfo"],
-  //    queryFn: () => {
-  //      const {data} = axios.get('/user/profile').then((response) => response.data());
-  //    }
-  // })
-  // if(isLoading) return "Loading...";
-  // if(error) return "Error: " + error;
-  // return data;
+  const userToken = getCookie("userToken");
+  const fetchUser = () =>
+    axios
+      .get<User[]>("https://clouder-lkvb.onrender.com/user/profile", {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => response.data);
+
+  return useQuery<User[], Error>({
+    queryKey: ["user"],
+    queryFn: fetchUser,
+  });
 };
 
 export default UserProfile;

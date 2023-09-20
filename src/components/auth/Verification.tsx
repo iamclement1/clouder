@@ -4,12 +4,12 @@ import { Box, PinInputField, PinInput, HStack, Text } from "@chakra-ui/react";
 
 import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const Verification: React.FC = () => {
   const [value, setValue] = useState<string>("");
   const [err, setErr] = useState<boolean>(false);
-  const router = useRouter();
+  const navigate = useRouter();
 
   const handleChange = (value: string) => {
     setValue(value);
@@ -20,7 +20,7 @@ const Verification: React.FC = () => {
       console.log(err);
     } else {
       setErr(false);
-      router.push("auth/reset_password");
+      navigate.push("/auth/reset_password");
     }
   };
 
@@ -103,6 +103,7 @@ const Verification: React.FC = () => {
           >
             If you didn’t receive a code!
             <Text
+              as="span"
               display="inline"
               fontSize={"0.75rem"}
               cursor="pointer"

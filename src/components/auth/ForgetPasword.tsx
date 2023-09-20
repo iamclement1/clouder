@@ -5,22 +5,24 @@ import React from "react";
 import CustomInput from "../common/CustomInput";
 import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
+import { useRouter } from "next/navigation";
 // import { useMutation } from "@tanstack/react-query";
 // import axios from "@/utils/axios";
-import { useRouter } from "next/router";
 
 interface FormValues {
   email: string;
 }
 
 const ForgetPasword: React.FC = () => {
-  const router = useRouter();
   //used mutation from react-query for action
   // const { mutate, isLoading } = useMutation({
   //   mutationFn: (user: FormValues) => {
   //     return axios.post("/auth/signin", user);
   //   },
   // });
+  const navigate = useRouter();
+  console.log(navigate);
+
   return (
     <Box bgColor="white" rounded="0.46875rem" maxW="34.3rem" mx="auto">
       <Box
@@ -53,7 +55,7 @@ const ForgetPasword: React.FC = () => {
               //   email: values.email,
               // };
               // mutate(payload);
-              router.push("/auth/verification");
+              navigate.push("/auth/verification");
               console.log(values);
             }}
           >

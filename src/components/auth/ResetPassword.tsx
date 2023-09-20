@@ -5,9 +5,10 @@ import React, { useState } from "react";
 import CustomInput from "../common/CustomInput";
 import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
+import { useRouter } from "next/navigation";
 // import { useMutation } from "@tanstack/react-query";
 // import axios from "@/utils/axios";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 
 interface FormValues {
   password: string;
@@ -16,14 +17,14 @@ interface FormValues {
 
 const ResetPassword: React.FC = () => {
   // toggle between successfull chnage password section
-  const [isChangeSuccessful, setIsChangeSuccessful] = useState<boolean>(true);
+  const [isChangeSuccessful, setIsChangeSuccessful] = useState<boolean>(false);
   //used mutation from react-query for action
   // const { mutate, isLoading } = useMutation({
   //   mutationFn: (user: FormValues) => {
   //     return axios.post("/auth/signin", user);
   //   },
   // });
-  const router = useRouter();
+  const navigate = useRouter();
   return (
     <>
       {isChangeSuccessful ? (
@@ -60,7 +61,7 @@ const ResetPassword: React.FC = () => {
               type="submit"
               mt="1.59rem"
               h="3.2rem"
-              handleClick={() => router.push("/")}
+              handleClick={() => navigate.push("/")}
             >
               Continue
             </CustomButton>

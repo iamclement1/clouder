@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getCookie } from "cookies-next";
 
 const client = axios.create({
   baseURL: "https://clouder-lkvb.onrender.com",
@@ -7,15 +8,14 @@ const client = axios.create({
 
 // Add a request interceptor
 client.interceptors.request.use(
-  (config) => {
+  async (config) => {
     // Do something before request is sent
-    const token = localStorage.getItem("token");
-
-    if (token !== null) {
+    const token = await getCookie("userToken");
+    console.log("user token is set", token);
+    if (token) {
       config.headers.common["Authorization"] = `Bearer ${token}`;
       config.headers["Content-Type"] = "application/json";
     }
-
     return config;
   },
   (error) => {
@@ -29,13 +29,14 @@ client.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response && error.response.status === 401) {
-      // delete token from session storage
-    }
+    console.log(error);
+    // if (error.response && error.response.status === 401) {
+    //   // delete token from session storage
+    // }
 
-    if (error.response.status === 500) {
-      error.response.data.message = "Something went wrong, Please try again!";
-    }
+    // if (error.response.status === 500) {
+    //   error.response.data.message = 'Something went wrong, Please try again!';
+    // }
     return Promise.reject(error);
   },
 );

@@ -7,6 +7,8 @@ import CustomButton from "../common/CustomButton";
 import LoginWithIcon from "./LoginWithIcon";
 import { useMutation } from "@tanstack/react-query";
 import axios from "@/utils/axios";
+import { useRouter } from "next/navigation";
+import { setCookie } from "cookies-next";
 
 interface FormValues {
   email: string;
@@ -14,10 +16,24 @@ interface FormValues {
 }
 
 const Login: React.FC = () => {
+  const router = useRouter();
   //used mutation from react-query for action
   const { mutate, isLoading } = useMutation({
     mutationFn: (user: FormValues) => {
       return axios.post("/auth/signin", user);
+    },
+
+    onError(error, variables, context) {
+      console.log(error, variables, context);
+    },
+    onSuccess(data) {
+      if (data.status === 201) {
+        router.push("/dashboard");
+        const userData = JSON.stringify(data);
+        const userToken = data.data.access;
+        sessionStorage.setItem("user", userData);
+        setCookie("userToken", userToken);
+      }
     },
   });
   return (

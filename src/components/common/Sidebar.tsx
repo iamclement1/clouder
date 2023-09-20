@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-
 import {
   IconButton,
   Avatar,
@@ -34,6 +33,7 @@ import {
   FiChevronDown,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
+import AuthGuard from "../auth/AuthGuard";
 
 interface LinkItemProps {
   name: string;
@@ -119,7 +119,7 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
             as={icon}
           />
         )}
-        {children}
+        <AuthGuard>{children}</AuthGuard>
       </Flex>
     </Box>
   );
@@ -157,7 +157,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 
       <HStack spacing={{ base: "0", md: "6" }}>
         <IconButton
-          width="lg"
+          size="lg"
           variant="ghost"
           aria-label="open menu"
           icon={<FiBell />}
@@ -171,7 +171,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             >
               <HStack>
                 <Avatar
-                  width={"sm"}
+                  size={"sm"}
                   src={
                     "https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
                   }
@@ -209,7 +209,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   );
 };
 
-const Sidebar = () => {
+const SidebarWithHeader = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -224,7 +224,7 @@ const Sidebar = () => {
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        // width="full"
+        size="full"
       >
         <DrawerContent>
           <SidebarContent onClose={onClose} />
@@ -239,4 +239,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default SidebarWithHeader;

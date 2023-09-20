@@ -5,8 +5,9 @@ import React, { useState } from "react";
 import CustomInput from "../common/CustomInput";
 import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
-import { useMutation } from "@tanstack/react-query";
-import axios from "@/utils/axios";
+// import { useMutation } from "@tanstack/react-query";
+// import axios from "@/utils/axios";
+import { useRouter } from "next/router";
 
 interface FormValues {
   password: string;
@@ -17,11 +18,12 @@ const ResetPassword: React.FC = () => {
   // toggle between successfull chnage password section
   const [isChangeSuccessful, setIsChangeSuccessful] = useState<boolean>(true);
   //used mutation from react-query for action
-  const { mutate, isLoading } = useMutation({
-    mutationFn: (user: FormValues) => {
-      return axios.post("/auth/signin", user);
-    },
-  });
+  // const { mutate, isLoading } = useMutation({
+  //   mutationFn: (user: FormValues) => {
+  //     return axios.post("/auth/signin", user);
+  //   },
+  // });
+  const router = useRouter();
   return (
     <>
       {isChangeSuccessful ? (
@@ -54,7 +56,12 @@ const ResetPassword: React.FC = () => {
               Your password has been reset successfully
             </Typography>
 
-            <CustomButton type="submit" mt="1.59rem" h="3.2rem">
+            <CustomButton
+              type="submit"
+              mt="1.59rem"
+              h="3.2rem"
+              handleClick={() => router.push("/")}
+            >
               Continue
             </CustomButton>
           </Box>
@@ -91,12 +98,14 @@ const ResetPassword: React.FC = () => {
                   return errors;
                 }}
                 onSubmit={(values: FormValues) => {
-                  const payload = {
-                    password: values.password,
-                    confirmPassword: values.confirmPassword,
-                  };
-                  mutate(payload);
+                  // const payload = {
+                  //   password: values.password,
+                  //   confirmPassword: values.confirmPassword,
+                  // };
+                  // mutate(payload);
+
                   setIsChangeSuccessful(true);
+                  console.log(values);
                 }}
               >
                 {({ handleSubmit, errors, touched }) => (
@@ -124,7 +133,7 @@ const ResetPassword: React.FC = () => {
                       type="submit"
                       mt="1.59rem"
                       h="3.2rem"
-                      isLoading={isLoading}
+                      // isLoading={isLoading}
                     >
                       Continue
                     </CustomButton>

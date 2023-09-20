@@ -1,53 +1,53 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
-// import { getCookie } from "cookies-next";
-import React, { createContext, useState, useEffect, useMemo } from "react";
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from "react";
 
-// Create the context
-export const AuthContext = createContext<{
-  user: null;
-  setUser: (user: null) => void;
-}>({
-  user: null,
-  setUser: () => {},
-});
-// Defined a function to retrieve user data from sessionStorage
-function getUserDataFromSessionStorage(): null {
-  if (typeof window !== "undefined") {
-    const userData = sessionStorage.getItem("user");
-    const userToken = getCookie("userToken");
-    console.log("userData from sessionStorage:", userData);
-    if (userData && userToken) {
-      return JSON.parse(userData);
-    }
-  }
-  return null;
+type authContextType = {
+  user: boolean;
+};
+
+const authContextDefaultValues: authContextType = {
+  user: false,
+};
+
+export const AuthContext = createContext<authContextType>(
+  authContextDefaultValues,
+);
+
+export function useAuth() {
+  return useContext(AuthContext);
 }
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<null>(null);
-  const queryClient = useQueryClient();
 
-  // Fetch user data from sessionStorage when needed
-  useEffect(() => {
-    const userData = getUserDataFromSessionStorage();
-    if (userData) {
-      setUser(userData);
-    }
-  }, []);
+type Props = {
+  children: ReactNode;
+};
 
-  // Update queryClient after user login/logout
-  useEffect(() => {
-    queryClient.setQueryData(["user"], user);
-  }, [user, queryClient]);
+export function AuthProvider({ children }: Props) {
+  const [user, setUser] = useState<boolean>(false);
 
-  const passedData = useMemo(() => {
-    return {
-      user,
-      setUser,
-    };
-  }, [user]);
+  if (typeof window !== "undefined") {
+    useEffect(() => {
+      const token = getCookie("token");
+      const user = sessionStorage.getItem("user");
+      if (user && token) {
+        setUser(true);
+      }
+    }, [user, setUser]);
+  }
+
+  const value = {
+    user,
+    setUser,
+  };
 
   return (
-    <AuthContext.Provider value={passedData}>{children}</AuthContext.Provider>
+    <>
+      <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+    </>
   );
-};
+}

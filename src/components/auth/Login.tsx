@@ -25,6 +25,7 @@ const Login: React.FC = () => {
 
     onError(error, variables, context) {
       console.log(error, variables, context);
+      alert("Credentials not valid");
     },
     onSuccess(data) {
       if (data.status === 201) {
@@ -32,7 +33,7 @@ const Login: React.FC = () => {
         const userData = JSON.stringify(data);
         const userToken = data.data.access;
         sessionStorage.setItem("user", userData);
-        setCookie("userToken", userToken);
+        setCookie("token", userToken);
       }
     },
   });
@@ -64,7 +65,6 @@ const Login: React.FC = () => {
               password: values.password,
             };
             mutate(payload);
-            console.log(values);
           }}
         >
           {({ handleSubmit, errors, touched }) => (

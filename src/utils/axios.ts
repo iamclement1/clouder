@@ -9,13 +9,7 @@ const client = axios.create({
 client.interceptors.request.use(
   (config) => {
     // Do something before request is sent
-    const token = localStorage.getItem("token");
-
-    if (token !== null) {
-      config.headers.common["Authorization"] = `Bearer ${token}`;
-      config.headers["Content-Type"] = "application/json";
-    }
-
+    config.headers["Content-Type"] = "application/json";
     return config;
   },
   (error) => {

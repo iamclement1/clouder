@@ -31,7 +31,7 @@ const AuthLayout = ({
         justify="space-between"
         pb="5.2rem"
       >
-        <Link href="#">
+        <Link href="/">
           <Image src="/logo.png" />
         </Link>
         <Box maxW="22.5rem">

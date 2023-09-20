@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import Sidebar from "@/components/common/Sidebar";
 import BackToTop from "@/components/common/BackToTop";
 import TanstackProvider from "@/context/tanstackProvider";
+import { AuthProvider } from "@/context/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,12 +27,14 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <TanstackProvider>
-          {showNavigation && <Navbar />}
-          {pathname === "/dashboard" && <Sidebar />}
-          {children}
-          {showNavigation && <Footer />}
-          {/* back top button */}
-          <BackToTop />
+          <AuthProvider>
+            {showNavigation && <Navbar />}
+            {pathname === "/dashboard" && <Sidebar />}
+            {children}
+            {showNavigation && <Footer />}
+            {/* back top button */}
+            <BackToTop />
+          </AuthProvider>
         </TanstackProvider>
       </body>
     </html>

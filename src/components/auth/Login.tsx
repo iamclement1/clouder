@@ -6,9 +6,9 @@ import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
 import LoginWithIcon from "./LoginWithIcon";
 import { useMutation } from "@tanstack/react-query";
-import axios from "@/utils/axios";
 import { useRouter } from "next/navigation";
 import { setCookie } from "cookies-next";
+import axios from "@/utils/axiosInstance";
 
 interface FormValues {
   email: string;
@@ -32,8 +32,10 @@ const Login: React.FC = () => {
         router.push("/dashboard");
         const userData = JSON.stringify(data);
         const userToken = data.data.access;
+        const refreshToken = data.data.refresh;
         sessionStorage.setItem("user", userData);
         setCookie("token", userToken);
+        setCookie("refresh", refreshToken);
       }
     },
   });

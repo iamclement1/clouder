@@ -4,9 +4,9 @@ import { useRouter } from "next/navigation";
 
 const AuthGuard = ({ children }: { children: React.ReactNode }) => {
   // Used AuthContext to access the user
-  const { user } = useContext(AuthContext);
+  const { user, userAuthToken } = useContext(AuthContext);
   const router = useRouter();
-  if (!user) {
+  if (!user && !userAuthToken) {
     router.push("/auth/login"); // Redirect to the login page
   }
 

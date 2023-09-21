@@ -26,12 +26,10 @@ const Register: React.FC = () => {
       return axios.post("/auth/signup", user);
     },
     onSuccess(data) {
-      if (data.status === 201) {
+      if (data.status === 200) {
         router.push("/auth/login");
-        // const userData = JSON.stringify(data)
-        // sessionStorage.setItem('user', userData)
       }
-      console.log(data);
+      // console.log(data);
     },
     onError(error) {
       console.log(error);

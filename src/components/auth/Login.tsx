@@ -6,11 +6,7 @@ import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
 import LoginWithIcon from "./LoginWithIcon";
 import { AuthContext } from "@/context/AuthProvider";
-
-export interface FormValues {
-  email: string;
-  password: string;
-}
+import { LoginFormValues } from "@/utils/types";
 
 const Login: React.FC = () => {
   const { login, loading } = useContext(AuthContext);
@@ -25,8 +21,8 @@ const Login: React.FC = () => {
             email: "",
             password: "",
           }}
-          validate={(values: FormValues) => {
-            const errors: Partial<FormValues> = {};
+          validate={(values: LoginFormValues) => {
+            const errors: Partial<LoginFormValues> = {};
 
             if (!values.email) {
               errors.email = "Required";
@@ -37,12 +33,12 @@ const Login: React.FC = () => {
 
             return errors;
           }}
-          onSubmit={(values: FormValues) => {
+          onSubmit={async (values: LoginFormValues) => {
             const payload = {
               email: values.email,
               password: values.password,
             };
-            login(payload);
+            await login(payload);
           }}
         >
           {({ handleSubmit, errors, touched }) => (

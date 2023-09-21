@@ -16,6 +16,7 @@ import Logo from "@/assests/images/logo.png";
 import ScreenSize from "@/layouts/ScreenSize";
 import CustomButton from "./CustomButton";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface Props {
   text?: string;
@@ -60,7 +61,7 @@ const NavLink = (props: Props) => {
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const navigate = useRouter();
   return (
     <>
       <Box
@@ -94,15 +95,14 @@ export default function Navbar() {
               ))}
             </HStack>
 
-            <Link href="/auth/login">
-              <CustomButton
-                maxW="fit-content"
-                display={["none", null, "block"]}
-                h="2.5rem"
-              >
-                Register Now
-              </CustomButton>
-            </Link>
+            <CustomButton
+              handleClick={() => navigate.push("/auth/register")}
+              maxW="fit-content"
+              display={["none", null, "block"]}
+              h="2.5rem"
+            >
+              Register Now
+            </CustomButton>
 
             {/* humbuger  */}
             <Icon
@@ -128,7 +128,10 @@ export default function Navbar() {
                 {Links.map((link, i) => (
                   <NavLink key={i} text={link.text} href={link.href} />
                 ))}
-                <CustomButton display={["block", null, "none"]}>
+                <CustomButton
+                  display={["block", null, "none"]}
+                  handleClick={() => navigate.push("/auth/login")}
+                >
                   Register Now
                 </CustomButton>
               </Stack>

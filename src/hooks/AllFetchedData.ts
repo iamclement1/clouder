@@ -1,4 +1,4 @@
-import axiosInstance from "@/utils/axiosInstance";
+import api from "@/utils/axiosInstance";
 import { getCookie } from "cookies-next";
 
 //typed the fetechd user profile
@@ -22,7 +22,7 @@ const userToken = getCookie("token");
 
 //this function fetches the user profile
 export const fetchUser = () =>
-  axiosInstance
+  api
     .get<UserInfo[]>("/user/profile", {
       headers: { Authorization: "Bearer " + userToken },
     })

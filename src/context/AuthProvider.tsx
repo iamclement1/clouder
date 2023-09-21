@@ -1,5 +1,5 @@
-import { FormValues } from "@/components/auth/Login";
 import api from "@/utils/axiosInstance";
+import { LoginFormValues } from "@/utils/types";
 import { useMutation } from "@tanstack/react-query";
 import { getCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
@@ -13,7 +13,7 @@ import React, {
 
 type authContextType = {
   user: boolean;
-  login: (user: FormValues) => void;
+  login: (user: LoginFormValues) => void;
   userAuthToken: string;
   loading: boolean;
 };
@@ -47,7 +47,7 @@ export function AuthProvider({ children }: Props) {
   const router = useRouter();
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: async (user: FormValues) => {
+    mutationFn: async (user: LoginFormValues) => {
       try {
         setLoading(isLoading);
         const response = await api.post("/auth/signin", user);

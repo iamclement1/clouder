@@ -10,16 +10,7 @@ import { State } from "country-state-city";
 import { useMutation } from "@tanstack/react-query";
 import axios from "@/utils/axios";
 import { useRouter } from "next/navigation";
-
-interface FormValues {
-  fullName: string;
-  email: string;
-  password: string;
-  location: string;
-  phone: string;
-}
-
-// type SignUpUserThunk = ReturnType<typeof signUpUser>;
+import { RegisterFormValues } from "@/utils/types";
 
 const Register: React.FC = () => {
   const [isAccept, setIsAccept] = useState<boolean>(true);
@@ -31,7 +22,7 @@ const Register: React.FC = () => {
   const router = useRouter();
   //used mutation from react-query for action
   const { mutate, isLoading } = useMutation({
-    mutationFn: (user: FormValues) => {
+    mutationFn: (user: RegisterFormValues) => {
       return axios.post("/auth/signup", user);
     },
     onSuccess(data) {
@@ -66,8 +57,8 @@ const Register: React.FC = () => {
             location: "",
             phone: "",
           }}
-          validate={(values: FormValues) => {
-            const errors: Partial<FormValues> = {};
+          validate={(values: RegisterFormValues) => {
+            const errors: Partial<RegisterFormValues> = {};
             if (!values.fullName) {
               errors.fullName = "Required";
             }
@@ -86,7 +77,7 @@ const Register: React.FC = () => {
 
             return errors;
           }}
-          onSubmit={(values: FormValues) => {
+          onSubmit={(values: RegisterFormValues) => {
             console.log(values);
             const payload = {
               fullName: values.fullName,

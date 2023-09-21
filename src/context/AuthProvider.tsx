@@ -33,20 +33,25 @@ type Props = {
 export function AuthProvider({ children }: Props) {
   const [user, setUser] = useState<boolean>(false);
   const [userAuthToken, setUserAuthToken] = useState<string>("");
+  console.log(userAuthToken);
 
-  if (typeof window !== "undefined") {
-    useEffect(() => {
-      const token = getCookie("token");
-
-      if (token) {
-        setUserAuthToken(token);
+  //function to check auth state
+  const checkAuth = () => {
+    if (typeof window !== "undefined") {
+      if (!user && !userAuthToken) {
+        const cookies = getCookie("token");
         const user = sessionStorage.getItem("user");
-        if (user && userAuthToken) {
+        if (user && cookies) {
+          setUserAuthToken(cookies);
           setUser(true);
         }
       }
-    }, [userAuthToken]);
-  }
+    }
+  };
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   const value = {
     user,

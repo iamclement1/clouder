@@ -9,10 +9,13 @@ import React, {
 
 type authContextType = {
   user: boolean;
+  userAuthToken: string;
 };
 
+//TODO: check why there is always a tree mismatch
 const authContextDefaultValues: authContextType = {
   user: false,
+  userAuthToken: "",
 };
 
 export const AuthContext = createContext<authContextType>(
@@ -29,20 +32,27 @@ type Props = {
 
 export function AuthProvider({ children }: Props) {
   const [user, setUser] = useState<boolean>(false);
+  const [userAuthToken, setUserAuthToken] = useState<string>("");
 
   if (typeof window !== "undefined") {
     useEffect(() => {
       const token = getCookie("token");
-      const user = sessionStorage.getItem("user");
-      if (user && token) {
-        setUser(true);
+
+      if (token) {
+        setUserAuthToken(token);
+        const user = sessionStorage.getItem("user");
+        if (user && userAuthToken) {
+          setUser(true);
+        }
       }
-    }, [user, setUser]);
+    }, [userAuthToken]);
   }
 
   const value = {
     user,
     setUser,
+    userAuthToken,
+    setUserAuthToken,
   };
 
   return (

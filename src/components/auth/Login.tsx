@@ -1,44 +1,20 @@
 import { Box, Link, Text } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
-import React from "react";
+import React, { useContext } from "react";
 import CustomInput from "../common/CustomInput";
 import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
 import LoginWithIcon from "./LoginWithIcon";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { setCookie } from "cookies-next";
-import axios from "@/utils/axiosInstance";
+import { AuthContext } from "@/context/AuthProvider";
 
-interface FormValues {
+export interface FormValues {
   email: string;
   password: string;
 }
 
 const Login: React.FC = () => {
-  const router = useRouter();
-  //used mutation from react-query for action
-  const { mutate, isLoading } = useMutation({
-    mutationFn: (user: FormValues) => {
-      return axios.post("/auth/signin", user);
-    },
+  const { login, loading } = useContext(AuthContext);
 
-    onError(error, variables, context) {
-      console.log(error, variables, context);
-      alert("Credentials not valid");
-    },
-    onSuccess(data) {
-      if (data.status === 201) {
-        router.push("/dashboard");
-        const userData = JSON.stringify(data);
-        const userToken = data.data.access;
-        const refreshToken = data.data.refresh;
-        sessionStorage.setItem("user", userData);
-        setCookie("token", userToken);
-        setCookie("refresh", refreshToken);
-      }
-    },
-  });
   return (
     <Box px="16px">
       <Typography variant="heading2">Welcome back!</Typography>
@@ -66,7 +42,7 @@ const Login: React.FC = () => {
               email: values.email,
               password: values.password,
             };
-            mutate(payload);
+            login(payload);
           }}
         >
           {({ handleSubmit, errors, touched }) => (
@@ -105,7 +81,7 @@ const Login: React.FC = () => {
                 type="submit"
                 mt="1.59rem"
                 h="3.2rem"
-                isLoading={isLoading}
+                isLoading={loading}
               >
                 Sign in
               </CustomButton>

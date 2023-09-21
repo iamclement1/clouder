@@ -4,7 +4,7 @@ import axios, { AxiosInstance } from "axios";
 // const token = getCookie('token');
 
 // Create an Axios instance with default headers
-const axiosInstance: AxiosInstance = axios.create({
+const api: AxiosInstance = axios.create({
   baseURL: "https://clouder-lkvb.onrender.com",
   headers: {
     "Content-Type": "application/json",
@@ -13,11 +13,11 @@ const axiosInstance: AxiosInstance = axios.create({
 });
 
 // Interceptors for handling errors globally
-axiosInstance.interceptors.response.use(
+api.interceptors.response.use(
   (response) => response,
   (error) => {
     return Promise.reject(error);
   },
 );
 
-export default axiosInstance;
+export default api;

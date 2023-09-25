@@ -3,7 +3,7 @@ import axios, { AxiosInstance } from "axios";
 // Create an Axios instance with default headers
 const api: AxiosInstance = axios.create({
   baseURL: "https://clouder-lkvb.onrender.com",
-  timeout: 60000,
+  // timeout: 60000,
   headers: {
     "Content-Type": "application/json",
     // Authorization: `Bearer ${token}`,

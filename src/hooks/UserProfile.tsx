@@ -41,7 +41,7 @@ const UserProfile: React.FC = () => {
     <div>
       <h1>User Profile</h1>
       <ul>
-        {data.map((user) => (
+        {data?.map((user) => (
           <li key={user.id}>
             <h2>{user.fullName}</h2>
             <p>Email: {user.email}</p>

@@ -1,15 +1,34 @@
 import { Box, Link, Text } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
-import React, { useContext } from "react";
+import React from "react";
 import CustomInput from "../common/CustomInput";
 import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
 import LoginWithIcon from "./LoginWithIcon";
-import { AuthContext } from "@/context/AuthProvider";
 import { LoginFormValues } from "@/utils/types";
+import { useMutation } from "@tanstack/react-query";
+import api from "@/utils/axiosInstance";
+import { redirect } from "next/navigation";
 
 const Login: React.FC = () => {
-  const { login, loading } = useContext(AuthContext);
+  const { mutate, isLoading } = useMutation({
+    mutationFn: async (user: LoginFormValues) => {
+      try {
+        const response = await api.post("auth/login", user);
+        if (response.status === 201) {
+          const userData = JSON.stringify(response.data);
+          const userToken = response.data.access;
+          const refreshToken = response.data.refresh;
+          sessionStorage.setItem("user", userData);
+          sessionStorage.setItem("token", userToken);
+          sessionStorage.setItem("refreshToken", refreshToken);
+          redirect("/dashboard");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
 
   return (
     <Box px="16px">
@@ -38,7 +57,7 @@ const Login: React.FC = () => {
               email: values.email,
               password: values.password,
             };
-            await login(payload);
+            mutate(payload);
           }}
         >
           {({ handleSubmit, errors, touched }) => (
@@ -77,7 +96,7 @@ const Login: React.FC = () => {
                 type="submit"
                 mt="1.59rem"
                 h="3.2rem"
-                isLoading={loading}
+                isLoading={isLoading}
               >
                 Sign in
               </CustomButton>

@@ -1,7 +1,6 @@
 import api from "@/utils/axiosInstance";
 import { LoginFormValues } from "@/utils/types";
 import { useMutation } from "@tanstack/react-query";
-import { getCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import React, {
   createContext,
@@ -9,6 +8,7 @@ import React, {
   ReactNode,
   useState,
   useEffect,
+  useMemo,
 } from "react";
 
 type authContextType = {
@@ -56,8 +56,8 @@ export function AuthProvider({ children }: Props) {
           const userToken = response.data.access;
           const refreshToken = response.data.refresh;
           sessionStorage.setItem("user", userData);
-          setCookie("token", userToken);
-          setCookie("refresh", refreshToken);
+          sessionStorage.setItem("token", userToken);
+          sessionStorage.setItem("refreshToken", refreshToken);
           setUserAuthToken(userToken);
           setUser(true);
           router.push("/dashboard");
@@ -75,7 +75,7 @@ export function AuthProvider({ children }: Props) {
     const checkAuth = () => {
       if (typeof window !== "undefined") {
         if (!user && !userAuthToken) {
-          const cookies = getCookie("token");
+          const cookies = sessionStorage.getItem("token");
           const user = sessionStorage.getItem("user");
           if (user && cookies) {
             setUserAuthToken(cookies);
@@ -88,14 +88,17 @@ export function AuthProvider({ children }: Props) {
     checkAuth();
   }, []);
 
-  const value = {
-    user,
-    setUser,
-    userAuthToken,
-    setUserAuthToken,
-    login: mutate,
-    loading,
-  };
+  const value = useMemo(
+    () => ({
+      user,
+      setUser,
+      userAuthToken,
+      setUserAuthToken,
+      login: mutate,
+      loading,
+    }),
+    [user, setUser, userAuthToken, setUserAuthToken, mutate, loading],
+  );
 
   return (
     <>

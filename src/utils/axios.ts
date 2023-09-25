@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { getCookie, setCookie } from "cookies-next";
 
 const apiURL = "https://clouder-lkvb.onrender.com";
 
@@ -16,7 +15,7 @@ let isRefreshing = false;
 // Add a request interceptor
 client.interceptors.request.use(
   (config) => {
-    const userToken = getCookie("token");
+    const userToken = sessionStorage.getItem("token");
     if (userToken) {
       config.headers.Authorization = `Bearer ${userToken}`;
     }
@@ -34,14 +33,14 @@ client.interceptors.response.use(
     return response;
   },
   async (error: AxiosError) => {
-    const status = error.response?.status || 500;
+    const status = error.response?.status ?? 500;
     //Global errors are handled here:
     if (status === 401) {
       if (isRefreshing) {
         isRefreshing = true;
 
         // Send a request to refresh the access token using the refresh token
-        const refreshToken = getCookie("refreshToken");
+        const refreshToken = sessionStorage.getItem("refreshToken");
         try {
           //made a request to refresh the access token
           const response = await axios.post(
@@ -52,7 +51,7 @@ client.interceptors.response.use(
           const newRefreshToken = response.data.refresh;
 
           //update the user token with the new refresh token
-          const userToken = setCookie("token", newRefreshToken);
+          const userToken = sessionStorage.setItem("token", newRefreshToken);
           console.log(userToken);
           //TODO: check how to add the refresh token to the headers
           // Update the Authorization header in the Axios client with the new token

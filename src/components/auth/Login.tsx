@@ -8,9 +8,10 @@ import LoginWithIcon from "./LoginWithIcon";
 import { LoginFormValues } from "@/utils/types";
 import { useMutation } from "@tanstack/react-query";
 import api from "@/utils/axiosInstance";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const Login: React.FC = () => {
+  const router = useRouter();
   const { mutate, isLoading } = useMutation({
     mutationFn: (user: LoginFormValues) => {
       return api
@@ -23,7 +24,7 @@ const Login: React.FC = () => {
             sessionStorage.setItem("user", userData);
             sessionStorage.setItem("token", userToken);
             sessionStorage.setItem("refreshToken", refreshToken);
-            redirect("/dashboard");
+            router.push("/dashboard");
           }
         })
         .catch((error) => {

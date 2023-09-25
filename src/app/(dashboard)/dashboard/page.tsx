@@ -1,5 +1,4 @@
 "use client";
-import UserProfile from "@/hooks/UserProfile";
 import { Text } from "@chakra-ui/react";
 import React from "react";
 
@@ -19,8 +18,6 @@ const Dashboard = () => {
         accusantium, unde voluptas voluptate. Eveniet consectetur rem assumenda.
         Eligendi porro officia ad nesciunt fuga suscipit ab.
       </Text>
-
-      <UserProfile />
     </>
   );
 };

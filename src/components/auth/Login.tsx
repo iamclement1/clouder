@@ -12,21 +12,23 @@ import { redirect } from "next/navigation";
 
 const Login: React.FC = () => {
   const { mutate, isLoading } = useMutation({
-    mutationFn: async (user: LoginFormValues) => {
-      try {
-        const response = await api.post("auth/login", user);
-        if (response.status === 201) {
-          const userData = JSON.stringify(response.data);
-          const userToken = response.data.access;
-          const refreshToken = response.data.refresh;
-          sessionStorage.setItem("user", userData);
-          sessionStorage.setItem("token", userToken);
-          sessionStorage.setItem("refreshToken", refreshToken);
-          redirect("/dashboard");
-        }
-      } catch (error) {
-        console.log(error);
-      }
+    mutationFn: (user: LoginFormValues) => {
+      return api
+        .post("/auth/signin", user)
+        .then((response) => {
+          if (response.status === 201) {
+            const userData = JSON.stringify(response.data);
+            const userToken = response.data.access;
+            const refreshToken = response.data.refresh;
+            sessionStorage.setItem("user", userData);
+            sessionStorage.setItem("token", userToken);
+            sessionStorage.setItem("refreshToken", refreshToken);
+            redirect("/dashboard");
+          }
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     },
   });
 

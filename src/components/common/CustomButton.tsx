@@ -2,11 +2,11 @@ import React from "react";
 import { Button, ButtonProps, Spinner } from "@chakra-ui/react";
 
 interface CustomButtonProps extends ButtonProps {
-  width?: string;
+  width?: string | string[];
   color?: string;
   isLoading?: boolean;
   customText?: string;
-  fontSize?: string[];
+  fontSize?: string[] | string;
   fontWeight?: string | number;
   px?: string[] | number;
   py?: string[] | number;

@@ -2,12 +2,12 @@
 import React from "react";
 import {
   IconButton,
-  Avatar,
+  // Avatar,
   Box,
   CloseButton,
   Flex,
-  HStack,
-  VStack,
+  // HStack,
+  // VStack,
   Icon,
   useColorModeValue,
   Text,
@@ -16,11 +16,12 @@ import {
   useDisclosure,
   BoxProps,
   FlexProps,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
+  // Menu,
+  // MenuButton,
+  // MenuDivider,
+  // MenuItem,
+  // MenuList,
+  Image,
 } from "@chakra-ui/react";
 import {
   FiHome,
@@ -29,11 +30,14 @@ import {
   FiStar,
   FiSettings,
   FiMenu,
-  FiBell,
-  FiChevronDown,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import AuthGuard from "../auth/AuthGuard";
+import { BsFillCaretDownFill } from "react-icons/bs";
+import { BiBell } from "react-icons/bi";
+import { FaRegEnvelope } from "react-icons/fa";
+import CustomButton from "./CustomButton";
+import SearchBox from "../dashboard/navigation/SearchBox";
 
 interface LinkItemProps {
   name: string;
@@ -135,7 +139,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       bg={useColorModeValue("white", "gray.900")}
       borderBottomWidth="1px"
       borderBottomColor={useColorModeValue("gray.200", "gray.700")}
-      justifyContent={{ base: "space-between", md: "flex-end" }}
+      justifyContent={{ base: "space-between" }}
       {...rest}
     >
       <IconButton
@@ -146,65 +150,38 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         icon={<FiMenu />}
       />
 
-      <Text
-        display={{ base: "flex", md: "none" }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold"
-      >
-        Logo
-      </Text>
+      <Flex justify={"space-between"} w="100%" gap="1rem">
+        <Text
+          display={{ base: "flex", md: "none" }}
+          fontSize="2xl"
+          fontFamily="monospace"
+          fontWeight="bold"
+        >
+          Logo
+        </Text>
 
-      <HStack spacing={{ base: "0", md: "6" }}>
-        <IconButton
-          size="lg"
-          variant="ghost"
-          aria-label="open menu"
-          icon={<FiBell />}
-        />
-        <Flex alignItems={"center"}>
-          <Menu>
-            <MenuButton
-              py={2}
-              transition="all 0.3s"
-              _focus={{ boxShadow: "none" }}
-            >
-              <HStack>
-                <Avatar
-                  size={"sm"}
-                  src={
-                    "https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                  }
-                />
-                <VStack
-                  display={{ base: "none", md: "flex" }}
-                  alignItems="flex-start"
-                  spacing="1px"
-                  ml="2"
-                >
-                  <Text fontSize="sm">Justina Clark</Text>
-                  <Text fontSize="xs" color="gray.600">
-                    Admin
-                  </Text>
-                </VStack>
-                <Box display={{ base: "none", md: "flex" }}>
-                  <FiChevronDown />
-                </Box>
-              </HStack>
-            </MenuButton>
-            <MenuList
-              bg={useColorModeValue("white", "gray.900")}
-              borderColor={useColorModeValue("gray.200", "gray.700")}
-            >
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
-              <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
-            </MenuList>
-          </Menu>
+        <SearchBox display={{ base: "none", md: "block" }} />
+
+        <Flex align={"center"} gap={"20px"}>
+          <CustomButton w={"4.1rem"} h="2.2rem" fontSize={"0.75rem"}>
+            {" "}
+            Share
+          </CustomButton>
+          <Flex gap="10px" align={"center"} fontSize={"0.65625rem"}>
+            English <Icon as={BsFillCaretDownFill} cursor={"pointer"} />{" "}
+          </Flex>
+
+          <Icon as={BiBell} cursor={"pointer"} />
+
+          <Icon as={FaRegEnvelope} cursor={"pointer"} />
+          <Flex align="center" gap="0.3rem">
+            <Image src={"/user.svg"} alt={"user image"} boxSize="1.3rem" />
+            <Text fontSize="0.65625rem" fontWeight={"500"}>
+              John Doe
+            </Text>
+          </Flex>
         </Flex>
-      </HStack>
+      </Flex>
     </Flex>
   );
 };

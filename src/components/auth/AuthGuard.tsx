@@ -1,11 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/context/AuthProvider";
-import { useRouter } from "next/navigation";
-import { getCookie } from "cookies-next";
+import { redirect } from "next/navigation";
 
 const AuthGuard = ({ children }: { children: React.ReactNode }) => {
   const { user, userAuthToken } = useContext(AuthContext);
-  const router = useRouter();
   const [isReady, setIsReady] = useState(false); // Add a state to track readiness
 
   useEffect(() => {
@@ -15,18 +13,18 @@ const AuthGuard = ({ children }: { children: React.ReactNode }) => {
     }
 
     if (!user || !userAuthToken) {
-      router.push("/auth/login");
+      redirect("/auth/login");
     }
-  }, [isReady, user, userAuthToken, router]);
+  }, [isReady, user, userAuthToken, redirect]);
 
   useEffect(() => {
     // Check for user data in sessionStorage
     const checkAuth = () => {
       if (typeof window !== "undefined") {
-        const cookies = getCookie("token");
+        const cookies = sessionStorage.getItem("token");
         const user = sessionStorage.getItem("user");
         if (!user && !cookies) {
-          router.push("/auth/login");
+          redirect("/auth/login");
         }
         return setIsReady(true); // Set readiness when user data is available
       }
@@ -34,8 +32,6 @@ const AuthGuard = ({ children }: { children: React.ReactNode }) => {
 
     checkAuth();
   }, []);
-
-  // console.log(user, userAuthToken);
 
   return children;
 };

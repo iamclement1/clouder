@@ -1,30 +1,22 @@
-import api from "@/utils/axiosInstance";
-import { LoginFormValues } from "@/utils/types";
-import { useMutation } from "@tanstack/react-query";
-import { getCookie, setCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
 import React, {
   createContext,
   useContext,
   ReactNode,
   useState,
   useEffect,
+  useMemo,
 } from "react";
 
 type authContextType = {
   user: boolean;
-  login: (user: LoginFormValues) => void;
   userAuthToken: string;
-  loading: boolean;
 };
 
 //TODO: check why there is always a tree mismatch --> This was resolved by calling the login function here
 //TODO: I need to confirm after the above is resolved on browser reload the page returns to login -->resolved in the authguard by checking readiness
 const authContextDefaultValues: authContextType = {
   user: false,
-  login: () => {},
   userAuthToken: "",
-  loading: false,
 };
 
 export const AuthContext = createContext<authContextType>(
@@ -42,40 +34,13 @@ type Props = {
 export function AuthProvider({ children }: Props) {
   const [user, setUser] = useState<boolean>(false);
   const [userAuthToken, setUserAuthToken] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const router = useRouter();
-
-  const { mutate, isLoading } = useMutation({
-    mutationFn: async (user: LoginFormValues) => {
-      try {
-        setLoading(isLoading);
-        const response = await api.post("/auth/signin", user);
-        if (response.status === 201) {
-          const userData = JSON.stringify(response.data);
-          const userToken = response.data.access;
-          const refreshToken = response.data.refresh;
-          sessionStorage.setItem("user", userData);
-          setCookie("token", userToken);
-          setCookie("refresh", refreshToken);
-          setUserAuthToken(userToken);
-          setUser(true);
-          router.push("/dashboard");
-        }
-        setLoading(!isLoading);
-      } catch (error) {
-        console.error("Login failed:", error);
-        throw error; // Re-throw the error to propagate it to the caller
-      }
-    },
-  });
 
   useEffect(() => {
     //function to check auth state
     const checkAuth = () => {
       if (typeof window !== "undefined") {
         if (!user && !userAuthToken) {
-          const cookies = getCookie("token");
+          const cookies = sessionStorage.getItem("token");
           const user = sessionStorage.getItem("user");
           if (user && cookies) {
             setUserAuthToken(cookies);
@@ -88,14 +53,15 @@ export function AuthProvider({ children }: Props) {
     checkAuth();
   }, []);
 
-  const value = {
-    user,
-    setUser,
-    userAuthToken,
-    setUserAuthToken,
-    login: mutate,
-    loading,
-  };
+  const value = useMemo(
+    () => ({
+      user,
+      setUser,
+      userAuthToken,
+      setUserAuthToken,
+    }),
+    [user, setUser, userAuthToken, setUserAuthToken],
+  );
 
   return (
     <>

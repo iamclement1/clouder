@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { UserInfo, fetchUser } from "./AllFetchedData";
+import { fetchUser } from "./AllFetchedData";
+import { UserInfo } from "@/utils/types";
 
 const User = () => {
   // const userToken = getCookie('token')

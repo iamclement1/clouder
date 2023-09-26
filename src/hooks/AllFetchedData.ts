@@ -1,21 +1,8 @@
 import api from "@/utils/axiosInstance";
+import { UserInfo } from "@/utils/types";
 import { getCookie } from "cookies-next";
 
 //typed the fetechd user profile
-export interface UserInfo {
-  id: number;
-  fullName: string;
-  email: string;
-  location: string;
-  phone: string;
-}
-
-export interface Todo {
-  userId: number;
-  id: number;
-  title: string;
-  completed: boolean;
-}
 
 //get user token from cookies
 const userToken = getCookie("token");

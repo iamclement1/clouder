@@ -9,6 +9,7 @@ import Sidebar from "@/components/common/Sidebar";
 import BackToTop from "@/components/common/BackToTop";
 import TanstackProvider from "@/context/tanstackProvider";
 import { AuthProvider } from "@/context/AuthProvider";
+import Seo from "@/components/common/SEO";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <TanstackProvider>
           <AuthProvider>
+            <Seo templateTitle="Clouder" />
             {showNavigation && <Navbar />}
             {pathname === "/dashboard" && <Sidebar />}
             {children}

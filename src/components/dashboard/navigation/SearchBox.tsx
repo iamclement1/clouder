@@ -1,10 +1,10 @@
 import { Box, Input } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 
 const SearchBox = ({ ...props }) => {
   const [searchValue, setSearchValue] = useState<string>("");
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
   return (

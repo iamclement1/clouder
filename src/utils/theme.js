@@ -15,6 +15,7 @@ const colors = {
   grey_6: "#718096",
   grey_7: "#777E90",
   grey_8: "#9BADCA",
+  grey_9: "#F8F9FA",
   rgba_1: "rgba(30, 30, 30, 0.65);",
   rgba_2: "rgba(51, 51, 51, 0.20)",
   rgba_3: "rgba(51, 51, 51, 0.30)",

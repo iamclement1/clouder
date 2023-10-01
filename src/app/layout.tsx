@@ -5,7 +5,6 @@ import { Inter } from "next/font/google";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import { usePathname } from "next/navigation";
-import Sidebar from "@/components/common/Sidebar";
 import BackToTop from "@/components/common/BackToTop";
 import TanstackProvider from "@/context/tanstackProvider";
 import { AuthProvider } from "@/context/AuthProvider";
@@ -31,7 +30,7 @@ export default function RootLayout({
           <AuthProvider>
             <Seo templateTitle="Clouder" />
             {showNavigation && <Navbar />}
-            {pathname === "/dashboard" && <Sidebar />}
+            {/* {pathname === "/dashboard" && <Sidebar />} */}
             {children}
             {showNavigation && <Footer />}
             {/* back top button */}

@@ -44,6 +44,7 @@ import { useRouter } from "next/navigation";
 
 interface SidebarWithHeaderProps {
   passedActive: string;
+  children?: React.ReactNode;
 }
 
 interface LinkItemProps {
@@ -93,16 +94,19 @@ const LinkItems: Array<LinkItemProps> = [
         id: 1,
         name: "Morbidity/Mortality",
         href: "#",
+        icon: FiStar,
       },
       {
         id: 2,
         name: "Clinical audit",
         href: "#",
+        icon: FiStar,
       },
       {
         id: 3,
         name: "Case review",
         href: "#",
+        icon: FiStar,
       },
     ],
   },
@@ -123,11 +127,13 @@ const LinkItems: Array<LinkItemProps> = [
         id: 1,
         name: "Medical LogBook",
         href: "#",
+        icon: FiSettings,
       },
       {
         id: 1,
         name: "Surgical Logbook",
         href: "#",
+        icon: FiSettings,
       },
     ],
   },
@@ -347,6 +353,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 
 const SidebarWithHeader = ({
   passedActive = "/dashboard",
+  children,
 }: SidebarWithHeaderProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -371,8 +378,9 @@ const SidebarWithHeader = ({
       </Drawer>
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
+      <Box ml={{ base: 0, md: "17.6rem" }} p="4">
         {/* Content */}
+        {children}
       </Box>
     </Box>
   );

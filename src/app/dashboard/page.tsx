@@ -1,9 +1,12 @@
 "use client";
 import SidebarWithHeader from "@/components/common/Sidebar";
 import Typography from "@/components/common/Typograph";
+import AdminSupport from "@/components/dashboard/AdminSupport";
+import LogBookEntries from "@/components/dashboard/LogBookEntries";
 import TodayActivities from "@/components/dashboard/TodayActivities";
+import UpcomingEvent from "@/components/dashboard/UpcomingEvent";
 
-import { Box, Button, Flex, Icon, SimpleGrid } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Image, SimpleGrid } from "@chakra-ui/react";
 
 import React from "react";
 import { BsChevronDown } from "react-icons/bs";
@@ -11,7 +14,8 @@ import { BsChevronDown } from "react-icons/bs";
 const Dashboard = () => {
   return (
     <SidebarWithHeader passedActive="/dashboard">
-      <Box>
+      <Box pb="3.23rem">
+        {/* Greetings section */}
         <Flex align="center" justify={"space-between"} gap="1rem">
           <Typography variant="heading2">
             {" "}
@@ -32,9 +36,29 @@ const Dashboard = () => {
           </Button>
         </Flex>
 
-        <SimpleGrid columns={3} mt="1.88rem" spacing="1.2rem">
-          <TodayActivities />
-        </SimpleGrid>
+        {/* DaSboard CoMponents */}
+        <Box>
+          <SimpleGrid columns={[1, 2, null, 3]} mt="1.88rem" spacing="1.2rem">
+            <TodayActivities />
+            <LogBookEntries />
+
+            <UpcomingEvent />
+          </SimpleGrid>
+
+          <Flex mt={["3rem"]} flexDir={["column", "row"]} gap="1.22rem">
+            <Box flexShrink={1}>
+              <Image
+                src="/graph.svg"
+                alt="graph demo"
+                maxH="22.4rem"
+                maxW="44.5rem"
+                w="100%"
+              />
+            </Box>
+
+            <AdminSupport />
+          </Flex>
+        </Box>
       </Box>
     </SidebarWithHeader>
   );

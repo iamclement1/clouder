@@ -39,7 +39,7 @@ const Register: React.FC = () => {
   const currentLocations = State.getStatesOfCountry("NG");
 
   return (
-    <Box py="2rem">
+    <Box py="2rem" px="1rem">
       <Box>
         <Typography variant="heading2"> Create an Account</Typography>
         <Typography color="grey_1">

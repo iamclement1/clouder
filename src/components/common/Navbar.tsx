@@ -6,7 +6,6 @@ import {
   Flex,
   HStack,
   useDisclosure,
-  useColorModeValue,
   Stack,
   Icon,
 } from "@chakra-ui/react";
@@ -16,6 +15,7 @@ import Logo from "@/assests/images/logo.png";
 import ScreenSize from "@/layouts/ScreenSize";
 import CustomButton from "./CustomButton";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface Props {
   text?: string;
@@ -52,6 +52,7 @@ const NavLink = (props: Props) => {
       href={href}
       fontSize={"0.84375rem"}
       color={"grey_1"}
+      bgColor="white"
     >
       {text}
     </Box>
@@ -60,15 +61,16 @@ const NavLink = (props: Props) => {
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const navigate = useRouter();
   return (
-    <>
+    <Box pos="relative" zIndex="1000">
       <Box
-        bg={useColorModeValue("white", "white")}
+        bg={"white"}
         color={"black"}
         py={2}
         shadow={"sm"}
         id="top"
+        zIndex={"1000"}
       >
         <ScreenSize>
           <Flex
@@ -88,22 +90,21 @@ export default function Navbar() {
               display={{ base: "none", md: "flex" }}
               shouldWrapChildren={false}
               flexShrink={0}
+              bgColor="white"
             >
               {Links.map((link) => (
                 <NavLink key={link.id} text={link.text} href={link.href} />
               ))}
             </HStack>
 
-            <Link href="/auth/login">
-              <CustomButton
-                handleClick={onOpen}
-                maxW="fit-content"
-                display={["none", null, "block"]}
-                h="2.5rem"
-              >
-                Register Now
-              </CustomButton>
-            </Link>
+            <CustomButton
+              handleClick={() => navigate.push("/auth/register")}
+              maxW="fit-content"
+              display={["none", null, "block"]}
+              h="2.5rem"
+            >
+              Register Now
+            </CustomButton>
 
             {/* humbuger  */}
             <Icon
@@ -117,6 +118,7 @@ export default function Navbar() {
 
           {isOpen ? (
             <Box
+              px="10px"
               pb={4}
               display={{ md: "none" }}
               pos="absolute"
@@ -129,7 +131,11 @@ export default function Navbar() {
                 {Links.map((link, i) => (
                   <NavLink key={i} text={link.text} href={link.href} />
                 ))}
-                <CustomButton display={["block", null, "none"]}>
+                <CustomButton
+                  display={["block", null, "none"]}
+                  handleClick={() => navigate.push("/auth/login")}
+                  mx="16px"
+                >
                   Register Now
                 </CustomButton>
               </Stack>
@@ -139,6 +145,6 @@ export default function Navbar() {
       </Box>
 
       {/* <Box p={4}>Main Content Here</Box> */}
-    </>
+    </Box>
   );
 }

@@ -5,8 +5,10 @@ import { Box, Flex } from "@chakra-ui/react";
 import ScreenSize from "@/layouts/ScreenSize";
 import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
+import { useRouter } from "next/navigation";
 
 const RegCard = () => {
+  const navigate = useRouter();
   return (
     <Box py="5rem" bgColor={"white"}>
       <ScreenSize>
@@ -39,6 +41,7 @@ const RegCard = () => {
               w="100%"
               textTransform={"uppercase"}
               fontWeight={700}
+              handleClick={() => navigate.push("/auth/register")}
             >
               Register now
             </CustomButton>

@@ -1,6 +1,9 @@
-import { Box, Textarea } from "@chakra-ui/react";
+import { Box, Flex, Icon, Input, Text, Textarea } from "@chakra-ui/react";
 import React from "react";
 import Typography from "../common/Typograph";
+
+import { ImAttachment } from "react-icons/im";
+import CustomButton from "../common/CustomButton";
 
 const AdminSupport = () => {
   return (
@@ -34,6 +37,31 @@ const AdminSupport = () => {
           _focus={{}}
         />
       </Box>
+
+      <Flex align="center" justify="space-between" mt="0.99rem">
+        <Box>
+          <Input type="file" accept="image/*" display="none" id="file-upload" />
+          <label htmlFor="file-upload">
+            <Flex
+              gap="0.22rem"
+              align="center"
+              justify="space-between"
+              cursor="pointer"
+            >
+              {" "}
+              <Icon as={ImAttachment} boxSize="0.8rem" />{" "}
+              <Text color="grey_2" fontSize="0.87688rem" fontWeight="500">
+                Attach files
+              </Text>{" "}
+            </Flex>
+          </label>
+        </Box>
+
+        <CustomButton w={"4.1rem"} h="2.2rem" fontSize={"0.75rem"}>
+          {" "}
+          Share
+        </CustomButton>
+      </Flex>
     </Box>
   );
 };

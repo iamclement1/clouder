@@ -59,7 +59,7 @@ interface NavItemProps extends FlexProps {
   icon: React.ElementType;
   children?: React.ReactNode;
   passedActive: string;
-  subNav: LinkItemProps[];
+  subNav: LinkItemProps[] | null;
   navName: string;
   href: string;
 }
@@ -171,7 +171,7 @@ const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {
           <NavItem
             key={link.name}
             icon={link.icon}
-            subNav={link.children || []}
+            subNav={link.children || null}
             navName={link.name}
             href={link.href || ""}
             passedActive={passedActive}
@@ -336,7 +336,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             English <Icon as={BsFillCaretDownFill} cursor={"pointer"} />{" "}
           </Flex>
 
-          <Icon as={BiBell} cursor={"pointer"} />
+          <Link href="/notification">
+            <Icon as={BiBell} />
+          </Link>
 
           <Icon as={FaRegEnvelope} cursor={"pointer"} />
           <Flex align="center" gap="0.3rem">

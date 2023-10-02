@@ -336,7 +336,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             English <Icon as={BsFillCaretDownFill} cursor={"pointer"} />{" "}
           </Flex>
 
-          <Link href="/notification">
+          <Link href="/dashboard/notification">
             <Icon as={BiBell} />
           </Link>
 

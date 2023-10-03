@@ -1,9 +1,13 @@
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "@/context/AuthProvider";
 import { redirect } from "next/navigation";
+import { AuthContext } from "@/context/AuthProvider";
 
 const AuthGuard = ({ children }: { children: React.ReactNode }) => {
-  const { user, userAuthToken } = useContext(AuthContext);
+  // uses the useContext hook to access the AuthContext and save the result in authcontext variable
+  const authContext = useContext(AuthContext);
+  //this line extracts the user and userAuthToken properties from the authContext
+  const { user, userAuthToken } = authContext || {};
+  //track whether the authentication check is complete and the component is ready to determine if the user should be redirected or not.
   const [isReady, setIsReady] = useState(false); // Add a state to track readiness
 
   useEffect(() => {
@@ -13,6 +17,7 @@ const AuthGuard = ({ children }: { children: React.ReactNode }) => {
     }
 
     if (!user || !userAuthToken) {
+      //if none of the following is true, return user to login page
       redirect("/auth/login");
     }
   }, [isReady, user, userAuthToken, redirect]);

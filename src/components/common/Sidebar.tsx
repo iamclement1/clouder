@@ -156,7 +156,7 @@ const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Link href="/">
+        <Link href="/dashboard">
           <Image src="/logo.png" alt="Clouder Logo" />
         </Link>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
@@ -316,14 +316,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       />
 
       <Flex justify={"space-between"} w="100%" gap="1rem">
-        <Text
-          display={{ base: "flex", md: "none" }}
-          fontSize="2xl"
-          fontFamily="monospace"
-          fontWeight="bold"
-        >
-          Logo
-        </Text>
+        {/* <Image src="/logo.png" alt="Clouder Logo" width={150} height={50} /> */}
 
         <SearchBox display={{ base: "none", md: "block" }} />
 

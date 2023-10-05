@@ -9,27 +9,30 @@ import { LoginFormValues } from "@/utils/types";
 import { useMutation } from "@tanstack/react-query";
 import api from "@/utils/axiosInstance";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 const Login: React.FC = () => {
   const router = useRouter();
   const { mutate, isLoading } = useMutation({
     mutationFn: (user: LoginFormValues) => {
-      return api
-        .post("/auth/signin", user)
-        .then((response) => {
-          if (response.status === 201) {
-            const userData = JSON.stringify(response.data);
-            const userToken = response.data.access;
-            const refreshToken = response.data.refresh;
-            sessionStorage.setItem("user", userData);
-            sessionStorage.setItem("token", userToken);
-            sessionStorage.setItem("refreshToken", refreshToken);
-            router.push("/dashboard");
-          }
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
+      return api.post("/auth/signin", user);
+    },
+    onSuccess: ({ data }) => {
+      const userToken = data.access;
+      const refreshToken = data.refresh;
+      Cookies.set("token", userToken);
+      Cookies.set("refreshToken", refreshToken);
+      toast.success("Login Successful", {
+        theme: "dark",
+      });
+      router.push("/dashboard");
+    },
+    onError: (error: { response: { data: { error: string } } }) => {
+      const errorMsg = error.response.data.error;
+      toast.error(errorMsg, {
+        theme: "dark",
+      });
     },
   });
 

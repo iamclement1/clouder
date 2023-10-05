@@ -138,7 +138,7 @@ const LinkItems: Array<LinkItemProps> = [
     ],
   },
   { id: 7, name: "Teaching", href: "/dashboard/teaching", icon: FiSettings },
-  { id: 8, name: "Log out", href: "/dashboard/log_out", icon: FiSettings },
+  { id: 8, name: "Log out", href: "/dashboard/logout", icon: FiSettings },
 ];
 
 const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {

@@ -1,74 +1,67 @@
+import Cookies from "js-cookie";
 import React, {
   createContext,
   useContext,
   ReactNode,
   useState,
-  useEffect,
   useMemo,
+  useEffect,
 } from "react";
 
+// Define the authentication context type
 type AuthContextType = {
   user: boolean;
-  setUser: (user: boolean) => void;
   userAuthToken: string;
-  setUserAuthToken: (token: string) => void;
-  isLoading: boolean;
 };
 
-//TODO: check why there is always a tree mismatch --> This was resolved by calling the login function here
-//TODO: I need to confirm after the above is resolved on browser reload the page returns to login -->resolved in the authguard by checking readiness
+// Define the default values for the authentication context
+const authContextDefaultValues: AuthContextType = {
+  user: false,
+  userAuthToken: "",
+};
 
-export const AuthContext = createContext<AuthContextType | undefined>(
-  undefined,
+// Create the authentication context
+export const AuthContext = createContext<AuthContextType>(
+  authContextDefaultValues,
 );
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
-};
+// Custom hook to access the authentication context
+export function useAuth() {
+  return useContext(AuthContext);
+}
 
+// Define the props for the AuthProvider component
 type Props = {
   children: ReactNode;
 };
 
+// AuthProvider component
 export function AuthProvider({ children }: Props) {
   const [user, setUser] = useState<boolean>(false);
   const [userAuthToken, setUserAuthToken] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  let cookies: string | undefined = "";
+
+  cookies = Cookies.get("token");
 
   useEffect(() => {
-    const checkAuth = () => {
-      if (typeof window !== "undefined") {
-        const cookies = sessionStorage.getItem("token");
-        const userData = sessionStorage.getItem("user");
-        if (userData && cookies) {
-          setUserAuthToken(cookies);
-          setUser(true);
-        }
-        setIsLoading(false); // Set isLoading to false when authentication check is done
-      }
-    };
+    if (cookies) {
+      setUserAuthToken(cookies);
+      setUser(true);
+    }
+  }, [cookies]);
 
-    checkAuth();
-  }, []);
-
+  // Create the context value using useMemo
   const value = useMemo(
     () => ({
       user,
       setUser,
       userAuthToken,
       setUserAuthToken,
-      isLoading,
     }),
     [user, setUser, userAuthToken, setUserAuthToken],
   );
 
-  return (
-    <>
-      <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-    </>
-  );
+  // Render the AuthProvider component with the authentication context
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

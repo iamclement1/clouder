@@ -138,7 +138,7 @@ const LinkItems: Array<LinkItemProps> = [
     ],
   },
   { id: 7, name: "Teaching", href: "/dashboard/teaching", icon: FiSettings },
-  { id: 8, name: "Log out", href: "/dashboard/log_out", icon: FiSettings },
+  { id: 8, name: "Log out", href: "/dashboard/logout", icon: FiSettings },
 ];
 
 const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {
@@ -156,7 +156,7 @@ const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Link href="/">
+        <Link href="/dashboard">
           <Image src="/logo.png" alt="Clouder Logo" />
         </Link>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
@@ -315,15 +315,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         icon={<FiMenu />}
       />
 
-      <Flex justify={"space-between"} w="100%" gap="0.5rem">
-        <Text
-          display={{ base: "flex", md: "none" }}
-          fontSize="2xl"
-          fontFamily="monospace"
-          fontWeight="bold"
-        >
-          Logo
-        </Text>
+      <Flex justify={"space-between"} w="100%" gap="1rem">
+        {/* <Image src="/logo.png" alt="Clouder Logo" width={150} height={50} /> */}
 
         <SearchBox display={{ base: "none", md: "block" }} />
 

@@ -2,14 +2,14 @@
 import SidebarWithHeader from "@/components/common/Sidebar";
 import Typography from "@/components/common/Typograph";
 import AdminSupport from "@/components/dashboard/AdminSupport";
+import DashboardType from "@/components/dashboard/DashboardType";
 import LogBookEntries from "@/components/dashboard/LogBookEntries";
 import TodayActivities from "@/components/dashboard/TodayActivities";
 import UpcomingEvent from "@/components/dashboard/UpcomingEvent";
 
-import { Box, Button, Flex, Icon, Image, SimpleGrid } from "@chakra-ui/react";
+import { Box, Flex, Image, SimpleGrid } from "@chakra-ui/react";
 
 import React from "react";
-import { BsChevronDown } from "react-icons/bs";
 
 const Dashboard = () => {
   return (
@@ -22,18 +22,7 @@ const Dashboard = () => {
             Welcome to your Dashboard{" "}
           </Typography>
 
-          <Button
-            display={"flex"}
-            gap="0.31rem"
-            bgColor={"green_2"}
-            _hover={{}}
-            _focus={{}}
-            color="white"
-            fontSize={"0.75rem"}
-          >
-            Medical student{" "}
-            <Icon as={BsChevronDown} boxSize={"0.9rem"} color={"white"} />
-          </Button>
+          <DashboardType />
         </Flex>
 
         {/* DaSboard CoMponents */}

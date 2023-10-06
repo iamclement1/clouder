@@ -6,7 +6,7 @@ const LogBookEntries = () => {
   return (
     <Box
       maxW="22rem"
-      maxH="10rem"
+      // maxH="10rem"
       overflowY={"hidden"}
       py="1.34rem"
       px="1.36rem"

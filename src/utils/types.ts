@@ -38,3 +38,10 @@ export interface UserInfo {
   location: string;
   phone: string;
 }
+
+export interface ProfileFormValues {
+  fullName: string;
+  email: string;
+  dob: string;
+  phone: string;
+}

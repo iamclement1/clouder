@@ -325,7 +325,12 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             {" "}
             Share
           </CustomButton>
-          <Flex gap="10px" align={"center"} fontSize={"0.65625rem"}>
+          <Flex
+            gap="10px"
+            align={"center"}
+            fontSize={"0.65625rem"}
+            display={{ base: "none", md: "block" }}
+          >
             English <Icon as={BsFillCaretDownFill} cursor={"pointer"} />{" "}
           </Flex>
 
@@ -334,12 +339,14 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           </Link>
 
           <Icon as={FaRegEnvelope} cursor={"pointer"} />
-          <Flex align="center" gap="0.3rem">
-            <Image src={"/user.svg"} alt={"user image"} boxSize="1.3rem" />
-            <Text fontSize="0.65625rem" fontWeight={"500"}>
-              John Doe
-            </Text>
-          </Flex>
+          <Link href="/dashboard/profile">
+            <Flex align="center" gap="0.3rem">
+              <Image src={"/user.svg"} alt={"user image"} boxSize="1.3rem" />
+              <Text fontSize="0.65625rem" fontWeight={"500"}>
+                John Doe
+              </Text>
+            </Flex>
+          </Link>
         </Flex>
       </Flex>
     </Flex>

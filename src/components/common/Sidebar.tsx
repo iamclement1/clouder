@@ -41,6 +41,7 @@ import CustomButton from "./CustomButton";
 import SearchBox from "../dashboard/navigation/SearchBox";
 import UserImage from "../dashboard/navigation/UserImage";
 import { useRouter } from "next/navigation";
+import useProfile from "@/hooks/useProfile";
 
 interface SidebarWithHeaderProps {
   passedActive: string;
@@ -171,9 +172,9 @@ const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {
           <NavItem
             key={link.name}
             icon={link.icon}
-            subNav={link.children || null}
+            subNav={link.children ?? null}
             navName={link.name}
-            href={link.href || ""}
+            href={link.href ?? ""}
             passedActive={passedActive}
           />
         ))}
@@ -294,6 +295,10 @@ const NavItem = ({
 };
 
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+  const { data } = useProfile();
+
+  const fullName = data?.data?.fullName;
+
   return (
     <Flex
       ml={{ base: 0, md: "17.6rem" }}
@@ -343,7 +348,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
             <Flex align="center" gap="0.3rem">
               <Image src={"/user.svg"} alt={"user image"} boxSize="1.3rem" />
               <Text fontSize="0.65625rem" fontWeight={"500"}>
-                John Doe
+                {fullName}
               </Text>
             </Flex>
           </Link>

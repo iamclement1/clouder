@@ -2,6 +2,7 @@
 import CustomButton from "@/components/common/CustomButton";
 import CustomInput from "@/components/common/CustomInput";
 import UploadImage from "@/components/modals/UploadImage";
+import useProfile from "@/hooks/useProfile";
 
 import { ProfileFormValues } from "@/utils/types";
 import { Box, Flex, Image, Text, Stack } from "@chakra-ui/react";
@@ -9,6 +10,11 @@ import { Field, Form, Formik } from "formik";
 import React from "react";
 
 const UpdateProfile: React.FC = () => {
+  const { data, isLoading } = useProfile();
+  if (isLoading) return <p>Loading....</p>;
+
+  const userData = data?.data;
+  console.log(userData);
   return (
     <Box>
       <Flex justify="center">
@@ -26,6 +32,10 @@ const UpdateProfile: React.FC = () => {
           </Text>
 
           <UploadImage />
+
+          <Text fontSize="1.3125rem" fontWeight="400" mt="2rem">
+            Welcome back {userData.fullName} 😊
+          </Text>
         </Box>
       </Flex>
 
@@ -36,11 +46,10 @@ const UpdateProfile: React.FC = () => {
 
         <Formik
           initialValues={{
-            fullName: "",
-            email: "",
-            dob: "",
-
-            phone: "",
+            fullName: userData?.fullName ?? "",
+            email: userData?.email ?? "",
+            dob: userData?.dob ?? "",
+            phone: userData?.phone ?? "",
           }}
           validate={(values: ProfileFormValues) => {
             const errors: Partial<ProfileFormValues> = {};

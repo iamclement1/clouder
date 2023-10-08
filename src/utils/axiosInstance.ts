@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from "axios";
+import Cookies from "js-cookie";
 
 // Create an Axios instance with default headers
 const api: AxiosInstance = axios.create({
@@ -15,7 +16,7 @@ const api: AxiosInstance = axios.create({
 api.interceptors.request.use(
   (config) => {
     // Do something before the request is sent
-    const token = sessionStorage.getItem("token");
+    const token = Cookies.get("token");
     if (token) {
       // Use a conditional check to ensure token is not null
       config.headers["Authorization"] = `Bearer ${token}`;

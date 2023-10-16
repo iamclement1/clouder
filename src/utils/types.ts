@@ -45,3 +45,12 @@ export interface ProfileFormValues {
   dob: string;
   phone: string;
 }
+
+export interface CreateEventFormValues {
+  eventDes: string;
+  startDate: string | Date;
+}
+
+export interface ShareFormValues {
+  email: string;
+}

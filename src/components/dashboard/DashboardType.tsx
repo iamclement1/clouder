@@ -38,9 +38,7 @@ const DashboardType = () => {
           <MenuItem onClick={() => setCurrentType("Medical student")}>
             Medical student
           </MenuItem>
-          <MenuItem onClick={() => setCurrentType("Another Student")}>
-            Another Student
-          </MenuItem>{" "}
+          <MenuItem onClick={() => setCurrentType("Doctor")}>Doctor</MenuItem>{" "}
         </MenuList>
       </Menu>
     </Box>

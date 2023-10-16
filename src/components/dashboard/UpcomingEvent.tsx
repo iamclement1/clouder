@@ -1,8 +1,15 @@
-import { Box, Flex, Stack } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import React from "react";
 import Typography from "../common/Typograph";
+import CreateEvent from "../modals/CreateEvent";
+import UpcomingEventDisplay from "./UpcomingEventDisplay";
 
 const UpcomingEvent = () => {
+  // const [isEvent, setIsEvent] = useState<boolean>(false);
+  // const handleEvent = () => {
+  //     setIsEvent(!isEvent);
+  // };
+  const isEvent = true;
   return (
     <Box
       maxW="22rem"
@@ -19,15 +26,11 @@ const UpcomingEvent = () => {
     >
       <Typography fontSize={"0.9375rem"} fontWeight={"600"}>
         {" "}
-        Got an Upcoming event?
+        {isEvent ? "Upcoming event" : "Got an Upcoming event?"}
       </Typography>
 
       {/* Event Section */}
-      <Stack spacing={"0.38rem"} mt="0.56rem">
-        <Flex fontSize={"0.84375rem"} color="primary" cursor={"pointer"}>
-          + Add to my Calender
-        </Flex>
-      </Stack>
+      {isEvent ? <UpcomingEventDisplay /> : <CreateEvent />}
     </Box>
   );
 };

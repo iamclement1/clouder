@@ -37,10 +37,11 @@ import AuthGuard from "../auth/AuthGuard";
 import { BsChevronDown, BsFillCaretDownFill } from "react-icons/bs";
 import { BiBell } from "react-icons/bi";
 import { FaRegEnvelope } from "react-icons/fa";
-import CustomButton from "./CustomButton";
+
 import SearchBox from "../dashboard/navigation/SearchBox";
 import UserImage from "../dashboard/navigation/UserImage";
 import { useRouter } from "next/navigation";
+import Share from "../modals/Share";
 
 interface SidebarWithHeaderProps {
   passedActive: string;
@@ -321,10 +322,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         <SearchBox display={{ base: "none", md: "block" }} />
 
         <Flex align={"center"} gap={"20px"}>
-          <CustomButton w={"4.1rem"} h="2.2rem" fontSize={"0.75rem"}>
-            {" "}
-            Share
-          </CustomButton>
+          <Share />
           <Flex
             gap="10px"
             align={"center"}

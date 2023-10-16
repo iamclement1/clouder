@@ -48,14 +48,16 @@ const CustomInput: React.FC<CustomInputProps> = ({
   }
   return (
     <FormControl isInvalid={!!errors[name] && touched[name]} mt="12px">
-      <FormLabel
-        htmlFor={name}
-        fontSize="0.84375rem"
-        color="grey_5"
-        fontWeight={"normal"}
-      >
-        {label}
-      </FormLabel>
+      {label && (
+        <FormLabel
+          htmlFor={name}
+          fontSize="0.84375rem"
+          color="grey_5"
+          fontWeight={"normal"}
+        >
+          {label}
+        </FormLabel>
+      )}
       <Box pos="relative">
         <Input
           {...props}

@@ -1,11 +1,11 @@
 import api from "@/utils/axiosInstance";
 import { UserInfo } from "@/utils/types";
-import { getCookie } from "cookies-next";
+import Cookies from "js-cookie";
 
 //typed the fetechd user profile
 
 //get user token from cookies
-const userToken = getCookie("token");
+const userToken = Cookies.get("token");
 
 //this function fetches the user profile
 export const fetchUser = () =>

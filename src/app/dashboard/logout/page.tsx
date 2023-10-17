@@ -1,16 +1,5 @@
-// import api from '@/utils/axiosInstance'
-// import { useMutation } from '@tanstack/react-query';
-// import { redirect } from 'next/navigation';
+import React from "react";
 
-// export const page = () => {
-//    const logoutUser = async () => {
-//       await api.post('/auth/logout')
-//       sessionStorage.removeItem('user');
-//       sessionStorage.removeItem('token');
-//       sessionStorage.removeItem('refreshToken');
-//    }
-
-//    const { mutate } = useMutation(logoutUser, {
-//       onSuccess: () => redirect('/')
-//    })
-// }
+export const page = () => {
+  return <h1>Logout</h1>;
+};

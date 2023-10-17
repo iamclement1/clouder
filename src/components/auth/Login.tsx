@@ -5,21 +5,37 @@ import CustomInput from "../common/CustomInput";
 import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
 import LoginWithIcon from "./LoginWithIcon";
+import { LoginFormValues } from "@/utils/types";
 import { useMutation } from "@tanstack/react-query";
-import axios from "@/utils/axios";
-
-interface FormValues {
-  email: string;
-  password: string;
-}
+import api from "@/utils/axiosInstance";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 const Login: React.FC = () => {
-  //used mutation from react-query for action
+  const router = useRouter();
   const { mutate, isLoading } = useMutation({
-    mutationFn: (user: FormValues) => {
-      return axios.post("/auth/signin", user);
+    mutationFn: (user: LoginFormValues) => {
+      return api.post("/auth/signin", user);
+    },
+    onSuccess: ({ data }) => {
+      const userToken = data.access;
+      const refreshToken = data.refresh;
+      Cookies.set("token", userToken);
+      Cookies.set("refreshToken", refreshToken);
+      toast.success("Login Successful", {
+        theme: "dark",
+      });
+      router.push("/dashboard");
+    },
+    onError: (error: { response: { data: { error: string } } }) => {
+      const errorMsg = error.response.data.error;
+      toast.error(errorMsg, {
+        theme: "dark",
+      });
     },
   });
+
   return (
     <Box px="16px">
       <Typography variant="heading2">Welcome back!</Typography>
@@ -30,8 +46,8 @@ const Login: React.FC = () => {
             email: "",
             password: "",
           }}
-          validate={(values: FormValues) => {
-            const errors: Partial<FormValues> = {};
+          validate={(values: LoginFormValues) => {
+            const errors: Partial<LoginFormValues> = {};
 
             if (!values.email) {
               errors.email = "Required";
@@ -42,13 +58,12 @@ const Login: React.FC = () => {
 
             return errors;
           }}
-          onSubmit={(values: FormValues) => {
+          onSubmit={async (values: LoginFormValues) => {
             const payload = {
               email: values.email,
               password: values.password,
             };
             mutate(payload);
-            console.log(values);
           }}
         >
           {({ handleSubmit, errors, touched }) => (

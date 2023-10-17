@@ -9,16 +9,8 @@ import CustomSelect from "../common/CustomSelect";
 import { State } from "country-state-city";
 import { useMutation } from "@tanstack/react-query";
 import axios from "@/utils/axios";
-
-interface FormValues {
-  fName: string;
-  email: string;
-  password: string;
-  location: string;
-  phoneNo: number | string;
-}
-
-// type SignUpUserThunk = ReturnType<typeof signUpUser>;
+import { useRouter } from "next/navigation";
+import { RegisterFormValues } from "@/utils/types";
 
 const Register: React.FC = () => {
   const [isAccept, setIsAccept] = useState<boolean>(true);
@@ -27,16 +19,27 @@ const Register: React.FC = () => {
     setIsAccept(!isAccept);
   };
 
-  const mutation = useMutation({
-    mutationFn: (user: FormValues) => {
-      return axios.post("/auth/signin", user);
+  const router = useRouter();
+  //used mutation from react-query for action
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (user: RegisterFormValues) => {
+      return axios.post("/auth/signup", user);
+    },
+    onSuccess(data) {
+      if (data.status === 200) {
+        router.push("/auth/login");
+      }
+      // console.log(data);
+    },
+    onError(error) {
+      console.log(error);
     },
   });
 
   const currentLocations = State.getStatesOfCountry("NG");
 
   return (
-    <Box py="2rem">
+    <Box py="2rem" px="1rem">
       <Box>
         <Typography variant="heading2"> Create an Account</Typography>
         <Typography color="grey_1">
@@ -46,16 +49,16 @@ const Register: React.FC = () => {
       <Box>
         <Formik
           initialValues={{
-            fName: "",
+            fullName: "",
             email: "",
             password: "",
             location: "",
-            phoneNo: "",
+            phone: "",
           }}
-          validate={(values: FormValues) => {
-            const errors: Partial<FormValues> = {};
-            if (!values.fName) {
-              errors.fName = "Required";
+          validate={(values: RegisterFormValues) => {
+            const errors: Partial<RegisterFormValues> = {};
+            if (!values.fullName) {
+              errors.fullName = "Required";
             }
             if (!values.email) {
               errors.email = "Required";
@@ -63,8 +66,8 @@ const Register: React.FC = () => {
             if (!values.password) {
               errors.password = "Required";
             }
-            if (!values.phoneNo) {
-              errors.phoneNo = "Required";
+            if (!values.phone) {
+              errors.phone = "Required";
             }
             if (!values.location) {
               errors.location = "Required";
@@ -72,16 +75,16 @@ const Register: React.FC = () => {
 
             return errors;
           }}
-          onSubmit={(values: FormValues) => {
+          onSubmit={(values: RegisterFormValues) => {
             console.log(values);
             const payload = {
-              fName: values.fName,
+              fullName: values.fullName,
               email: values.email,
-              password: values.password,
-              phoneNo: values.phoneNo,
+              phone: values.phone,
               location: values.location,
+              password: values.password,
             };
-            mutation.mutate(payload);
+            mutate(payload);
           }}
         >
           {({ handleSubmit, errors, touched }) => (
@@ -90,7 +93,7 @@ const Register: React.FC = () => {
 
               <CustomInput
                 label="Full name"
-                name="fName"
+                name="fullName"
                 placeholder="Eg John Doe"
                 type="text"
                 errors={errors}
@@ -109,9 +112,9 @@ const Register: React.FC = () => {
               {/* Phone number */}
               <CustomInput
                 label="Phone number"
-                name="phoneNo"
+                name="phone"
                 placeholder="+234"
-                type="number"
+                type="text"
                 errors={errors}
                 touched={touched}
               />
@@ -157,7 +160,7 @@ const Register: React.FC = () => {
                 type="submit"
                 mt="1.59rem"
                 h="3.2rem"
-                isLoading={false}
+                isLoading={isLoading}
                 isDisabled={isAccept}
               >
                 Create Account

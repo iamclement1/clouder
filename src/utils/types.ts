@@ -17,3 +17,40 @@ export interface Template {
   filename: string;
   tags?: string[];
 }
+
+export interface RegisterFormValues {
+  fullName: string;
+  email: string;
+  password: string;
+  location: string;
+  phone: string;
+}
+
+export interface LoginFormValues {
+  email: string;
+  password: string;
+}
+
+export interface UserInfo {
+  id: number;
+  fullName: string;
+  email: string;
+  location: string;
+  phone: string;
+}
+
+export interface ProfileFormValues {
+  fullName: string;
+  email: string;
+  dob: string;
+  phone: string;
+}
+
+export interface CreateEventFormValues {
+  eventDes: string;
+  startDate: string | Date;
+}
+
+export interface ShareFormValues {
+  email: string;
+}

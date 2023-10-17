@@ -1,42 +1,91 @@
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
+
+const apiURL = "https://clouder-lkvb.onrender.com";
 
 const client = axios.create({
   baseURL: "https://clouder-lkvb.onrender.com",
-  timeout: 36000,
+  timeout: 60000,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
+
+let isRefreshing = false;
 
 // Add a request interceptor
 client.interceptors.request.use(
   (config) => {
-    // Do something before request is sent
-    const token = localStorage.getItem("token");
-
-    if (token !== null) {
-      config.headers.common["Authorization"] = `Bearer ${token}`;
-      config.headers["Content-Type"] = "application/json";
+    const userToken = sessionStorage.getItem("token");
+    if (userToken) {
+      config.headers.Authorization = `Bearer ${userToken}`;
     }
-
     return config;
   },
   (error) => {
+    // Handle request errors here
     return Promise.reject(error);
   },
 );
 
 // Add a response interceptor
 client.interceptors.response.use(
-  (response) => {
+  (response: AxiosResponse) => {
     return response;
   },
-  (error) => {
-    if (error.response && error.response.status === 401) {
-      // delete token from session storage
-    }
+  async (error: AxiosError) => {
+    const status = error.response?.status ?? 500;
+    //Global errors are handled here:
+    if (status === 401) {
+      if (isRefreshing) {
+        isRefreshing = true;
 
-    if (error.response.status === 500) {
-      error.response.data.message = "Something went wrong, Please try again!";
+        // Send a request to refresh the access token using the refresh token
+        const refreshToken = sessionStorage.getItem("refreshToken");
+        try {
+          //made a request to refresh the access token
+          const response = await axios.post(
+            `${apiURL}/auth/refresh`,
+            refreshToken,
+          );
+
+          const newRefreshToken = response.data.refresh;
+
+          //update the user token with the new refresh token
+          const userToken = sessionStorage.setItem("token", newRefreshToken);
+          console.log(userToken);
+          //TODO: check how to add the refresh token to the headers
+          // Update the Authorization header in the Axios client with the new token
+        } catch (error) {
+          console.log(error);
+        } finally {
+          isRefreshing = false;
+        }
+      }
+    } else {
+      switch (status) {
+        //forbidden: permission issue
+        case 403:
+          return "Forbidden";
+          break;
+        //not found
+        case 404:
+          return "Not Found";
+          break;
+        case 409:
+          return "Conflicted Request";
+          break;
+        case 422:
+          return "Could not process request";
+          break;
+        //server errorr
+        case 500:
+          return "Internal Server Error";
+          break;
+        //default error
+        default:
+          return Promise.reject(error);
+      }
     }
-    return Promise.reject(error);
   },
 );
 

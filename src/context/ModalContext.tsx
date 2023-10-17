@@ -20,8 +20,10 @@ import React, {
   useMemo,
 } from "react";
 
+type AlertType = "success" | "error" | "warning";
+
 interface ModalData {
-  type?: "success" | "error" | "warning";
+  type?: AlertType;
   message?: string;
   title?: string;
   buttonType?: "fill" | "outline";
@@ -125,7 +127,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
                   mx="auto"
                   textAlign="center"
                 >
-                  {modalData && modalData.message}
+                  {modalData?.message}
                 </Text>
               </Box>
               <Flex mt="1.88rem">
@@ -140,7 +142,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
                     handleClick={closeModal}
                   >
                     {" "}
-                    {modalData && modalData.buttonText}
+                    {modalData?.buttonText}
                   </CustomButton>
                 ) : (
                   <CustomButton
@@ -157,7 +159,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
                     border="1px"
                     borderColor="primary"
                   >
-                    {modalData && modalData.buttonText}
+                    {modalData?.buttonText}
                   </CustomButton>
                 )}
               </Flex>

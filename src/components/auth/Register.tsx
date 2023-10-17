@@ -29,7 +29,6 @@ const Register: React.FC = () => {
       if (data.status === 200) {
         router.push("/auth/login");
       }
-      // console.log(data);
     },
     onError(error) {
       console.log(error);

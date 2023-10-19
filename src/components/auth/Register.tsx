@@ -11,27 +11,46 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "@/utils/axios";
 import { useRouter } from "next/navigation";
 import { RegisterFormValues } from "@/utils/types";
+import { useModal } from "@/context/ModalContext";
 
 const Register: React.FC = () => {
   const [isAccept, setIsAccept] = useState<boolean>(true);
+
+  const { openModal } = useModal();
 
   const handleAccept = () => {
     setIsAccept(!isAccept);
   };
 
   const router = useRouter();
+
   //used mutation from react-query for action
   const { mutate, isLoading } = useMutation({
     mutationFn: (user: RegisterFormValues) => {
       return axios.post("/auth/signup", user);
     },
-    onSuccess(data) {
-      if (data.status === 200) {
+    onSuccess: (data) => {
+      if (data) {
+        openModal({
+          type: "success",
+          message: "Kindly check email to verify your email address",
+          title: "Registration Successful",
+          buttonType: "fill",
+          buttonText: "Continue",
+        });
         router.push("/auth/login");
       }
     },
-    onError(error) {
-      console.log(error);
+    onError: (error) => {
+      if (error && error) {
+        openModal({
+          type: "error",
+          message: "Error",
+          title: "Error",
+          buttonType: "fill",
+          buttonText: "Continue",
+        });
+      }
     },
   });
 
@@ -75,7 +94,6 @@ const Register: React.FC = () => {
             return errors;
           }}
           onSubmit={(values: RegisterFormValues) => {
-            console.log(values);
             const payload = {
               fullName: values.fullName,
               email: values.email,

@@ -42,7 +42,14 @@ interface ModalContextType {
   closeModal: () => void;
 }
 
-const ModalContext = createContext<ModalContextType | undefined>(undefined);
+//I defined a default context when ModalContext is not ready/available
+const defaultContext: ModalContextType = {
+  modalData: null,
+  openModal: () => {},
+  closeModal: () => {},
+};
+
+export const ModalContext = createContext<ModalContextType>(defaultContext);
 
 export function ModalProvider({ children }: { children: ReactNode }) {
   const [modalData, setModalData] = useState<ModalData | null>(null);
@@ -117,7 +124,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
                   fontWeight="600"
                   textAlign="center"
                 >
-                  Successful
+                  {modalData?.title}
                 </Text>
                 <Text
                   mt="1.12rem"

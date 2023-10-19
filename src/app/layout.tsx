@@ -32,7 +32,6 @@ export default function RootLayout({
           <AuthProvider>
             <Seo templateTitle="Clouder" />
             {showNavigation && <Navbar />}
-            {/* {pathname === "/dashboard" && <Sidebar />} */}
             {children}
             {showNavigation && <Footer />}
             {/* back top button */}

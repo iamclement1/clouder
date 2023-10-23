@@ -6,22 +6,33 @@ import CustomInput from "../common/CustomInput";
 import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
 import { useRouter } from "next/navigation";
-// import { useMutation } from "@tanstack/react-query";
-// import axios from "@/utils/axios";
+import { useMutation } from "@tanstack/react-query";
+import axios from "@/utils/axios";
+import { toast } from "react-toastify";
 
 interface FormValues {
   email: string;
 }
 
 const ForgetPasword: React.FC = () => {
+  const router = useRouter();
   //used mutation from react-query for action
-  // const { mutate, isLoading } = useMutation({
-  //   mutationFn: (user: FormValues) => {
-  //     return axios.post("/auth/signin", user);
-  //   },
-  // });
-  const navigate = useRouter();
-  console.log(navigate);
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (user: FormValues) => {
+      return axios.post("/auth/forgot", user);
+    },
+    onSuccess: (data) => {
+      if (data) {
+        router.push("/auth/verification");
+      }
+    },
+    onError: (error: { response: { data: { message: string } } }) => {
+      const errorMsg = error.response.data.message;
+      toast.error(errorMsg, {
+        theme: "dark",
+      });
+    },
+  });
 
   return (
     <Box bgColor="white" rounded="0.46875rem" maxW="34.3rem" mx="auto">
@@ -51,12 +62,10 @@ const ForgetPasword: React.FC = () => {
               return errors;
             }}
             onSubmit={(values: FormValues) => {
-              // const payload = {
-              //   email: values.email,
-              // };
-              // mutate(payload);
-              navigate.push("/auth/verification");
-              console.log(values);
+              const payload = {
+                email: values.email,
+              };
+              mutate(payload);
             }}
           >
             {({ handleSubmit, errors, touched }) => (
@@ -75,7 +84,7 @@ const ForgetPasword: React.FC = () => {
                   type="submit"
                   mt="1.59rem"
                   h="3.2rem"
-                  // isLoading={isLoading}
+                  isLoading={isLoading}
                 >
                   Continue
                 </CustomButton>

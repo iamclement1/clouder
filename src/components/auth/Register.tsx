@@ -8,10 +8,11 @@ import CustomButton from "../common/CustomButton";
 import CustomSelect from "../common/CustomSelect";
 import { State } from "country-state-city";
 import { useMutation } from "@tanstack/react-query";
-import axios from "@/utils/axios";
+import axios from "@/utils/axiosInstance";
 import { useRouter } from "next/navigation";
 import { RegisterFormValues } from "@/utils/types";
 import { useModal } from "@/context/ModalContext";
+import { toast } from "react-toastify";
 
 const Register: React.FC = () => {
   const [isAccept, setIsAccept] = useState<boolean>(true);
@@ -41,16 +42,11 @@ const Register: React.FC = () => {
         router.push("/auth/login");
       }
     },
-    onError: (error) => {
-      if (error && error) {
-        openModal({
-          type: "error",
-          message: "Error",
-          title: "Error",
-          buttonType: "fill",
-          buttonText: "Continue",
-        });
-      }
+    onError: (error: { response: { data: { message: string } } }) => {
+      const errorMsg = error.response.data.message;
+      toast.error(errorMsg, {
+        theme: "dark",
+      });
     },
   });
 

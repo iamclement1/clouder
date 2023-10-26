@@ -72,7 +72,7 @@ const CreateEvent: React.FC = () => {
                   onClose();
                 }}
               >
-                {({ handleSubmit, errors, touched, setFieldValue }) => (
+                {({ handleSubmit, errors, touched }) => (
                   <Form onSubmit={handleSubmit}>
                     {/* Email Address */}
                     <CustomTextarea
@@ -100,14 +100,14 @@ const CreateEvent: React.FC = () => {
                             translateY={"-50%"}
                           />
                           <Field name="startDate">
-                            {({ field }: { field: FieldProps }) => (
+                            {({ field, form }: FieldProps<Date>) => (
                               <DatePicker
-                                selected={field?.value as Date}
+                                selected={field.value}
                                 showTimeSelect
                                 onChange={(date) =>
-                                  setFieldValue("startDate", date)
+                                  form.setFieldValue("startDate", date)
                                 }
-                                dateFormat="Pp" // Customize the date format if needed
+                                dateFormat="Pp"
                                 id="startDate"
                               />
                             )}

@@ -11,7 +11,7 @@ const ConfiguredHeader = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       {pathname === "/" && <Navbar />}
-      {pathname === "/dashboard" && <Sidebar />}
+      {pathname === "/dashboard" && <Sidebar passedActive="true" />}
       {children}
       {pathname === "/" && <Footer />}
     </div>

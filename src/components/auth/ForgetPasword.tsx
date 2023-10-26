@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import axios from "@/utils/axios";
 import { toast } from "react-toastify";
+import Seo from "../common/SEO";
 
 interface FormValues {
   email: string;
@@ -36,6 +37,7 @@ const ForgetPasword: React.FC = () => {
 
   return (
     <Box bgColor="white" rounded="0.46875rem" maxW="34.3rem" mx="auto">
+      <Seo templateTitle="Reset Password" />
       <Box
         px="16px"
         maxW="28.2rem"

@@ -87,7 +87,7 @@ const ResetPassword: React.FC = () => {
                   token,
                   password,
                 };
-                console.log(payload);
+
                 mutate(payload);
               }}
             >

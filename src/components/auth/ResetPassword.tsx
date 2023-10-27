@@ -7,7 +7,7 @@ import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
-import axios from "@/utils/axios";
+import axios from "@/utils/axiosInstance";
 import { useModal } from "@/context/ModalContext";
 import { toast } from "react-toastify";
 
@@ -47,6 +47,27 @@ const ResetPassword: React.FC = () => {
         theme: "dark",
       });
     },
+    // onError: (error: AxiosError) => {
+    //   if (error.response) {
+    //     if (error.response.status === 0) {
+    //       // CORS-related error
+    //       toast.error("CORS Error: Unable to access the server due to CORS restrictions.", {
+    //         theme: "dark",
+    //       });
+    //     } else {
+    //       // Other types of errors
+    //       const errorMsg = error.response.data.message ;
+    //       toast.error(errorMsg, {
+    //         theme: "dark",
+    //       });
+    //     }
+    //   } else {
+    //     // Handle other types of errors
+    //     toast.error("An unexpected error occurred.", {
+    //       theme: "dark",
+    //     });
+    //   }
+    // },
   });
   return (
     <>

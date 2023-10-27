@@ -5,17 +5,19 @@ import React from "react";
 import CustomInput from "../common/CustomInput";
 import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
-import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import axios from "@/utils/axios";
 import { toast } from "react-toastify";
 import Seo from "../common/SEO";
+import { useModal } from "@/context/ModalContext";
+import { useRouter } from "next/navigation";
 
 interface FormValues {
   email: string;
 }
 
 const ForgetPasword: React.FC = () => {
+  const { openModal } = useModal();
   const router = useRouter();
   //used mutation from react-query for action
   const { mutate, isLoading } = useMutation({
@@ -24,7 +26,15 @@ const ForgetPasword: React.FC = () => {
     },
     onSuccess: (data) => {
       if (data) {
-        router.push("/auth/verification");
+        openModal({
+          type: "success",
+          message:
+            "An email has been sent to your registered email address, Kindly check to verify",
+          title: "Request Submitted Successful",
+          buttonType: "fill",
+          buttonText: "Continue",
+        });
+        router.push("/auth/login");
       }
     },
     onError: (error: { response: { data: { message: string } } }) => {

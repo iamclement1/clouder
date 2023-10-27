@@ -6,7 +6,7 @@ import CustomInput from "../common/CustomInput";
 import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
 import { useMutation } from "@tanstack/react-query";
-import axios from "@/utils/axios";
+import axios from "@/utils/axiosInstance";
 import { toast } from "react-toastify";
 import Seo from "../common/SEO";
 import { useModal } from "@/context/ModalContext";

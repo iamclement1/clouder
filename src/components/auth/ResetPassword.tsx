@@ -5,7 +5,7 @@ import React from "react";
 import CustomInput from "../common/CustomInput";
 import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import axios from "@/utils/axios";
 import { useModal } from "@/context/ModalContext";
@@ -20,8 +20,10 @@ const ResetPassword: React.FC = () => {
   // toggle between successfull chnage password section
   const { openModal } = useModal();
   const router = useRouter();
+  const tokenParam = useSearchParams();
+  const token = tokenParam.get("token");
   //get token from url
-  const token = router.query.token as string;
+  // const token = router.query.token as string;
   //used mutation from react-query for action
   const { mutate, isLoading } = useMutation({
     mutationFn: (user: FormValues) => {

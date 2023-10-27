@@ -33,8 +33,8 @@ const ResetPassword: React.FC = () => {
       if (data) {
         openModal({
           type: "success",
-          message: "Password Successfully Changed",
-          title: "Change Password Successful",
+          message: "Password Updated Successfully",
+          title: "Update Password Successful",
           buttonType: "fill",
           buttonText: "Continue",
         });

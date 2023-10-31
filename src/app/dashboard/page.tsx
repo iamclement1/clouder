@@ -6,12 +6,18 @@ import DashboardType from "@/components/dashboard/DashboardType";
 import LogBookEntries from "@/components/dashboard/LogBookEntries";
 import TodayActivities from "@/components/dashboard/TodayActivities";
 import UpcomingEvent from "@/components/dashboard/UpcomingEvent";
+import useProfile from "@/hooks/useProfile";
 
 import { Box, Flex, Image, SimpleGrid } from "@chakra-ui/react";
 
 import React from "react";
 
 const Dashboard = () => {
+  const { data, isLoading } = useProfile();
+  if (isLoading) return <p>Loading....</p>;
+
+  const userData = data?.data;
+
   return (
     <SidebarWithHeader passedActive="/dashboard">
       <Box pb="3.23rem">
@@ -19,7 +25,7 @@ const Dashboard = () => {
         <Flex align="center" justify={"space-between"} gap="1rem">
           <Typography variant="heading2">
             {" "}
-            Welcome to your Dashboard{" "}
+            Welcome back {userData.fullName} 😊
           </Typography>
 
           <DashboardType />

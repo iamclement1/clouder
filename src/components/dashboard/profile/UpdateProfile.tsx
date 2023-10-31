@@ -14,7 +14,6 @@ const UpdateProfile: React.FC = () => {
   if (isLoading) return <p>Fetching your information, please wait....</p>;
 
   const userData = data?.data;
-  console.log(userData);
   return (
     <Box>
       <Flex justify="center">

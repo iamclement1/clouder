@@ -7,7 +7,6 @@ import Footer from "@/components/common/Footer";
 import { usePathname } from "next/navigation";
 import BackToTop from "@/components/common/BackToTop";
 import TanstackProvider from "@/context/tanstackProvider";
-import { AuthProvider } from "@/context/AuthProvider";
 import Seo from "@/components/common/SEO";
 import { ToastContainer } from "react-toastify";
 
@@ -29,14 +28,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <TanstackProvider>
-          <AuthProvider>
-            <Seo templateTitle="Clouder" />
-            {showNavigation && <Navbar />}
-            {children}
-            {showNavigation && <Footer />}
-            {/* back top button */}
-            <BackToTop />
-          </AuthProvider>
+          <Seo templateTitle="Clouder" />
+          {showNavigation && <Navbar />}
+          {children}
+          {showNavigation && <Footer />}
+          {/* back top button */}
+          <BackToTop />
         </TanstackProvider>
 
         <ToastContainer />

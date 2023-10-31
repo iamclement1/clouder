@@ -1,8 +1,9 @@
 import axios, { AxiosInstance } from "axios";
-import Cookies from "js-cookie";
+import { getStorageAuthItems } from "./lib";
 
 // Create an Axios instance with default headers
 const api: AxiosInstance = axios.create({
+  // baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
   baseURL: "https://clouder-lkvb.onrender.com",
   // timeout: 60000,
   headers: {
@@ -16,7 +17,7 @@ const api: AxiosInstance = axios.create({
 api.interceptors.request.use(
   (config) => {
     // Do something before the request is sent
-    const token = Cookies.get("token");
+    const { token } = getStorageAuthItems();
     if (token) {
       // Use a conditional check to ensure token is not null
       config.headers["Authorization"] = `Bearer ${token}`;
@@ -28,10 +29,35 @@ api.interceptors.request.use(
   },
 );
 
-// Interceptors for handling response globally
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
+    const errConfig = error.config;
+    if (error.response && error.response.status === 401 && !errConfig._retry) {
+      errConfig._retry = true;
+      try {
+        const { refresh } = getStorageAuthItems();
+
+        // Use Axios to make a request to refresh the token
+        const refreshTokenResponse = await api.post("/auth/refresh", refresh);
+        const { jwtToken, refreshToken: resToken } =
+          refreshTokenResponse.data.data;
+
+        sessionStorage.setItem("token", jwtToken);
+        sessionStorage.setItem("refresh", resToken);
+
+        api.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
+
+        // Retry the original request
+        return api(errConfig);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (error.response.status === 500) {
+      error.response.data.message = "Something went wrong, Please try again!";
+    }
+
     return Promise.reject(error);
   },
 );

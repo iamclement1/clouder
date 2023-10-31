@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IconButton,
   // Avatar,
@@ -33,16 +33,16 @@ import {
   FiMenu,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
-import AuthGuard from "../auth/AuthGuard";
 import { BsChevronDown, BsFillCaretDownFill } from "react-icons/bs";
 import { BiBell } from "react-icons/bi";
 import { FaRegEnvelope } from "react-icons/fa";
 
 import SearchBox from "../dashboard/navigation/SearchBox";
 import UserImage from "../dashboard/navigation/UserImage";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import Share from "../modals/Share";
 import useProfile from "@/hooks/useProfile";
+import { getStorageAuthItems } from "@/utils/lib";
 
 interface SidebarWithHeaderProps {
   passedActive: string;
@@ -198,12 +198,18 @@ const NavItem = ({
     router.push(newRoute);
   };
 
+  useEffect(() => {
+    const { token } = getStorageAuthItems();
+
+    if (!token) return redirect("/auth/login");
+  }, []);
+
   const handleShowSubNav = () => {
     setShowSubNav(!showSubNav);
   };
 
   return (
-    <AuthGuard>
+    <Box>
       <Box
         onClick={() => {
           if (subNav) {
@@ -291,7 +297,7 @@ const NavItem = ({
           )}
         </>
       )}
-    </AuthGuard>
+    </Box>
   );
 };
 

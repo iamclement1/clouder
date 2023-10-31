@@ -10,7 +10,6 @@ import { useMutation } from "@tanstack/react-query";
 import api from "@/utils/axiosInstance";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import Cookies from "js-cookie";
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -21,8 +20,8 @@ const Login: React.FC = () => {
     onSuccess: ({ data }) => {
       const userToken = data.access;
       const refreshToken = data.refresh;
-      Cookies.set("token", userToken);
-      Cookies.set("refreshToken", refreshToken);
+      sessionStorage.setItem("token", userToken);
+      sessionStorage.setItem("refreshToken", refreshToken);
       toast.success("Login Successful", {
         theme: "dark",
       });

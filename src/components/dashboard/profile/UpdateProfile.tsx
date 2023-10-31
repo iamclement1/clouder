@@ -11,7 +11,7 @@ import React from "react";
 
 const UpdateProfile: React.FC = () => {
   const { data, isLoading } = useProfile();
-  if (isLoading) return <p>Loading....</p>;
+  if (isLoading) return <p>Fetching your information, please wait....</p>;
 
   const userData = data?.data;
   console.log(userData);

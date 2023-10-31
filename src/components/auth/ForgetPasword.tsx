@@ -22,15 +22,15 @@ const ForgetPasword: React.FC = () => {
   //used mutation from react-query for action
   const { mutate, isLoading } = useMutation({
     mutationFn: (user: FormValues) => {
-      return axios.post("/auth/forgot", user);
+      return axios.post("/auth/forgot_password", user);
     },
     onSuccess: (data) => {
       if (data) {
         openModal({
           type: "success",
           message:
-            "An email has been sent to your registered email address, Kindly check to verify",
-          title: "Request Submitted Successful",
+            "We just sent you an email with a link to reset your password. Please click on the link to reset your password",
+          title: "Voila! Please check your email",
           buttonType: "fill",
           buttonText: "Continue",
         });

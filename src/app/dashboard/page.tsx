@@ -1,4 +1,5 @@
 "use client";
+import PageLoader from "@/components/common/PageLoader";
 import SidebarWithHeader from "@/components/common/Sidebar";
 import Typography from "@/components/common/Typograph";
 import AdminSupport from "@/components/dashboard/AdminSupport";
@@ -14,7 +15,7 @@ import React from "react";
 
 const Dashboard = () => {
   const { data, isLoading } = useProfile();
-  if (isLoading) return <p>Loading....</p>;
+  if (isLoading) return <PageLoader />;
 
   const userData = data?.data;
 
@@ -25,7 +26,7 @@ const Dashboard = () => {
         <Flex align="center" justify={"space-between"} gap="1rem">
           <Typography variant="heading2">
             {" "}
-            Welcome back {userData.fullName} 😊
+            Welcome back {userData?.fullName} 😊
           </Typography>
 
           <DashboardType />

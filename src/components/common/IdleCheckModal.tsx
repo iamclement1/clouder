@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -11,13 +11,39 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import api from "@/utils/axiosInstance";
+import { toast } from "react-toastify";
 
 const InactivityCheck: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
+  const [signOutLoading, setSignOutLoading] = useState(false);
 
-  const inactivityTime = 60000; // 1 minute in milliseconds
+  const { mutate } = useMutation({
+    mutationFn: () => {
+      return api.get("/user/signout");
+    },
+    onSuccess: ({ data }) => {
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("refreshToken");
+      toast.success(data.message, {
+        theme: "dark",
+      });
+      router.push("/");
+      onClose();
+    },
+    onError: (error: { response: { data: { error: string } } }) => {
+      const errorMsg = error.response.data.error;
+      toast.error(errorMsg, {
+        theme: "dark",
+      });
+      setSignOutLoading(false); // Set loading to false on error
+    },
+  });
+
+  const inactivityTime = 30000; // 30 seconds in milliseconds
   let inactivityTimer: NodeJS.Timeout;
 
   const resetInactivityTimer = () => {
@@ -28,16 +54,19 @@ const InactivityCheck: React.FC = () => {
   };
 
   useEffect(() => {
-    resetInactivityTimer();
+    const token = sessionStorage.getItem("token"); // Check for the token in session storage
+    if (token) {
+      resetInactivityTimer();
 
-    document.addEventListener("mousemove", resetInactivityTimer);
-    document.addEventListener("keypress", resetInactivityTimer);
+      document.addEventListener("mousemove", resetInactivityTimer);
+      document.addEventListener("keypress", resetInactivityTimer);
 
-    return () => {
-      clearTimeout(inactivityTimer);
-      document.removeEventListener("mousemove", resetInactivityTimer);
-      document.removeEventListener("keypress", resetInactivityTimer);
-    };
+      return () => {
+        clearTimeout(inactivityTimer);
+        document.removeEventListener("mousemove", resetInactivityTimer);
+        document.removeEventListener("keypress", resetInactivityTimer);
+      };
+    }
   }, []);
 
   const continueSession = () => {
@@ -45,28 +74,9 @@ const InactivityCheck: React.FC = () => {
     resetInactivityTimer();
   };
 
-  const signOut = async () => {
-    try {
-      const response = await fetch("/auth/logout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.status === 200) {
-        // Clear user-specific data on the client-side
-        // For example, clear tokens or session information
-        // Redirect to a sign-out or login page
-        router.push("/login"); // Change this to the appropriate route
-        onClose();
-      } else {
-        // Handle error cases, e.g., if the server-side logout fails
-        console.error("Logout failed:", response.status, response.statusText);
-      }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    }
+  const handleSignOut = () => {
+    setSignOutLoading(true); // Set loading to true before initiating sign-out
+    mutate();
   };
 
   return (
@@ -83,7 +93,11 @@ const InactivityCheck: React.FC = () => {
             <Button colorScheme="blue" mr={3} onClick={continueSession}>
               Continue
             </Button>
-            <Button colorScheme="red" onClick={signOut}>
+            <Button
+              colorScheme="red"
+              onClick={handleSignOut}
+              isLoading={signOutLoading}
+            >
               Sign Out
             </Button>
           </ModalFooter>

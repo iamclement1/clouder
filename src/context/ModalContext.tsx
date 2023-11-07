@@ -159,8 +159,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
                     w="100%"
                     h="3.23438rem"
                     fontSize={["0.75rem", "1.125rem"]}
-                    // handleClick={onOpen}
-
+                    handleClick={closeModal}
                     bgColor="transparent"
                     color="primary"
                     border="1px"

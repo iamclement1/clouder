@@ -36,7 +36,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
               htmlFor={name}
               fontSize="0.84375rem"
               color="grey_5"
-              fontWeight={"normal"}
+              fontWeight={"600"}
             >
               {label}
             </FormLabel>

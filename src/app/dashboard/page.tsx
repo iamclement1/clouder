@@ -1,4 +1,5 @@
 "use client";
+import InactivityCheck from "@/components/common/IdleCheckModal";
 import PageLoader from "@/components/common/PageLoader";
 import SidebarWithHeader from "@/components/common/Sidebar";
 import Typography from "@/components/common/Typograph";
@@ -18,15 +19,19 @@ const Dashboard = () => {
   if (isLoading) return <PageLoader />;
 
   const userData = data?.data;
+  const fullName = userData.fullName;
+  const nameParts = fullName.split(" ");
+  const firstName = nameParts[0].trim();
 
   return (
     <SidebarWithHeader passedActive="/dashboard">
+      <InactivityCheck />
       <Box pb="3.23rem">
         {/* Greetings section */}
         <Flex align="center" justify={"space-between"} gap="1rem">
           <Typography variant="heading2">
             {" "}
-            Welcome back {userData?.fullName} 😊
+            Welcome back, {firstName} 😊
           </Typography>
 
           <DashboardType />

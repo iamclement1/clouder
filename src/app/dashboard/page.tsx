@@ -19,6 +19,9 @@ const Dashboard = () => {
   if (isLoading) return <PageLoader />;
 
   const userData = data?.data;
+  const fullName = userData.fullName;
+  const nameParts = fullName.split(" ");
+  const firstName = nameParts[0].trim();
 
   return (
     <SidebarWithHeader passedActive="/dashboard">
@@ -28,7 +31,7 @@ const Dashboard = () => {
         <Flex align="center" justify={"space-between"} gap="1rem">
           <Typography variant="heading2">
             {" "}
-            Welcome back {userData?.fullName} 😊
+            Welcome back, {firstName} 😊
           </Typography>
 
           <DashboardType />

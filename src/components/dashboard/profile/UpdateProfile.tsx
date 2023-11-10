@@ -3,17 +3,24 @@ import CustomButton from "@/components/common/CustomButton";
 import CustomInput from "@/components/common/CustomInput";
 import UploadImage from "@/components/modals/UploadImage";
 import useProfile from "@/hooks/useProfile";
-
+import api from "@/utils/axiosInstance";
 import { ProfileFormValues } from "@/utils/types";
 import { Box, Flex, Image, Text, Stack } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { toast } from "react-toastify";
 
 const UpdateProfile: React.FC = () => {
   const { data, isLoading } = useProfile();
+  const router = useRouter();
+  const [uploadedImage, setUploadedImage] = React.useState<File | null>(null);
+
   if (isLoading) return <p>Fetching your information, please wait....</p>;
 
   const userData = data?.data;
+  // function to update user profile
+
   return (
     <Box>
       <Flex justify="center">
@@ -30,10 +37,10 @@ const UpdateProfile: React.FC = () => {
             Please upload image
           </Text>
 
-          <UploadImage />
+          <UploadImage onUpload={(file) => setUploadedImage(file)} />
 
           <Text fontSize="1.3125rem" fontWeight="400" mt="2rem">
-            Welcome back {userData.fullName} 😊
+            Welcome back {userData?.fullName} 😊
           </Text>
         </Box>
       </Flex>
@@ -67,8 +74,30 @@ const UpdateProfile: React.FC = () => {
 
             return errors;
           }}
-          onSubmit={(values: ProfileFormValues) => {
-            console.log(values);
+          onSubmit={async (values: ProfileFormValues) => {
+            const formData = new FormData();
+            formData.append("image", uploadedImage as Blob);
+            formData.append("fullName", values.fullName);
+            formData.append("email", values.email);
+            formData.append("dob", values.dob);
+            formData.append("phone", values.phone);
+            console.log({ formData });
+            try {
+              const response = await api.patch("/user/update", formData, {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              });
+              if (response.status === 200) {
+                const msg = response?.data.message;
+                toast.success(msg);
+                router.push("/dashboard");
+              }
+              // Handle the response as needed
+              console.log(response);
+            } catch (error) {
+              console.error("Error uploading data:", error);
+            }
           }}
         >
           {({ handleSubmit, errors, touched }) => (
@@ -93,6 +122,7 @@ const UpdateProfile: React.FC = () => {
                   type="email"
                   errors={errors}
                   touched={touched}
+                  disabled={true}
                 />
 
                 <Flex
@@ -118,6 +148,7 @@ const UpdateProfile: React.FC = () => {
                       id={"dob"}
                       name={"dob"}
                       type="date"
+                      disabled
                       placeholder={"date of birth"}
                       style={{
                         fontSize: "0.75rem",
@@ -152,7 +183,7 @@ const UpdateProfile: React.FC = () => {
                     // isLoading={isLoading}
                     // isDisabled={isAccept}
                   >
-                    Cancle
+                    Cancel
                   </CustomButton>
 
                   <CustomButton
@@ -160,7 +191,7 @@ const UpdateProfile: React.FC = () => {
                     mt="1.59rem"
                     h="3.2rem"
                     w="100%"
-                    // isLoading={isLoading}
+                    isLoading={isLoading}
                     // isDisabled={isAccept}
                   >
                     Update

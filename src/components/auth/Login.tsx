@@ -10,6 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import api from "@/utils/axiosInstance";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import Seo from "../common/SEO";
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -37,6 +38,7 @@ const Login: React.FC = () => {
 
   return (
     <Box px="16px">
+      <Seo templateTitle="Login" />
       <Typography variant="heading2">Welcome back!</Typography>
       <Typography color="grey_1">Medical e-portfolio with ease</Typography>
       <Box mt="1.62rem" w="100%">

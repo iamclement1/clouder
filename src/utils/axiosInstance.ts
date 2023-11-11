@@ -3,8 +3,7 @@ import { getStorageAuthItems } from "./lib";
 
 // Create an Axios instance with default headers
 const api: AxiosInstance = axios.create({
-  // baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
-  baseURL: "https://clouder-lkvb.onrender.com",
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
   // timeout: 60000,
   headers: {
     "Content-Type": "application/json",

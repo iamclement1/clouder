@@ -19,6 +19,7 @@ interface CustomInputProps {
   name: string;
   type: string;
   placeholder?: string;
+  disabled?: boolean;
   errors: {
     [key: string]: string | undefined;
   };
@@ -32,6 +33,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
   name,
   type,
   placeholder,
+  disabled,
   errors,
   touched,
   ...props
@@ -43,7 +45,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
 
   let passwordInputType;
   if (type === "password") {
-    passwordInputType = showPassWord ? type || "text" : "password";
+    passwordInputType = showPassWord ? "text" : "password";
   }
   return (
     <FormControl isInvalid={!!errors[name] && touched[name]} mt="12px">
@@ -52,7 +54,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
           htmlFor={name}
           fontSize="0.84375rem"
           color="grey_5"
-          fontWeight={"600"}
+          fontWeight={"normal"}
         >
           {label}
         </FormLabel>
@@ -65,6 +67,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
           name={name}
           type={passwordInputType}
           placeholder={placeholder}
+          disabled={disabled}
           fontSize={"0.75rem"}
           px={"20px"}
           py="12px"

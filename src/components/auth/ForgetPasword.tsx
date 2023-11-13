@@ -5,26 +5,49 @@ import React from "react";
 import CustomInput from "../common/CustomInput";
 import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
+import { useMutation } from "@tanstack/react-query";
+import axios from "@/utils/axiosInstance";
+import { toast } from "react-toastify";
+import Seo from "../common/SEO";
+import { useModal } from "@/context/ModalContext";
 import { useRouter } from "next/navigation";
-// import { useMutation } from "@tanstack/react-query";
-// import axios from "@/utils/axios";
 
 interface FormValues {
   email: string;
 }
 
 const ForgetPasword: React.FC = () => {
+  const { openModal } = useModal();
+  const router = useRouter();
   //used mutation from react-query for action
-  // const { mutate, isLoading } = useMutation({
-  //   mutationFn: (user: FormValues) => {
-  //     return axios.post("/auth/signin", user);
-  //   },
-  // });
-  const navigate = useRouter();
-  console.log(navigate);
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (user: FormValues) => {
+      return axios.post("/auth/forgot_password", user);
+    },
+    onSuccess: (data) => {
+      if (data) {
+        openModal({
+          type: "success",
+          message:
+            "We just sent you an email with a link to reset your password. Please click on the link to reset your password",
+          title: "Voila! Please check your email",
+          buttonType: "fill",
+          buttonText: "Continue",
+        });
+        router.push("/auth/login");
+      }
+    },
+    onError: (error: { response: { data: { message: string } } }) => {
+      const errorMsg = error.response.data.message;
+      toast.error(errorMsg, {
+        theme: "dark",
+      });
+    },
+  });
 
   return (
     <Box bgColor="white" rounded="0.46875rem" maxW="34.3rem" mx="auto">
+      <Seo templateTitle="Reset Password" />
       <Box
         px="16px"
         maxW="28.2rem"
@@ -51,12 +74,10 @@ const ForgetPasword: React.FC = () => {
               return errors;
             }}
             onSubmit={(values: FormValues) => {
-              // const payload = {
-              //   email: values.email,
-              // };
-              // mutate(payload);
-              navigate.push("/auth/verification");
-              console.log(values);
+              const payload = {
+                email: values.email,
+              };
+              mutate(payload);
             }}
           >
             {({ handleSubmit, errors, touched }) => (
@@ -75,7 +96,7 @@ const ForgetPasword: React.FC = () => {
                   type="submit"
                   mt="1.59rem"
                   h="3.2rem"
-                  // isLoading={isLoading}
+                  isLoading={isLoading}
                 >
                   Continue
                 </CustomButton>

@@ -22,6 +22,7 @@ const colors = {
   grey_11: "#B6B6B6",
   grey_12: "#EDEDED",
   grey_13: "#F8F8F8",
+  grey_14: "#F3F6F9",
   rgba_1: "rgba(30, 30, 30, 0.65);",
   rgba_2: "rgba(51, 51, 51, 0.20)",
   rgba_3: "rgba(51, 51, 51, 0.30)",

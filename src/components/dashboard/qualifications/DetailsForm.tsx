@@ -6,6 +6,7 @@ import {
   QualificationData,
   useQualification,
 } from "@/context/QualificationProvider";
+import { universitiesData } from "@/utils/data";
 // import { DetailsFormValues } from "@/utils/types";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { State } from "country-state-city";
@@ -26,6 +27,16 @@ const DetailsForm = () => {
     File | null | Blob | MediaSource
   >(null);
 
+  const allInstitutions: string[] = universitiesData
+    .flatMap((state) => Object.values(state)[0]) // flattens and gets the values
+    .reduce(
+      (result, institutions) => result.concat(Object.values(institutions)),
+      [],
+    ) // gets all values as an array
+    .filter((val): val is string => val !== "") // filters out empty strings and refines the type
+    .sort(); // sorts the array alphabetically
+
+  console.log(allInstitutions);
   return (
     <Box>
       <Box>
@@ -83,6 +94,7 @@ const DetailsForm = () => {
                 touched={touched}
                 options={currentLocations}
                 placeholder="Select your location"
+                type="degree"
               />
               {/* Password */}
               <CustomInput
@@ -93,13 +105,15 @@ const DetailsForm = () => {
                 errors={errors}
                 touched={touched}
               />
+
               <CustomSelect
                 name="school"
                 label="Name of Institution"
                 errors={errors}
                 touched={touched}
-                options={currentLocations}
+                options={allInstitutions}
                 placeholder="Select your location"
+                type="school"
               />
 
               <Flex mt="1.88rem" justify={"space-between"}>

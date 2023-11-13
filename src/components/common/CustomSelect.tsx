@@ -13,10 +13,11 @@ type Option = {
 type CustomSelectProps = {
   name: string;
   label: string;
-  options: Option[] | { name: string }[];
+  options: (Option | { name: string } | string)[];
   placeholder?: string;
   errors: { [key: string]: string };
   touched: { [key: string]: boolean };
+  type?: string;
 };
 
 const CustomSelect: React.FC<CustomSelectProps> = ({
@@ -65,11 +66,21 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
               h="3.23438rem"
               fontSize={"0.75rem"}
             >
-              {options.map((item) => (
-                <option key={item.name} value={item.name}>
-                  {item.name}
-                </option>
-              ))}
+              {options.map((item, index) => {
+                if (typeof item === "string") {
+                  return (
+                    <option key={index} value={item}>
+                      {item}
+                    </option>
+                  );
+                } else {
+                  return (
+                    <option key={index} value={item.name}>
+                      {item.name}
+                    </option>
+                  );
+                }
+              })}
             </Select>
             {errors[name] && touched[name] && (
               <ErrorMessage

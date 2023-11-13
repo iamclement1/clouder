@@ -7,6 +7,7 @@ export type QualificationData = {
   imageFile: File | Blob | MediaSource | null;
   challenges: string;
   key_points: string;
+  differentAction: string;
 };
 
 type passedValueProps = {
@@ -16,6 +17,10 @@ type passedValueProps = {
   handleFillForm: (value: boolean) => void;
   qualificationData: QualificationData;
   handleQualificationData: (value: QualificationData) => void;
+  preview: boolean;
+  handlePreview: (value: boolean) => void;
+  totalData: QualificationData[];
+  handleTotalData: () => void;
 };
 
 const defaultQualificationValue: passedValueProps = {
@@ -30,8 +35,13 @@ const defaultQualificationValue: passedValueProps = {
     imageFile: null,
     challenges: "",
     key_points: "",
+    differentAction: "",
   },
   handleQualificationData: () => {},
+  preview: true,
+  handlePreview: () => {},
+  totalData: [],
+  handleTotalData: () => {},
 };
 
 type Props = {
@@ -42,6 +52,8 @@ const QualificationContext = createContext(defaultQualificationValue);
 export const QualificationProvider = ({ children }: Props) => {
   const [formSteps, setFormSteps] = useState<number>(1);
   const [fillForm, setFillForm] = useState<boolean>(false);
+  const [preview, setPreview] = useState<boolean>(false);
+  const [totalData, setTotalData] = useState<QualificationData[]>([]);
   const [qualificationData, setQualificationData] = useState<QualificationData>(
     {
       degree: "",
@@ -50,6 +62,7 @@ export const QualificationProvider = ({ children }: Props) => {
       imageFile: null,
       challenges: "",
       key_points: "",
+      differentAction: "",
     },
   );
   const handleFormSteps = (value: number) => {
@@ -58,11 +71,27 @@ export const QualificationProvider = ({ children }: Props) => {
   const handleFillForm = (value: boolean) => {
     setFillForm(value);
   };
+  const handlePreview = (value: boolean) => {
+    setPreview(value);
+  };
+
   const handleQualificationData = (value: QualificationData) => {
     setQualificationData(value);
     console.log(qualificationData);
   };
-
+  const handleTotalData = () => {
+    setTotalData((prevData) => [...prevData, qualificationData]);
+    console.log(totalData);
+    setQualificationData({
+      degree: "",
+      year: "",
+      school: "",
+      imageFile: null,
+      challenges: "",
+      key_points: "",
+      differentAction: "",
+    });
+  };
   const passedValue = {
     formSteps,
     handleFormSteps,
@@ -70,6 +99,10 @@ export const QualificationProvider = ({ children }: Props) => {
     handleFillForm,
     qualificationData,
     handleQualificationData,
+    preview,
+    handlePreview,
+    totalData,
+    handleTotalData,
   };
 
   return (

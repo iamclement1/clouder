@@ -7,18 +7,20 @@ import React, { useState, useRef } from "react";
 
 import ContentEditable from "react-contenteditable";
 
-const KeyPoints = () => {
+const DifferentAction = () => {
   const [err, setErr] = useState<boolean>(false);
   const {
-    formSteps,
     handleFormSteps,
     handleFillForm,
     qualificationData,
     handleQualificationData,
+    handleTotalData,
+    handlePreview,
   } = useQualification();
 
   const text = useRef("");
-  text.current = qualificationData?.key_points;
+  text.current = qualificationData?.differentAction;
+
   const handleChange = (evt) => {
     text.current = evt.target.value;
     if (text.current !== "") {
@@ -43,12 +45,23 @@ const KeyPoints = () => {
       setErr(false);
       handleQualificationData({
         ...qualificationData,
-        key_points: values,
+        differentAction: values,
       });
-
-      handleFormSteps(formSteps + 1);
-
-      console.log(qualificationData);
+      handleTotalData();
+      handleFormSteps(1);
+      handleFillForm(false);
+    } else {
+      setErr(true);
+    }
+  };
+  const onPreview = (values: string) => {
+    if (text.current !== "") {
+      setErr(false);
+      handleQualificationData({
+        ...qualificationData,
+        differentAction: values,
+      });
+      handlePreview(true);
     } else {
       setErr(true);
     }
@@ -57,9 +70,9 @@ const KeyPoints = () => {
   return (
     <Box>
       <Box>
-        <Flex align="center" justify="space-between" mb="1.7rem">
+        <Flex align="center" justify="space-between" mb="1.73rem">
           <Text fontSize="1.4rem" color="grey_1" fontWeight="500" maxW="31rem">
-            What are the key positives gotten from the qualifications?
+            What would you want to do differently?
           </Text>
         </Flex>
         <ContentEditable
@@ -76,22 +89,22 @@ const KeyPoints = () => {
       </Box>
 
       <Flex maxW="35rem" mx="auto" gap="1.12rem" mt="3rem">
+        <CustomButton w="100%" handleClick={() => handleSubmit(text.current)}>
+          Save
+        </CustomButton>
         <CustomButton
           w="100%"
           bgColor={"transparent"}
           border="1px"
-          borderColor="grey_1"
-          color="grey_1"
-          handleClick={() => handleFillForm(false)}
+          borderColor="primary"
+          color="primary"
+          handleClick={() => onPreview(text.current)}
         >
-          Cancel
-        </CustomButton>
-        <CustomButton w="100%" handleClick={() => handleSubmit(text.current)}>
-          Next
+          Preview
         </CustomButton>
       </Flex>
     </Box>
   );
 };
 
-export default KeyPoints;
+export default DifferentAction;

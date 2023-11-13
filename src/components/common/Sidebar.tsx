@@ -33,7 +33,7 @@ import {
   FiMenu,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
-// import AuthGuard from "../auth/AuthGuard";
+import AuthGuard from "../auth/AuthGuard";
 import { BsChevronDown, BsFillCaretDownFill } from "react-icons/bs";
 import { BiBell } from "react-icons/bi";
 import { FaRegEnvelope } from "react-icons/fa";
@@ -203,97 +203,99 @@ const NavItem = ({
   };
 
   return (
-    <Box>
-      {/* <AuthGuard> */}
-      <Box
-        onClick={() => {
-          if (subNav) {
-            handleShowSubNav();
-          } else {
-            handleRouteChange(href);
-          }
-        }}
-        style={{ textDecoration: "none" }}
-        _focus={{ boxShadow: "none" }}
-      >
-        <Flex
-          align="center"
-          p="4"
-          px="4"
-          borderRadius="lg"
-          role="group"
-          cursor="pointer"
-          color="grey_1"
-          bgColor={passedActive === href || showSubNav ? "white" : "grey_9"}
-          _hover={{
-            bg: "white",
+    <AuthGuard>
+      <Box>
+        <Box
+          onClick={() => {
+            if (subNav) {
+              handleShowSubNav();
+            } else {
+              handleRouteChange(href);
+            }
           }}
-          gap="0.9rem"
-          {...rest}
+          style={{ textDecoration: "none" }}
+          _focus={{ boxShadow: "none" }}
         >
-          {icon && (
-            <Flex
-              align="center"
-              justify="center"
-              minW="2rem"
-              minH="2rem"
-              rounded="full"
-              bgColor={
-                passedActive === href || showSubNav ? "primary" : "white"
-              }
-              _groupHover={{
-                bgColor: "primary",
-              }}
-            >
-              <Icon
-                fontSize="16"
-                _groupHover={{
-                  color: "white",
-                }}
-                as={icon}
-                color={
-                  passedActive === href || showSubNav ? "white" : "primary"
-                }
-              />
-            </Flex>
-          )}
-          <Text
-            fontSize="0.9375rem"
-            color={passedActive === href || showSubNav ? "black" : "grey_1"}
-            fontWeight={passedActive === href || showSubNav ? "700" : "normal"}
+          <Flex
+            align="center"
+            p="4"
+            px="4"
+            borderRadius="lg"
+            role="group"
+            cursor="pointer"
+            color="grey_1"
+            bgColor={passedActive === href || showSubNav ? "white" : "grey_9"}
+            _hover={{
+              bg: "white",
+            }}
+            gap="0.9rem"
+            {...rest}
           >
-            {navName}
-          </Text>
-
-          {subNav && <Icon as={BsChevronDown} />}
-        </Flex>
-      </Box>
-      {subNav && (
-        <>
-          {showSubNav && (
-            <Box>
-              {subNav.map((item) => (
-                <Box
-                  pl="4rem"
-                  _hover={{
-                    bgColor: "white",
-                    cursor: "pointer",
+            {icon && (
+              <Flex
+                align="center"
+                justify="center"
+                minW="2rem"
+                minH="2rem"
+                rounded="full"
+                bgColor={
+                  passedActive === href || showSubNav ? "primary" : "white"
+                }
+                _groupHover={{
+                  bgColor: "primary",
+                }}
+              >
+                <Icon
+                  fontSize="16"
+                  _groupHover={{
+                    color: "white",
                   }}
-                  key={item.name}
-                  fontSize="0.9375rem"
-                  py="0.47rem"
-                  mb="0.47rem"
-                >
-                  {" "}
-                  {item.name}{" "}
-                </Box>
-              ))}
-            </Box>
-          )}
-        </>
-      )}
-      {/* </AuthGuard> */}
-    </Box>
+                  as={icon}
+                  color={
+                    passedActive === href || showSubNav ? "white" : "primary"
+                  }
+                />
+              </Flex>
+            )}
+            <Text
+              fontSize="0.9375rem"
+              color={passedActive === href || showSubNav ? "black" : "grey_1"}
+              fontWeight={
+                passedActive === href || showSubNav ? "700" : "normal"
+              }
+            >
+              {navName}
+            </Text>
+
+            {subNav && <Icon as={BsChevronDown} />}
+          </Flex>
+        </Box>
+        {subNav && (
+          <>
+            {showSubNav && (
+              <Box>
+                {subNav.map((item) => (
+                  <Box
+                    pl="4rem"
+                    _hover={{
+                      bgColor: "white",
+                      cursor: "pointer",
+                    }}
+                    key={item.name}
+                    fontSize="0.9375rem"
+                    py="0.47rem"
+                    mb="0.47rem"
+                  >
+                    {" "}
+                    {item.name}{" "}
+                  </Box>
+                ))}
+              </Box>
+            )}
+          </>
+        )}
+      </Box>
+    </AuthGuard>
   );
 };
 

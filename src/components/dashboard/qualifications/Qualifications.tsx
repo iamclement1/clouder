@@ -13,8 +13,6 @@ const Qualifications = () => {
   // const [qualificationData, setQualificationData] = useState<string[]>([]);
   const { fillForm, handleFillForm, preview, totalData } = useQualification();
 
-  // console.log(universitiesData);
-
   return (
     <Box>
       <SidebarWithHeader passedActive="/dashboard/qualifications">

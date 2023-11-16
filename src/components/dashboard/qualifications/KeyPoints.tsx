@@ -5,7 +5,7 @@ import { Box, Text, Flex } from "@chakra-ui/react";
 
 import React, { useState, useRef } from "react";
 
-import ContentEditable from "react-contenteditable";
+import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
 const KeyPoints = () => {
   const [err, setErr] = useState<boolean>(false);
@@ -19,11 +19,10 @@ const KeyPoints = () => {
 
   const text = useRef("");
   text.current = qualificationData?.key_points;
-  const handleChange = (evt) => {
-    text.current = evt.target.value;
+  const handleChange = (event: ContentEditableEvent) => {
+    text.current = event.target.value;
     if (text.current !== "") {
       setErr(false);
-      console.log("handleChange", text.current);
     } else {
       setErr(true);
     }
@@ -32,7 +31,6 @@ const KeyPoints = () => {
   const handleBlur = () => {
     if (text.current !== "" || text.current.length >= 6) {
       setErr(false);
-      console.log("handleBlur", text.current);
     } else {
       setErr(true);
     }
@@ -47,8 +45,6 @@ const KeyPoints = () => {
       });
 
       handleFormSteps(formSteps + 1);
-
-      console.log(qualificationData);
     } else {
       setErr(true);
     }

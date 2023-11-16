@@ -77,11 +77,10 @@ export const QualificationProvider = ({ children }: Props) => {
 
   const handleQualificationData = (value: QualificationData) => {
     setQualificationData(value);
-    console.log(qualificationData);
   };
   const handleTotalData = () => {
     setTotalData((prevData) => [...prevData, qualificationData]);
-    console.log(totalData);
+
     setQualificationData({
       degree: "",
       year: "",

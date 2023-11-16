@@ -81,7 +81,7 @@ const UpdateProfile: React.FC = () => {
             formData.append("email", values.email);
             formData.append("dob", values.dob);
             formData.append("phone", values.phone);
-            console.log({ formData });
+
             try {
               const response = await api.patch("/user/update", formData, {
                 headers: {
@@ -94,7 +94,6 @@ const UpdateProfile: React.FC = () => {
                 router.push("/dashboard");
               }
               // Handle the response as needed
-              console.log(response);
             } catch (error) {
               console.error("Error uploading data:", error);
             }

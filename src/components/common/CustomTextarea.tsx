@@ -12,8 +12,8 @@ import {
 interface CustomTextareaProps {
   label?: string;
   name: string;
-  borderColor: string;
-  fontSize: string;
+  borderColor?: string;
+  fontSize?: string;
   placeholder?: string;
   bgColor?: string;
   errors: {
@@ -22,7 +22,7 @@ interface CustomTextareaProps {
   touched: {
     [key: string]: boolean | undefined;
   };
-  minH: string;
+  minH?: string;
 }
 
 const CustomTextarea: React.FC<CustomTextareaProps> = ({

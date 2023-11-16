@@ -27,16 +27,6 @@ const DetailsForm = () => {
     File | null | Blob | MediaSource
   >(null);
 
-  const allInstitutions: string[] = universitiesData
-    .flatMap((state) => Object.values(state)[0]) // flattens and gets the values
-    .reduce(
-      (result, institutions) => result.concat(Object.values(institutions)),
-      [],
-    ) // gets all values as an array
-    .filter((val): val is string => val !== "") // filters out empty strings and refines the type
-    .sort(); // sorts the array alphabetically
-
-  console.log(allInstitutions);
   return (
     <Box>
       <Box>
@@ -111,7 +101,7 @@ const DetailsForm = () => {
                 label="Name of Institution"
                 errors={errors}
                 touched={touched}
-                options={allInstitutions}
+                options={universitiesData}
                 placeholder="Select your location"
                 type="school"
               />

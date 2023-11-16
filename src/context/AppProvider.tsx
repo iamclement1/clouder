@@ -10,8 +10,8 @@ import { QualificationProvider } from "./QualificationProvider";
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <CacheProvider>
-      <CSSReset />
       <ChakraProvider theme={theme}>
+        <CSSReset />
         <QualificationProvider>
           <ModalProvider>{children}</ModalProvider>
         </QualificationProvider>

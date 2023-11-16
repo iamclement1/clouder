@@ -5,7 +5,7 @@ import { Box, Text, Flex } from "@chakra-ui/react";
 
 import React, { useState, useRef } from "react";
 
-import ContentEditable from "react-contenteditable";
+import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
 const ChallengesDetailsForm = () => {
   const [err, setErr] = useState<boolean>(false);
@@ -20,11 +20,10 @@ const ChallengesDetailsForm = () => {
   const text = useRef("");
   text.current = qualificationData?.challenges;
 
-  const handleChange = (evt) => {
+  const handleChange = (evt: ContentEditableEvent) => {
     text.current = evt.target.value;
     if (text.current !== "") {
       setErr(false);
-      console.log("handleChange", text.current);
     } else {
       setErr(true);
     }
@@ -33,7 +32,6 @@ const ChallengesDetailsForm = () => {
   const handleBlur = () => {
     if (text.current !== "" || text.current.length >= 6) {
       setErr(false);
-      console.log("handleBlur", text.current);
     } else {
       setErr(true);
     }
@@ -48,8 +46,6 @@ const ChallengesDetailsForm = () => {
       });
 
       handleFormSteps(formSteps + 1);
-
-      console.log(qualificationData);
     } else {
       setErr(true);
     }

@@ -7,7 +7,7 @@ const AuthGuard = ({ children }: { children: React.ReactNode }) => {
   const userAuthToken = getStorageAuthItems();
 
   if (!userAuthToken.token) return redirect("/auth/login");
-  console.log(userAuthToken.token);
+
   return children;
 };
 

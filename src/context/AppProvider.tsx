@@ -5,13 +5,16 @@ import { CacheProvider } from "@chakra-ui/next-js";
 import { CSSReset, ChakraProvider } from "@chakra-ui/react";
 import { theme } from "@/utils/theme";
 import { ModalProvider } from "./ModalContext";
+import { QualificationProvider } from "./QualificationProvider";
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <CacheProvider>
-      <CSSReset />
       <ChakraProvider theme={theme}>
-        <ModalProvider>{children}</ModalProvider>
+        <CSSReset />
+        <QualificationProvider>
+          <ModalProvider>{children}</ModalProvider>
+        </QualificationProvider>
       </ChakraProvider>
     </CacheProvider>
   );

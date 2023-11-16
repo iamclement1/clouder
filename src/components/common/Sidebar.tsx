@@ -82,7 +82,7 @@ const LinkItems: Array<LinkItemProps> = [
   {
     id: 2,
     name: "Qualifications",
-    href: "/dashboard/qualification",
+    href: "/dashboard/qualifications",
     icon: FiTrendingUp,
   },
   { id: 3, name: "Courses", href: "/dashboard/courses", icon: FiCompass },
@@ -215,7 +215,7 @@ const NavItem = ({
           if (subNav) {
             handleShowSubNav();
           } else {
-            handleRouteChange("/dashboard");
+            handleRouteChange(href);
           }
         }}
         style={{ textDecoration: "none" }}

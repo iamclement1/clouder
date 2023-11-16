@@ -16,7 +16,11 @@ import {
 import React, { useState } from "react";
 import { FiCamera } from "react-icons/fi";
 
-const UploadImage: React.FC = () => {
+interface UploadImageProps {
+  onUpload: (file: File | null) => void;
+}
+
+const UploadImage: React.FC<UploadImageProps> = ({ onUpload }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -26,6 +30,7 @@ const UploadImage: React.FC = () => {
 
     if (file) {
       setSelectedFile(file);
+      onUpload(file);
     }
   };
 

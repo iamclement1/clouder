@@ -35,10 +35,13 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 401 && !errConfig._retry) {
       errConfig._retry = true;
       try {
-        const { refresh } = getStorageAuthItems();
+        const { refreshToken } = getStorageAuthItems();
 
         // Use Axios to make a request to refresh the token
-        const refreshTokenResponse = await api.post("/auth/refresh", refresh);
+        const refreshTokenResponse = await api.post(
+          "/auth/refresh",
+          refreshToken,
+        );
         const { jwtToken, refreshToken: resToken } =
           refreshTokenResponse.data.data;
 

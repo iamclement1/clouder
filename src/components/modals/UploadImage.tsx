@@ -12,21 +12,39 @@ import {
   useDisclosure,
   Input,
   Flex,
+  Image as ChakraImage, // Import Chakra's Image component
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FiCamera } from "react-icons/fi";
 
-const UploadImage: React.FC = () => {
+interface UploadImageProps {
+  onUpload: (file: File) => void;
+  onSave: () => void;
+  uploadedImage: File | null;
+}
+const UploadImage: React.FC<UploadImageProps> = ({ onUpload }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null); // State to store the image URL
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-
+    const file = e.target.files && e.target.files[0];
     if (file) {
+      onUpload(file);
       setSelectedFile(file);
+
+      // Optionally, you can also display the image directly in the modal
+      const imageUrl = URL.createObjectURL(file);
+      setImageUrl(imageUrl);
     }
+  };
+
+  const handleSave = () => {
+    // Add your save logic here, e.g., make an API call to save the image
+
+    // Close the modal after saving
+    onClose();
   };
 
   return (
@@ -92,6 +110,15 @@ const UploadImage: React.FC = () => {
                   </Text>
                 )}
               </Flex>
+              {/* Display the selected image */}
+              {imageUrl && (
+                <ChakraImage
+                  src={imageUrl}
+                  alt="Selected Image"
+                  mt="1.8rem"
+                  maxH="200px"
+                />
+              )}
             </Box>
             <Flex
               gap="0.75rem"
@@ -108,7 +135,7 @@ const UploadImage: React.FC = () => {
                 _focus={{}}
                 onClick={onClose}
               >
-                Cancle
+                Cancel
               </Button>
               <Button
                 _hover={{}}
@@ -116,6 +143,7 @@ const UploadImage: React.FC = () => {
                 bgColor={"primary"}
                 mr={3}
                 color="white"
+                onClick={handleSave}
               >
                 Save
               </Button>

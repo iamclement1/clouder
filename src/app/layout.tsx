@@ -9,7 +9,7 @@ import BackToTop from "@/components/common/BackToTop";
 import TanstackProvider from "@/context/tanstackProvider";
 import Seo from "@/components/common/SEO";
 import { ToastContainer } from "react-toastify";
-
+import { Analytics } from "@vercel/analytics/react";
 import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -35,6 +35,7 @@ export default function RootLayout({
           {/* back top button */}
           <BackToTop />
         </TanstackProvider>
+        <Analytics />
 
         <ToastContainer />
       </body>

@@ -3,8 +3,7 @@ import { getStorageAuthItems } from "./lib";
 
 // Create an Axios instance with default headers
 const api: AxiosInstance = axios.create({
-  // baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}`,
-  baseURL: "https://clouder-lkvb.onrender.com",
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
   // timeout: 60000,
   headers: {
     "Content-Type": "application/json",
@@ -36,10 +35,13 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 401 && !errConfig._retry) {
       errConfig._retry = true;
       try {
-        const { refresh } = getStorageAuthItems();
+        const { refreshToken } = getStorageAuthItems();
 
         // Use Axios to make a request to refresh the token
-        const refreshTokenResponse = await api.post("/auth/refresh", refresh);
+        const refreshTokenResponse = await api.post(
+          "/auth/refresh",
+          refreshToken,
+        );
         const { jwtToken, refreshToken: resToken } =
           refreshTokenResponse.data.data;
 

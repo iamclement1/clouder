@@ -53,3 +53,9 @@ export interface CreateEventFormValues {
 export interface ShareFormValues {
   email: string;
 }
+
+// export interface DetailsFormValues {
+//     degree: string;
+//     year: number | string;
+//     school: string;
+// }

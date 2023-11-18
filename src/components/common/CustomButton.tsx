@@ -27,6 +27,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   py,
   h,
   bg = "primary",
+  bgColor,
   handleClick,
   ...rest
 }) => {
@@ -34,7 +35,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     <Button
       bg={bg}
       width={width || "100%"}
-      bgColor={"primary"}
+      bgColor={bgColor || "primary"}
       isDisabled={isLoading}
       {...rest}
       px={px ?? ["0.75rem", "1.5rem"]}

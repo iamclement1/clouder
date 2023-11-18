@@ -18,25 +18,21 @@ import React, { useState } from "react";
 import { FiCamera } from "react-icons/fi";
 
 interface UploadImageProps {
-  onUpload: (file: File) => void;
-  onSave: () => void;
-  uploadedImage: File | null;
+  onUpload: (file: File | null) => void;
 }
+
 const UploadImage: React.FC<UploadImageProps> = ({ onUpload }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null); // State to store the image URL
+  const [imageUrl] = useState<string | null>(null); // State to store the image URL
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
     if (file) {
       onUpload(file);
       setSelectedFile(file);
-
-      // Optionally, you can also display the image directly in the modal
-      const imageUrl = URL.createObjectURL(file);
-      setImageUrl(imageUrl);
+      onUpload(file);
     }
   };
 

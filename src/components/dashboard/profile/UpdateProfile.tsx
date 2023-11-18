@@ -23,10 +23,10 @@ const UpdateProfile: React.FC = () => {
   const userData = data?.data;
   // function to update user profile
 
-  const handleImageSave = () => {
-    // Handle image save logic if needed
-    console.log("Image saved!");
-  };
+  // const handleImageSave = () => {
+  //   // Handle image save logic if needed
+  //   console.log("Image saved!");
+  // };
   return (
     <Box>
       <Flex justify="center">
@@ -43,11 +43,7 @@ const UpdateProfile: React.FC = () => {
             Please upload image
           </Text>
 
-          <UploadImage
-            onUpload={(file) => setUploadedImage(file)}
-            onSave={handleImageSave}
-            uploadedImage={uploadedImage}
-          />
+          <UploadImage onUpload={(file) => setUploadedImage(file)} />
 
           <Text fontSize="1.3125rem" fontWeight="400" mt="2rem">
             Welcome back {userData?.fullName} 😊
@@ -121,6 +117,59 @@ const UpdateProfile: React.FC = () => {
               console.error("Error uploading data:", error);
             }
           }}
+          // onSubmit={async (values: ProfileFormValues) => {
+          //   const formData = new FormData();
+          //   const changedFields: string[] = [];
+
+          //   // Check if each field has changed and append it to the FormData
+          //   if (values.fullName !== userData?.fullName) {
+          //     formData.append("fullName", values.fullName);
+          //     changedFields.push("fullName");
+          //   }
+
+          //   if (values.email !== userData?.email) {
+          //     formData.append("email", values.email);
+          //     changedFields.push("email");
+          //   }
+
+          //   if (values.phone !== userData?.phone) {
+          //     formData.append("phone", values.phone);
+          //     changedFields.push("phone");
+          //   }
+
+          //   // Append image if it has changed
+          //   if (!!uploadedImage) {
+          //     formData.append("image", uploadedImage as Blob);
+          //     changedFields.push("image");
+          //   }
+
+          //   // Check if any fields have changed
+          //   if (changedFields.length === 0) {
+          //     console.log("No changes detected");
+          //     return;
+          //   }
+
+          //   try {
+          //     setLoading(true);
+          //     const response = await api.patch("/user/update", formData, {
+          //       headers: {
+          //         "Content-Type": "multipart/form-data",
+          //       },
+          //     });
+
+          //     if (response.status === 200) {
+          //       setLoading(false);
+          //       const msg = response?.data.message;
+          //       toast.success(msg);
+          //       router.push("/dashboard");
+          //     }
+
+          //     console.log(response);
+          //   } catch (error) {
+          //     setLoading(false);
+          //     console.error("Error uploading data:", error);
+          //   }
+          // }}
         >
           {({ handleSubmit, errors, touched }) => (
             <Form onSubmit={handleSubmit}>

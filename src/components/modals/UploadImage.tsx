@@ -12,6 +12,7 @@ import {
   useDisclosure,
   Input,
   Flex,
+  Image as ChakraImage, // Import Chakra's Image component
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FiCamera } from "react-icons/fi";
@@ -24,14 +25,22 @@ const UploadImage: React.FC<UploadImageProps> = ({ onUpload }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imageUrl] = useState<string | null>(null); // State to store the image URL
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-
+    const file = e.target.files && e.target.files[0];
     if (file) {
+      onUpload(file);
       setSelectedFile(file);
       onUpload(file);
     }
+  };
+
+  const handleSave = () => {
+    // Add your save logic here, e.g., make an API call to save the image
+
+    // Close the modal after saving
+    onClose();
   };
 
   return (
@@ -97,6 +106,15 @@ const UploadImage: React.FC<UploadImageProps> = ({ onUpload }) => {
                   </Text>
                 )}
               </Flex>
+              {/* Display the selected image */}
+              {imageUrl && (
+                <ChakraImage
+                  src={imageUrl}
+                  alt="Selected Image"
+                  mt="1.8rem"
+                  maxH="200px"
+                />
+              )}
             </Box>
             <Flex
               gap="0.75rem"
@@ -113,7 +131,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ onUpload }) => {
                 _focus={{}}
                 onClick={onClose}
               >
-                Cancle
+                Cancel
               </Button>
               <Button
                 _hover={{}}
@@ -121,6 +139,7 @@ const UploadImage: React.FC<UploadImageProps> = ({ onUpload }) => {
                 bgColor={"primary"}
                 mr={3}
                 color="white"
+                onClick={handleSave}
               >
                 Save
               </Button>

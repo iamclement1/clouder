@@ -19,9 +19,9 @@ const Dashboard = () => {
   if (isLoading) return <PageLoader />;
 
   const userData = data?.data;
-  const fullName = userData.fullName;
-  const nameParts = fullName.split(" ");
-  const firstName = nameParts[0].trim();
+  const fullName = userData?.fullName;
+  const nameParts = fullName?.split(" ");
+  const firstName = nameParts[0]?.trim();
 
   return (
     <SidebarWithHeader passedActive="/dashboard">

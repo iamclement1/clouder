@@ -42,7 +42,6 @@ export interface UserInfo {
 export interface ProfileFormValues {
   fullName: string;
   email: string;
-  dob: string;
   phone: string;
 }
 

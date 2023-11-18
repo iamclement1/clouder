@@ -37,7 +37,7 @@ const dataSet = [
     id: 2,
     image: "fb",
     // href: () => {
-    //     console.log("hello");
+
     // },
   },
 
@@ -45,7 +45,7 @@ const dataSet = [
     id: 3,
     image: "apple",
     // href: () => {
-    //     console.log(hello);
+
     // },
   },
 ];

@@ -17,7 +17,6 @@ const Verification: React.FC = () => {
   const handleComplete = (value: string) => {
     if (!value || value.length < 4) {
       setErr(true);
-      console.log(err);
     } else {
       setErr(false);
       navigate.push("/auth/reset_password");

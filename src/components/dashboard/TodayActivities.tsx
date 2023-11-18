@@ -2,10 +2,8 @@
 import { Box, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import Typography from "../common/Typograph";
-import { useModal } from "@/context/ModalContext";
 
 const TodayActivities = () => {
-  const { openModal } = useModal();
   return (
     <Box
       maxW="22rem"
@@ -36,20 +34,6 @@ const TodayActivities = () => {
           You’ve made 4 entry’s into Teaching
         </Text>
       </Stack>
-
-      <button
-        onClick={() =>
-          openModal({
-            title: "Failed",
-            message:
-              "We are unable to process your request at the moment. Please try again",
-            type: "error",
-            buttonType: "outline",
-          })
-        }
-      >
-        Show Success Modal
-      </button>
     </Box>
   );
 };

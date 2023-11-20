@@ -6,12 +6,14 @@ import useProfile from "@/hooks/useProfile";
 import api from "@/utils/axiosInstance";
 import { ProfileFormValues } from "@/utils/types";
 import { Box, Flex, Image, Text, Stack } from "@chakra-ui/react";
+import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const UpdateProfile: React.FC = () => {
+  const queryClient = useQueryClient();
   const { data, isLoading } = useProfile();
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -105,6 +107,7 @@ const UpdateProfile: React.FC = () => {
               });
 
               if (response.status === 200) {
+                queryClient.invalidateQueries(["user", userData?.userId]);
                 setLoading(false);
                 const msg = response?.data.message;
                 toast.success(msg);
@@ -117,59 +120,6 @@ const UpdateProfile: React.FC = () => {
               console.error("Error uploading data:", error);
             }
           }}
-          // onSubmit={async (values: ProfileFormValues) => {
-          //   const formData = new FormData();
-          //   const changedFields: string[] = [];
-
-          //   // Check if each field has changed and append it to the FormData
-          //   if (values.fullName !== userData?.fullName) {
-          //     formData.append("fullName", values.fullName);
-          //     changedFields.push("fullName");
-          //   }
-
-          //   if (values.email !== userData?.email) {
-          //     formData.append("email", values.email);
-          //     changedFields.push("email");
-          //   }
-
-          //   if (values.phone !== userData?.phone) {
-          //     formData.append("phone", values.phone);
-          //     changedFields.push("phone");
-          //   }
-
-          //   // Append image if it has changed
-          //   if (!!uploadedImage) {
-          //     formData.append("image", uploadedImage as Blob);
-          //     changedFields.push("image");
-          //   }
-
-          //   // Check if any fields have changed
-          //   if (changedFields.length === 0) {
-          //     console.log("No changes detected");
-          //     return;
-          //   }
-
-          //   try {
-          //     setLoading(true);
-          //     const response = await api.patch("/user/update", formData, {
-          //       headers: {
-          //         "Content-Type": "multipart/form-data",
-          //       },
-          //     });
-
-          //     if (response.status === 200) {
-          //       setLoading(false);
-          //       const msg = response?.data.message;
-          //       toast.success(msg);
-          //       router.push("/dashboard");
-          //     }
-
-          //     console.log(response);
-          //   } catch (error) {
-          //     setLoading(false);
-          //     console.error("Error uploading data:", error);
-          //   }
-          // }}
         >
           {({ handleSubmit, errors, touched }) => (
             <Form onSubmit={handleSubmit}>

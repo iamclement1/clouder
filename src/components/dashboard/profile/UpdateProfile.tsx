@@ -123,8 +123,6 @@ const UpdateProfile: React.FC = () => {
         >
           {({ handleSubmit, errors, touched }) => (
             <Form onSubmit={handleSubmit}>
-              {/* Name secton */}
-
               <Stack spacing="1.5rem">
                 <CustomInput
                   label="Full name"
@@ -136,7 +134,6 @@ const UpdateProfile: React.FC = () => {
                 />
 
                 {/* Email Address */}
-
                 <CustomInput
                   label="Email address"
                   name="email"

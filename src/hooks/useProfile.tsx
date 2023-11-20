@@ -10,6 +10,7 @@ const useProfile = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["user"],
     queryFn: fetchUser,
+    staleTime: 300000,
   });
 
   return {

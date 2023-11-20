@@ -7,12 +7,13 @@ const api: AxiosInstance = axios.create({
   // timeout: 60000,
   headers: {
     "Content-Type": "application/json",
+    "X-Requested-With": "XMLHttpRequest",
+    Accept: "application/json",
     // Authorization: `Bearer ${token}`,
   },
 });
 
 //Interceptor for handling requests globally
-
 api.interceptors.request.use(
   (config) => {
     // Do something before the request is sent
@@ -21,6 +22,18 @@ api.interceptors.request.use(
       // Use a conditional check to ensure token is not null
       config.headers["Authorization"] = `Bearer ${token}`;
     }
+
+    // Ensure the request method is one of the allowed methods
+    if (
+      config.method &&
+      !["GET", "PUT", "POST", "PATCH", "OPTIONS", "DELETE", "HEAD"].includes(
+        config.method.toUpperCase(),
+      )
+    ) {
+      const errorMessage = `Invalid request method: ${config.method}`;
+      return Promise.reject(new Error(errorMessage));
+    }
+
     return config;
   },
   (error) => {
@@ -48,7 +61,8 @@ api.interceptors.response.use(
         sessionStorage.setItem("token", jwtToken);
         sessionStorage.setItem("refresh", resToken);
 
-        api.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
+        // api.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
+        errConfig.headers["Authorization"] = `Bearer ${jwtToken}`;
 
         // Retry the original request
         return api(errConfig);
@@ -57,7 +71,7 @@ api.interceptors.response.use(
       }
     }
     if (error.response.status === 500) {
-      error.response.data.message = "Something went wrong, Please try again!";
+      error.response.data.message = "Something went wrong. Please try again!";
     }
 
     return Promise.reject(error);

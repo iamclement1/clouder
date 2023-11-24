@@ -24,15 +24,15 @@ api.interceptors.request.use(
     }
 
     // Ensure the request method is one of the allowed methods
-    if (
-      config.method &&
-      !["GET", "PUT", "POST", "PATCH", "OPTIONS", "DELETE", "HEAD"].includes(
-        config.method.toUpperCase(),
-      )
-    ) {
-      const errorMessage = `Invalid request method: ${config.method}`;
-      return Promise.reject(new Error(errorMessage));
-    }
+    // if (
+    //   config.method &&
+    //   !["GET", "PUT", "POST", "PATCH", "OPTIONS", "DELETE", "HEAD"].includes(
+    //     config.method.toUpperCase(),
+    //   )
+    // ) {
+    //   const errorMessage = `Invalid request method: ${config.method}`;
+    //   return Promise.reject(new Error(errorMessage));
+    // }
 
     return config;
   },
@@ -55,14 +55,14 @@ api.interceptors.response.use(
           "/auth/refresh",
           refreshToken,
         );
-        const { jwtToken, refreshToken: resToken } =
+        const { token, refreshToken: resToken } =
           refreshTokenResponse.data.data;
 
-        sessionStorage.setItem("token", jwtToken);
+        sessionStorage.setItem("token", token);
         sessionStorage.setItem("refresh", resToken);
 
         // api.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
-        errConfig.headers["Authorization"] = `Bearer ${jwtToken}`;
+        errConfig.headers["Authorization"] = `Bearer ${token}`;
 
         // Retry the original request
         return api(errConfig);

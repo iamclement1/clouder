@@ -13,10 +13,10 @@ Clouder is a portfolio management system designed to help medical practitioners 
 
 
 ## Technologies Used
-Next.js: Front-end framework for building React applications.
-Node.js: Backend runtime for handling server-side logic.
-MongoDB: Database for storing user and portfolio data.
-Authentication: Implement secure authentication using [authentication library/tool].
+-  Next.js: Front-end framework for building React applications.
+-  Node.js: Backend runtime for handling server-side logic.
+-  MongoDB: Database for storing user and portfolio data.
+-  Authentication: Implement secure authentication using [authentication library/tool].
 
 ## Installation 
 

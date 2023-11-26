@@ -4,7 +4,7 @@ import { getStorageAuthItems } from "./lib";
 // Create an Axios instance with default headers
 const api: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
-  // timeout: 60000,
+  timeout: 60000,
   headers: {
     "Content-Type": "application/json",
     "X-Requested-With": "XMLHttpRequest",
@@ -19,23 +19,15 @@ api.interceptors.request.use(
     // Do something before the request is sent
     const { token } = getStorageAuthItems();
     if (token) {
-      // Use a conditional check to ensure token is not null
       config.headers["Authorization"] = `Bearer ${token}`;
+    } else {
+      // If there is no token, remove the Authorization header
+      delete config.headers["Authorization"];
     }
-
-    // Ensure the request method is one of the allowed methods
-    // if (
-    //   config.method &&
-    //   !["GET", "PUT", "POST", "PATCH", "OPTIONS", "DELETE", "HEAD"].includes(
-    //     config.method.toUpperCase(),
-    //   )
-    // ) {
-    //   const errorMessage = `Invalid request method: ${config.method}`;
-    //   return Promise.reject(new Error(errorMessage));
-    // }
-
+    // ... rest of the interceptor logic
     return config;
   },
+
   (error) => {
     return Promise.reject(error);
   },

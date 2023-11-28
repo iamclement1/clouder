@@ -43,10 +43,9 @@ api.interceptors.response.use(
         const { refreshToken } = getStorageAuthItems();
 
         // Use Axios to make a request to refresh the token
-        const refreshTokenResponse = await api.post(
-          "/auth/refresh",
-          refreshToken,
-        );
+        const refreshTokenResponse = await api.post("/auth/refresh", {
+          refresh: refreshToken,
+        });
         const { token, refreshToken: resToken } =
           refreshTokenResponse.data.data;
 

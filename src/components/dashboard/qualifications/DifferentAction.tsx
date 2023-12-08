@@ -1,11 +1,15 @@
 import CustomButton from "@/components/common/CustomButton";
 
 import { useQualification } from "@/context/QualificationProvider";
+import api from "@/utils/axiosInstance";
+import { Payload } from "@/utils/types";
 import { Box, Text, Flex } from "@chakra-ui/react";
+import { useMutation } from "@tanstack/react-query";
 
 import React, { useState, useRef } from "react";
 
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
+import { toast } from "react-toastify";
 
 const DifferentAction = () => {
   const [err, setErr] = useState<boolean>(false);
@@ -20,6 +24,41 @@ const DifferentAction = () => {
 
   const text = useRef("");
   text.current = qualificationData?.differentAction;
+
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (qualifications: Payload) => {
+      return api.post("/qualifications", qualifications);
+    },
+    onSuccess: ({ data }) => {
+      console.log(data);
+      if (data) {
+        toast.success("Qualifications Submitted Successfully");
+        handleTotalData();
+        handleFormSteps(1);
+        handleFillForm(false);
+      }
+    },
+    onError: (error: { response: { data: { error: string } } }) => {
+      const errorMsg = error.response.data.error;
+      toast.error(errorMsg, {
+        theme: "dark",
+      });
+    },
+  });
+
+  const payload = {
+    education: [
+      {
+        degree: qualificationData?.degree,
+        year: qualificationData?.year,
+        institution: qualificationData?.school,
+        certificate: qualificationData?.imageFile,
+      },
+    ],
+    challenges: qualificationData?.challenges,
+    keyPositives: qualificationData?.key_points,
+    doDifferently: qualificationData?.differentAction,
+  };
 
   const handleChange = (evt: ContentEditableEvent) => {
     text.current = evt.target.value;
@@ -38,16 +77,14 @@ const DifferentAction = () => {
     }
   };
 
-  const handleSubmit = (values: string) => {
+  const handleSubmit = async (values: string) => {
     if (text.current !== "") {
       setErr(false);
       handleQualificationData({
         ...qualificationData,
         differentAction: values,
       });
-      handleTotalData();
-      handleFormSteps(1);
-      handleFillForm(false);
+      await mutate(payload);
     } else {
       setErr(true);
     }
@@ -87,7 +124,11 @@ const DifferentAction = () => {
       </Box>
 
       <Flex maxW="35rem" mx="auto" gap="1.12rem" mt="3rem">
-        <CustomButton w="100%" handleClick={() => handleSubmit(text.current)}>
+        <CustomButton
+          w="100%"
+          isLoading={isLoading}
+          handleClick={() => handleSubmit(text.current)}
+        >
           Save
         </CustomButton>
         <CustomButton

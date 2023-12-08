@@ -59,3 +59,17 @@ export interface ShareFormValues {
 //     year: number | string;
 //     school: string;
 // }
+
+interface EducationItem {
+  degree: string;
+  year: string;
+  institution: string;
+  certificate: File | Blob | MediaSource | null;
+}
+
+export type Payload = {
+  education: EducationItem[];
+  challenges: string;
+  keyPositives: string;
+  doDifferently: string;
+};

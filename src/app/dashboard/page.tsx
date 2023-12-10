@@ -1,7 +1,6 @@
 "use client";
 import InactivityCheck from "@/components/common/IdleCheckModal";
 import PageLoader from "@/components/common/PageLoader";
-import SidebarWithHeader from "@/components/common/Sidebar";
 import Typography from "@/components/common/Typograph";
 import AdminSupport from "@/components/dashboard/AdminSupport";
 import DashboardType from "@/components/dashboard/DashboardType";
@@ -24,7 +23,7 @@ const Dashboard = () => {
   const firstName = nameParts[0]?.trim();
 
   return (
-    <SidebarWithHeader passedActive="/dashboard">
+    <Box>
       <InactivityCheck />
       <Box pb="3.23rem">
         {/* Greetings section */}
@@ -61,7 +60,7 @@ const Dashboard = () => {
           </Flex>
         </Box>
       </Box>
-    </SidebarWithHeader>
+    </Box>
   );
 };
 

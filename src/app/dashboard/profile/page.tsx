@@ -1,5 +1,4 @@
 "use client";
-import SidebarWithHeader from "@/components/common/Sidebar";
 import Typography from "@/components/common/Typograph";
 import UpdateProfile from "@/components/dashboard/profile/UpdateProfile";
 import { Box } from "@chakra-ui/react";
@@ -7,7 +6,7 @@ import React from "react";
 
 const page = () => {
   return (
-    <SidebarWithHeader passedActive="/">
+    <Box>
       <Box>
         <Typography variant="heading2">Update Account</Typography>
       </Box>
@@ -26,7 +25,7 @@ const page = () => {
       >
         <UpdateProfile />
       </Box>
-    </SidebarWithHeader>
+    </Box>
   );
 };
 

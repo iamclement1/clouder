@@ -348,14 +348,14 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           </Link>
 
           <Icon as={FaRegEnvelope} cursor={"pointer"} />
-          <Link href="/dashboard/profile">
-            <Flex align="center" gap="0.3rem">
-              <Image src={"/user.svg"} alt={"user image"} boxSize="1.3rem" />
-              <Text fontSize="0.65625rem" fontWeight={"500"}>
-                {fullName}
-              </Text>
-            </Flex>
-          </Link>
+          {/* <Link href=""> */}
+          <Flex align="center" gap="0.3rem">
+            <Image src={"/user.svg"} alt={"user image"} boxSize="1.3rem" />
+            <Text fontSize="0.65625rem" fontWeight={"500"}>
+              {fullName}
+            </Text>
+          </Flex>
+          {/* </Link> */}
         </Flex>
       </Flex>
     </Flex>

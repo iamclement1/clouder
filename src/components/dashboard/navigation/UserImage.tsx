@@ -21,7 +21,12 @@ const UserImage = () => {
         {" "}
         {fullName}{" "}
       </Typography>
-      <Link href="#" color="primary" fontWeight="400" fontSize="0.7625rem">
+      <Link
+        href="/dashboard/profile"
+        color="primary"
+        fontWeight="400"
+        fontSize="0.7625rem"
+      >
         {" "}
         Update Account
       </Link>

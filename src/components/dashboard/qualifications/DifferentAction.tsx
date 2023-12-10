@@ -10,11 +10,9 @@ import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 const DifferentAction = () => {
   const [err, setErr] = useState<boolean>(false);
   const {
-    handleFormSteps,
-    handleFillForm,
     qualificationData,
     handleQualificationData,
-    handleTotalData,
+
     handlePreview,
   } = useQualification();
 
@@ -45,12 +43,11 @@ const DifferentAction = () => {
         ...qualificationData,
         differentAction: values,
       });
-      handleTotalData();
-      handleFormSteps(1);
-      handleFillForm(false);
     } else {
       setErr(true);
     }
+
+    console.log(qualificationData);
   };
   const onPreview = (values: string) => {
     if (text.current !== "") {

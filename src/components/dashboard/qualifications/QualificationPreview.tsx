@@ -3,16 +3,53 @@ import Typography from "@/components/common/Typograph";
 import StatusModal from "@/components/modals/StatusModal";
 
 import { useQualification } from "@/context/QualificationProvider";
+import api from "@/utils/axiosInstance";
+import { Payload } from "@/utils/types";
 import { Box, Flex, Text, Icon, Stack, useDisclosure } from "@chakra-ui/react";
+import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import { TbEdit } from "react-icons/tb";
+import { toast } from "react-toastify";
 const QualificationPreview = () => {
   const { handleFormSteps, handleFillForm, qualificationData, handlePreview } =
     useQualification();
 
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (qualifications: Payload) => {
+      return api.post("/qualifications", qualifications);
+    },
+    onSuccess: ({ data }) => {
+      console.log(data);
+      if (data) {
+        // toast.success("Qualifications Submitted Successfully")
+        onOpenStatusModal();
+      }
+    },
+    onError: (error: { response: { data: { error: string } } }) => {
+      const errorMsg = error.response.data.error;
+      toast.error(errorMsg, {
+        theme: "dark",
+      });
+    },
+  });
+
+  const payload = {
+    education: [
+      {
+        degree: qualificationData?.degree,
+        year: qualificationData?.year,
+        institution: qualificationData?.school,
+        certificate: qualificationData?.imageFile,
+      },
+    ],
+    challenges: qualificationData?.challenges,
+    keyPositives: qualificationData?.key_points,
+    doDifferently: qualificationData?.differentAction,
+  };
+
   const handleSubmit = () => {
-    onOpenStatusModal();
+    mutate(payload);
   };
 
   const {
@@ -197,7 +234,11 @@ const QualificationPreview = () => {
           </Box>
 
           <Flex mt="3.75rem" align="center" justify="center">
-            <CustomButton maxW="26.6rem" handleClick={() => handleSubmit()}>
+            <CustomButton
+              maxW="26.6rem"
+              isLoading={isLoading}
+              handleClick={() => handleSubmit()}
+            >
               Save
             </CustomButton>
           </Flex>

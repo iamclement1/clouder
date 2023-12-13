@@ -8,30 +8,25 @@ import Seo from "@/components/common/SEO";
 
 import "react-toastify/dist/ReactToastify.css";
 import SidebarWithHeader from "@/components/common/Sidebar";
+import InactivityCheck from "@/components/common/IdleCheckModal";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // const pathname = usePathname();
-
-  // const showNavigation = [
-  //     "/dashboard",
-  //     "/about",
-  //     "/contact",
-  //     "/pricing",
-  // ].includes(pathname);
   return (
-    <>
+    <React.Fragment>
       <Seo templateTitle="Clouder" />
 
       <SidebarWithHeader passedActive="/dashboard">
+        <InactivityCheck />
+
         {children}
       </SidebarWithHeader>
 
       {/* back top button */}
       <BackToTop />
-    </>
+    </React.Fragment>
   );
 }

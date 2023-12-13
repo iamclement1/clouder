@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useMemo, useState } from "react";
 
 export type QualificationData = {
   degree: string;
@@ -65,6 +65,7 @@ export const QualificationProvider = ({ children }: Props) => {
       differentAction: "",
     },
   );
+
   const handleFormSteps = (value: number) => {
     setFormSteps(value);
   };
@@ -91,18 +92,32 @@ export const QualificationProvider = ({ children }: Props) => {
       differentAction: "",
     });
   };
-  const passedValue = {
-    formSteps,
-    handleFormSteps,
-    fillForm,
-    handleFillForm,
-    qualificationData,
-    handleQualificationData,
-    preview,
-    handlePreview,
-    totalData,
-    handleTotalData,
-  };
+  const passedValue = useMemo(
+    () => ({
+      formSteps,
+      handleFormSteps,
+      fillForm,
+      handleFillForm,
+      qualificationData,
+      handleQualificationData,
+      preview,
+      handlePreview,
+      totalData,
+      handleTotalData,
+    }),
+    [
+      formSteps,
+      handleFormSteps,
+      fillForm,
+      handleFillForm,
+      qualificationData,
+      handleQualificationData,
+      preview,
+      handlePreview,
+      totalData,
+      handleTotalData,
+    ],
+  );
 
   return (
     <QualificationContext.Provider value={passedValue}>

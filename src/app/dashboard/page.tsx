@@ -1,5 +1,4 @@
 "use client";
-import InactivityCheck from "@/components/common/IdleCheckModal";
 import PageLoader from "@/components/common/PageLoader";
 import Typography from "@/components/common/Typograph";
 import AdminSupport from "@/components/dashboard/AdminSupport";
@@ -24,7 +23,6 @@ const Dashboard = () => {
 
   return (
     <Box>
-      <InactivityCheck />
       <Box pb="3.23rem">
         {/* Greetings section */}
         <Flex align="center" justify={"space-between"} gap="1rem">

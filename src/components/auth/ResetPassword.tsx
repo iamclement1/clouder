@@ -9,7 +9,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import axios from "@/utils/axiosInstance";
 import { useModal } from "@/context/ModalContext";
-import { toast } from "react-toastify";
 
 interface FormValues {
   password: string;
@@ -43,9 +42,16 @@ const ResetPassword: React.FC = () => {
     },
     onError: (error: { response: { data: { message: string } } }) => {
       const errorMsg = error.response.data.message;
-      toast.error(errorMsg, {
-        theme: "dark",
+      openModal({
+        type: "error",
+        message: errorMsg,
+        title: "Error while resetting password",
+        buttonType: "fill",
+        buttonText: "Continue",
       });
+      // toast.error(errorMsg, {
+      //   theme: "dark",
+      // });
     },
     // onError: (error: AxiosError) => {
     //   if (error.response) {

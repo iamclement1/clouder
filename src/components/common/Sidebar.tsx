@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   IconButton,
   // Avatar,
@@ -39,10 +39,9 @@ import { FaRegEnvelope } from "react-icons/fa";
 
 import SearchBox from "../dashboard/navigation/SearchBox";
 import UserImage from "../dashboard/navigation/UserImage";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Share from "../modals/Share";
 import useProfile from "@/hooks/useProfile";
-import { getStorageAuthItems } from "@/utils/lib";
 
 interface SidebarWithHeaderProps {
   passedActive: string;
@@ -197,12 +196,6 @@ const NavItem = ({
   const handleRouteChange: RouteChangeHandler = (newRoute) => {
     router.push(newRoute);
   };
-
-  useEffect(() => {
-    const { token } = getStorageAuthItems();
-
-    if (!token) return redirect("/auth/login");
-  }, []);
 
   const handleShowSubNav = () => {
     setShowSubNav(!showSubNav);

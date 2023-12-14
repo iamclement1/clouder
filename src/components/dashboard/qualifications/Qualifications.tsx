@@ -1,14 +1,24 @@
 import Typography from "@/components/common/Typograph";
 import { Box, Flex, Icon, ListItem, OrderedList, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 import QualificationForm from "./QualificationForm";
 import { useQualification } from "@/context/QualificationProvider";
 import CustomButton from "@/components/common/CustomButton";
 import QualificationPreview from "./QualificationPreview";
+import useQualifications from "@/hooks/useQualification";
 
 const Qualifications = () => {
   const { fillForm, handleFillForm, preview, totalData } = useQualification();
+
+  const { data } = useQualifications();
+  const qualification = data?.data?.data;
+
+  useEffect(() => {
+    if (qualification) {
+      console.log(qualification);
+    }
+  });
 
   return (
     <Box>

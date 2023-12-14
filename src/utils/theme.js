@@ -33,6 +33,7 @@ const colors = {
   black_1: "#222",
   black_2: "#141416",
   red_1: "#F00",
+  red_2: "#FA3636",
   orange_1: "#FE7E7D",
   pink_1: "#D04ED6",
   danger_1: "#DE1A1A",

@@ -63,6 +63,7 @@ const Courses = () => {
                       {totalData.map((item) => {
                         return (
                           <ListItem
+                            mb={"1rem"}
                             color="grey_1"
                             key={item.school}
                             fontSize="1.125rem"
@@ -71,7 +72,14 @@ const Courses = () => {
                             alignItems="center"
                             justifyContent={"space-between"}
                           >
-                            <Text>{`${item.school}
+                            <Text
+                              onClick={() =>
+                                router.push(
+                                  `/dashboard/courses/course_aquired/${item.certificateNo}`,
+                                )
+                              }
+                              cursor={"pointer"}
+                            >{`${item.school}
                                                             `}</Text>
 
                             <Text
@@ -83,13 +91,8 @@ const Courses = () => {
                               p="0.8rem 1rem"
                               rounded={"1.35938rem"}
                               cursor="pointer"
-                              onClick={() => {
-                                router.push(
-                                  "/dashboard/courses/request_feed_back",
-                                );
-                              }}
-                              // as="a"
-                              // href="/request_feed_back"
+                              as="a"
+                              href={`/dashboard/courses/request_feed_back/${item.year}`}
                             >
                               Request feedback
                             </Text>

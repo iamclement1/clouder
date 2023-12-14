@@ -239,7 +239,7 @@ const BasicInfor = () => {
           {/* What i would have done differently  */}
           <Box>
             <Text fontWeight={"600"} fontSize={"1.5rem"} mb="1rem">
-              Key Positives
+              What i would have done differently
             </Text>
 
             <Stack

@@ -15,6 +15,7 @@ const DifferentAction = () => {
     handlePreview,
     handleFormSteps,
     handleFillForm,
+    handleTotalData,
   } = useCourses();
 
   const text = useRef("");
@@ -65,20 +66,21 @@ const DifferentAction = () => {
   };
 
   const handleBlur = () => {
-    if (text.current !== "" || text.current.length >= 6) {
+    if (text.current !== "") {
+      handleCoursesData({
+        ...coursesData,
+        differentAction: text.current,
+      });
       setErr(false);
     } else {
       setErr(true);
     }
   };
 
-  const handleSubmit = (values: string) => {
+  const handleSubmit = () => {
     if (text.current !== "") {
       setErr(false);
-      handleCoursesData({
-        ...coursesData,
-        differentAction: values,
-      });
+      handleTotalData();
       handleFormSteps(1);
       handleFillForm(false);
     } else {
@@ -125,7 +127,7 @@ const DifferentAction = () => {
         <CustomButton
           w="100%"
           // isLoading={isLoading}
-          handleClick={() => handleSubmit(text.current)}
+          handleClick={handleSubmit}
         >
           Save
         </CustomButton>

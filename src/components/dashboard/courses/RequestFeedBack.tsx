@@ -1,173 +1,167 @@
-"use client";
-
-import { Box } from "@chakra-ui/react";
-import React from "react";
-
-// import CustomButton from "@/components/common/CustomButton";
-// import CustomInput from "@/components/common/CustomInput";
-// import { requestFeedBackDataProps } from "@/context/CoursesProvider";
-// import { Box, Flex, Stack, Text } from "@chakra-ui/react";
-// import { Form, Formik } from "formik";
-// import React, { useRef, useState } from "react";
-// import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
+import CustomButton from "@/components/common/CustomButton";
+import CustomInput from "@/components/common/CustomInput";
+import { requestFeedBackDataProps } from "@/context/CoursesProvider";
+import { Box, Flex, Stack, Text } from "@chakra-ui/react";
+import { Form, Formik } from "formik";
+import { useRouter } from "next/navigation";
+import React, { useRef, useState } from "react";
+import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
 const RequestFeedBack = () => {
-  // const [err, setErr] = useState<boolean>(false);
-  // const [bodyTextState, setBodyTextState] = useState<string>("");
+  const [err, setErr] = useState<boolean>(false);
 
-  // const text = useRef("");
-  // text.current = "";
-  // const handleChange = (event: ContentEditableEvent) => {
-  //     text.current = event.target.value;
-  //     if (text.current !== "") {
-  //         setErr(false);
-  //     } else {
-  //         setErr(true);
-  //     }
-  // };
+  const navigate = useRouter();
+  const text = useRef("");
+  text.current = "";
+  const handleChange = (event: ContentEditableEvent) => {
+    text.current = event.target.value;
+    if (text.current !== "") {
+      setErr(false);
+    } else {
+      setErr(true);
+    }
+  };
 
-  // const handleBlur = () => {
-  //     // console.log(text.current);
-  //     if (text.current !== "") {
-  //         setErr(false);
-  //         setBodyTextState(text.current);
-  //     } else {
-  //         setErr(true);
-  //     }
-  // };
-  // const handleSubmitBodyText = (values: string, submitFunc: () => void) => {
-  //     console.log(values);
-
-  //     if (text.current !== "") {
-  //         setErr(false);
-  //         setBodyText(values);
-  //         submitFunc();
-  //     } else {
-  //         setErr(true);
-  //         setBodyText("");
-  //     }
-  // };
+  const handleBlur = () => {
+    if (text.current !== "") {
+      setErr(false);
+    } else {
+      setErr(true);
+    }
+  };
 
   return (
     <Box>
-      <Box>
-        {/* <Formik
-                    initialValues={{
-                        fullName: "",
-                        title: "",
-                        role: "",
-                        email: "",
-                        bodyText: bodyTextState,
-                    }}
-                    validate={(values) => {
-                        const errors: Partial<requestFeedBackDataProps> = {};
+      <Text fontWeight={600} fontSize={"1.5rem"}>
+        Request feedback
+      </Text>
 
-                        if (!values.fullName) {
-                            errors.fullName = "Required";
-                        }
-                        if (!values.title) {
-                            errors.title = "Required";
-                        }
+      <Box
+        bgColor={"white"}
+        mt="1.89rem"
+        py="3.25rem"
+        px={["1rem", "2rem", null, null, "4rem"]}
+        rounded={"0.9375rem"}
+      >
+        <Formik
+          initialValues={{
+            fullName: "",
+            title: "",
+            role: "",
+            email: "",
+            bodyText: "",
+          }}
+          validate={(values) => {
+            const errors: Partial<requestFeedBackDataProps> = {};
 
-                        if (!values.role) {
-                            errors.role = "Required";
-                        }
-                        if (!values.email) {
-                            errors.email = "Required";
-                        }
-                        if (!values.bodyText) {
-                            errors.bodyText = "Required";
-                            setErr(true);
-                        } else {
-                            setErr(false);
-                        }
+            if (!values.fullName) {
+              errors.fullName = "Required";
+            }
+            if (!values.title) {
+              errors.title = "Required";
+            }
 
-                        console.log(err);
+            if (!values.role) {
+              errors.role = "Required";
+            }
+            if (!values.email) {
+              errors.email = "Required";
+            }
+            if (err) {
+              setErr(true);
+              errors.bodyText = "Required";
+            } else {
+              setErr(false);
+            }
 
-                        return errors;
-                    }}
-                    onSubmit={(values) => {
-                        console.log(values);
-                        console.log(bodyTextState);
-                    }}
-                    // validateOnChange
+            console.log(err);
+
+            return errors;
+          }}
+          onSubmit={(values) => {
+            console.log(values);
+            values.bodyText = text.current;
+            navigate.push("/dashboard/courses");
+          }}
+          // validateOnChange
+        >
+          {({ handleSubmit, errors, touched }) => (
+            <Form onSubmit={handleSubmit}>
+              <Box>
+                <CustomInput
+                  label="Full name"
+                  name="fullName"
+                  type="number"
+                  errors={errors}
+                  touched={touched}
+                />
+                <CustomInput
+                  label="Title"
+                  name="title"
+                  type="number"
+                  errors={errors}
+                  touched={touched}
+                />
+                <CustomInput
+                  label="Role"
+                  name="role"
+                  type="number"
+                  errors={errors}
+                  touched={touched}
+                />{" "}
+                <CustomInput
+                  label="Email"
+                  name="email"
+                  type="email"
+                  errors={errors}
+                  touched={touched}
+                />
+              </Box>
+
+              <Stack mt="1rem">
+                <Box>
+                  <Text
+                    fontSize="0.84375rem"
+                    color="grey_5"
+                    fontWeight={"normal"}
+                    mb="1rem"
+                  >
+                    Body Text{" "}
+                  </Text>
+                  <ContentEditable
+                    className={`texteditor ${err ? "errMode" : ""}`}
+                    html={text.current}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                  />
+                  {err && (
+                    <Text
+                      color="red"
+                      fontSize="12px"
+                      mt="2"
+                      px="2px"
+                      fontWeight="500"
+                    >
+                      Required
+                    </Text>
+                  )}
+                </Box>
+              </Stack>
+              <Flex maxW="35rem" mx="auto" gap="1.12rem" mt="3rem">
+                <CustomButton
+                  bgColor={"transparent"}
+                  border="1px"
+                  borderColor="grey_1"
+                  color="grey_1"
+                  handleClick={() => navigate.push("/dashboard/courses")}
                 >
-                    {({ handleSubmit, errors, touched }) => (
-                        <Form onSubmit={handleSubmit}>
-                            <Box>
-                                <CustomInput
-                                    label="Full name"
-                                    name="fullName"
-                                    type="number"
-                                    errors={errors}
-                                    touched={touched}
-                                />
-                                <CustomInput
-                                    label="Title"
-                                    name="title"
-                                    type="number"
-                                    errors={errors}
-                                    touched={touched}
-                                />
-                                <CustomInput
-                                    label="Role"
-                                    name="role"
-                                    type="number"
-                                    errors={errors}
-                                    touched={touched}
-                                />{" "}
-                                <CustomInput
-                                    label="Email"
-                                    name="email"
-                                    type="email"
-                                    errors={errors}
-                                    touched={touched}
-                                />
-                            </Box>
-
-                            <Stack>
-                                <Box>
-                                    <ContentEditable
-                                        className={`texteditor ${
-                                            err ? "errMode" : ""
-                                        }`}
-                                        html={text.current}
-                                        // onBlur={handleBlur}
-                                        onChange={handleChange}
-                                    />
-                                    {err && (
-                                        <Text
-                                            color="red"
-                                            fontSize="12px"
-                                            mt="2"
-                                            px="2px"
-                                            fontWeight="500"
-                                        >
-                                            Required
-                                        </Text>
-                                    )}
-                                </Box>
-                            </Stack>
-                            <Flex
-                                maxW="35rem"
-                                mx="auto"
-                                gap="1.12rem"
-                                mt="3rem"
-                            >
-                                <CustomButton
-                                    bgColor={"transparent"}
-                                    border="1px"
-                                    borderColor="grey_1"
-                                    color="grey_1"
-                                    //   handleClick={() => handleFillForm(false)}
-                                >
-                                    Cancel
-                                </CustomButton>
-                                <CustomButton type="submit">Next</CustomButton>
-                            </Flex>
-                        </Form>
-                    )}
-                </Formik> */}
+                  Cancel
+                </CustomButton>
+                <CustomButton type="submit">Next</CustomButton>
+              </Flex>
+            </Form>
+          )}
+        </Formik>
       </Box>
     </Box>
   );

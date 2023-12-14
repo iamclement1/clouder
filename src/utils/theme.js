@@ -33,6 +33,8 @@ const colors = {
   red_1: "#F00",
   orange_1: "#FE7E7D",
   pink_1: "#D04ED6",
+  danger_1: "#DE1A1A",
+  danger_2: "#FFE4E3",
 };
 
 export const theme = extendTheme({ colors });

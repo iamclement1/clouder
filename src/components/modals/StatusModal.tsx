@@ -10,13 +10,17 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import CustomButton from "../common/CustomButton";
-import { useQualification } from "@/context/QualificationProvider";
+// import { useQualification } from "@/context/QualificationProvider";
 
 type StatusModalProps = {
   isOpen: boolean;
   onOpen?: () => void;
   onClose: () => void;
   status: string;
+  handleTotalData: () => void;
+  handleFormSteps: (value: number) => void;
+  handleFillForm: (value: boolean) => void;
+  handlePreview: (value: boolean) => void;
 };
 
 const StatusModal: React.FC<StatusModalProps> = ({
@@ -24,14 +28,18 @@ const StatusModal: React.FC<StatusModalProps> = ({
 
   onClose,
   status = "success",
+  handleTotalData,
+  handleFormSteps,
+  handleFillForm,
+  handlePreview,
 }) => {
-  const {
-    handleFormSteps,
-    handleFillForm,
-    // qualificationData,
-    handlePreview,
-    handleTotalData,
-  } = useQualification();
+  // const {
+  //   handleFormSteps,
+  //   handleFillForm,
+  //   // qualificationData,
+  //   handlePreview,
+  //   handleTotalData,
+  // } = useQualification();
 
   const handleSucess = () => {
     handleTotalData();

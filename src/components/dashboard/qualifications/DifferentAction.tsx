@@ -22,6 +22,7 @@ const DifferentAction = () => {
     handlePreview,
     handleFormSteps,
     handleFillForm,
+    handleTotalData,
   } = useQualification();
 
   const text = useRef("");
@@ -74,7 +75,11 @@ const DifferentAction = () => {
   };
 
   const handleBlur = () => {
-    if (text.current !== "" || text.current.length >= 6) {
+    if (text.current !== "") {
+      handleQualificationData({
+        ...qualificationData,
+        differentAction: text.current,
+      });
       setErr(false);
     } else {
       setErr(true);
@@ -82,22 +87,18 @@ const DifferentAction = () => {
   };
 
   const handlePayload = () => {
+    console.log(qualificationData);
     mutate(payload);
   };
 
-  const handleSubmit = (values: string) => {
+  const handleSubmit = () => {
     if (text.current !== "") {
       setErr(false);
-      handleQualificationData({
-        ...qualificationData,
-        differentAction: values,
-      });
+
       handlePayload();
     } else {
       setErr(true);
     }
-
-    console.log(qualificationData);
   };
 
   const {
@@ -108,11 +109,11 @@ const DifferentAction = () => {
 
   const onPreview = (values: string) => {
     if (text.current !== "") {
-      setErr(false);
       handleQualificationData({
         ...qualificationData,
         differentAction: values,
       });
+      setErr(false);
       handlePreview(true);
     } else {
       setErr(true);
@@ -141,11 +142,7 @@ const DifferentAction = () => {
       </Box>
 
       <Flex maxW="35rem" mx="auto" gap="1.12rem" mt="3rem">
-        <CustomButton
-          w="100%"
-          isLoading={isLoading}
-          handleClick={() => handleSubmit(text.current)}
-        >
+        <CustomButton w="100%" isLoading={isLoading} handleClick={handleSubmit}>
           Save
         </CustomButton>
         <CustomButton
@@ -164,6 +161,10 @@ const DifferentAction = () => {
         onOpen={onOpenStatusModal}
         onClose={onCloseStatusModal}
         status="success"
+        handleTotalData={handleTotalData}
+        handleFormSteps={handleFormSteps}
+        handleFillForm={handleFillForm}
+        handlePreview={handlePreview}
       />
     </Box>
   );

@@ -28,11 +28,16 @@ const colors = {
   rgba_3: "rgba(51, 51, 51, 0.30)",
   rgba_4: "rgba(3, 169, 244, 0.25)",
   rgba_5: "rgba(51, 51, 51, 0.50)",
+  rgba_6: "rgba(51, 51, 51, 0.40)",
+
   black_1: "#222",
   black_2: "#141416",
   red_1: "#F00",
+  red_2: "#FA3636",
   orange_1: "#FE7E7D",
   pink_1: "#D04ED6",
+  danger_1: "#DE1A1A",
+  danger_2: "#FFE4E3",
 };
 
 export const theme = extendTheme({ colors });

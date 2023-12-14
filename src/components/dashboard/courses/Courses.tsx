@@ -1,35 +1,26 @@
 import Typography from "@/components/common/Typograph";
 import { Box, Flex, Icon, ListItem, OrderedList, Text } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
-import QualificationForm from "./QualificationForm";
-import { useQualification } from "@/context/QualificationProvider";
+
 import CustomButton from "@/components/common/CustomButton";
-import QualificationPreview from "./QualificationPreview";
-import useQualifications from "@/hooks/useQualification";
+import { useCourses } from "@/context/CoursesProvider";
+import CoursesPreview from "./CoursesPreview";
+import CoursesForm from "./CoursesForm";
+import { useRouter } from "next/navigation";
 
-const Qualifications = () => {
-  const { fillForm, handleFillForm, preview, totalData } = useQualification();
-
-  const { data } = useQualifications();
-  const qualification = data?.data?.data;
-
-  useEffect(() => {
-    if (qualification) {
-      console.log(qualification);
-    }
-  });
-
+const Courses = () => {
+  const { fillForm, handleFillForm, preview, totalData } = useCourses();
+  const router = useRouter();
   return (
     <Box>
-      {/* <SidebarWithHeader passedActive="/dashboard/qualifications"> */}
       <Box pb="3rem">
         {preview ? (
-          <QualificationPreview />
+          <CoursesPreview />
         ) : (
           <>
             <Flex align="center" justify="space-between" gap="1rem">
-              <Typography variant="heading2">Qualifications</Typography>
+              <Typography variant="heading2">Courses</Typography>
               {totalData.length >= 1 && fillForm !== true && (
                 <CustomButton
                   bgColor={"transparent"}
@@ -45,7 +36,7 @@ const Qualifications = () => {
               )}
             </Flex>{" "}
             {fillForm ? (
-              <QualificationForm />
+              <CoursesForm />
             ) : (
               <Box
                 mt="1rem"
@@ -64,16 +55,47 @@ const Qualifications = () => {
                       bgColor="grey_14"
                     >
                       <Text fontSize="1.125rem" fontWeight="700">
-                        Qualification Entries
+                        Courses Entries
                       </Text>
                     </Flex>
 
                     <OrderedList mt="2.2rem">
                       {totalData.map((item) => {
                         return (
-                          <ListItem color="grey_1" key={item.school}>
-                            {`${item.school}
-                                                            `}
+                          <ListItem
+                            mb={"1rem"}
+                            color="grey_1"
+                            key={item.school}
+                            fontSize="1.125rem"
+                            fontWeight="600"
+                            display="flex"
+                            alignItems="center"
+                            justifyContent={"space-between"}
+                          >
+                            <Text
+                              onClick={() =>
+                                router.push(
+                                  `/dashboard/courses/course_aquired/${item.certificateNo}`,
+                                )
+                              }
+                              cursor={"pointer"}
+                            >{`${item.school}
+                                                            `}</Text>
+
+                            <Text
+                              bgColor="danger_2"
+                              fontSize="0.75rem"
+                              color="danger_1"
+                              fontWeight="normal"
+                              w="fit-content"
+                              p="0.8rem 1rem"
+                              rounded={"1.35938rem"}
+                              cursor="pointer"
+                              as="a"
+                              href={`/dashboard/courses/request_feed_back/${item.year}`}
+                            >
+                              Request feedback
+                            </Text>
                           </ListItem>
                         );
                       })}
@@ -96,7 +118,7 @@ const Qualifications = () => {
                       fontWeight="600"
                       onClick={() => handleFillForm(true)}
                     >
-                      <Icon as={MdOutlineAddCircleOutline} /> Add qualifications
+                      <Icon as={MdOutlineAddCircleOutline} /> Add Courses
                     </Flex>
                   </Flex>
                 )}
@@ -105,8 +127,7 @@ const Qualifications = () => {
           </>
         )}
       </Box>
-      {/* </SidebarWithHeader> */}
     </Box>
   );
 };
-export default Qualifications;
+export default Courses;

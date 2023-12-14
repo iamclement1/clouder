@@ -1,66 +1,59 @@
 import CustomButton from "@/components/common/CustomButton";
 import Typography from "@/components/common/Typograph";
 import StatusModal from "@/components/modals/StatusModal";
-import { useModal } from "@/context/ModalContext";
+import { useCourses } from "@/context/CoursesProvider";
 
-import { useQualification } from "@/context/QualificationProvider";
-import api from "@/utils/axiosInstance";
-import { Payload } from "@/utils/types";
 import { Box, Flex, Text, Icon, Stack, useDisclosure } from "@chakra-ui/react";
-import { useMutation } from "@tanstack/react-query";
+
 import React from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import { TbEdit } from "react-icons/tb";
-const QualificationPreview = () => {
-  const { openModal } = useModal();
-
+// import { toast } from "react-toastify";
+const CoursesPreview = () => {
   const {
     handleFormSteps,
     handleFillForm,
-    qualificationData,
+    coursesData,
     handlePreview,
     handleTotalData,
-  } = useQualification();
+  } = useCourses();
 
-  const { mutate, isLoading } = useMutation({
-    mutationFn: (qualifications: Payload) => {
-      return api.post("/qualifications", qualifications);
-    },
-    onSuccess: ({ data }) => {
-      console.log(data);
-      if (data) {
-        // toast.success("Qualifications Submitted Successfully")
-        onOpenStatusModal();
-      }
-    },
-    onError: (error: { response: { data: { error: string } } }) => {
-      const errorMsg = error.response.data.error;
-      openModal({
-        type: "error",
-        message: errorMsg,
-        title: "Error Submitting Qualification",
-        buttonType: "fill",
-        buttonText: "Continue",
-      });
-    },
-  });
+  // const { mutate, isLoading } = useMutation({
+  //   mutationFn: (qualifications: Payload) => {
+  //     return api.post("/qualifications", qualifications);
+  //   },
+  //   onSuccess: ({ data }) => {
+  //     console.log(data);
+  //     if (data) {
+  //       // toast.success("Qualifications Submitted Successfully")
+  //       onOpenStatusModal();
+  //     }
+  //   },
+  //   onError: (error: { response: { data: { error: string } } }) => {
+  //     const errorMsg = error.response.data.error;
+  //     toast.error(errorMsg, {
+  //       theme: "dark",
+  //     });
+  //   },
+  // });
 
-  const payload = {
-    education: [
-      {
-        degree: qualificationData?.degree,
-        year: qualificationData?.year,
-        institution: qualificationData?.school,
-        certificate: qualificationData?.imageFile,
-      },
-    ],
-    challenges: qualificationData?.challenges,
-    keyPositives: qualificationData?.key_points,
-    doDifferently: qualificationData?.differentAction,
-  };
+  // const payload = {
+  //   education: [
+  //     {
+  //       degree: coursesData?.degree,
+  //       year: coursesData?.year,
+  //       institution: coursesData?.school,
+  //       certificate: coursesData?.imageFile,
+  //     },
+  //   ],
+  //   challenges: coursesData?.challenges,
+  //   keyPositives: coursesData?.key_points,
+  //   doDifferently: coursesData?.differentAction,
+  // };
 
   const handleSubmit = () => {
-    mutate(payload);
+    // mutate(payload);
+    onOpenStatusModal();
   };
 
   const {
@@ -98,7 +91,7 @@ const QualificationPreview = () => {
         >
           <Flex align="center" justify="space-between">
             <Text fontSize="1.5rem" fontWeight="700">
-              Qualifications
+              Courses
             </Text>
             <Icon
               as={TbEdit}
@@ -113,9 +106,9 @@ const QualificationPreview = () => {
           </Flex>
           <Box mt="1.88rem">
             <Stack>
-              <Flex gap="0.38rem">
-                <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
-                  Institution:
+              <Flex gap="0.38rem" align="center">
+                <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
+                  Course title:
                 </Text>
 
                 <Text
@@ -123,31 +116,43 @@ const QualificationPreview = () => {
                   fontWeight="600"
                   // color="grey_1"
                 >
-                  {qualificationData?.school}
+                  {coursesData?.courseTitle}
                 </Text>
               </Flex>
-              <Flex gap="0.38rem">
-                <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
-                  Degree:
+              <Flex gap="0.38rem" align="center">
+                <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
+                  Institution:
                 </Text>
                 <Text
                   fontSize="1.125rem"
                   fontWeight="600"
                   // color="grey_1"
                 >
-                  {qualificationData?.degree}
+                  {coursesData?.school}
                 </Text>
               </Flex>
-              <Flex gap="0.38rem">
-                <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
-                  Year of graduation:
+              <Flex gap="0.38rem" align="center">
+                <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
+                  Year:{" "}
                 </Text>
                 <Text
                   fontSize="1.125rem"
                   fontWeight="600"
                   // color="grey_1"
                 >
-                  {qualificationData?.year}
+                  {coursesData?.year}
+                </Text>
+              </Flex>{" "}
+              <Flex gap="0.38rem" align="center">
+                <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
+                  Certificate no:
+                </Text>
+                <Text
+                  fontSize="1.125rem"
+                  fontWeight="600"
+                  // color="grey_1"
+                >
+                  {coursesData?.certificateNo}
                 </Text>
               </Flex>
             </Stack>
@@ -172,10 +177,10 @@ const QualificationPreview = () => {
             </Flex>
             <Box mt="1.88rem">
               <Stack>
-                {/* <Flex>{qualificationData.challenges}</Flex> */}
+                {/* <Flex>{coursesData.challenges}</Flex> */}
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: qualificationData?.challenges,
+                    __html: coursesData?.challenges,
                   }}
                 />
               </Stack>
@@ -201,11 +206,11 @@ const QualificationPreview = () => {
             </Flex>
             <Box mt="1.88rem">
               <Stack>
-                {/* <Flex>{qualificationData.key_points}</Flex> */}
+                {/* <Flex>{coursesData.key_points}</Flex> */}
 
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: qualificationData?.key_points,
+                    __html: coursesData?.key_points,
                   }}
                 />
               </Stack>
@@ -232,12 +237,12 @@ const QualificationPreview = () => {
             <Box mt="1.88rem">
               <Stack>
                 {/* <Flex>
-                                    {qualificationData?.differentAction}
+                                    {coursesData?.differentAction}
                                 </Flex> */}
 
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: qualificationData?.differentAction,
+                    __html: coursesData?.differentAction,
                   }}
                 />
               </Stack>
@@ -247,7 +252,7 @@ const QualificationPreview = () => {
           <Flex mt="3.75rem" align="center" justify="center">
             <CustomButton
               maxW="26.6rem"
-              isLoading={isLoading}
+              // isLoading={isLoading}
               handleClick={() => handleSubmit()}
             >
               Save
@@ -270,4 +275,4 @@ const QualificationPreview = () => {
   );
 };
 
-export default QualificationPreview;
+export default CoursesPreview;

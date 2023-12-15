@@ -10,11 +10,10 @@ import { useMutation } from "@tanstack/react-query";
 import api from "@/utils/axiosInstance";
 import { useRouter } from "next/navigation";
 import Seo from "../common/SEO";
-import { useModal } from "@/context/ModalContext";
+import { toast } from "react-toastify";
 
 const Login: React.FC = () => {
   const router = useRouter();
-  const { openModal } = useModal();
 
   const { mutate, isLoading } = useMutation({
     mutationFn: (user: LoginFormValues) => {
@@ -25,27 +24,16 @@ const Login: React.FC = () => {
       const refreshToken = data.refresh;
       sessionStorage.setItem("token", userToken);
       sessionStorage.setItem("refreshToken", refreshToken);
-      openModal({
-        type: "success",
-        message: "Login Successfully",
-        title: "Successful Login",
-        buttonType: "fill",
-        buttonText: "Continue",
+      toast.success("Login Successful", {
+        theme: "dark",
       });
       router.push("/dashboard");
     },
     onError: (error: { response: { data: { error: string } } }) => {
       const errorMsg = error.response.data.error;
-      openModal({
-        type: "error",
-        message: errorMsg,
-        title: "Error while signing in",
-        buttonType: "fill",
-        buttonText: "Continue",
+      toast.error(errorMsg, {
+        theme: "dark",
       });
-      // toast.error(errorMsg, {
-      //   theme: "dark",
-      // });
     },
   });
 

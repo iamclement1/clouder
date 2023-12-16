@@ -43,18 +43,20 @@ const InactivityCheck: React.FC = () => {
     },
   });
 
-  const inactivityTime = 30000; // 30 seconds in milliseconds
-  let inactivityTimer: NodeJS.Timeout;
+  const inactivityTime = 600000;
+  let inactivityTimer: NodeJS.Timeout | null = null;
 
   const resetInactivityTimer = () => {
-    clearTimeout(inactivityTimer);
+    if (inactivityTimer) {
+      clearTimeout(inactivityTimer);
+    }
     inactivityTimer = setTimeout(() => {
       onOpen();
     }, inactivityTime);
   };
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token"); // Check for the token in session storage
+    const token = sessionStorage.getItem("token");
     if (token) {
       resetInactivityTimer();
 
@@ -62,7 +64,9 @@ const InactivityCheck: React.FC = () => {
       document.addEventListener("keypress", resetInactivityTimer);
 
       return () => {
-        clearTimeout(inactivityTimer);
+        if (inactivityTimer) {
+          clearTimeout(inactivityTimer);
+        }
         document.removeEventListener("mousemove", resetInactivityTimer);
         document.removeEventListener("keypress", resetInactivityTimer);
       };

@@ -13,7 +13,6 @@ const Qualifications = () => {
   const { fillForm, handleFillForm, preview } = useQualification();
 
   const { data: qualificationsData, isLoading } = useQualifications();
-
   const qualification: QualificationProps[] = qualificationsData?.data?.data;
 
   if (isLoading) return <Box>Please wait, fetching your qualifications...</Box>;
@@ -67,17 +66,14 @@ const Qualifications = () => {
                     </Flex>
 
                     <OrderedList mt="2.2rem">
-                      {qualification?.map((item) => {
-                        return (
-                          <ListItem
-                            color="grey_1"
-                            key={item?.education[0]?.institution}
-                          >
-                            {`${item.education[0]?.institution}
-                                                            `}
+                      {qualification
+                        ?.slice() // Create a copy of the array to avoid mutating the original array
+                        .reverse() // Reverse the array to display the recent data first
+                        .map((item) => (
+                          <ListItem color="grey_1" key={item?.id}>
+                            {`${item.education[0]?.institution}`}
                           </ListItem>
-                        );
-                      })}
+                        ))}
                     </OrderedList>
                   </Box>
                 ) : (

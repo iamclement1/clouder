@@ -8,10 +8,19 @@ import { useCourses } from "@/context/CoursesProvider";
 import CoursesPreview from "./CoursesPreview";
 import CoursesForm from "./CoursesForm";
 import { useRouter } from "next/navigation";
+import useCourse from "@/hooks/useCourses";
+import { CourseItem } from "@/utils/types";
 
 const Courses = () => {
-  const { fillForm, handleFillForm, preview, totalData } = useCourses();
+  const { fillForm, handleFillForm, preview } = useCourses();
+
   const router = useRouter();
+
+  const { data: course, isLoading } = useCourse();
+  const courses: CourseItem[] = course?.data;
+
+  if (isLoading) return <Box> Please wait, fetching courses... </Box>;
+
   return (
     <Box>
       <Box pb="3rem">
@@ -21,7 +30,7 @@ const Courses = () => {
           <>
             <Flex align="center" justify="space-between" gap="1rem">
               <Typography variant="heading2">Courses</Typography>
-              {totalData.length >= 1 && fillForm !== true && (
+              {courses?.length >= 1 && fillForm !== true && (
                 <CustomButton
                   bgColor={"transparent"}
                   border="1px"
@@ -44,7 +53,7 @@ const Courses = () => {
                 minH="80vh"
                 borderRadius="0.46875rem"
               >
-                {totalData.length >= 1 ? (
+                {courses?.length >= 1 ? (
                   <Box py="2.44rem" px="2.39rem">
                     <Flex
                       justify="center"
@@ -60,7 +69,7 @@ const Courses = () => {
                     </Flex>
 
                     <OrderedList mt="2.2rem">
-                      {totalData.map((item) => {
+                      {courses?.map((item) => {
                         return (
                           <ListItem
                             mb={"1rem"}
@@ -75,11 +84,11 @@ const Courses = () => {
                             <Text
                               onClick={() =>
                                 router.push(
-                                  `/dashboard/courses/course_aquired/${item.certificateNo}`,
+                                  `/dashboard/courses/course_aquired/${item?.id}`,
                                 )
                               }
                               cursor={"pointer"}
-                            >{`${item.school}
+                            >{`${item.institution}
                                                             `}</Text>
 
                             <Text

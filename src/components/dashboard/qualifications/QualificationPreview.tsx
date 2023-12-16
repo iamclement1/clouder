@@ -7,12 +7,14 @@ import { useQualification } from "@/context/QualificationProvider";
 import api from "@/utils/axiosInstance";
 import { Payload } from "@/utils/types";
 import { Box, Flex, Text, Icon, Stack, useDisclosure } from "@chakra-ui/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import { TbEdit } from "react-icons/tb";
+import { toast } from "react-toastify";
 const QualificationPreview = () => {
   const { openModal } = useModal();
+  const queryClient = useQueryClient();
 
   const {
     handleFormSteps,
@@ -29,8 +31,10 @@ const QualificationPreview = () => {
     onSuccess: ({ data }) => {
       console.log(data);
       if (data) {
-        // toast.success("Qualifications Submitted Successfully")
-        onOpenStatusModal();
+        toast.success("Qualification Submitted Successfully", {
+          theme: "dark",
+        });
+        queryClient.invalidateQueries({ queryKey: ["qualifications"] });
       }
     },
     onError: (error: { response: { data: { error: string } } }) => {

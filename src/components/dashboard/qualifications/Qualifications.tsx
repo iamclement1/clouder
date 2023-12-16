@@ -1,5 +1,14 @@
 import Typography from "@/components/common/Typograph";
-import { Box, Flex, Icon, ListItem, OrderedList, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Icon,
+  ListItem,
+  OrderedList,
+  Skeleton,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 import QualificationForm from "./QualificationForm";
@@ -15,7 +24,14 @@ const Qualifications = () => {
   const { data: qualificationsData, isLoading } = useQualifications();
   const qualification: QualificationProps[] = qualificationsData?.data?.data;
 
-  if (isLoading) return <Box>Please wait, fetching your qualifications...</Box>;
+  if (isLoading)
+    return (
+      <Stack>
+        <Skeleton height="50px" />
+        <Skeleton height="50px" />
+        <Skeleton height="50px" />
+      </Stack>
+    );
 
   return (
     <Box>

@@ -5,7 +5,15 @@ import UploadImage from "@/components/modals/UploadImage";
 import useProfile from "@/hooks/useProfile";
 import api from "@/utils/axiosInstance";
 import { ProfileFormValues } from "@/utils/types";
-import { Box, Flex, Image, Text, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Image,
+  Text,
+  Stack,
+  SkeletonCircle,
+  SkeletonText,
+} from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
@@ -18,9 +26,14 @@ const UpdateProfile: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const [uploadedImage, setUploadedImage] = React.useState<File | null>(null);
-  console.log(data);
 
-  if (isLoading) return <p>Fetching your information, please wait....</p>;
+  if (isLoading)
+    return (
+      <Box padding="6" boxShadow="sm" bg="white">
+        <SkeletonCircle size="10" alignItems={"center"} />
+        <SkeletonText mt="4" noOfLines={10} spacing="4" skeletonHeight="2" />
+      </Box>
+    );
 
   const userData = data?.data;
   // function to update user profile

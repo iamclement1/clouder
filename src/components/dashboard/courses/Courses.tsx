@@ -1,5 +1,14 @@
 import Typography from "@/components/common/Typograph";
-import { Box, Flex, Icon, ListItem, OrderedList, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Icon,
+  ListItem,
+  OrderedList,
+  Skeleton,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 
@@ -19,7 +28,14 @@ const Courses = () => {
   const { data: course, isLoading } = useCourse();
   const courses: CourseItem[] = course?.data;
 
-  if (isLoading) return <Box> Please wait, fetching courses... </Box>;
+  if (isLoading)
+    return (
+      <Stack>
+        <Skeleton height="50px" />
+        <Skeleton height="50px" />
+        <Skeleton height="50px" />
+      </Stack>
+    );
 
   return (
     <Box>

@@ -1,62 +1,64 @@
 import CustomButton from "@/components/common/CustomButton";
 import Typography from "@/components/common/Typograph";
 import StatusModal from "@/components/modals/StatusModal";
-import { useModal } from "@/context/ModalContext";
-
-import { useQualification } from "@/context/QualificationProvider";
+import { useCourses } from "@/context/CoursesProvider";
 import api from "@/utils/axiosInstance";
-import { Payload } from "@/utils/types";
 import { Box, Flex, Text, Icon, Stack, useDisclosure } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import { TbEdit } from "react-icons/tb";
-const QualificationPreview = () => {
-  const { openModal } = useModal();
+import { toast } from "react-toastify";
 
+const CoursesPreview = () => {
   const {
     handleFormSteps,
     handleFillForm,
-    qualificationData,
+    coursesData,
     handlePreview,
     handleTotalData,
-  } = useQualification();
+  } = useCourses();
+
+  type Payload = {
+    courseTitle: string;
+    institution: string;
+    year: string;
+    certificateNo: string;
+    challenges: string;
+    document: File | Blob | MediaSource | null;
+    keyPositives?: string;
+    doDifferently?: string;
+  };
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: (qualifications: Payload) => {
-      return api.post("/qualifications", qualifications);
+    mutationFn: (courses: Payload) => {
+      return api.post("/courses", courses);
     },
     onSuccess: ({ data }) => {
       console.log(data);
       if (data) {
-        // toast.success("Qualifications Submitted Successfully")
-        onOpenStatusModal();
+        toast.success("Course Submitted Successfully", {
+          theme: "dark",
+        });
       }
     },
     onError: (error: { response: { data: { error: string } } }) => {
       const errorMsg = error.response.data.error;
-      openModal({
-        type: "error",
-        message: errorMsg,
-        title: "Error Submitting Qualification",
-        buttonType: "fill",
-        buttonText: "Continue",
+      toast.error(errorMsg, {
+        theme: "dark",
       });
     },
   });
 
-  const payload = {
-    education: [
-      {
-        degree: qualificationData?.degree,
-        year: qualificationData?.year,
-        institution: qualificationData?.school,
-        certificate: qualificationData?.imageFile,
-      },
-    ],
-    challenges: qualificationData?.challenges,
-    keyPositives: qualificationData?.key_points,
-    doDifferently: qualificationData?.differentAction,
+  const payload: Payload = {
+    courseTitle: coursesData?.courseTitle,
+    institution: coursesData?.school,
+    certificateNo: coursesData?.certificateNo,
+    challenges: coursesData?.challenges,
+    year: coursesData?.year,
+    document: coursesData?.imageFile,
+    keyPositives: coursesData?.key_points,
+    doDifferently: coursesData?.differentAction,
   };
 
   const handleSubmit = () => {
@@ -98,7 +100,7 @@ const QualificationPreview = () => {
         >
           <Flex align="center" justify="space-between">
             <Text fontSize="1.5rem" fontWeight="700">
-              Qualifications
+              Courses
             </Text>
             <Icon
               as={TbEdit}
@@ -113,9 +115,9 @@ const QualificationPreview = () => {
           </Flex>
           <Box mt="1.88rem">
             <Stack>
-              <Flex gap="0.38rem">
-                <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
-                  Institution:
+              <Flex gap="0.38rem" align="center">
+                <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
+                  Course title:
                 </Text>
 
                 <Text
@@ -123,31 +125,43 @@ const QualificationPreview = () => {
                   fontWeight="600"
                   // color="grey_1"
                 >
-                  {qualificationData?.school}
+                  {coursesData?.courseTitle}
                 </Text>
               </Flex>
-              <Flex gap="0.38rem">
-                <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
-                  Degree:
+              <Flex gap="0.38rem" align="center">
+                <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
+                  Institution:
                 </Text>
                 <Text
                   fontSize="1.125rem"
                   fontWeight="600"
                   // color="grey_1"
                 >
-                  {qualificationData?.degree}
+                  {coursesData?.school}
                 </Text>
               </Flex>
-              <Flex gap="0.38rem">
-                <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
-                  Year of graduation:
+              <Flex gap="0.38rem" align="center">
+                <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
+                  Year:{" "}
                 </Text>
                 <Text
                   fontSize="1.125rem"
                   fontWeight="600"
                   // color="grey_1"
                 >
-                  {qualificationData?.year}
+                  {coursesData?.year}
+                </Text>
+              </Flex>{" "}
+              <Flex gap="0.38rem" align="center">
+                <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
+                  Certificate no:
+                </Text>
+                <Text
+                  fontSize="1.125rem"
+                  fontWeight="600"
+                  // color="grey_1"
+                >
+                  {coursesData?.certificateNo}
                 </Text>
               </Flex>
             </Stack>
@@ -172,10 +186,10 @@ const QualificationPreview = () => {
             </Flex>
             <Box mt="1.88rem">
               <Stack>
-                {/* <Flex>{qualificationData.challenges}</Flex> */}
+                {/* <Flex>{coursesData.challenges}</Flex> */}
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: qualificationData?.challenges,
+                    __html: coursesData?.challenges,
                   }}
                 />
               </Stack>
@@ -201,11 +215,11 @@ const QualificationPreview = () => {
             </Flex>
             <Box mt="1.88rem">
               <Stack>
-                {/* <Flex>{qualificationData.key_points}</Flex> */}
+                {/* <Flex>{coursesData.key_points}</Flex> */}
 
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: qualificationData?.key_points,
+                    __html: coursesData?.key_points,
                   }}
                 />
               </Stack>
@@ -232,12 +246,12 @@ const QualificationPreview = () => {
             <Box mt="1.88rem">
               <Stack>
                 {/* <Flex>
-                                    {qualificationData?.differentAction}
+                                    {coursesData?.differentAction}
                                 </Flex> */}
 
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: qualificationData?.differentAction,
+                    __html: coursesData?.differentAction,
                   }}
                 />
               </Stack>
@@ -270,4 +284,4 @@ const QualificationPreview = () => {
   );
 };
 
-export default QualificationPreview;
+export default CoursesPreview;

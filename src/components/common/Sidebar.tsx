@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   IconButton,
   // Avatar,
@@ -39,10 +39,10 @@ import { FaRegEnvelope } from "react-icons/fa";
 
 import SearchBox from "../dashboard/navigation/SearchBox";
 import UserImage from "../dashboard/navigation/UserImage";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Share from "../modals/Share";
 import useProfile from "@/hooks/useProfile";
-import { getStorageAuthItems } from "@/utils/lib";
+import { BiLogOut } from "react-icons/bi";
 
 interface SidebarWithHeaderProps {
   passedActive: string;
@@ -140,7 +140,7 @@ const LinkItems: Array<LinkItemProps> = [
     ],
   },
   { id: 7, name: "Teaching", href: "/dashboard/teaching", icon: FiSettings },
-  { id: 8, name: "Log out", href: "/dashboard/logout", icon: FiSettings },
+  // { id: 8, name: "Log out", href: "/dashboard/logout", icon: FiSettings },
 ];
 
 const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {
@@ -179,6 +179,40 @@ const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {
             passedActive={passedActive}
           />
         ))}
+
+        {/* Log out button */}
+
+        <Flex
+          pl="1rem"
+          gap="0.9rem"
+          align="center"
+          mt="2rem"
+          cursor={"pointer"}
+        >
+          <Flex
+            flexShrink={0}
+            align="center"
+            // p="4"
+            // px="4"
+            justify={"center"}
+            borderRadius="full"
+            cursor="pointer"
+            color="grey_1"
+            boxSize="2.5rem"
+            bgColor={"white"}
+          >
+            <Icon fontSize="16px" as={BiLogOut} />
+          </Flex>
+          <Text
+            fontSize="0.9375rem"
+            color="red_2"
+            flexShrink={0}
+            // w="100%"
+          >
+            {" "}
+            Log out{" "}
+          </Text>
+        </Flex>
       </Box>
     </Box>
   );
@@ -197,12 +231,6 @@ const NavItem = ({
   const handleRouteChange: RouteChangeHandler = (newRoute) => {
     router.push(newRoute);
   };
-
-  useEffect(() => {
-    const { token } = getStorageAuthItems();
-
-    if (!token) return redirect("/auth/login");
-  }, []);
 
   const handleShowSubNav = () => {
     setShowSubNav(!showSubNav);

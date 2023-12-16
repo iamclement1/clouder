@@ -1,17 +1,19 @@
 import CustomButton from "@/components/common/CustomButton";
+import StatusModal from "@/components/modals/StatusModal";
+import { useModal } from "@/context/ModalContext";
 
 import { useQualification } from "@/context/QualificationProvider";
 import api from "@/utils/axiosInstance";
 import { Payload } from "@/utils/types";
-import { Box, Text, Flex } from "@chakra-ui/react";
+import { Box, Text, Flex, useDisclosure } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 
 import React, { useState, useRef } from "react";
-
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
-import { toast } from "react-toastify";
 
 const DifferentAction = () => {
+  const { openModal } = useModal();
+
   const [err, setErr] = useState<boolean>(false);
   const {
     qualificationData,
@@ -20,6 +22,7 @@ const DifferentAction = () => {
     handlePreview,
     handleFormSteps,
     handleFillForm,
+    handleTotalData,
   } = useQualification();
 
   const text = useRef("");
@@ -30,18 +33,20 @@ const DifferentAction = () => {
       return api.post("/qualifications", qualifications);
     },
     onSuccess: ({ data }) => {
-      console.log(data);
       if (data) {
-        toast.success("Qualifications Submitted Successfully");
-        // handleTotalData();
+        onOpenStatusModal();
         handleFormSteps(1);
         handleFillForm(false);
       }
     },
     onError: (error: { response: { data: { error: string } } }) => {
       const errorMsg = error.response.data.error;
-      toast.error(errorMsg, {
-        theme: "dark",
+      openModal({
+        type: "error",
+        message: errorMsg,
+        title: "Error Submitting Qualification",
+        buttonType: "fill",
+        buttonText: "Continue",
       });
     },
   });
@@ -70,34 +75,45 @@ const DifferentAction = () => {
   };
 
   const handleBlur = () => {
-    if (text.current !== "" || text.current.length >= 6) {
-      setErr(false);
-    } else {
-      setErr(true);
-    }
-  };
-
-  const handleSubmit = async (values: string) => {
     if (text.current !== "") {
-      setErr(false);
       handleQualificationData({
         ...qualificationData,
-        differentAction: values,
+        differentAction: text.current,
       });
-      await mutate(payload);
+      setErr(false);
     } else {
       setErr(true);
     }
-
-    console.log(qualificationData);
   };
+
+  const handlePayload = () => {
+    console.log(qualificationData);
+    mutate(payload);
+  };
+
+  const handleSubmit = () => {
+    if (text.current !== "") {
+      setErr(false);
+
+      handlePayload();
+    } else {
+      setErr(true);
+    }
+  };
+
+  const {
+    isOpen: isOpenStatusModal,
+    onOpen: onOpenStatusModal,
+    onClose: onCloseStatusModal,
+  } = useDisclosure();
+
   const onPreview = (values: string) => {
     if (text.current !== "") {
-      setErr(false);
       handleQualificationData({
         ...qualificationData,
         differentAction: values,
       });
+      setErr(false);
       handlePreview(true);
     } else {
       setErr(true);
@@ -126,11 +142,7 @@ const DifferentAction = () => {
       </Box>
 
       <Flex maxW="35rem" mx="auto" gap="1.12rem" mt="3rem">
-        <CustomButton
-          w="100%"
-          isLoading={isLoading}
-          handleClick={() => handleSubmit(text.current)}
-        >
+        <CustomButton w="100%" isLoading={isLoading} handleClick={handleSubmit}>
           Save
         </CustomButton>
         <CustomButton
@@ -144,6 +156,16 @@ const DifferentAction = () => {
           Preview
         </CustomButton>
       </Flex>
+      <StatusModal
+        isOpen={isOpenStatusModal}
+        onOpen={onOpenStatusModal}
+        onClose={onCloseStatusModal}
+        status="success"
+        handleTotalData={handleTotalData}
+        handleFormSteps={handleFormSteps}
+        handleFillForm={handleFillForm}
+        handlePreview={handlePreview}
+      />
     </Box>
   );
 };

@@ -1,24 +1,22 @@
 import Typography from "@/components/common/Typograph";
 import { Box, Flex, Icon, ListItem, OrderedList, Text } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 import QualificationForm from "./QualificationForm";
 import { useQualification } from "@/context/QualificationProvider";
 import CustomButton from "@/components/common/CustomButton";
 import QualificationPreview from "./QualificationPreview";
 import useQualifications from "@/hooks/useQualification";
+import { QualificationProps } from "@/utils/types";
 
 const Qualifications = () => {
-  const { fillForm, handleFillForm, preview, totalData } = useQualification();
+  const { fillForm, handleFillForm, preview } = useQualification();
 
-  const { data } = useQualifications();
-  const qualification = data?.data?.data;
+  const { data: qualificationsData, isLoading } = useQualifications();
 
-  useEffect(() => {
-    if (qualification) {
-      console.log(qualification);
-    }
-  });
+  const qualification: QualificationProps[] = qualificationsData?.data?.data;
+
+  if (isLoading) return <Box>Please wait, fetching your qualifications...</Box>;
 
   return (
     <Box>
@@ -30,7 +28,7 @@ const Qualifications = () => {
           <>
             <Flex align="center" justify="space-between" gap="1rem">
               <Typography variant="heading2">Qualifications</Typography>
-              {totalData.length >= 1 && fillForm !== true && (
+              {qualification?.length >= 1 && fillForm !== true && (
                 <CustomButton
                   bgColor={"transparent"}
                   border="1px"
@@ -53,7 +51,7 @@ const Qualifications = () => {
                 minH="80vh"
                 borderRadius="0.46875rem"
               >
-                {totalData.length >= 1 ? (
+                {qualification?.length >= 1 ? (
                   <Box py="2.44rem" px="2.39rem">
                     <Flex
                       justify="center"
@@ -69,10 +67,13 @@ const Qualifications = () => {
                     </Flex>
 
                     <OrderedList mt="2.2rem">
-                      {totalData.map((item) => {
+                      {qualification?.map((item) => {
                         return (
-                          <ListItem color="grey_1" key={item.school}>
-                            {`${item.school}
+                          <ListItem
+                            color="grey_1"
+                            key={item?.education[0]?.institution}
+                          >
+                            {`${item.education[0]?.institution}
                                                             `}
                           </ListItem>
                         );

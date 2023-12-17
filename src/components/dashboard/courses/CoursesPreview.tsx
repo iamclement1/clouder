@@ -4,13 +4,15 @@ import StatusModal from "@/components/modals/StatusModal";
 import { useCourses } from "@/context/CoursesProvider";
 import api from "@/utils/axiosInstance";
 import { Box, Flex, Text, Icon, Stack, useDisclosure } from "@chakra-ui/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import { TbEdit } from "react-icons/tb";
 import { toast } from "react-toastify";
 
 const CoursesPreview = () => {
+  const queryClient = useQueryClient();
+
   const {
     handleFormSteps,
     handleFillForm,
@@ -35,12 +37,12 @@ const CoursesPreview = () => {
       return api.post("/courses", courses);
     },
     onSuccess: ({ data }) => {
-      console.log(data);
       if (data) {
         toast.success("Course Submitted Successfully", {
           theme: "dark",
         });
       }
+      queryClient.invalidateQueries({ queryKey: ["courses"] });
     },
     onError: (error: { response: { data: { error: string } } }) => {
       const errorMsg = error.response.data.error;

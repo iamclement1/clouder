@@ -6,13 +6,15 @@ import { useQualification } from "@/context/QualificationProvider";
 import api from "@/utils/axiosInstance";
 import { Payload } from "@/utils/types";
 import { Box, Text, Flex, useDisclosure } from "@chakra-ui/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import React, { useState, useRef } from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
+import { toast } from "react-toastify";
 
 const DifferentAction = () => {
   const { openModal } = useModal();
+  const queryClient = useQueryClient();
 
   const [err, setErr] = useState<boolean>(false);
   const {
@@ -34,10 +36,13 @@ const DifferentAction = () => {
     },
     onSuccess: ({ data }) => {
       if (data) {
-        onOpenStatusModal();
+        toast.success("Qualification Submitted Successfully", {
+          theme: "dark",
+        });
         handleFormSteps(1);
         handleFillForm(false);
       }
+      queryClient.invalidateQueries({ queryKey: ["qualifications"] });
     },
     onError: (error: { response: { data: { error: string } } }) => {
       const errorMsg = error.response.data.error;

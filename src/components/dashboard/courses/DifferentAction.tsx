@@ -1,60 +1,76 @@
 import CustomButton from "@/components/common/CustomButton";
 import { useCourses } from "@/context/CoursesProvider";
+import api from "@/utils/axiosInstance";
 
 import { Box, Text, Flex } from "@chakra-ui/react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import React, { useState, useRef } from "react";
 
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
+import { toast } from "react-toastify";
 
 const DifferentAction = () => {
   const [err, setErr] = useState<boolean>(false);
+  const queryClient = useQueryClient();
   const {
     coursesData,
     handleCoursesData,
     handlePreview,
     handleFormSteps,
     handleFillForm,
-    handleTotalData,
   } = useCourses();
 
   const text = useRef("");
   text.current = coursesData?.differentAction;
 
-  // const { mutate, isLoading } = useMutation({
-  //     mutationFn: (qualifications: Payload) => {
-  //         return api.post("/qualifications", qualifications);
-  //     },
-  //     onSuccess: ({ data }) => {
-  //         console.log(data);
-  //         if (data) {
-  //             toast.success("Qualifications Submitted Successfully");
-  //             // handleTotalData();
-  //             handleFormSteps(1);
-  //             handleFillForm(false);
-  //         }
-  //     },
-  //     onError: (error: { response: { data: { error: string } } }) => {
-  //         const errorMsg = error.response.data.error;
-  //         toast.error(errorMsg, {
-  //             theme: "dark",
-  //         });
-  //     },
-  // });
+  type Payload = {
+    courseTitle: string;
+    institution: string;
+    year: string;
+    certificateNo: string;
+    challenges: string;
+    document: File | Blob | MediaSource | null;
+    keyPositives?: string;
+    doDifferently?: string;
+  };
 
-  // const payload = {
-  //     education: [
-  //         {
-  //             degree: coursesData?.degree,
-  //             year: coursesData?.year,
-  //             institution: coursesData?.school,
-  //             certificate: coursesData?.imageFile,
-  //         },
-  //     ],
-  //     challenges: coursesData?.challenges,
-  //     keyPositives: coursesData?.key_points,
-  //     doDifferently: coursesData?.differentAction,
-  // };
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (courses: Payload) => {
+      return api.post("/courses", courses);
+    },
+    onSuccess: ({ data }) => {
+      if (data) {
+        toast.success("Course Submitted Successfully", {
+          theme: "dark",
+        });
+        handleFormSteps(1);
+        handleFillForm(false);
+      }
+      queryClient.invalidateQueries({ queryKey: ["courses"] });
+    },
+    onError: (error: { response: { data: { error: string } } }) => {
+      const errorMsg = error.response.data.error;
+      toast.error(errorMsg, {
+        theme: "dark",
+      });
+    },
+  });
+
+  const payload: Payload = {
+    courseTitle: coursesData?.courseTitle,
+    institution: coursesData?.school,
+    certificateNo: coursesData?.certificateNo,
+    challenges: coursesData?.challenges,
+    year: coursesData?.year,
+    document: coursesData?.imageFile,
+    keyPositives: coursesData?.key_points,
+    doDifferently: coursesData?.differentAction,
+  };
+
+  const handlePayload = () => {
+    mutate(payload);
+  };
 
   const handleChange = (evt: ContentEditableEvent) => {
     text.current = evt.target.value;
@@ -80,14 +96,10 @@ const DifferentAction = () => {
   const handleSubmit = () => {
     if (text.current !== "") {
       setErr(false);
-      handleTotalData();
-      handleFormSteps(1);
-      handleFillForm(false);
+      handlePayload();
     } else {
       setErr(true);
     }
-
-    console.log(coursesData);
   };
   const onPreview = (values: string) => {
     if (text.current !== "") {
@@ -124,11 +136,7 @@ const DifferentAction = () => {
       </Box>
 
       <Flex maxW="35rem" mx="auto" gap="1.12rem" mt="3rem">
-        <CustomButton
-          w="100%"
-          // isLoading={isLoading}
-          handleClick={handleSubmit}
-        >
+        <CustomButton w="100%" isLoading={isLoading} handleClick={handleSubmit}>
           Save
         </CustomButton>
         <CustomButton

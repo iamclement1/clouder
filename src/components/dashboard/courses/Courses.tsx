@@ -1,5 +1,14 @@
 import Typography from "@/components/common/Typograph";
-import { Box, Flex, Icon, ListItem, OrderedList, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Icon,
+  ListItem,
+  OrderedList,
+  Skeleton,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 
@@ -19,7 +28,14 @@ const Courses = () => {
   const { data: course, isLoading } = useCourse();
   const courses: CourseItem[] = course?.data;
 
-  if (isLoading) return <Box> Please wait, fetching courses... </Box>;
+  if (isLoading)
+    return (
+      <Stack>
+        <Skeleton height="50px" />
+        <Skeleton height="50px" />
+        <Skeleton height="50px" />
+      </Stack>
+    );
 
   return (
     <Box>
@@ -69,45 +85,48 @@ const Courses = () => {
                     </Flex>
 
                     <OrderedList mt="2.2rem">
-                      {courses?.map((item) => {
-                        return (
-                          <ListItem
-                            mb={"1rem"}
-                            color="grey_1"
-                            key={item.school}
-                            fontSize="1.125rem"
-                            fontWeight="600"
-                            display="flex"
-                            alignItems="center"
-                            justifyContent={"space-between"}
-                          >
-                            <Text
-                              onClick={() =>
-                                router.push(
-                                  `/dashboard/courses/course_aquired/${item?.id}`,
-                                )
-                              }
-                              cursor={"pointer"}
-                            >{`${item.institution}
+                      {courses
+                        ?.slice()
+                        .reverse()
+                        .map((item) => {
+                          return (
+                            <ListItem
+                              mb={"1rem"}
+                              color="grey_1"
+                              key={item?.id}
+                              fontSize="1.125rem"
+                              fontWeight="600"
+                              display="flex"
+                              alignItems="center"
+                              justifyContent={"space-between"}
+                            >
+                              <Text
+                                onClick={() =>
+                                  router.push(
+                                    `/dashboard/courses/course_aquired/${item?.id}`,
+                                  )
+                                }
+                                cursor={"pointer"}
+                              >{`${item?.institution}
                                                             `}</Text>
 
-                            <Text
-                              bgColor="danger_2"
-                              fontSize="0.75rem"
-                              color="danger_1"
-                              fontWeight="normal"
-                              w="fit-content"
-                              p="0.8rem 1rem"
-                              rounded={"1.35938rem"}
-                              cursor="pointer"
-                              as="a"
-                              href={`/dashboard/courses/request_feed_back/${item.year}`}
-                            >
-                              Request feedback
-                            </Text>
-                          </ListItem>
-                        );
-                      })}
+                              <Text
+                                bgColor="danger_2"
+                                fontSize="0.75rem"
+                                color="danger_1"
+                                fontWeight="normal"
+                                w="fit-content"
+                                p="0.8rem 1rem"
+                                rounded={"1.35938rem"}
+                                cursor="pointer"
+                                as="a"
+                                href={`/dashboard/courses/request_feed_back/${item?.year}`}
+                              >
+                                Request feedback
+                              </Text>
+                            </ListItem>
+                          );
+                        })}
                     </OrderedList>
                   </Box>
                 ) : (

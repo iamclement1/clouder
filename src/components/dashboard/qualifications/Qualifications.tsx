@@ -1,5 +1,14 @@
 import Typography from "@/components/common/Typograph";
-import { Box, Flex, Icon, ListItem, OrderedList, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Icon,
+  ListItem,
+  OrderedList,
+  Skeleton,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 import QualificationForm from "./QualificationForm";
@@ -13,10 +22,16 @@ const Qualifications = () => {
   const { fillForm, handleFillForm, preview } = useQualification();
 
   const { data: qualificationsData, isLoading } = useQualifications();
-
   const qualification: QualificationProps[] = qualificationsData?.data?.data;
 
-  if (isLoading) return <Box>Please wait, fetching your qualifications...</Box>;
+  if (isLoading)
+    return (
+      <Stack>
+        <Skeleton height="50px" />
+        <Skeleton height="50px" />
+        <Skeleton height="50px" />
+      </Stack>
+    );
 
   return (
     <Box>
@@ -67,17 +82,14 @@ const Qualifications = () => {
                     </Flex>
 
                     <OrderedList mt="2.2rem">
-                      {qualification?.map((item) => {
-                        return (
-                          <ListItem
-                            color="grey_1"
-                            key={item?.education[0]?.institution}
-                          >
-                            {`${item.education[0]?.institution}
-                                                            `}
+                      {qualification
+                        ?.slice() // Create a copy of the array to avoid mutating the original array
+                        .reverse() // Reverse the array to display the recent data first
+                        .map((item) => (
+                          <ListItem color="grey_1" key={item?.id}>
+                            {`${item.education[0]?.institution}`}
                           </ListItem>
-                        );
-                      })}
+                        ))}
                     </OrderedList>
                   </Box>
                 ) : (

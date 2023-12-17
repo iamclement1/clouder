@@ -41,18 +41,22 @@ api.interceptors.response.use(
       errConfig._retry = true;
       try {
         const { refreshToken } = getStorageAuthItems();
+        console.log(refreshToken);
 
         // Use Axios to make a request to refresh the token
-        const refreshTokenResponse = await api.post("/auth/refresh", {
+        const {
+          data: { accessToken },
+        } = await api.post("/auth/refresh", {
           refresh: refreshToken,
         });
-        const { token, refreshToken: resToken } =
-          refreshTokenResponse.data.data;
+
+        const token = accessToken?.access;
+        const refresh = accessToken?.refresh;
 
         sessionStorage.setItem("token", token);
-        sessionStorage.setItem("refresh", resToken);
+        sessionStorage.setItem("refresh", refresh);
 
-        // api.defaults.headers.common["Authorization"] = `Bearer ${jwtToken}`;
+        // Uncomment the following line to update the Authorization header in errConfig
         errConfig.headers["Authorization"] = `Bearer ${token}`;
 
         // Retry the original request

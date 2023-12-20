@@ -1,43 +1,39 @@
-"use client";
 import React from "react";
-import "./globals.css";
 import { Inter } from "next/font/google";
-import Navbar from "@/components/common/Navbar";
-import Footer from "@/components/common/Footer";
-import { usePathname } from "next/navigation";
-import BackToTop from "@/components/common/BackToTop";
-import TanstackProvider from "@/context/tanstackProvider";
-import Seo from "@/components/common/SEO";
-import { ToastContainer } from "react-toastify";
-import { Analytics } from "@vercel/analytics/react";
 import "react-toastify/dist/ReactToastify.css";
-
+import AppLayout from "@/context/AppLayout";
+import { Metadata } from "next";
 const inter = Inter({ subsets: ["latin"] });
 
-export default function RootLayout({
-  children,
-}: {
+interface RootLayoutProps {
   children: React.ReactNode;
-}) {
-  const pathname = usePathname();
+}
 
-  const showNavigation = ["/", "/about", "/contact", "/pricing"].includes(
-    pathname,
-  );
+export const metadata: Metadata = {
+  title: {
+    template: "%s | Clouder",
+    default: "Clouder",
+  },
+  description: "A medical portfolio",
+  manifest: "/manifest.json",
+  icons: [
+    {
+      rel: "icon",
+      type: "image/png",
+      url: "/clouder.ico",
+    },
+    {
+      rel: "apple",
+      url: "/icon.png",
+    },
+  ],
+};
+
+export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <TanstackProvider>
-          <Seo templateTitle="Clouder" />
-          {showNavigation && <Navbar />}
-          {children}
-          {showNavigation && <Footer />}
-          {/* back top button */}
-          <BackToTop />
-        </TanstackProvider>
-        <Analytics />
-
-        <ToastContainer />
+        <AppLayout>{children}</AppLayout>
       </body>
     </html>
   );

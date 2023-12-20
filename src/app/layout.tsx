@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AppLayout from "@/context/AppLayout";
 import { Metadata } from "next";
 const inter = Inter({ subsets: ["latin"] });
+import "../app/globals.css";
 
 interface RootLayoutProps {
   children: React.ReactNode;

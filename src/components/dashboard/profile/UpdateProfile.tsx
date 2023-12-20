@@ -136,7 +136,7 @@ const UpdateProfile: React.FC = () => {
         >
           {({ handleSubmit, errors, touched }) => (
             <Form onSubmit={handleSubmit}>
-              <Stack spacing="1.5rem">
+              <Stack spacing="1rem">
                 <CustomInput
                   label="Full name"
                   name="fullName"
@@ -171,31 +171,27 @@ const UpdateProfile: React.FC = () => {
                     touched={touched}
                   />
                 </Flex>
-
-                {/* Submit section  */}
-                <Flex maxW="34rem" mx="auto" gap="1.12rem">
-                  <CustomButton
-                    mt="1.59rem"
-                    h="3.2rem"
-                    w="100%"
-                    // isLoading={isLoading}
-                    // isDisabled={isAccept}
-                  >
-                    Cancel
-                  </CustomButton>
-
-                  <CustomButton
-                    type="submit"
-                    mt="1.59rem"
-                    h="3.2rem"
-                    w="100%"
-                    isLoading={loading}
-                    // isDisabled={isAccept}
-                  >
-                    Update
-                  </CustomButton>
-                </Flex>
               </Stack>
+              <Flex maxW="35rem" mx="auto" gap="1.12rem" mt="3rem">
+                <CustomButton
+                  w="100%"
+                  bgColor={"transparent"}
+                  border="1px"
+                  borderColor="grey_1"
+                  color="grey_1"
+                  handleClick={() => router.back()}
+                >
+                  Cancel
+                </CustomButton>
+                <CustomButton
+                  type="submit"
+                  h="3.2rem"
+                  w="100%"
+                  isLoading={loading}
+                >
+                  Update
+                </CustomButton>
+              </Flex>
             </Form>
           )}
         </Formik>

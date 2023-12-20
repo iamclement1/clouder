@@ -81,12 +81,18 @@ const Qualifications = () => {
                       </Text>
                     </Flex>
 
-                    <OrderedList mt="2.2rem">
+                    <OrderedList mt="2.2rem" spacing={"1rem"}>
                       {qualification
                         ?.slice() // Create a copy of the array to avoid mutating the original array
                         .reverse() // Reverse the array to display the recent data first
                         .map((item) => (
-                          <ListItem color="grey_1" key={item?.id}>
+                          <ListItem
+                            color="grey_1"
+                            key={item?.id}
+                            mb={"1rem"}
+                            fontSize="1.125rem"
+                            fontWeight="600"
+                          >
                             {`${item.education[0]?.institution}`}
                           </ListItem>
                         ))}

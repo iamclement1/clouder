@@ -9,7 +9,6 @@ import {
 import { universitiesData } from "@/utils/data";
 // import { DetailsFormValues } from "@/utils/types";
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { State } from "country-state-city";
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 
@@ -22,7 +21,6 @@ const DetailsForm = () => {
     handleQualificationData,
   } = useQualification();
 
-  const currentLocations = State.getStatesOfCountry("NG");
   const [selectedFile, setSelectedFile] = useState<
     File | null | Blob | MediaSource
   >(null);
@@ -34,12 +32,6 @@ const DetailsForm = () => {
           <Text fontSize="1.4rem" color="grey_1" fontWeight="500">
             Kindly share details about your Qualifications
           </Text>
-
-          {/* <Button onClick={() => addNewForm()}>
-                                add new form
-                            </Button> */}
-
-          {/* {formArray.length > 1 ? <Icon as={""} /> : ""} */}
         </Flex>
 
         <Formik
@@ -76,17 +68,17 @@ const DetailsForm = () => {
         >
           {({ handleSubmit, errors, touched }) => (
             <Form onSubmit={handleSubmit}>
-              {/* Email Address */}
-              <CustomSelect
-                name="degree"
+              {/* Degree */}
+
+              <CustomInput
                 label="Degree"
+                placeholder="Input your degree"
+                name="degree"
+                type="number"
                 errors={errors}
                 touched={touched}
-                options={currentLocations}
-                placeholder="Select your location"
-                type="degree"
               />
-              {/* Password */}
+              {/* Year */}
               <CustomInput
                 label="Year of Graduation"
                 placeholder="Input your year of graduation"

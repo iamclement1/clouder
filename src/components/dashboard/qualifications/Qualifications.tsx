@@ -80,17 +80,30 @@ const Qualifications = () => {
                         Qualification Entries
                       </Text>
                     </Flex>
-
-                    <OrderedList mt="2.2rem">
-                      {qualification
-                        ?.slice() // Create a copy of the array to avoid mutating the original array
-                        .reverse() // Reverse the array to display the recent data first
-                        .map((item) => (
-                          <ListItem color="grey_1" key={item?.id}>
-                            {`${item.education[0]?.institution}`}
-                          </ListItem>
-                        ))}
-                    </OrderedList>
+                    {isLoading ? (
+                      <Stack>
+                        <Skeleton height="50px" />
+                        <Skeleton height="50px" />
+                        <Skeleton height="50px" />
+                      </Stack>
+                    ) : (
+                      <OrderedList mt="2.2rem" spacing={"1rem"}>
+                        {qualification
+                          ?.slice() // Create a copy of the array to avoid mutating the original array
+                          .reverse() // Reverse the array to display the recent data first
+                          .map((item) => (
+                            <ListItem
+                              color="grey_1"
+                              key={item?.id}
+                              mb={"1rem"}
+                              fontSize="1 rem"
+                              fontWeight="600"
+                            >
+                              {`${item.education[0]?.institution}`}
+                            </ListItem>
+                          ))}
+                      </OrderedList>
+                    )}
                   </Box>
                 ) : (
                   <Flex align="center" justify="center" flexDir={"column"}>

@@ -1,6 +1,6 @@
 import React from "react";
-import { Box, FormLabel, Select } from "@chakra-ui/react";
-import { ErrorMessage, Field, FieldProps } from "formik";
+import { Box, FormLabel, Select, Text } from "@chakra-ui/react";
+import { Field, FieldProps } from "formik";
 
 type Option = {
   countryCode: string;
@@ -83,11 +83,11 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
               })}
             </Select>
             {errors[name] && touched[name] && (
-              <ErrorMessage
-                name={name}
-                component="div"
-                className="error-message"
-              />
+              <Box mt="4px">
+                <Text fontSize="12px" color="red">
+                  Required
+                </Text>
+              </Box>
             )}
           </>
         )}

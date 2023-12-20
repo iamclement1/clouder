@@ -7,7 +7,6 @@ import KeyPoints from "./KeyPoints";
 import DifferentAction from "./DifferentAction";
 
 const QualificationForm = () => {
-  // const [formSteps, setFormSteps] = useState<number>(1);
   const { formSteps, handleFormSteps } = useQualification();
   return (
     <QualificationFormLayout

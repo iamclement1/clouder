@@ -1,3 +1,4 @@
+"use client";
 import { Box, Link, Text } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import React from "react";
@@ -11,6 +12,11 @@ import api from "@/utils/axiosInstance";
 import { useRouter } from "next/navigation";
 import Seo from "../common/SEO";
 import { toast } from "react-toastify";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Login",
+};
 
 const Login: React.FC = () => {
   const router = useRouter();

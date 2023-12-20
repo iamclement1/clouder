@@ -1,3 +1,4 @@
+"use client";
 import Typography from "@/components/common/Typograph";
 import { Box, Flex, Image, Link } from "@chakra-ui/react";
 import React from "react";

@@ -21,11 +21,11 @@ export const metadata: Metadata = {
     {
       rel: "icon",
       type: "image/png",
-      url: "/clouder.ico",
+      url: "./icon.png",
     },
     {
       rel: "apple",
-      url: "/icon.png",
+      url: "./icon.png",
     },
   ],
 };

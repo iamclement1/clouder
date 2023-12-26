@@ -104,7 +104,6 @@ export const testimoniesData = [
 ];
 
 export const universitiesData: string[] = [
-  "",
   "(CABS) College of Administrative and Business Studies, Bida",
   "(CABS) College of Administrative and Business Studies, Kumo",
   "(CIBN) The Chartered Institute of Bankers of Nigeria",

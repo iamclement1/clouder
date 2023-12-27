@@ -558,3 +558,138 @@ export const universitiesData: string[] = [
   "the Federal College of Education",
   "the Federal Polytechnic, Oko",
 ];
+
+export const pricingData = [
+  {
+    planType: "Trial Version",
+    planLimit: "48 hours Limited Access ",
+    planPrice: "FREE",
+    recommended: false,
+    planfeat: [
+      {
+        available: true,
+        featDetails: "Record and reflect on your qualifications",
+      },
+      {
+        available: true,
+        featDetails: "Up to 3 logbook entries",
+      },
+      {
+        available: false,
+        featDetails: "Access to leadership entry",
+      },
+      {
+        available: false,
+        featDetails: "Reflect on CPD entries",
+      },
+      {
+        available: false,
+        featDetails: "Access to quality improvement, research & teaching",
+      },
+    ],
+    subLink: "#",
+  },
+
+  {
+    planType: "Basic Plan",
+    planLimit: "4 weeks Limited Access ",
+    planPrice: "N 2,999",
+    recommended: false,
+    planfeat: [
+      {
+        available: true,
+        featDetails: "Record and reflect on your qualifications",
+      },
+      {
+        available: true,
+        featDetails: "Up to 12 logbook entries",
+      },
+      {
+        available: true,
+        featDetails: "Access to 10 leadership entry",
+      },
+      {
+        available: true,
+        featDetails: "Reflect on up to 10 CPD entries",
+      },
+      {
+        available: true,
+        featDetails:
+          "Unlock access to quality improvement, research & teaching after 4 consecutive subscriptions",
+      },
+      {
+        available: true,
+        featDetails: "Get 2 free months after 10 consecutive plan subscription",
+      },
+    ],
+    subLink: "#",
+  },
+
+  {
+    planType: "Premium Plan",
+    planLimit: "6 Months Limited Access",
+    planPrice: "N 16,499",
+    recommended: true,
+    planfeat: [
+      {
+        available: true,
+        featDetails: "Record and reflect on your qualifications",
+      },
+      {
+        available: true,
+        featDetails: "Up to 80 logbook entries",
+      },
+      {
+        available: true,
+        featDetails: "Access to 10 leadership entry",
+      },
+      {
+        available: true,
+        featDetails: "Reflect on up to 10 CPD entries",
+      },
+      {
+        available: true,
+        featDetails: "Access to quality improvement, research & teaching",
+      },
+      {
+        available: true,
+        featDetails: "Get 10 % off your next premium plan subscription",
+      },
+    ],
+    subLink: "#",
+  },
+
+  {
+    planType: "Infinite Plan",
+    planLimit: "12 Months Limited Access",
+    planPrice: "N 31,999",
+    recommended: false,
+    planfeat: [
+      {
+        available: true,
+        featDetails: "Record and reflect on your qualifications",
+      },
+      {
+        available: true,
+        featDetails: "Unlimited logbook entries",
+      },
+      {
+        available: true,
+        featDetails: "Access to unlimited leadership entries",
+      },
+      {
+        available: true,
+        featDetails: "Reflect on up to 10 CPD entries",
+      },
+      {
+        available: true,
+        featDetails: "Access to quality improvement, research & teaching",
+      },
+      {
+        available: true,
+        featDetails: "Get 10 % off your next Infinite plan subscription",
+      },
+    ],
+    subLink: "#",
+  },
+];

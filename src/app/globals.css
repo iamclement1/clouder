@@ -66,3 +66,53 @@ html {
 .texteditor.errMode {
   border: 2px solid #c53030 !important;
 }
+
+.pagination {
+  display: inline-flex;
+  padding: 0.35631rem 0.85506rem;
+  justify-content: center;
+  align-items: center;
+  gap: 1.14013rem;
+  list-style-type: none;
+}
+
+.pagination li {
+}
+
+.page-item {
+  display: flex;
+  width: 2.28025rem;
+  height: 2.28025rem;
+  padding: 0.62319rem 0.03563rem 0.59456rem 0.03563rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.21375rem;
+  border: 0.57px solid rgba(51, 51, 51, 0.3);
+
+  color: #03a9f4;
+
+  text-align: center;
+
+  font-size: 0.85506rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+}
+ul.react-paginate li.selected {
+  background-color: #0366d6;
+  border-color: transparent;
+  color: white;
+  min-width: 32px;
+}
+
+li.page-item.active {
+  border: 0.57px solid #03a9f4;
+
+  background: #03a9f4;
+  color: white;
+}
+
+li.page-item .page-link {
+  /* background: red; */
+  padding: 0.4rem 0.5rem;
+}

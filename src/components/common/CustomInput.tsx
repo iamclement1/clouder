@@ -52,9 +52,9 @@ const CustomInput: React.FC<CustomInputProps> = ({
       {label && (
         <FormLabel
           htmlFor={name}
-          fontSize="0.84375rem"
+          fontSize="0.9375rem"
           color="grey_5"
-          fontWeight={"normal"}
+          fontWeight={"600"}
         >
           {label}
         </FormLabel>

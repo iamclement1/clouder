@@ -91,3 +91,8 @@ export interface CourseItem {
   certificateNo: string;
   year: string;
 }
+export type UserProfile = {
+  userId: string;
+  fullName: string;
+  email: string;
+};

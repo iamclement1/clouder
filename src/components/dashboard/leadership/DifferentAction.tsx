@@ -35,7 +35,7 @@ const DifferentAction = () => {
     doDifferently?: string;
   };
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (courses: Payload) => {
       return api.post("/courses", courses);
     },
@@ -136,7 +136,7 @@ const DifferentAction = () => {
       </Box>
 
       <Flex maxW="35rem" mx="auto" gap="1.12rem" mt="3rem">
-        <CustomButton w="100%" isLoading={isLoading} handleClick={handleSubmit}>
+        <CustomButton w="100%" isLoading={isPending} handleClick={handleSubmit}>
           Save
         </CustomButton>
         <CustomButton

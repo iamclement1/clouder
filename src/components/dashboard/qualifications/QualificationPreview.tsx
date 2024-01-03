@@ -24,7 +24,7 @@ const QualificationPreview = () => {
     handleTotalData,
   } = useQualification();
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (qualifications: Payload) => {
       return api.post("/qualifications", qualifications);
     },
@@ -251,7 +251,7 @@ const QualificationPreview = () => {
           <Flex mt="3.75rem" align="center" justify="center">
             <CustomButton
               maxW="26.6rem"
-              isLoading={isLoading}
+              isLoading={isPending}
               handleClick={() => handleSubmit()}
             >
               Save

@@ -20,7 +20,7 @@ const ForgetPasword: React.FC = () => {
   const { openModal } = useModal();
   const router = useRouter();
   //used mutation from react-query for action
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (user: FormValues) => {
       return axios.post("/auth/forgot_password", user);
     },
@@ -96,7 +96,7 @@ const ForgetPasword: React.FC = () => {
                   type="submit"
                   mt="1.59rem"
                   h="3.2rem"
-                  isLoading={isLoading}
+                  isLoading={isPending}
                 >
                   Continue
                 </CustomButton>

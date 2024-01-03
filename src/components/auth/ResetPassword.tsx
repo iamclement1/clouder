@@ -24,7 +24,7 @@ const ResetPassword: React.FC = () => {
   //get token from url
   // const token = router.query.token as string;
   //used mutation from react-query for action
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (user: FormValues) => {
       return axios.post("/auth/reset_password", user);
     },
@@ -76,7 +76,7 @@ const ResetPassword: React.FC = () => {
     // },
   });
   return (
-    <>
+    <Box>
       <Box bgColor="white" rounded="0.46875rem" maxW="34.3rem" mx="auto">
         <Box
           px="16px"
@@ -143,7 +143,7 @@ const ResetPassword: React.FC = () => {
                     type="submit"
                     mt="1.59rem"
                     h="3.2rem"
-                    isLoading={isLoading}
+                    isLoading={isPending}
                   >
                     Continue
                   </CustomButton>
@@ -153,7 +153,7 @@ const ResetPassword: React.FC = () => {
           </Box>
         </Box>
       </Box>
-    </>
+    </Box>
   );
 };
 

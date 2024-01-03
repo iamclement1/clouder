@@ -26,7 +26,7 @@ const Register: React.FC = () => {
   const router = useRouter();
 
   //used mutation from react-query for action
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (user: RegisterFormValues) => {
       return axios.post("/auth/signup", user);
     },
@@ -173,7 +173,7 @@ const Register: React.FC = () => {
                 type="submit"
                 mt="1.59rem"
                 h="3.2rem"
-                isLoading={isLoading}
+                isLoading={isPending}
                 isDisabled={isAccept}
               >
                 Create Account

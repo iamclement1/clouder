@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 const Login: React.FC = () => {
   const router = useRouter();
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (user: LoginFormValues) => {
       return api.post("/auth/signin", user);
     },
@@ -110,7 +110,7 @@ const Login: React.FC = () => {
                 type="submit"
                 mt="1.59rem"
                 h="3.2rem"
-                isLoading={isLoading}
+                isLoading={isPending}
               >
                 Sign in
               </CustomButton>

@@ -120,14 +120,17 @@ const UpdateProfile: React.FC = () => {
               });
 
               if (response.status === 200) {
-                queryClient.invalidateQueries(["user", userData?.userId]);
+                // queryClient.invalidateQueries(["user", userData?.userId]);
+                queryClient.invalidateQueries({
+                  queryKey: ["user"],
+                });
                 setLoading(false);
                 const msg = response?.data.message;
                 toast.success(msg);
                 router.push("/dashboard");
               }
 
-              console.log(response);
+              // console.log(response);
             } catch (error) {
               setLoading(false);
               console.error("Error uploading data:", error);

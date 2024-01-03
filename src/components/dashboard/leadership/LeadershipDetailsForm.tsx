@@ -114,7 +114,7 @@ const LeadershipDetailsForm = () => {
               <Flex justify="space-between" gap={[".8rem", "1.8rem"]}>
                 <CustomInput
                   label="Start year"
-                  placeholder="DD/MM/YY"
+                  placeholder="YYYY"
                   name="startYear"
                   type="number"
                   errors={errors}

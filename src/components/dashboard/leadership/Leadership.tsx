@@ -1,41 +1,36 @@
 import Typography from "@/components/common/Typograph";
-import {
-  Box,
-  Flex,
-  Icon,
-  ListItem,
-  OrderedList,
-  Skeleton,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Icon, ListItem, OrderedList, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
-import QualificationForm from "./QualificationForm";
-import { useQualification } from "@/context/QualificationProvider";
+
 import CustomButton from "@/components/common/CustomButton";
-import QualificationPreview from "./QualificationPreview";
-import useQualifications from "@/hooks/useQualification";
-import { QualificationProps } from "@/utils/types";
+
+import { useRouter } from "next/navigation";
 import ReactPaginate from "react-paginate";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
-
+import LeadershipPreview from "./LeadershipPreview";
+import { useLeadership } from "@/context/LeadershipProvider";
+import LeadershipForm from "./LeadershipForm";
+import LeadershipRole from "./LeadershipRole";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
 
-const Qualifications = () => {
-  const { fillForm, handleFillForm, preview } = useQualification();
+const Leadership = () => {
+  const { fillForm, handleFillForm, preview, totalData } = useLeadership();
 
-  const { data: qualificationsData, isLoading } = useQualifications();
-  const qualification: QualificationProps[] = qualificationsData?.data?.data;
+  const router = useRouter();
 
-  // *******************************************************
+  // const { data: course, isLoading } = useCourse();
+  // const courses: CourseItem[] = course?.data;
 
+  // ******************************************
   const [itemOffset, setItemOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const items = qualification;
-  const itemsPerPage = 5;
+
+  const items = totalData;
+
+  const itemsPerPage = 4;
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems = items?.slice(itemOffset, endOffset);
@@ -55,29 +50,31 @@ const Qualifications = () => {
 
     setItemOffset(newOffset);
   };
+  // ******************************************
 
-  // *****************************************************
-
-  if (isLoading)
-    return (
-      <Stack>
-        <Skeleton height="50px" />
-        <Skeleton height="50px" />
-        <Skeleton height="50px" />
-      </Stack>
-    );
+  // if (isLoading)
+  //   return (
+  //     <Stack>
+  //       <Skeleton height="50px" />
+  //       <Skeleton height="50px" />
+  //       <Skeleton height="50px" />
+  //     </Stack>
+  //   );
 
   return (
     <Box>
-      {/* <SidebarWithHeader passedActive="/dashboard/qualifications"> */}
       <Box pb="3rem">
         {preview ? (
-          <QualificationPreview />
+          <LeadershipPreview />
         ) : (
           <>
             <Flex align="center" justify="space-between" gap="1rem">
-              <Typography variant="heading2">Qualifications</Typography>
-              {qualification?.length >= 1 && fillForm !== true && (
+              <Box>
+                <Typography variant="heading2">Leadership</Typography>
+
+                {fillForm && <LeadershipRole />}
+              </Box>
+              {totalData?.length >= 1 && fillForm !== true && (
                 <CustomButton
                   bgColor={"transparent"}
                   border="1px"
@@ -92,7 +89,7 @@ const Qualifications = () => {
               )}
             </Flex>{" "}
             {fillForm ? (
-              <QualificationForm />
+              <LeadershipForm />
             ) : (
               <Box
                 mt="1rem"
@@ -100,45 +97,64 @@ const Qualifications = () => {
                 minH="80vh"
                 borderRadius="0.46875rem"
               >
-                {qualification?.length >= 1 ? (
+                {currentItems?.length >= 1 ? (
                   <Box py="2.44rem" px="2.39rem">
-                    <Flex
-                      justify="center"
-                      align="center"
-                      py="1.125rem"
-                      w="100%"
-                      rounded="0.375rem"
-                      bgColor="grey_14"
-                    >
-                      <Text fontSize="1.125rem" fontWeight="700">
-                        Qualification Entries
-                      </Text>
-                    </Flex>
-                    {isLoading ? (
-                      <Stack>
-                        <Skeleton height="50px" />
-                        <Skeleton height="50px" />
-                        <Skeleton height="50px" />
-                      </Stack>
-                    ) : (
-                      <OrderedList mt="2.2rem" spacing={"1rem"}>
-                        {currentItems
-                          ?.slice() // Create a copy of the array to avoid mutating the original array
-                          .reverse() // Reverse the array to display the recent data first
-                          .map((item) => (
-                            <ListItem
-                              color="grey_1"
-                              key={item?.id}
-                              mb={"1rem"}
-                              fontSize="1 rem"
-                              fontWeight="600"
+                    <Box>
+                      <Flex
+                        justify="center"
+                        align="center"
+                        py="1.125rem"
+                        w="100%"
+                        rounded="0.375rem"
+                        bgColor="grey_14"
+                      >
+                        <Text fontSize="1.125rem" fontWeight="700">
+                          Leadership Entries
+                        </Text>
+                      </Flex>
+                    </Box>
+
+                    <OrderedList mt="2.2rem">
+                      {currentItems?.map((item) => {
+                        return (
+                          <ListItem
+                            mb={"1rem"}
+                            color="grey_1"
+                            key={item?.leadershipTittle}
+                            fontSize="1.125rem"
+                            fontWeight="600"
+                            display="flex"
+                            alignItems="center"
+                            justifyContent={"space-between"}
+                          >
+                            <Text
+                              onClick={() =>
+                                router.push(
+                                  `/dashboard/leadership/leadership_aquired/${item?.leadershipTittle}`,
+                                )
+                              }
+                              cursor={"pointer"}
+                            >{`${item?.leadershipTittle}
+                                                            `}</Text>
+
+                            <Text
+                              bgColor="danger_2"
+                              fontSize="0.75rem"
+                              color="danger_1"
+                              fontWeight="normal"
+                              w="fit-content"
+                              p="0.8rem 1rem"
+                              rounded={"1.35938rem"}
+                              cursor="pointer"
+                              as="a"
+                              href={`/dashboard/leadership/request_feed_back/${item?.leadershipTittle}`}
                             >
-                              {`${item.education[0]?.institution}`}
-                            </ListItem>
-                          ))}
-                        {/* ** 8 8 8 */}
-                      </OrderedList>
-                    )}
+                              Request feedback
+                            </Text>
+                          </ListItem>
+                        );
+                      })}
+                    </OrderedList>
                   </Box>
                 ) : (
                   <Flex align="center" justify="center" flexDir={"column"}>
@@ -157,7 +173,7 @@ const Qualifications = () => {
                       fontWeight="600"
                       onClick={() => handleFillForm(true)}
                     >
-                      <Icon as={MdOutlineAddCircleOutline} /> Add qualifications
+                      <Icon as={MdOutlineAddCircleOutline} /> Add Leadership
                     </Flex>
                   </Flex>
                 )}
@@ -194,8 +210,7 @@ const Qualifications = () => {
           // hrefAllControls
         />
       </Flex>
-      {/* </SidebarWithHeader> */}
     </Box>
   );
 };
-export default Qualifications;
+export default Leadership;

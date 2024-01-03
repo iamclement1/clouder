@@ -94,7 +94,7 @@ const DetailsForm = () => {
                 errors={errors}
                 touched={touched}
                 options={universitiesData}
-                placeholder="Select your location"
+                placeholder="Select your Institution"
                 type="school"
               />
 

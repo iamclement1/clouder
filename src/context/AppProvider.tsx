@@ -7,6 +7,7 @@ import { theme } from "@/utils/theme";
 import { ModalProvider } from "./ModalContext";
 import { QualificationProvider } from "./QualificationProvider";
 import { CoursesProvider } from "./CoursesProvider";
+import { LeadershipProvider } from "./LeadershipProvider";
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -15,7 +16,9 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
         <CSSReset />
         <QualificationProvider>
           <CoursesProvider>
-            <ModalProvider>{children}</ModalProvider>
+            <LeadershipProvider>
+              <ModalProvider>{children}</ModalProvider>
+            </LeadershipProvider>
           </CoursesProvider>
         </QualificationProvider>
       </ChakraProvider>

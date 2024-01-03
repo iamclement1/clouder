@@ -36,7 +36,7 @@ import { IconType } from "react-icons";
 import { BsChevronDown, BsFillCaretDownFill } from "react-icons/bs";
 import { BiBell } from "react-icons/bi";
 import { FaRegEnvelope } from "react-icons/fa";
-
+import { RiLogoutCircleLine } from "react-icons/ri";
 import SearchBox from "../dashboard/navigation/SearchBox";
 import UserImage from "../dashboard/navigation/UserImage";
 import { useRouter } from "next/navigation";
@@ -333,6 +333,10 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const { data } = useProfile();
 
   const fullName = data?.data?.fullName;
+  const [showLogOut, setShowLogOut] = useState<boolean>(false);
+  const toggleShowLogOut = () => {
+    setShowLogOut(!showLogOut);
+  };
 
   return (
     <Flex
@@ -377,12 +381,40 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 
           <Icon as={FaRegEnvelope} cursor={"pointer"} />
           {/* <Link href=""> */}
-          <Flex align="center" gap="0.3rem">
-            <Image src={"/user.svg"} alt={"user image"} boxSize="1.3rem" />
-            <Text fontSize="0.65625rem" fontWeight={"500"}>
-              {fullName}
-            </Text>
-          </Flex>
+          <Box pos="relative">
+            <Flex
+              align="center"
+              gap="0.3rem"
+              onClick={toggleShowLogOut}
+              cursor="pointer"
+            >
+              <Image src={"/user.svg"} alt={"user image"} boxSize="1.3rem" />
+              <Text fontSize="0.65625rem" fontWeight={"500"}>
+                {fullName}
+              </Text>
+            </Flex>
+            {showLogOut && (
+              <Flex
+                border="1px"
+                borderColor={"red"}
+                py="0.5rem"
+                px="1.38rem"
+                align="center"
+                justify="center"
+                gap=".5rem"
+                fontSize=".7rem"
+                color="red"
+                pos="absolute"
+                top="1.8rem"
+                bgColor="white"
+                w="100%"
+                cursor="pointer"
+              >
+                <Icon as={RiLogoutCircleLine} />
+                <Text>Logout</Text>
+              </Flex>
+            )}
+          </Box>
           {/* </Link> */}
         </Flex>
       </Flex>

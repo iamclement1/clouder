@@ -1,3 +1,4 @@
+import { roleData } from "@/utils/data";
 import { Box, Button, Text, Flex } from "@chakra-ui/react";
 import React, { useState } from "react";
 
@@ -41,22 +42,3 @@ const LeadershipRole = () => {
 };
 
 export default LeadershipRole;
-
-const roleData = [
-  {
-    id: 1,
-    roleType: "Academic role",
-  },
-  {
-    id: 2,
-    roleType: "Student unionism",
-  },
-  {
-    id: 3,
-    roleType: "Civil society",
-  },
-  {
-    id: 4,
-    roleType: "Other",
-  },
-];

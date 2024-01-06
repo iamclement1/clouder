@@ -1,5 +1,8 @@
+import LoadingSkeleton from "@/components/common/Skeleton";
+import useCoursesById from "@/hooks/useCoursesById";
+import { ParamsType } from "@/utils/types";
 import { Box, Button, Flex, Icon, Stack, Text } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import React from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
@@ -7,6 +10,11 @@ import { MdOutlineAddCircleOutline } from "react-icons/md";
 const CourseAquired = () => {
   const noFeedBack = false;
   const router = useRouter();
+
+  const { index } = useParams<ParamsType>();
+
+  const { coursesById, isLoading } = useCoursesById(index);
+  if (isLoading) return <LoadingSkeleton />;
   return (
     <Box mb="4rem">
       <Box>
@@ -46,7 +54,7 @@ const CourseAquired = () => {
                     fontWeight="600"
                     // color="grey_1"
                   >
-                    Residency and fellowship program
+                    {coursesById?.courseTitle}
                   </Text>
                 </Flex>
                 <Flex gap="0.38rem">
@@ -58,7 +66,7 @@ const CourseAquired = () => {
                     fontWeight="600"
                     // color="grey_1"
                   >
-                    Harvard
+                    {coursesById?.institution}
                   </Text>
                 </Flex>
                 <Flex gap="0.38rem">
@@ -70,7 +78,7 @@ const CourseAquired = () => {
                     fontWeight="600"
                     // color="grey_1"
                   >
-                    2019
+                    {coursesById?.year}
                   </Text>
                 </Flex>
 
@@ -83,7 +91,7 @@ const CourseAquired = () => {
                     fontWeight="600"
                     // color="grey_1"
                   >
-                    123444589
+                    {coursesById?.certificateNo}
                   </Text>
                 </Flex>
               </Stack>
@@ -102,12 +110,7 @@ const CourseAquired = () => {
                 px="1.69rem"
                 py="2rem"
               >
-                <Text>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Quibusdam nihil tenetur facilis iure aperiam quod, minima
-                  voluptatem fugiat iusto dolorum ab inventore ad corrupti
-                  tempora hic similique, dolor molestiae magni!
-                </Text>
+                <Text>{coursesById?.challenges}</Text>
               </Stack>
             </Box>
 
@@ -124,12 +127,7 @@ const CourseAquired = () => {
                 px="1.69rem"
                 py="2rem"
               >
-                <Text>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Quibusdam nihil tenetur facilis iure aperiam quod, minima
-                  voluptatem fugiat iusto dolorum ab inventore ad corrupti
-                  tempora hic similique, dolor molestiae magni!
-                </Text>
+                <Text>{coursesById?.keyPositives}</Text>
               </Stack>
             </Box>
 
@@ -146,12 +144,7 @@ const CourseAquired = () => {
                 px="1.69rem"
                 py="2rem"
               >
-                <Text>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Quibusdam nihil tenetur facilis iure aperiam quod, minima
-                  voluptatem fugiat iusto dolorum ab inventore ad corrupti
-                  tempora hic similique, dolor molestiae magni!
-                </Text>
+                <Text>{coursesById?.doDifferently}</Text>
               </Stack>
             </Box>
 

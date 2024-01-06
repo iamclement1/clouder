@@ -19,6 +19,7 @@ import useQualifications from "@/hooks/useQualification";
 import { QualificationProps } from "@/utils/types";
 import ReactPaginate from "react-paginate";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import LoadingSkeleton from "@/components/common/Skeleton";
 
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
@@ -58,14 +59,7 @@ const Qualifications = () => {
 
   // *****************************************************
 
-  if (isLoading)
-    return (
-      <Stack>
-        <Skeleton height="50px" />
-        <Skeleton height="50px" />
-        <Skeleton height="50px" />
-      </Stack>
-    );
+  if (isLoading) return <LoadingSkeleton />;
 
   return (
     <Box>

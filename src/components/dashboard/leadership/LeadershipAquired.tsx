@@ -1,5 +1,8 @@
+import LoadingSkeleton from "@/components/common/Skeleton";
+import useLeadershipById from "@/hooks/useLeadershipById";
+import { ParamsType } from "@/utils/types";
 import { Box, Button, Flex, Icon, Stack, Text } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import React from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
@@ -7,6 +10,12 @@ import { MdOutlineAddCircleOutline } from "react-icons/md";
 const LeadershipAquired = () => {
   const noFeedBack = false;
   const router = useRouter();
+  const { index } = useParams<ParamsType>();
+
+  const { leadershipById, isLoading } = useLeadershipById(index);
+
+  if (isLoading) return <LoadingSkeleton />;
+
   return (
     <Box mb="4rem">
       <Box>
@@ -46,7 +55,7 @@ const LeadershipAquired = () => {
                     fontWeight="600"
                     // color="grey_1"
                   >
-                    Head of department
+                    {leadershipById?.title}
                   </Text>
                 </Flex>
                 <Flex gap="0.38rem">
@@ -58,7 +67,7 @@ const LeadershipAquired = () => {
                     fontWeight="600"
                     // color="grey_1"
                   >
-                    29/07/2021
+                    {leadershipById?.startYear}
                   </Text>
                 </Flex>
                 <Flex gap="0.38rem">
@@ -70,7 +79,7 @@ const LeadershipAquired = () => {
                     fontWeight="600"
                     // color="grey_1"
                   >
-                    29/07/2021
+                    {leadershipById?.endYear}
                   </Text>
                 </Flex>
               </Stack>
@@ -89,12 +98,7 @@ const LeadershipAquired = () => {
                 px="1.69rem"
                 py="2rem"
               >
-                <Text>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Quibusdam nihil tenetur facilis iure aperiam quod, minima
-                  voluptatem fugiat iusto dolorum ab inventore ad corrupti
-                  tempora hic similique, dolor molestiae magni!
-                </Text>
+                <Text>{leadershipById?.doDifferently}</Text>
               </Stack>
             </Box>
             {/* Challenges  */}
@@ -110,12 +114,7 @@ const LeadershipAquired = () => {
                 px="1.69rem"
                 py="2rem"
               >
-                <Text>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Quibusdam nihil tenetur facilis iure aperiam quod, minima
-                  voluptatem fugiat iusto dolorum ab inventore ad corrupti
-                  tempora hic similique, dolor molestiae magni!
-                </Text>
+                <Text>{leadershipById?.challenges}</Text>
               </Stack>
             </Box>
 
@@ -132,12 +131,7 @@ const LeadershipAquired = () => {
                 px="1.69rem"
                 py="2rem"
               >
-                <Text>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Quibusdam nihil tenetur facilis iure aperiam quod, minima
-                  voluptatem fugiat iusto dolorum ab inventore ad corrupti
-                  tempora hic similique, dolor molestiae magni!
-                </Text>
+                <Text>{leadershipById?.keyPositives}</Text>
               </Stack>
             </Box>
 

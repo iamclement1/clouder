@@ -12,12 +12,18 @@ import LeadershipPreview from "./LeadershipPreview";
 import { useLeadership } from "@/context/LeadershipProvider";
 import LeadershipForm from "./LeadershipForm";
 import LeadershipRole from "./LeadershipRole";
+import useLeaderships from "@/hooks/useLeadership";
+import { LeadershipItem } from "@/utils/types";
+import LoadingSkeleton from "@/components/common/Skeleton";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
 
 const Leadership = () => {
   const { fillForm, handleFillForm, preview, totalData } = useLeadership();
+  const { data: leadership, isLoading } = useLeaderships();
+
+  const leadershipInfo: LeadershipItem[] = leadership?.data.data;
 
   const router = useRouter();
 
@@ -33,33 +39,24 @@ const Leadership = () => {
   const itemsPerPage = 4;
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = items?.slice(itemOffset, endOffset);
+  // const currentItems = items?.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(items?.length / itemsPerPage);
 
   // Run when user click to request another page.
   const handlePageClick = (event: CustomPageClickEvent) => {
     setCurrentPage(event.selected);
     const newOffset = (event.selected * itemsPerPage) % items?.length;
-    console.log(
-      `User requested page number ${
-        event.selected
-      }, which is offset ${newOffset} current page is ${
-        currentPage + 1
-      } and total page is ${pageCount}`,
-    );
+    // console.log(
+    //   `User requested page number ${event.selected
+    //   }, which is offset ${newOffset} current page is ${currentPage + 1
+    //   } and total page is ${pageCount}`,
+    // );
 
     setItemOffset(newOffset);
   };
   // ******************************************
 
-  // if (isLoading)
-  //   return (
-  //     <Stack>
-  //       <Skeleton height="50px" />
-  //       <Skeleton height="50px" />
-  //       <Skeleton height="50px" />
-  //     </Stack>
-  //   );
+  if (isLoading) return <LoadingSkeleton />;
 
   return (
     <Box>
@@ -74,7 +71,7 @@ const Leadership = () => {
 
                 {fillForm && <LeadershipRole />}
               </Box>
-              {totalData?.length >= 1 && fillForm !== true && (
+              {leadershipInfo?.length >= 1 && fillForm !== true && (
                 <CustomButton
                   bgColor={"transparent"}
                   border="1px"
@@ -97,7 +94,7 @@ const Leadership = () => {
                 minH="80vh"
                 borderRadius="0.46875rem"
               >
-                {currentItems?.length >= 1 ? (
+                {leadershipInfo?.length >= 1 ? (
                   <Box py="2.44rem" px="2.39rem">
                     <Box>
                       <Flex
@@ -115,12 +112,12 @@ const Leadership = () => {
                     </Box>
 
                     <OrderedList mt="2.2rem">
-                      {currentItems?.map((item) => {
+                      {leadershipInfo?.map((item) => {
                         return (
                           <ListItem
                             mb={"1rem"}
                             color="grey_1"
-                            key={item?.leadershipTittle}
+                            key={item?.id}
                             fontSize="1.125rem"
                             fontWeight="600"
                             display="flex"
@@ -130,11 +127,11 @@ const Leadership = () => {
                             <Text
                               onClick={() =>
                                 router.push(
-                                  `/dashboard/leadership/leadership_aquired/${item?.leadershipTittle}`,
+                                  `/dashboard/leadership/leadership_aquired/${item?.id}`,
                                 )
                               }
                               cursor={"pointer"}
-                            >{`${item?.leadershipTittle}
+                            >{`${item?.title}
                                                             `}</Text>
 
                             <Text
@@ -147,7 +144,7 @@ const Leadership = () => {
                               rounded={"1.35938rem"}
                               cursor="pointer"
                               as="a"
-                              href={`/dashboard/leadership/request_feed_back/${item?.leadershipTittle}`}
+                              href={`/dashboard/leadership/request_feed_back/${item?.id}`}
                             >
                               Request feedback
                             </Text>
@@ -209,6 +206,7 @@ const Leadership = () => {
           // }
           // hrefAllControls
         />
+        {currentPage}
       </Flex>
     </Box>
   );

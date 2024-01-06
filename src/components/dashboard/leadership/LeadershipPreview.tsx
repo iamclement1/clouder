@@ -7,6 +7,8 @@ import CustomButton from "@/components/common/CustomButton";
 import Typography from "@/components/common/Typograph";
 import StatusModal from "@/components/modals/StatusModal";
 import { useLeadership } from "@/context/LeadershipProvider";
+import api from "@/utils/axiosInstance";
+import { LeadershipPayloadType } from "@/utils/types";
 import {
   Box,
   Flex,
@@ -16,16 +18,16 @@ import {
   useDisclosure,
   //  useDisclosure
 } from "@chakra-ui/react";
-// import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import { TbEdit } from "react-icons/tb";
 // import { MdOutlineCancel } from "react-icons/md";
 // import { TbEdit } from "react-icons/tb";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const LeadershipPreview = () => {
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
   const {
     handleFormSteps,
@@ -35,48 +37,38 @@ const LeadershipPreview = () => {
     handleTotalData,
   } = useLeadership();
 
-  // type Payload = {
-  //     courseTitle: string;
-  //     institution: string;
-  //     year: string;
-  //     certificateNo: string;
-  //     challenges: string;
-  //     document: File | Blob | MediaSource | null;
-  //     keyPositives?: string;
-  //     doDifferently?: string;
-  // };
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (leaderships: LeadershipPayloadType) => {
+      return api.post("/leaderships", leaderships);
+    },
+    onSuccess: ({ data }) => {
+      if (data) {
+        toast.success("Leadership Form Submitted Successfully", {
+          theme: "dark",
+        });
+      }
+      queryClient.invalidateQueries({ queryKey: ["leaderships"] });
+    },
+    onError: (error: { response: { data: { error: string } } }) => {
+      const errorMsg = error.response.data.error;
+      toast.error(errorMsg, {
+        theme: "dark",
+      });
+    },
+  });
 
-  // const { mutate, isLoading } = useMutation({
-  //     mutationFn: (courses: Payload) => {
-  //         return api.post("/courses", courses);
-  //     },
-  //     onSuccess: ({ data }) => {
-  //         if (data) {
-  //             toast.success("Course Submitted Successfully", {
-  //                 theme: "dark",
-  //             });
-  //         }
-  //         queryClient.invalidateQueries({ queryKey: ["courses"] });
-  //     },
-  //     onError: (error: { response: { data: { error: string } } }) => {
-  //         const errorMsg = error.response.data.error;
-  //         toast.error(errorMsg, {
-  //             theme: "dark",
-  //         });
-  //     },
-  // });
+  const payload: LeadershipPayloadType = {
+    title: leadershipData?.leadershipTittle,
+    startYear: leadershipData?.startYear,
+    endYear: leadershipData?.endYear,
+    challenges: leadershipData?.challenges,
+    keyPositives: leadershipData?.key_points,
+    doDifferently: leadershipData?.differentAction,
+  };
 
-  // const payload: Payload = {
-  //     courseTitle: leadershipData?.courseTitle,
-  //     institution: leadershipData?.school,
-  //     certificateNo: leadershipData?.certificateNo,
-  //     challenges: leadershipData?.challenges,
-  //     year: leadershipData?.year,
-  //     document: leadershipData?.imageFile,
-  //     keyPositives: leadershipData?.key_points,
-  //     doDifferently: leadershipData?.differentAction,
-  // };
-
+  const handleSubmit = () => {
+    mutate(payload);
+  };
   const {
     isOpen: isOpenStatusModal,
     onOpen: onOpenStatusModal,
@@ -255,8 +247,8 @@ const LeadershipPreview = () => {
           <Flex mt="3.75rem" align="center" justify="center">
             <CustomButton
               maxW="26.6rem"
-              // isLoading={isLoading}
-              handleClick={() => onOpenStatusModal()}
+              isLoading={isLoading}
+              handleClick={() => handleSubmit()}
             >
               Save
             </CustomButton>

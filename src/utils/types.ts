@@ -110,3 +110,14 @@ export interface CourseItem {
   certificateNo: string;
   year: string;
 }
+
+export type CoursesPayloadType = {
+  courseTitle: string;
+  institution: string;
+  year: string;
+  certificateNo: string;
+  challenges: string;
+  document: File | Blob | MediaSource | null;
+  keyPositives?: string;
+  doDifferently?: string;
+};

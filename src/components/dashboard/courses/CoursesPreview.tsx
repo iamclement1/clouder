@@ -3,6 +3,7 @@ import Typography from "@/components/common/Typograph";
 import StatusModal from "@/components/modals/StatusModal";
 import { useCourses } from "@/context/CoursesProvider";
 import api from "@/utils/axiosInstance";
+import { CoursesPayloadType } from "@/utils/types";
 import { Box, Flex, Text, Icon, Stack, useDisclosure } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
@@ -21,19 +22,8 @@ const CoursesPreview = () => {
     handleTotalData,
   } = useCourses();
 
-  type Payload = {
-    courseTitle: string;
-    institution: string;
-    year: string;
-    certificateNo: string;
-    challenges: string;
-    document: File | Blob | MediaSource | null;
-    keyPositives?: string;
-    doDifferently?: string;
-  };
-
   const { mutate, isLoading } = useMutation({
-    mutationFn: (courses: Payload) => {
+    mutationFn: (courses: CoursesPayloadType) => {
       return api.post("/courses", courses);
     },
     onSuccess: ({ data }) => {
@@ -52,7 +42,7 @@ const CoursesPreview = () => {
     },
   });
 
-  const payload: Payload = {
+  const payload: CoursesPayloadType = {
     courseTitle: coursesData?.courseTitle,
     institution: coursesData?.school,
     certificateNo: coursesData?.certificateNo,

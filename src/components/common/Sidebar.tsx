@@ -43,6 +43,10 @@ import { useRouter } from "next/navigation";
 import Share from "../modals/Share";
 import useProfile from "@/hooks/useProfile";
 import { BiLogOut } from "react-icons/bi";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import api from "@/utils/axiosInstance";
+import PageLoader from "./PageLoader";
 
 interface SidebarWithHeaderProps {
   passedActive: string;
@@ -144,6 +148,33 @@ const LinkItems: Array<LinkItemProps> = [
 ];
 
 const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {
+  const router = useRouter();
+
+  const { mutate, isLoading } = useMutation({
+    mutationFn: () => {
+      return api.get("/user/signout");
+    },
+    onSuccess: ({ data }) => {
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("refreshToken");
+      toast.success(data.message, {
+        theme: "dark",
+      });
+      router.push("/");
+    },
+    onError: (error: { response: { data: { error: string } } }) => {
+      const errorMsg = error.response.data.error;
+      toast.error(errorMsg, {
+        theme: "dark",
+      });
+    },
+  });
+
+  if (isLoading) return <PageLoader />;
+
+  const handleLogout = () => {
+    mutate();
+  };
   return (
     <Box
       transition="3s ease"
@@ -208,6 +239,7 @@ const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {
             color="red_2"
             flexShrink={0}
             // w="100%"
+            onClick={handleLogout}
           >
             {" "}
             Log out{" "}

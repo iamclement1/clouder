@@ -68,6 +68,25 @@ export type Payload = {
   doDifferently: string;
 };
 
+export type LeadershipItem = {
+  id: string;
+  title: string;
+  startYear: string;
+  endYear: string;
+  challenges: string;
+  keyPositives: string;
+  doDifferently: string;
+};
+
+export type LeadershipPayloadType = {
+  title: string;
+  startYear: string;
+  endYear: string;
+  challenges: string;
+  keyPositives: string;
+  doDifferently: string;
+};
+
 export interface QualificationProps {
   createdAt: number;
   updatedAt: number;
@@ -91,3 +110,14 @@ export interface CourseItem {
   certificateNo: string;
   year: string;
 }
+
+export type CoursesPayloadType = {
+  courseTitle: string;
+  institution: string;
+  year: string;
+  certificateNo: string;
+  challenges: string;
+  document: File | Blob | MediaSource | null;
+  keyPositives?: string;
+  doDifferently?: string;
+};

@@ -1,14 +1,5 @@
 import Typography from "@/components/common/Typograph";
-import {
-  Box,
-  Flex,
-  Icon,
-  ListItem,
-  OrderedList,
-  Skeleton,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Icon, ListItem, OrderedList, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 
@@ -23,6 +14,7 @@ import LeadershipForm from "./LeadershipForm";
 import LeadershipRole from "./LeadershipRole";
 import useLeaderships from "@/hooks/useLeadership";
 import { LeadershipItem } from "@/utils/types";
+import LoadingSkeleton from "@/components/common/Skeleton";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
@@ -64,14 +56,7 @@ const Leadership = () => {
   };
   // ******************************************
 
-  if (isLoading)
-    return (
-      <Stack>
-        <Skeleton height="50px" />
-        <Skeleton height="50px" />
-        <Skeleton height="50px" />
-      </Stack>
-    );
+  if (isLoading) return <LoadingSkeleton />;
 
   return (
     <Box>
@@ -132,7 +117,7 @@ const Leadership = () => {
                           <ListItem
                             mb={"1rem"}
                             color="grey_1"
-                            key={item?.title}
+                            key={item?.id}
                             fontSize="1.125rem"
                             fontWeight="600"
                             display="flex"

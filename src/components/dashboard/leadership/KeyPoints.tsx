@@ -1,13 +1,19 @@
 import CustomButton from "@/components/common/CustomButton";
 import { useLeadership } from "@/context/LeadershipProvider";
+import api from "@/utils/axiosInstance";
+import { LeadershipPayloadType } from "@/utils/types";
 
 import { Box, Text, Flex } from "@chakra-ui/react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import React, { useState, useRef } from "react";
 
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
+import { toast } from "react-toastify";
 
 const KeyPoints = () => {
+  const queryClient = useQueryClient();
+
   const [err, setErr] = useState<boolean>(false);
   const { leadershipData, handleLeadershipData, handlePreview } =
     useLeadership();
@@ -35,11 +41,43 @@ const KeyPoints = () => {
     }
   };
 
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (leaderships: LeadershipPayloadType) => {
+      return api.post("/leaderships", leaderships);
+    },
+    onSuccess: ({ data }) => {
+      if (data) {
+        toast.success("Leadership Form Submitted Successfully", {
+          theme: "dark",
+        });
+      }
+      queryClient.invalidateQueries({ queryKey: ["leadership"] });
+    },
+    onError: (error: { response: { data: { error: string } } }) => {
+      const errorMsg = error.response.data.error;
+      toast.error(errorMsg, {
+        theme: "dark",
+      });
+    },
+  });
+
+  const payload: LeadershipPayloadType = {
+    title: leadershipData?.leadershipTittle,
+    startYear: leadershipData?.startYear,
+    endYear: leadershipData?.endYear,
+    challenges: leadershipData?.challenges,
+    keyPositives: leadershipData?.key_points,
+    doDifferently: leadershipData?.differentAction,
+  };
+
+  const handlePayload = () => {
+    mutate(payload);
+  };
+
   const handleSubmit = () => {
     if (text.current !== "") {
       setErr(false);
-
-      // handleFormSteps(formSteps + 1);
+      handlePayload();
       console.log("leadershipData", leadershipData);
     } else {
       setErr(true);
@@ -100,11 +138,7 @@ const KeyPoints = () => {
             </Flex> */}
 
       <Flex maxW="35rem" mx="auto" gap="1.12rem" mt="3rem">
-        <CustomButton
-          w="100%"
-          // isLoading={isLoading}
-          handleClick={handleSubmit}
-        >
+        <CustomButton w="100%" isLoading={isLoading} handleClick={handleSubmit}>
           Save
         </CustomButton>
         <CustomButton

@@ -16,29 +16,12 @@ import ScreenSize from "@/layouts/ScreenSize";
 import CustomButton from "./CustomButton";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Links } from "@/utils/data";
 
 interface Props {
   text?: string;
   href?: string;
 }
-
-const Links = [
-  {
-    id: 1,
-    href: "/about",
-    text: "About us",
-  },
-  {
-    id: 2,
-    href: "/contact",
-    text: "Contact Us",
-  },
-  {
-    id: 3,
-    href: "/pricing",
-    text: "Pricing",
-  },
-];
 
 const NavLink = (props: Props) => {
   const { text, href } = props;
@@ -128,8 +111,8 @@ export default function Navbar() {
               bg={"white"}
             >
               <Stack as={"nav"} spacing={4}>
-                {Links.map((link, i) => (
-                  <NavLink key={i} text={link.text} href={link.href} />
+                {Links.map((link) => (
+                  <NavLink key={link.id} text={link.text} href={link.href} />
                 ))}
                 <CustomButton
                   display={["block", null, "none"]}

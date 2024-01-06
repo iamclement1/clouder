@@ -54,13 +54,11 @@ const Leadership = () => {
   const handlePageClick = (event: CustomPageClickEvent) => {
     setCurrentPage(event.selected);
     const newOffset = (event.selected * itemsPerPage) % items?.length;
-    console.log(
-      `User requested page number ${
-        event.selected
-      }, which is offset ${newOffset} current page is ${
-        currentPage + 1
-      } and total page is ${pageCount}`,
-    );
+    // console.log(
+    //   `User requested page number ${event.selected
+    //   }, which is offset ${newOffset} current page is ${currentPage + 1
+    //   } and total page is ${pageCount}`,
+    // );
 
     setItemOffset(newOffset);
   };
@@ -223,6 +221,7 @@ const Leadership = () => {
           // }
           // hrefAllControls
         />
+        {currentPage}
       </Flex>
     </Box>
   );

@@ -87,6 +87,10 @@ export type LeadershipPayloadType = {
   doDifferently: string;
 };
 
+export type ParamsType = {
+  index: string;
+};
+
 export interface QualificationProps {
   createdAt: number;
   updatedAt: number;

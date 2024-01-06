@@ -1,14 +1,5 @@
 import Typography from "@/components/common/Typograph";
-import {
-  Box,
-  Flex,
-  Icon,
-  ListItem,
-  OrderedList,
-  Skeleton,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Icon, ListItem, OrderedList, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 
@@ -21,6 +12,7 @@ import useCourse from "@/hooks/useCourses";
 import { CourseItem } from "@/utils/types";
 import ReactPaginate from "react-paginate";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import LoadingSkeleton from "@/components/common/Skeleton";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
@@ -61,14 +53,7 @@ const Courses = () => {
   };
   // ******************************************
 
-  if (isLoading)
-    return (
-      <Stack>
-        <Skeleton height="50px" />
-        <Skeleton height="50px" />
-        <Skeleton height="50px" />
-      </Stack>
-    );
+  if (isLoading) return <LoadingSkeleton />;
 
   return (
     <Box>

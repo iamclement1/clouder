@@ -2,17 +2,15 @@ import CustomButton from "@/components/common/CustomButton";
 import Typography from "@/components/common/Typograph";
 import StatusModal from "@/components/modals/StatusModal";
 import { useCourses } from "@/context/CoursesProvider";
-import api from "@/utils/axiosInstance";
+import useCoursesMutation from "@/hooks/useCoursesMutation";
 import { CoursesPayloadType } from "@/utils/types";
 import { Box, Flex, Text, Icon, Stack, useDisclosure } from "@chakra-ui/react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import { TbEdit } from "react-icons/tb";
-import { toast } from "react-toastify";
 
 const CoursesPreview = () => {
-  const queryClient = useQueryClient();
+  const { handleSubmitCourses, isLoading } = useCoursesMutation();
 
   const {
     handleFormSteps,
@@ -21,26 +19,6 @@ const CoursesPreview = () => {
     handlePreview,
     handleTotalData,
   } = useCourses();
-
-  const { mutate, isLoading } = useMutation({
-    mutationFn: (courses: CoursesPayloadType) => {
-      return api.post("/courses", courses);
-    },
-    onSuccess: ({ data }) => {
-      if (data) {
-        toast.success("Course Submitted Successfully", {
-          theme: "dark",
-        });
-      }
-      queryClient.invalidateQueries({ queryKey: ["courses"] });
-    },
-    onError: (error: { response: { data: { error: string } } }) => {
-      const errorMsg = error.response.data.error;
-      toast.error(errorMsg, {
-        theme: "dark",
-      });
-    },
-  });
 
   const payload: CoursesPayloadType = {
     courseTitle: coursesData?.courseTitle,
@@ -54,7 +32,7 @@ const CoursesPreview = () => {
   };
 
   const handleSubmit = () => {
-    mutate(payload);
+    handleSubmitCourses(payload);
   };
 
   const {

@@ -693,3 +693,21 @@ export const pricingData = [
     subLink: "#",
   },
 ];
+
+export const Links = [
+  {
+    id: 1,
+    href: "/about",
+    text: "About us",
+  },
+  {
+    id: 2,
+    href: "/contact",
+    text: "Contact Us",
+  },
+  {
+    id: 3,
+    href: "/pricing",
+    text: "Pricing",
+  },
+];

@@ -1,14 +1,5 @@
 import Typography from "@/components/common/Typograph";
-import {
-  Box,
-  Flex,
-  Icon,
-  ListItem,
-  OrderedList,
-  Skeleton,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Icon, ListItem, OrderedList, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 import QualificationForm from "./QualificationForm";
@@ -36,7 +27,7 @@ const Qualifications = () => {
   const [itemOffset, setItemOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const items = qualification;
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems = items?.slice(itemOffset, endOffset);
@@ -109,11 +100,7 @@ const Qualifications = () => {
                       </Text>
                     </Flex>
                     {isLoading ? (
-                      <Stack>
-                        <Skeleton height="50px" />
-                        <Skeleton height="50px" />
-                        <Skeleton height="50px" />
-                      </Stack>
+                      <LoadingSkeleton />
                     ) : (
                       <OrderedList mt="2.2rem" spacing={"1rem"}>
                         {currentItems

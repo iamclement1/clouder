@@ -1,19 +1,15 @@
 import CustomButton from "@/components/common/CustomButton";
 import { useLeadership } from "@/context/LeadershipProvider";
-import api from "@/utils/axiosInstance";
+import useLeadershipMutation from "@/hooks/useLeadershipMutation";
 import { LeadershipPayloadType } from "@/utils/types";
 
 import { Box, Text, Flex } from "@chakra-ui/react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import React, { useState, useRef } from "react";
 
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
-import { toast } from "react-toastify";
 
 const KeyPoints = () => {
-  const queryClient = useQueryClient();
-
   const [err, setErr] = useState<boolean>(false);
   const { leadershipData, handleLeadershipData, handlePreview } =
     useLeadership();
@@ -40,26 +36,7 @@ const KeyPoints = () => {
       setErr(true);
     }
   };
-
-  const { mutate, isLoading } = useMutation({
-    mutationFn: (leaderships: LeadershipPayloadType) => {
-      return api.post("/leaderships", leaderships);
-    },
-    onSuccess: ({ data }) => {
-      if (data) {
-        toast.success("Leadership Form Submitted Successfully", {
-          theme: "dark",
-        });
-      }
-      queryClient.invalidateQueries({ queryKey: ["leadership"] });
-    },
-    onError: (error: { response: { data: { error: string } } }) => {
-      const errorMsg = error.response.data.error;
-      toast.error(errorMsg, {
-        theme: "dark",
-      });
-    },
-  });
+  const { handleSubmitLeadership, isLoading } = useLeadershipMutation();
 
   const payload: LeadershipPayloadType = {
     title: leadershipData?.leadershipTittle,
@@ -71,7 +48,7 @@ const KeyPoints = () => {
   };
 
   const handlePayload = () => {
-    mutate(payload);
+    handleSubmitLeadership(payload);
   };
 
   const handleSubmit = () => {

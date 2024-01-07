@@ -112,45 +112,48 @@ const Leadership = () => {
                     </Box>
 
                     <OrderedList mt="2.2rem">
-                      {leadershipInfo?.map((item) => {
-                        return (
-                          <ListItem
-                            mb={"1rem"}
-                            color="grey_1"
-                            key={item?.id}
-                            fontSize="1.125rem"
-                            fontWeight="600"
-                            display="flex"
-                            alignItems="center"
-                            justifyContent={"space-between"}
-                          >
-                            <Text
-                              onClick={() =>
-                                router.push(
-                                  `/dashboard/leadership/leadership_aquired/${item?.id}`,
-                                )
-                              }
-                              cursor={"pointer"}
-                            >{`${item?.title}
+                      {leadershipInfo
+                        ?.slice()
+                        .reverse()
+                        .map((item) => {
+                          return (
+                            <ListItem
+                              mb={"1rem"}
+                              color="grey_1"
+                              key={item?.id}
+                              fontSize="1.125rem"
+                              fontWeight="600"
+                              display="flex"
+                              alignItems="center"
+                              justifyContent={"space-between"}
+                            >
+                              <Text
+                                onClick={() =>
+                                  router.push(
+                                    `/dashboard/leadership/leadership_aquired/${item?.id}`,
+                                  )
+                                }
+                                cursor={"pointer"}
+                              >{`${item?.title}
                                                             `}</Text>
 
-                            <Text
-                              bgColor="danger_2"
-                              fontSize="0.75rem"
-                              color="danger_1"
-                              fontWeight="normal"
-                              w="fit-content"
-                              p="0.8rem 1rem"
-                              rounded={"1.35938rem"}
-                              cursor="pointer"
-                              as="a"
-                              href={`/dashboard/leadership/request_feed_back/${item?.id}`}
-                            >
-                              Request feedback
-                            </Text>
-                          </ListItem>
-                        );
-                      })}
+                              <Text
+                                bgColor="danger_2"
+                                fontSize="0.75rem"
+                                color="danger_1"
+                                fontWeight="normal"
+                                w="fit-content"
+                                p="0.8rem 1rem"
+                                rounded={"1.35938rem"}
+                                cursor="pointer"
+                                as="a"
+                                href={`/dashboard/leadership/request_feed_back/${item?.id}`}
+                              >
+                                Request feedback
+                              </Text>
+                            </ListItem>
+                          );
+                        })}
                     </OrderedList>
                   </Box>
                 ) : (

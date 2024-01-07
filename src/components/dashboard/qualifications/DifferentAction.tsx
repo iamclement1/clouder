@@ -1,21 +1,13 @@
 import CustomButton from "@/components/common/CustomButton";
 import StatusModal from "@/components/modals/StatusModal";
-import { useModal } from "@/context/ModalContext";
-
 import { useQualification } from "@/context/QualificationProvider";
-import api from "@/utils/axiosInstance";
-import { Payload } from "@/utils/types";
+import useQualificationMutation from "@/hooks/useQualificationMutation";
 import { Box, Text, Flex, useDisclosure } from "@chakra-ui/react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import React, { useState, useRef } from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
-import { toast } from "react-toastify";
 
 const DifferentAction = () => {
-  const { openModal } = useModal();
-  const queryClient = useQueryClient();
-
   const [err, setErr] = useState<boolean>(false);
   const {
     qualificationData,
@@ -30,31 +22,7 @@ const DifferentAction = () => {
   const text = useRef("");
   text.current = qualificationData?.differentAction;
 
-  const { mutate, isLoading } = useMutation({
-    mutationFn: (qualifications: Payload) => {
-      return api.post("/qualifications", qualifications);
-    },
-    onSuccess: ({ data }) => {
-      if (data) {
-        toast.success("Qualification Submitted Successfully", {
-          theme: "dark",
-        });
-        handleFormSteps(1);
-        handleFillForm(false);
-      }
-      queryClient.invalidateQueries({ queryKey: ["qualifications"] });
-    },
-    onError: (error: { response: { data: { error: string } } }) => {
-      const errorMsg = error.response.data.error;
-      openModal({
-        type: "error",
-        message: errorMsg,
-        title: "Error Submitting Qualification",
-        buttonType: "fill",
-        buttonText: "Continue",
-      });
-    },
-  });
+  const { handleSubmitQualification, isLoading } = useQualificationMutation();
 
   const payload = {
     education: [
@@ -93,7 +61,7 @@ const DifferentAction = () => {
 
   const handlePayload = () => {
     console.log(qualificationData);
-    mutate(payload);
+    handleSubmitQualification(payload);
   };
 
   const handleSubmit = () => {

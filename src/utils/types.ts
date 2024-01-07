@@ -61,7 +61,7 @@ interface EducationItem {
   certificate: File | Blob | MediaSource | null;
 }
 
-export type Payload = {
+export type QualificationPayloadProps = {
   education: EducationItem[];
   challenges: string;
   keyPositives: string;

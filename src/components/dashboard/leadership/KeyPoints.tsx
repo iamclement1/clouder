@@ -1,5 +1,7 @@
 import CustomButton from "@/components/common/CustomButton";
 import { useLeadership } from "@/context/LeadershipProvider";
+import useLeadershipMutation from "@/hooks/useLeadershipMutation";
+import { LeadershipPayloadType } from "@/utils/types";
 
 import { Box, Text, Flex } from "@chakra-ui/react";
 
@@ -34,12 +36,25 @@ const KeyPoints = () => {
       setErr(true);
     }
   };
+  const { handleSubmitLeadership, isLoading } = useLeadershipMutation();
+
+  const payload: LeadershipPayloadType = {
+    title: leadershipData?.leadershipTittle,
+    startYear: leadershipData?.startYear,
+    endYear: leadershipData?.endYear,
+    challenges: leadershipData?.challenges,
+    keyPositives: leadershipData?.key_points,
+    doDifferently: leadershipData?.differentAction,
+  };
+
+  const handlePayload = () => {
+    handleSubmitLeadership(payload);
+  };
 
   const handleSubmit = () => {
     if (text.current !== "") {
       setErr(false);
-
-      // handleFormSteps(formSteps + 1);
+      handlePayload();
       console.log("leadershipData", leadershipData);
     } else {
       setErr(true);
@@ -100,11 +115,7 @@ const KeyPoints = () => {
             </Flex> */}
 
       <Flex maxW="35rem" mx="auto" gap="1.12rem" mt="3rem">
-        <CustomButton
-          w="100%"
-          // isLoading={isLoading}
-          handleClick={handleSubmit}
-        >
+        <CustomButton w="100%" isLoading={isLoading} handleClick={handleSubmit}>
           Save
         </CustomButton>
         <CustomButton

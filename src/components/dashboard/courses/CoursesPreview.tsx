@@ -2,16 +2,15 @@ import CustomButton from "@/components/common/CustomButton";
 import Typography from "@/components/common/Typograph";
 import StatusModal from "@/components/modals/StatusModal";
 import { useCourses } from "@/context/CoursesProvider";
-import api from "@/utils/axiosInstance";
+import useCoursesMutation from "@/hooks/useCoursesMutation";
+import { CoursesPayloadType } from "@/utils/types";
 import { Box, Flex, Text, Icon, Stack, useDisclosure } from "@chakra-ui/react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import { TbEdit } from "react-icons/tb";
-import { toast } from "react-toastify";
 
 const CoursesPreview = () => {
-  const queryClient = useQueryClient();
+  const { handleSubmitCourses, isLoading } = useCoursesMutation();
 
   const {
     handleFormSteps,
@@ -21,38 +20,7 @@ const CoursesPreview = () => {
     handleTotalData,
   } = useCourses();
 
-  type Payload = {
-    courseTitle: string;
-    institution: string;
-    year: string;
-    certificateNo: string;
-    challenges: string;
-    document: File | Blob | MediaSource | null;
-    keyPositives?: string;
-    doDifferently?: string;
-  };
-
-  const { mutate, isLoading } = useMutation({
-    mutationFn: (courses: Payload) => {
-      return api.post("/courses", courses);
-    },
-    onSuccess: ({ data }) => {
-      if (data) {
-        toast.success("Course Submitted Successfully", {
-          theme: "dark",
-        });
-      }
-      queryClient.invalidateQueries({ queryKey: ["courses"] });
-    },
-    onError: (error: { response: { data: { error: string } } }) => {
-      const errorMsg = error.response.data.error;
-      toast.error(errorMsg, {
-        theme: "dark",
-      });
-    },
-  });
-
-  const payload: Payload = {
+  const payload: CoursesPayloadType = {
     courseTitle: coursesData?.courseTitle,
     institution: coursesData?.school,
     certificateNo: coursesData?.certificateNo,
@@ -64,7 +32,7 @@ const CoursesPreview = () => {
   };
 
   const handleSubmit = () => {
-    mutate(payload);
+    handleSubmitCourses(payload);
   };
 
   const {

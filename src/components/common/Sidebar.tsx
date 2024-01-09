@@ -43,6 +43,8 @@ import { useRouter } from "next/navigation";
 import Share from "../modals/Share";
 import useProfile from "@/hooks/useProfile";
 import { BiLogOut } from "react-icons/bi";
+import PageLoader from "./PageLoader";
+import useSignOut from "@/hooks/useSignOut";
 
 interface SidebarWithHeaderProps {
   passedActive: string;
@@ -144,6 +146,10 @@ const LinkItems: Array<LinkItemProps> = [
 ];
 
 const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {
+  const { isLoading, handleLogOut } = useSignOut();
+
+  if (isLoading) return <PageLoader />;
+
   return (
     <Box
       transition="3s ease"
@@ -208,6 +214,7 @@ const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {
             color="red_2"
             flexShrink={0}
             // w="100%"
+            onClick={handleLogOut}
           >
             {" "}
             Log out{" "}
@@ -337,7 +344,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const toggleShowLogOut = () => {
     setShowLogOut(!showLogOut);
   };
+  const { isLoading, handleLogOut } = useSignOut();
 
+  if (isLoading) return <PageLoader />;
   return (
     <Flex
       ml={{ base: 0, md: "17.6rem" }}
@@ -409,6 +418,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                 bgColor="white"
                 w="100%"
                 cursor="pointer"
+                onClick={handleLogOut}
               >
                 <Icon as={RiLogoutCircleLine} />
                 <Text>Logout</Text>

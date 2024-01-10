@@ -1,24 +1,24 @@
 import CustomButton from "@/components/common/CustomButton";
 
-import { useLeadership } from "@/context/LeadershipProvider";
+import { useResearch } from "@/context/ResearchProvider";
 import { Box, Text, Flex } from "@chakra-ui/react";
 
 import React, { useState, useRef } from "react";
 
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
-const LeadershipChallengesForm = () => {
+const ResearchSummaryForm = () => {
   const [err, setErr] = useState<boolean>(false);
   const {
     formSteps,
     handleFormSteps,
     handleFillForm,
-    leadershipData,
-    handleLeadershipData,
-  } = useLeadership();
+    researchData,
+    handleResearchData,
+  } = useResearch();
 
   const text = useRef("");
-  text.current = leadershipData?.challenges;
+  text.current = researchData?.summary;
 
   const handleChange = (evt: ContentEditableEvent) => {
     text.current = evt.target.value;
@@ -40,9 +40,9 @@ const LeadershipChallengesForm = () => {
   const handleSubmit = (values: string) => {
     if (text.current !== "") {
       setErr(false);
-      handleLeadershipData({
-        ...leadershipData,
-        challenges: values,
+      handleResearchData({
+        ...researchData,
+        summary: values,
       });
 
       handleFormSteps(formSteps + 1);
@@ -55,7 +55,7 @@ const LeadershipChallengesForm = () => {
       <Box>
         <Flex align="center" justify="space-between" mb="1.87rem">
           <Text fontSize="1.4rem" color="grey_1" fontWeight="500" maxW="31rem">
-            What are the challenges faced during your leadership activity?
+            Kindly give a brief summary of the study.
           </Text>
         </Flex>
         <ContentEditable
@@ -90,4 +90,4 @@ const LeadershipChallengesForm = () => {
   );
 };
 
-export default LeadershipChallengesForm;
+export default ResearchSummaryForm;

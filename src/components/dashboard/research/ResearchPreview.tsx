@@ -1,7 +1,8 @@
 import CustomButton from "@/components/common/CustomButton";
 import Typography from "@/components/common/Typograph";
 import StatusModal from "@/components/modals/StatusModal";
-import { useLeadership } from "@/context/LeadershipProvider";
+
+import { useResearch } from "@/context/ResearchProvider";
 import {
   Box,
   Flex,
@@ -22,10 +23,10 @@ const ResearchPreview = () => {
   const {
     handleFormSteps,
     handleFillForm,
-    leadershipData,
+    researchData,
     handlePreview,
     handleTotalData,
-  } = useLeadership();
+  } = useResearch();
 
   // type Payload = {
   //     courseTitle: string;
@@ -59,14 +60,14 @@ const ResearchPreview = () => {
   // });
 
   // const payload: Payload = {
-  //     courseTitle: leadershipData?.courseTitle,
-  //     institution: leadershipData?.school,
-  //     certificateNo: leadershipData?.certificateNo,
-  //     challenges: leadershipData?.challenges,
-  //     year: leadershipData?.year,
-  //     document: leadershipData?.imageFile,
-  //     keyPositives: leadershipData?.key_points,
-  //     doDifferently: leadershipData?.differentAction,
+  //     courseTitle: researchData?.courseTitle,
+  //     institution: researchData?.school,
+  //     certificateNo: researchData?.certificateNo,
+  //     challenges: researchData?.challenges,
+  //     year: researchData?.year,
+  //     document: researchData?.imageFile,
+  //     keyPositives: researchData?.key_points,
+  //     doDifferently: researchData?.differentAction,
   // };
 
   const {
@@ -104,7 +105,7 @@ const ResearchPreview = () => {
         >
           <Flex align="center" justify="space-between">
             <Text fontSize="1.5rem" fontWeight="700">
-              Leadership (Academic role)
+              Research
             </Text>
             <Icon
               as={TbEdit}
@@ -121,7 +122,7 @@ const ResearchPreview = () => {
             <Stack>
               <Flex gap="0.38rem" align="center">
                 <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
-                  Leadership title:
+                  Title:
                 </Text>
 
                 <Text
@@ -129,31 +130,31 @@ const ResearchPreview = () => {
                   fontWeight="600"
                   // color="grey_1"
                 >
-                  {leadershipData?.leadershipTittle}
+                  {researchData?.researchTittle}
                 </Text>
               </Flex>
               <Flex gap="0.38rem" align="center">
                 <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
-                  Start year:
+                  Year:
                 </Text>
                 <Text
                   fontSize="1.125rem"
                   fontWeight="600"
                   // color="grey_1"
                 >
-                  {leadershipData?.startYear}
+                  {researchData?.year}
                 </Text>
               </Flex>
               <Flex gap="0.38rem" align="center">
                 <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
-                  End year:{" "}
+                  Authors:{" "}
                 </Text>
                 <Text
                   fontSize="1.125rem"
                   fontWeight="600"
                   // color="grey_1"
                 >
-                  {leadershipData?.endYear}
+                  {researchData?.author}
                 </Text>
               </Flex>{" "}
             </Stack>
@@ -163,7 +164,7 @@ const ResearchPreview = () => {
           <Box mt="3rem">
             <Flex align="center" justify="space-between">
               <Text fontSize="1.5rem" fontWeight="700">
-                Using leadership to solve a particular problem
+                Research Summary
               </Text>
               <Icon
                 as={TbEdit}
@@ -180,7 +181,7 @@ const ResearchPreview = () => {
               <Stack>
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: leadershipData?.solvedPro,
+                    __html: researchData?.summary,
                   }}
                 />
               </Stack>
@@ -190,7 +191,7 @@ const ResearchPreview = () => {
           <Box mt="3rem">
             <Flex align="center" justify="space-between">
               <Text fontSize="1.5rem" fontWeight="700">
-                Challenges
+                What you learnt from the Research
               </Text>
               <Icon
                 as={TbEdit}
@@ -207,7 +208,7 @@ const ResearchPreview = () => {
               <Stack>
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: leadershipData?.challenges,
+                    __html: researchData?.researchBeneficials,
                   }}
                 />
               </Stack>
@@ -218,7 +219,7 @@ const ResearchPreview = () => {
           <Box mt="3rem">
             <Flex align="center" justify="space-between">
               <Text fontSize="1.5rem" fontWeight="700">
-                Key Positives
+                Areas to focus on for more Clinical Research
               </Text>
               <Icon
                 as={TbEdit}
@@ -235,7 +236,7 @@ const ResearchPreview = () => {
               <Stack>
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: leadershipData?.key_points,
+                    __html: researchData?.researchArea,
                   }}
                 />
               </Stack>

@@ -1,5 +1,6 @@
 import CustomButton from "@/components/common/CustomButton";
-import { useLeadership } from "@/context/LeadershipProvider";
+
+import { useResearch } from "@/context/ResearchProvider";
 
 import { Box, Text, Flex } from "@chakra-ui/react";
 
@@ -7,13 +8,12 @@ import React, { useState, useRef } from "react";
 
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
-const KeyPoints = () => {
+const ResearchAreas = () => {
   const [err, setErr] = useState<boolean>(false);
-  const { leadershipData, handleLeadershipData, handlePreview } =
-    useLeadership();
+  const { researchData, handleResearchData, handlePreview } = useResearch();
 
   const text = useRef("");
-  text.current = leadershipData?.key_points;
+  text.current = researchData?.researchArea;
   const handleChange = (event: ContentEditableEvent) => {
     text.current = event.target.value;
     if (text.current !== "") {
@@ -25,9 +25,9 @@ const KeyPoints = () => {
 
   const handleBlur = () => {
     if (text.current !== "" || text.current.length >= 6) {
-      handleLeadershipData({
-        ...leadershipData,
-        key_points: text.current,
+      handleResearchData({
+        ...researchData,
+        researchArea: text.current,
       });
       setErr(false);
     } else {
@@ -39,8 +39,7 @@ const KeyPoints = () => {
     if (text.current !== "") {
       setErr(false);
 
-      // handleFormSteps(formSteps + 1);
-      console.log("leadershipData", leadershipData);
+      console.log("researchData", researchData);
     } else {
       setErr(true);
     }
@@ -49,8 +48,8 @@ const KeyPoints = () => {
   const onPreview = (values: string) => {
     if (text.current !== "") {
       setErr(false);
-      handleLeadershipData({
-        ...leadershipData,
+      handleResearchData({
+        ...researchData,
         differentAction: values,
       });
       handlePreview(true);
@@ -64,7 +63,8 @@ const KeyPoints = () => {
       <Box>
         <Flex align="center" justify="space-between" mb="1.7rem">
           <Text fontSize="1.4rem" color="grey_1" fontWeight="500" maxW="31rem">
-            What are the key positives gotten from the course
+            If you have the opportunity to do more Research what areas will you
+            be interested in?
           </Text>
         </Flex>
         <ContentEditable
@@ -79,25 +79,6 @@ const KeyPoints = () => {
           </Text>
         )}
       </Box>
-
-      {/* <Flex maxW="35rem" mx="auto" gap="1.12rem" mt="3rem">
-                <CustomButton
-                    w="100%"
-                    bgColor={"transparent"}
-                    border="1px"
-                    borderColor="grey_1"
-                    color="grey_1"
-                    handleClick={() => handleFillForm(false)}
-                >
-                    Cancel
-                </CustomButton>
-                <CustomButton
-                    w="100%"
-                    handleClick={() => handleSubmit(text.current)}
-                >
-                    Next
-                </CustomButton>
-            </Flex> */}
 
       <Flex maxW="35rem" mx="auto" gap="1.12rem" mt="3rem">
         <CustomButton
@@ -122,4 +103,4 @@ const KeyPoints = () => {
   );
 };
 
-export default KeyPoints;
+export default ResearchAreas;

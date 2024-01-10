@@ -1,11 +1,10 @@
 import React from "react";
-
-import KeyPoints from "./KeyPoints";
-
-import LeadershipChallengesForm from "./LeadershipChallengesForm";
 import { useResearch } from "@/context/ResearchProvider";
 import ResearchFormLayout from "@/layouts/ResearchFormLayout";
 import ResearchDetailsForm from "./ResearchDetailsForm";
+import ResearchSummaryForm from "./ResearchSummaryForm";
+import ResearchBeneficial from "./ResearchBeneficial";
+import ResearchAreas from "./ResearchAreas";
 
 const ResearchForm = () => {
   const { formSteps, handleFormSteps } = useResearch();
@@ -13,9 +12,9 @@ const ResearchForm = () => {
   return (
     <ResearchFormLayout formSteps={formSteps} handleFormSteps={handleFormSteps}>
       {formSteps === 1 && <ResearchDetailsForm />}
-      {formSteps === 2 && <LeadershipChallengesForm />}
-      {formSteps === 3 && <KeyPoints />}
-      {/* {formSteps === 4 && <DifferentAction />} */}
+      {formSteps === 2 && <ResearchSummaryForm />}
+      {formSteps === 3 && <ResearchBeneficial />}
+      {formSteps === 4 && <ResearchAreas />}
     </ResearchFormLayout>
   );
 };

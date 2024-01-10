@@ -9,8 +9,10 @@ export type researchDataProps = {
   authorIV: string;
 
   solvedPro: string;
-  challenges: string;
-  key_points: string;
+  summary: string;
+  researchBeneficials: string;
+
+  researchArea: string;
   differentAction: string;
 };
 
@@ -52,8 +54,9 @@ const defaultResearchValue: passedValueProps = {
     authorIV: "",
 
     solvedPro: "",
-    challenges: "",
-    key_points: "",
+    summary: "",
+    researchBeneficials: "",
+    researchArea: "",
     differentAction: "",
   },
   handleResearchData: () => {},
@@ -85,8 +88,9 @@ export const ResearchProvider = ({ children }: Props) => {
     authorIII: "",
     authorIV: "",
     solvedPro: "",
-    challenges: "",
-    key_points: "",
+    summary: "",
+    researchBeneficials: "",
+    researchArea: "",
     differentAction: "",
   });
   const handleFormSteps = (value: number) => {
@@ -120,8 +124,9 @@ export const ResearchProvider = ({ children }: Props) => {
       authorIII: "",
       authorIV: "",
       solvedPro: "",
-      challenges: "",
-      key_points: "",
+      summary: "",
+      researchBeneficials: "",
+      researchArea: "",
       differentAction: "",
     });
   };

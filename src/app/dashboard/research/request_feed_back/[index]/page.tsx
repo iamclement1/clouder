@@ -1,6 +1,6 @@
 "use client";
 
-import RequestFeedBack from "@/components/dashboard/leadership/RequestFeedBack";
+import RequestFeedBack from "@/components/dashboard/research/RequestFeedBack";
 import { Box } from "@chakra-ui/react";
 import React from "react";
 

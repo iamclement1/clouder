@@ -1,13 +1,13 @@
 "use client";
 
-import LeadershipAquired from "@/components/dashboard/leadership/LeadershipAquired";
+import ResearchAquired from "@/components/dashboard/research/ResearchAquired";
 import { Box } from "@chakra-ui/react";
 import React from "react";
 
 const page = () => {
   return (
     <Box>
-      <LeadershipAquired />
+      <ResearchAquired />
     </Box>
   );
 };

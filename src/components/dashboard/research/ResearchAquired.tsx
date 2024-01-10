@@ -4,17 +4,17 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 
-const LeadershipAquired = () => {
+const ResearchAquired = () => {
   const noFeedBack = false;
   const router = useRouter();
   return (
     <Box mb="4rem">
       <Box>
         <Text fontWeight={"600"} fontSize={"1.5rem"} mb="1.88rem">
-          Leadership (Academic role)
+          Research Title
         </Text>
 
-        {/* Leadership (Academic role) SECTION */}
+        {/* Research TitleSECTION */}
         <Box mt="1.88rem">
           <Stack
             bgColor="white"
@@ -26,7 +26,7 @@ const LeadershipAquired = () => {
             {/* Education  */}
             <Box>
               <Text fontWeight={"600"} fontSize={"1.5rem"} mb="1rem">
-                Title
+                Research Title
               </Text>
 
               <Stack
@@ -38,24 +38,25 @@ const LeadershipAquired = () => {
               >
                 <Flex gap="0.38rem">
                   <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
-                    Leadership title:
+                    Title:
                   </Text>
 
                   <Text
                     fontSize="1.125rem"
-                    fontWeight="600"
+                    fontWeight="400"
                     // color="grey_1"
                   >
-                    Head of department
+                    Effects of Physical Exercise on Mental Health in Adults: A
+                    Randomized Controlled Trial
                   </Text>
                 </Flex>
                 <Flex gap="0.38rem">
                   <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
-                    Start year:
+                    Year:
                   </Text>
                   <Text
                     fontSize="1.125rem"
-                    fontWeight="600"
+                    fontWeight="400"
                     // color="grey_1"
                   >
                     29/07/2021
@@ -63,14 +64,14 @@ const LeadershipAquired = () => {
                 </Flex>
                 <Flex gap="0.38rem">
                   <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
-                    End year:
+                    Authors:
                   </Text>
                   <Text
                     fontSize="1.125rem"
-                    fontWeight="600"
+                    fontWeight="400"
                     // color="grey_1"
                   >
-                    29/07/2021
+                    John Doe, Dayo Alabi
                   </Text>
                 </Flex>
               </Stack>
@@ -79,7 +80,7 @@ const LeadershipAquired = () => {
             {/* Challenges  */}
             <Box>
               <Text fontWeight={"600"} fontSize={"1.5rem"} mb="1rem">
-                Problems Solved
+                Research Summary
               </Text>
 
               <Stack
@@ -90,17 +91,20 @@ const LeadershipAquired = () => {
                 py="2rem"
               >
                 <Text>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Quibusdam nihil tenetur facilis iure aperiam quod, minima
-                  voluptatem fugiat iusto dolorum ab inventore ad corrupti
-                  tempora hic similique, dolor molestiae magni!
+                  The researchers conducted a randomized controlled trial with a
+                  total of 200 adults aged 25-45 years. The participants were
+                  randomly assigned to either an exercise group or a control
+                  group. The exercise group participated in supervised physical
+                  exercise sessions three times a week for a duration of 12
+                  weeks, while the control group maintained their usual daily
+                  activities without any structured exercise intervention.
                 </Text>
               </Stack>
             </Box>
-            {/* Challenges  */}
+            {/* What you learnt from the Research  */}
             <Box>
               <Text fontWeight={"600"} fontSize={"1.5rem"} mb="1rem">
-                Challenges
+                What you learnt from the Research
               </Text>
 
               <Stack
@@ -122,7 +126,7 @@ const LeadershipAquired = () => {
             {/* Key Positives  */}
             <Box>
               <Text fontWeight={"600"} fontSize={"1.5rem"} mb="1rem">
-                Key Positives
+                Area to focus on for more Clinical Research
               </Text>
 
               <Stack
@@ -159,7 +163,7 @@ const LeadershipAquired = () => {
                     border={"1px"}
                     borderColor={"primary"}
                     as="a"
-                    href={`/dashboard/leadership/request_feed_back/${"1234"}}`}
+                    href={`/dashboard/research/request_feed_back/${"1234"}}`}
                   >
                     Request feedback
                   </Button>
@@ -215,4 +219,4 @@ const LeadershipAquired = () => {
   );
 };
 
-export default LeadershipAquired;
+export default ResearchAquired;

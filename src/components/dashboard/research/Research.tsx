@@ -128,7 +128,7 @@ const Research = () => {
                             <Text
                               onClick={() =>
                                 router.push(
-                                  `/dashboard/leadership/leadership_aquired/${item?.researchTittle}`,
+                                  `/dashboard/research/research_aquired/${item?.researchTittle}`,
                                 )
                               }
                               cursor={"pointer"}
@@ -145,7 +145,7 @@ const Research = () => {
                               rounded={"1.35938rem"}
                               cursor="pointer"
                               as="a"
-                              href={`/dashboard/leadership/request_feed_back/${item?.researchTittle}`}
+                              href={`/dashboard/research/request_feed_back/${item?.researchTittle}`}
                             >
                               Request feedback
                             </Text>

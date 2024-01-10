@@ -23,6 +23,7 @@ import {
   // MenuList,
   Image,
   Link,
+  DrawerBody,
 } from "@chakra-ui/react";
 import {
   FiHome,
@@ -454,7 +455,9 @@ const SidebarWithHeader = ({
         size="full"
       >
         <DrawerContent>
-          <SidebarContent onClose={onClose} passedActive={passedActive} />
+          <DrawerBody>
+            <SidebarContent onClose={onClose} passedActive={passedActive} />
+          </DrawerBody>
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}

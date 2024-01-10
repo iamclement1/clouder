@@ -1,9 +1,10 @@
-import { SubCategory } from "./types";
+import { LinkItemProps, SubCategory } from "./types";
 
 import Tobi from "@/assests/images/tobi.svg";
 import Charles from "@/assests/images/charles.svg";
 import Saliu from "@/assests/images/saliu.svg";
 import Alabi from "@/assests/images/alabi.svg";
+import { FiHome, FiUsers } from "react-icons/fi";
 
 export const footer: SubCategory = {
   name: "Footer",
@@ -709,5 +710,15 @@ export const Links = [
     id: 3,
     href: "/pricing",
     text: "Pricing",
+  },
+];
+
+export const SupervisorLinkItems: Array<LinkItemProps> = [
+  { id: 1, name: "Dashboard", href: "/supervisor", icon: FiHome },
+  {
+    id: 2,
+    name: "Users",
+    href: "/supervisor/users",
+    icon: FiUsers,
   },
 ];

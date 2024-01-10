@@ -1,3 +1,39 @@
+import { BoxProps, FlexProps } from "@chakra-ui/react";
+import { IconType } from "react-icons";
+
+export interface SidebarWithHeaderProps {
+  passedActive: string;
+  children?: React.ReactNode;
+}
+
+export interface LinkItemProps {
+  id?: number;
+  name: string;
+  icon: IconType;
+  href?: string;
+  children?: LinkItemProps[];
+}
+
+export interface NavItemProps extends FlexProps {
+  icon: React.ElementType;
+  children?: React.ReactNode;
+  passedActive: string;
+  subNav: LinkItemProps[] | null;
+  navName: string;
+  href: string;
+}
+
+export interface MobileProps extends FlexProps {
+  onOpen: () => void;
+}
+
+export interface SidebarProps extends BoxProps {
+  onClose: () => void;
+  passedActive: string;
+}
+
+export type RouteChangeHandler = (newRoute: string) => void;
+
 export interface Category {
   name: string;
   subLabel: string;

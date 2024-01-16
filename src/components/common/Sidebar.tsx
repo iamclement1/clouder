@@ -23,6 +23,7 @@ import {
   // MenuList,
   Image,
   Link,
+  DrawerBody,
 } from "@chakra-ui/react";
 import {
   FiHome,
@@ -338,7 +339,6 @@ const NavItem = ({
 
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const { data } = useProfile();
-
   const fullName = data?.data?.fullName;
   const [showLogOut, setShowLogOut] = useState<boolean>(false);
   const toggleShowLogOut = () => {
@@ -454,7 +454,9 @@ const SidebarWithHeader = ({
         size="full"
       >
         <DrawerContent>
-          <SidebarContent onClose={onClose} passedActive={passedActive} />
+          <DrawerBody>
+            <SidebarContent onClose={onClose} passedActive={passedActive} />
+          </DrawerBody>
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}

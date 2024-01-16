@@ -13,6 +13,8 @@ const useSignOut = () => {
     onSuccess: ({ data }) => {
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("refreshToken");
+      sessionStorage.removeItem("role");
+
       toast.success(data.message && "Logout Successful", {
         theme: "dark",
       });

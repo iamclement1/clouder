@@ -7,6 +7,7 @@ import InactivityCheck from "@/components/common/IdleCheckModal";
 import { getStorageAuthItems } from "@/utils/lib";
 import { redirect } from "next/navigation";
 import SupervisorSidebarWithHeader from "@/components/common/SupervisorSidebar";
+import { toast } from "react-toastify";
 
 export default function RootLayout({
   children,
@@ -14,10 +15,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   useEffect(() => {
-    const { token } = getStorageAuthItems();
+    const { token, role } = getStorageAuthItems();
 
-    if (!token) return redirect("/auth/login");
+    if (!token || role !== "supervisor") {
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("role");
+      // Redirect to login
+      toast.error("Unauthorized, retry with authorized credentials");
+      return redirect("/auth/login");
+    }
   }, []);
+
   return (
     <React.Fragment>
       <Seo templateTitle="Clouder" />

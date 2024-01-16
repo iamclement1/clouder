@@ -1,4 +1,4 @@
-import { LinkItemProps, SubCategory } from "./types";
+import { LinkItemProps, SubCategory, SupervisorCardType } from "./types";
 
 import Tobi from "@/assests/images/tobi.svg";
 import Charles from "@/assests/images/charles.svg";
@@ -720,5 +720,26 @@ export const SupervisorLinkItems: Array<LinkItemProps> = [
     name: "Users",
     href: "/supervisor/users",
     icon: FiUsers,
+  },
+];
+
+export const SupervisorCard: Array<SupervisorCardType> = [
+  {
+    id: 1,
+    icon: FiUsers,
+    title: "Total Users",
+    num: 4789,
+  },
+  {
+    id: 2,
+    icon: FiUsers,
+    title: "Total Verified Users",
+    num: 5000,
+  },
+  {
+    id: 3,
+    icon: FiUsers,
+    title: "Total Active Users",
+    num: 3000,
   },
 ];

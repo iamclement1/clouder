@@ -8,6 +8,7 @@ import { ModalProvider } from "./ModalContext";
 import { QualificationProvider } from "./QualificationProvider";
 import { CoursesProvider } from "./CoursesProvider";
 import { LeadershipProvider } from "./LeadershipProvider";
+import { ResearchProvider } from "./ResearchProvider";
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -17,7 +18,9 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
         <QualificationProvider>
           <CoursesProvider>
             <LeadershipProvider>
-              <ModalProvider>{children}</ModalProvider>
+              <ResearchProvider>
+                <ModalProvider>{children}</ModalProvider>
+              </ResearchProvider>
             </LeadershipProvider>
           </CoursesProvider>
         </QualificationProvider>

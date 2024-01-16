@@ -733,13 +733,13 @@ export const SupervisorCard: Array<SupervisorCardType> = [
   {
     id: 2,
     icon: FiUsers,
-    title: "Total Active Users",
+    title: "Total Verified Users",
     num: 5000,
   },
   {
     id: 3,
     icon: FiUsers,
-    title: "Active Now",
+    title: "Total Active Users",
     num: 3000,
   },
 ];

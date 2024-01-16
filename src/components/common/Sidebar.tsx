@@ -160,11 +160,17 @@ const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {
       w={{ base: "full" }}
       maxW={{ base: "full", md: "17.6rem" }}
       pos="fixed"
-      minH="full"
+      h="100vh"
       overflowY={"auto"}
+      py="3rem"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+      <Flex
+        // h="20"
+        alignItems="center"
+        mx="8"
+        justifyContent="space-between"
+      >
         <Link href="/dashboard">
           <Image src="/logo.png" alt="Clouder Logo" />
         </Link>

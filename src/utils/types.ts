@@ -163,7 +163,7 @@ export type CoursesPayloadType = {
 };
 
 export type SupervisorCardType = {
-  icon: string;
+  icon: React.ReactNode;
   id: number;
   title: string;
   num: number;

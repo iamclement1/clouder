@@ -163,7 +163,7 @@ export type CoursesPayloadType = {
 };
 
 export type SupervisorCardType = {
-  icon: Blob;
+  icon: string;
   id: number;
   title: string;
   num: number;

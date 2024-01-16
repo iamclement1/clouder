@@ -9,15 +9,13 @@ import { redirect } from "next/navigation";
 import SupervisorSidebarWithHeader from "@/components/common/SupervisorSidebar";
 import useProfile from "@/hooks/useProfile";
 import { toast } from "react-toastify";
-import PageLoader from "@/components/common/PageLoader";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { data: profileData, isLoading } = useProfile();
-  if (isLoading) return <PageLoader />;
+  const { data: profileData } = useProfile();
   console.log(profileData);
   const userRole = profileData?.data;
   useEffect(() => {
@@ -25,7 +23,7 @@ export default function RootLayout({
     console.log("Token:", token);
     console.log("User Role:", userRole);
 
-    if (!token || userRole?.role !== "supervisor") {
+    if (!token) {
       // Redirect to login
       toast.error("Unauthorized, retry with authorized credentials");
       return redirect("/auth/login");

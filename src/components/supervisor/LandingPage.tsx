@@ -19,35 +19,41 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import Image from "next/image";
 
 const LandingPage = () => {
   const { data: AllUserProfile } = useAllUser();
   const { data: Supervisor } = useSupervisorDashboard();
 
   console.log(AllUserProfile?.data.data);
-  console.log(Supervisor?.data.data);
+
+  const { totalUsers, totalVerifiedUsers, totalActiveUsers } =
+    Supervisor?.data.data || {};
 
   return (
     <Box>
-      <Card>
+      <Card my={"18px"}>
         <CardBody>
           <Flex>
             {SupervisorCard.map((card) => (
               <Box key={card.id}>
                 <Grid templateColumns="repeat(3, 1fr)" gap={6}>
-                  <Image
-                    src={card.icon}
-                    alt={card.title}
-                    width={100}
-                    height={100}
-                    objectFit={"cover"}
-                  />
                   <Box>
                     <Text fontSize={"12px"}>{card.title}</Text>
-                    <Text fontSize={"3xl"} fontWeight={"extrabold"}>
-                      {card.num}
-                    </Text>
+                    {card.title === "Total Users" && (
+                      <Text fontSize={"3xl"} fontWeight={"extrabold"}>
+                        {totalUsers}
+                      </Text>
+                    )}
+                    {card.title === "Total Verified Users" && (
+                      <Text fontSize={"3xl"} fontWeight={"extrabold"}>
+                        {totalVerifiedUsers}
+                      </Text>
+                    )}
+                    {card.title === "Total Active Users" && (
+                      <Text fontSize={"3xl"} fontWeight={"extrabold"}>
+                        {totalActiveUsers}
+                      </Text>
+                    )}
                   </Box>
                 </Grid>
               </Box>

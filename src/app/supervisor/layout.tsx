@@ -17,13 +17,13 @@ export default function RootLayout({
 }>) {
   const { data: profileData } = useProfile();
   console.log(profileData);
-  const userRole = profileData?.data;
+  const userRole = profileData?.data.role;
   useEffect(() => {
     const { token } = getStorageAuthItems();
     console.log("Token:", token);
     console.log("User Role:", userRole);
 
-    if (!token) {
+    if (!token || userRole !== "supervisor") {
       // Redirect to login
       toast.error("Unauthorized, retry with authorized credentials");
       return redirect("/auth/login");

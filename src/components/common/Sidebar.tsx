@@ -339,7 +339,6 @@ const NavItem = ({
 
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const { data } = useProfile();
-
   const fullName = data?.data?.fullName;
   const [showLogOut, setShowLogOut] = useState<boolean>(false);
   const toggleShowLogOut = () => {

@@ -28,12 +28,18 @@ const Login: React.FC = () => {
     onSuccess: ({ data }) => {
       const userToken = data.access;
       const refreshToken = data.refresh;
+      const role = data.role;
       sessionStorage.setItem("token", userToken);
       sessionStorage.setItem("refreshToken", refreshToken);
+      sessionStorage.setItem("role", role);
+      if (role === "client") {
+        router.push("/dashboard");
+      } else {
+        router.push("/supervisor");
+      }
       toast.success("Login Successful", {
         theme: "dark",
       });
-      router.push("/dashboard");
     },
     onError: (error: { response: { data: { error: string } } }) => {
       const errorMsg = error.response.data.error;

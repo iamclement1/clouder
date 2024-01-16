@@ -8,7 +8,7 @@ const useSupervisorDashboard = () => {
   };
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ["allusers"],
+    queryKey: ["activeusers"],
     queryFn: fetchDashboard,
     staleTime: 300000,
   });

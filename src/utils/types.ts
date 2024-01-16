@@ -161,3 +161,10 @@ export type CoursesPayloadType = {
   keyPositives?: string;
   doDifferently?: string;
 };
+
+export type SupervisorCardType = {
+  icon: Blob;
+  id: number;
+  title: string;
+  num: number;
+};

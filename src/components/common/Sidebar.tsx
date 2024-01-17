@@ -46,6 +46,7 @@ import useProfile from "@/hooks/useProfile";
 import { BiLogOut } from "react-icons/bi";
 import PageLoader from "./PageLoader";
 import useSignOut from "@/hooks/useSignOut";
+import { useLogbook } from "@/context/LogbookProvider";
 
 interface SidebarWithHeaderProps {
   passedActive: string;
@@ -58,6 +59,7 @@ interface LinkItemProps {
   icon: IconType;
   href?: string;
   children?: LinkItemProps[];
+  btnFunc?: () => void;
 }
 
 interface NavItemProps extends FlexProps {
@@ -67,6 +69,7 @@ interface NavItemProps extends FlexProps {
   subNav: LinkItemProps[] | null;
   navName: string;
   href: string;
+  navType: string;
 }
 
 interface MobileProps extends FlexProps {
@@ -121,7 +124,12 @@ const LinkItems: Array<LinkItemProps> = [
     href: "/dashboard/leadership",
     icon: FiSettings,
   },
-  { id: 5, name: "Research", href: "/dashboard/research", icon: FiSettings },
+  {
+    id: 5,
+    name: "Research",
+    href: "/dashboard/research",
+    icon: FiSettings,
+  },
   {
     id: 6,
     name: "Logbook",
@@ -133,19 +141,29 @@ const LinkItems: Array<LinkItemProps> = [
         name: "Medical LogBook",
         href: "#",
         icon: FiSettings,
+        btnFunc: () => {
+          console.log("Medical LogBook");
+        },
       },
       {
         id: 1,
         name: "Surgical Logbook",
         href: "#",
         icon: FiSettings,
+        btnFunc: () => {
+          console.log("Surgical Logbook");
+        },
       },
     ],
   },
-  { id: 7, name: "Teaching", href: "/dashboard/teaching", icon: FiSettings },
+  {
+    id: 7,
+    name: "Teaching",
+    href: "/dashboard/teaching",
+    icon: FiSettings,
+  },
   // { id: 8, name: "Log out", href: "/dashboard/logout", icon: FiSettings },
 ];
-
 const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {
   const { isLoading, handleLogOut } = useSignOut();
 
@@ -185,6 +203,7 @@ const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {
         {LinkItems.map((link) => (
           <NavItem
             key={link.name}
+            navType={link.name}
             icon={link.icon}
             subNav={link.children ?? null}
             navName={link.name}
@@ -238,9 +257,11 @@ const NavItem = ({
   subNav,
   navName,
   href,
+  navType,
   ...rest
 }: NavItemProps) => {
   const router = useRouter();
+  const { handleLogbookMode } = useLogbook();
   const [showSubNav, setShowSubNav] = useState<boolean>(false);
   const handleRouteChange: RouteChangeHandler = (newRoute) => {
     router.push(newRoute);
@@ -330,9 +351,15 @@ const NavItem = ({
                   fontSize="0.9375rem"
                   py="0.47rem"
                   mb="0.47rem"
+                  onClick={() => {
+                    if (navType === "Logbook") {
+                      handleLogbookMode(item?.name);
+                      handleRouteChange(href);
+                    }
+                  }}
                 >
                   {" "}
-                  {item.name}{" "}
+                  {item?.name}{" "}
                 </Box>
               ))}
             </Box>

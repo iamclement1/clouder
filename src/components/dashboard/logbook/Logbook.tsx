@@ -9,16 +9,16 @@ import { useRouter } from "next/navigation";
 import ReactPaginate from "react-paginate";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
-import ResearchPreview from "./ResearchPreview";
-import ResearchRole from "./ResearchRole";
-import ResearchForm from "./ResearchForm";
-import { useResearch } from "@/context/ResearchProvider";
+import { useLogbook } from "@/context/LogbookProvider";
+import LogbookForm from "./LogbookForm";
+import LogbookPreview from "./LogbookPreview";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
 
-const Research = () => {
-  const { fillForm, handleFillForm, preview, totalData } = useResearch();
+const Logbook = () => {
+  const { fillForm, handleFillForm, preview, totalData, logBookMode } =
+    useLogbook();
 
   const router = useRouter();
 
@@ -63,14 +63,21 @@ const Research = () => {
     <Box>
       <Box pb="3rem">
         {preview ? (
-          <ResearchPreview />
+          <div>
+            <LogbookPreview />
+          </div>
         ) : (
           <>
             <Flex align="center" justify="space-between" gap="1rem">
               <Box>
-                <Typography variant="heading2">Research</Typography>
+                <Typography variant="heading2" color="#000">
+                  Logbook{" "}
+                  <Text as="span" color="grey_1">
+                    ({logBookMode})
+                  </Text>
+                </Typography>
 
-                {fillForm && <ResearchRole />}
+                {/* {fillForm && <ResearchRole />} */}
               </Box>
               {totalData?.length >= 1 && fillForm !== true && (
                 <CustomButton
@@ -87,7 +94,9 @@ const Research = () => {
               )}
             </Flex>{" "}
             {fillForm ? (
-              <ResearchForm />
+              <div>
+                <LogbookForm />
+              </div>
             ) : (
               <Box
                 mt="1rem"
@@ -118,7 +127,7 @@ const Research = () => {
                           <ListItem
                             mb={"1rem"}
                             color="grey_1"
-                            key={item?.researchTittle}
+                            key={item?.logbookTittle}
                             fontSize="1.125rem"
                             fontWeight="600"
                             display="flex"
@@ -128,11 +137,11 @@ const Research = () => {
                             <Text
                               onClick={() =>
                                 router.push(
-                                  `/dashboard/research/research_aquired/${item?.researchTittle}`,
+                                  `/dashboard/logbook/logbook_aquired/${item?.logbookTittle}`,
                                 )
                               }
                               cursor={"pointer"}
-                            >{`${item?.researchTittle}
+                            >{`${item?.logbookTittle}
                                                             `}</Text>
 
                             <Text
@@ -145,7 +154,7 @@ const Research = () => {
                               rounded={"1.35938rem"}
                               cursor="pointer"
                               as="a"
-                              href={`/dashboard/research/request_feed_back/${item?.researchTittle}`}
+                              href={`/dashboard/logbook/request_feed_back/${item?.logbookTittle}`}
                             >
                               Request feedback
                             </Text>
@@ -211,4 +220,4 @@ const Research = () => {
     </Box>
   );
 };
-export default Research;
+export default Logbook;

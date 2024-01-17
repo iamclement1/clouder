@@ -722,3 +722,18 @@ export const SupervisorLinkItems: Array<LinkItemProps> = [
     icon: FiUsers,
   },
 ];
+
+export const logBookRoleData = [
+  {
+    id: 1,
+    roleType: "Observe",
+  },
+  {
+    id: 2,
+    roleType: "Assist",
+  },
+  {
+    id: 3,
+    roleType: "Perform",
+  },
+];

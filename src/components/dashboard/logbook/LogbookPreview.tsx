@@ -1,8 +1,8 @@
 import CustomButton from "@/components/common/CustomButton";
 import Typography from "@/components/common/Typograph";
 import StatusModal from "@/components/modals/StatusModal";
+import { useLogbook } from "@/context/LogbookProvider";
 
-import { useResearch } from "@/context/ResearchProvider";
 import {
   Box,
   Flex,
@@ -17,58 +17,17 @@ import React from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import { TbEdit } from "react-icons/tb";
 
-const ResearchPreview = () => {
+const LogbookPreview = () => {
   // const queryClient = useQueryClient();
 
   const {
     handleFormSteps,
     handleFillForm,
-    researchData,
+    logbookData,
     handlePreview,
     handleTotalData,
-  } = useResearch();
-
-  // type Payload = {
-  //     courseTitle: string;
-  //     institution: string;
-  //     year: string;
-  //     certificateNo: string;
-  //     challenges: string;
-  //     document: File | Blob | MediaSource | null;
-  //     keyPositives?: string;
-  //     doDifferently?: string;
-  // };
-
-  // const { mutate, isLoading } = useMutation({
-  //     mutationFn: (courses: Payload) => {
-  //         return api.post("/courses", courses);
-  //     },
-  //     onSuccess: ({ data }) => {
-  //         if (data) {
-  //             toast.success("Course Submitted Successfully", {
-  //                 theme: "dark",
-  //             });
-  //         }
-  //         queryClient.invalidateQueries({ queryKey: ["courses"] });
-  //     },
-  //     onError: (error: { response: { data: { error: string } } }) => {
-  //         const errorMsg = error.response.data.error;
-  //         toast.error(errorMsg, {
-  //             theme: "dark",
-  //         });
-  //     },
-  // });
-
-  // const payload: Payload = {
-  //     courseTitle: researchData?.courseTitle,
-  //     institution: researchData?.school,
-  //     certificateNo: researchData?.certificateNo,
-  //     challenges: researchData?.challenges,
-  //     year: researchData?.year,
-  //     document: researchData?.imageFile,
-  //     keyPositives: researchData?.key_points,
-  //     doDifferently: researchData?.differentAction,
-  // };
+    logBookMode,
+  } = useLogbook();
 
   const {
     isOpen: isOpenStatusModal,
@@ -105,7 +64,7 @@ const ResearchPreview = () => {
         >
           <Flex align="center" justify="space-between">
             <Text fontSize="1.5rem" fontWeight="700">
-              Research
+              Logbook ({logBookMode?.split(" ")[0]})
             </Text>
             <Icon
               as={TbEdit}
@@ -117,81 +76,102 @@ const ResearchPreview = () => {
                 handleFormSteps(1);
               }}
             />
-          </Flex>
+          </Flex>{" "}
           <Box mt="1.88rem">
             <Stack>
-              <Flex gap="0.38rem" align="center">
-                <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
-                  Title:
-                </Text>
-
-                <Text
-                  fontSize="1.125rem"
-                  fontWeight="600"
-                  // color="grey_1"
-                >
-                  {researchData?.researchTittle}
-                </Text>
-              </Flex>
-              <Flex gap="0.38rem" align="center">
-                <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
-                  Year:
-                </Text>
-                <Text
-                  fontSize="1.125rem"
-                  fontWeight="600"
-                  // color="grey_1"
-                >
-                  {researchData?.year}
-                </Text>
-              </Flex>
-              <Flex gap="0.38rem" align="center">
-                <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
-                  Authors:{" "}
-                </Text>
-                <Text
-                  fontSize="1.125rem"
-                  fontWeight="600"
-                  // color="grey_1"
-                >
-                  {researchData?.author}
-                </Text>
-              </Flex>{" "}
-            </Stack>
-          </Box>
-
-          {/* Challenges   */}
-          <Box mt="3rem">
-            <Flex align="center" justify="space-between">
-              <Text fontSize="1.5rem" fontWeight="700">
-                Research Summary
-              </Text>
-              <Icon
-                as={TbEdit}
-                cursor="pointer"
-                boxSize="1.6rem"
-                onClick={() => {
-                  handlePreview(false);
-                  handleFillForm(true);
-                  handleFormSteps(1);
-                }}
-              />
-            </Flex>
-            <Box mt="1.88rem">
               <Stack>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: researchData?.summary,
+                <Flex gap="0.38rem" align="center">
+                  <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
+                    Procedure
+                  </Text>
+
+                  <Text
+                    fontSize="1.125rem"
+                    fontWeight="600"
+                    // color="grey_1"
+                  >
+                    ({logbookData.role})
+                  </Text>
+                </Flex>
+
+                <Flex gap="0.38rem" align="center">
+                  <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
+                    Title:
+                  </Text>
+
+                  <Text
+                    fontSize="1.125rem"
+                    fontWeight="600"
+                    // color="grey_1"
+                  >
+                    {logbookData?.logbookTittle}
+                  </Text>
+                </Flex>
+                <Flex gap="0.38rem" align="center">
+                  <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
+                    Year:
+                  </Text>
+                  <Text
+                    fontSize="1.125rem"
+                    fontWeight="600"
+                    // color="grey_1"
+                  >
+                    {logbookData?.year}
+                  </Text>
+                </Flex>
+              </Stack>
+              {/* Case Presentation */}
+              <Flex align="center" justify="space-between">
+                <Text fontSize="1.5rem" fontWeight="700">
+                  Case Presentation
+                </Text>
+                <Icon
+                  as={TbEdit}
+                  cursor="pointer"
+                  boxSize="1.6rem"
+                  onClick={() => {
+                    handlePreview(false);
+                    handleFillForm(true);
+                    handleFormSteps(2);
                   }}
                 />
+              </Flex>
+              <Stack>
+                <Flex gap="0.38rem" align="center">
+                  <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
+                    Title:
+                  </Text>
+
+                  <Text
+                    fontSize="1.125rem"
+                    fontWeight="600"
+                    // color="grey_1"
+                  >
+                    ({logbookData.caseTittle})
+                  </Text>
+                </Flex>
+
+                <Flex gap="0.38rem" align="center">
+                  <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
+                    Year
+                  </Text>
+
+                  <Text
+                    fontSize="1.125rem"
+                    fontWeight="600"
+                    // color="grey_1"
+                  >
+                    {logbookData?.caseYear}
+                  </Text>
+                </Flex>
               </Stack>
-            </Box>
+            </Stack>
           </Box>
-          {/* // Challenges */}
+          {/* Summary */}
           <Box mt="3rem">
             <Flex align="center" justify="space-between">
               <Text fontSize="1.5rem" fontWeight="700">
-                What you learnt from the Research
+                Presentation summary
               </Text>
               <Icon
                 as={TbEdit}
@@ -208,18 +188,17 @@ const ResearchPreview = () => {
               <Stack>
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: researchData?.researchBeneficials,
+                    __html: logbookData?.summary,
                   }}
                 />
               </Stack>
             </Box>
           </Box>
-
-          {/* Key Positives   */}
+          {/* Challenges   */}
           <Box mt="3rem">
             <Flex align="center" justify="space-between">
               <Text fontSize="1.5rem" fontWeight="700">
-                Areas to focus on for more Clinical Research
+                Research Challenges
               </Text>
               <Icon
                 as={TbEdit}
@@ -236,15 +215,67 @@ const ResearchPreview = () => {
               <Stack>
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: researchData?.researchArea,
+                    __html: logbookData?.challenges,
                   }}
                 />
               </Stack>
             </Box>
           </Box>
-
+          {/* // Key Positives */}
+          <Box mt="3rem">
+            <Flex align="center" justify="space-between">
+              <Text fontSize="1.5rem" fontWeight="700">
+                Key Positives
+              </Text>
+              <Icon
+                as={TbEdit}
+                cursor="pointer"
+                boxSize="1.6rem"
+                onClick={() => {
+                  handlePreview(false);
+                  handleFillForm(true);
+                  handleFormSteps(4);
+                }}
+              />
+            </Flex>
+            <Box mt="1.88rem">
+              <Stack>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: logbookData?.key_points,
+                  }}
+                />
+              </Stack>
+            </Box>
+          </Box>
           {/* What i would have done differently   */}
-
+          <Box mt="3rem">
+            <Flex align="center" justify="space-between">
+              <Text fontSize="1.5rem" fontWeight="700">
+                What i would have done differently
+              </Text>
+              <Icon
+                as={TbEdit}
+                cursor="pointer"
+                boxSize="1.6rem"
+                onClick={() => {
+                  handlePreview(false);
+                  handleFillForm(true);
+                  handleFormSteps(3);
+                }}
+              />
+            </Flex>
+            <Box mt="1.88rem">
+              <Stack>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: logbookData?.differentAction,
+                  }}
+                />
+              </Stack>
+            </Box>
+          </Box>
+          {/* What i would have done differently   */}
           <Flex mt="3.75rem" align="center" justify="center">
             <CustomButton
               maxW="26.6rem"
@@ -271,4 +302,4 @@ const ResearchPreview = () => {
   );
 };
 
-export default ResearchPreview;
+export default LogbookPreview;

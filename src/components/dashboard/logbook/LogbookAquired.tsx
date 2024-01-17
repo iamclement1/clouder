@@ -4,17 +4,17 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 
-const ResearchAquired = () => {
+const LogbookAquired = () => {
   const noFeedBack = false;
   const router = useRouter();
   return (
     <Box mb="4rem">
       <Box>
         <Text fontWeight={"600"} fontSize={"1.5rem"} mb="1.88rem">
-          Research Title
+          Logbook
         </Text>
 
-        {/* Research TitleSECTION */}
+        {/* Medical Logbook */}
         <Box mt="1.88rem">
           <Stack
             bgColor="white"
@@ -25,8 +25,8 @@ const ResearchAquired = () => {
           >
             {/* Education  */}
             <Box>
-              <Text fontWeight={"600"} fontSize={"1.5rem"} mb="1rem">
-                Research Title
+              <Text fontWeight={"700"} fontSize={"1.3rem"} mb="1rem">
+                Medical Logbook
               </Text>
 
               <Stack
@@ -36,18 +36,16 @@ const ResearchAquired = () => {
                 px="1.69rem"
                 py="2rem"
               >
+                <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
+                  Procedure (Observe)
+                </Text>
                 <Flex gap="0.38rem">
-                  <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
-                    Title:
-                  </Text>
-
                   <Text
                     fontSize="1.125rem"
                     fontWeight="400"
                     // color="grey_1"
                   >
-                    Effects of Physical Exercise on Mental Health in Adults: A
-                    Randomized Controlled Trial
+                    Malaria
                   </Text>
                 </Flex>
                 <Flex gap="0.38rem">
@@ -62,16 +60,36 @@ const ResearchAquired = () => {
                     29/07/2021
                   </Text>
                 </Flex>
+
+                {/* Case presentation */}
+
+                <Text fontWeight={"700"} fontSize={"1.3rem"} mb="1rem">
+                  Presentation Summary
+                </Text>
+
                 <Flex gap="0.38rem">
                   <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
-                    Authors:
+                    Title:
                   </Text>
                   <Text
                     fontSize="1.125rem"
                     fontWeight="400"
                     // color="grey_1"
                   >
-                    John Doe, Dayo Alabi
+                    Malaria
+                  </Text>
+                </Flex>
+
+                <Flex gap="0.38rem">
+                  <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
+                    Year:
+                  </Text>
+                  <Text
+                    fontSize="1.125rem"
+                    fontWeight="400"
+                    // color="grey_1"
+                  >
+                    29/07/2021
                   </Text>
                 </Flex>
               </Stack>
@@ -80,7 +98,7 @@ const ResearchAquired = () => {
             {/* Challenges  */}
             <Box>
               <Text fontWeight={"600"} fontSize={"1.5rem"} mb="1rem">
-                Research Summary
+                Challenges
               </Text>
 
               <Stack
@@ -101,10 +119,11 @@ const ResearchAquired = () => {
                 </Text>
               </Stack>
             </Box>
+
             {/* What you learnt from the Research  */}
             <Box>
               <Text fontWeight={"600"} fontSize={"1.5rem"} mb="1rem">
-                What you learnt from the Research
+                Key Positives
               </Text>
 
               <Stack
@@ -126,7 +145,7 @@ const ResearchAquired = () => {
             {/* Key Positives  */}
             <Box>
               <Text fontWeight={"600"} fontSize={"1.5rem"} mb="1rem">
-                Area to focus on for more Clinical Research
+                What i would have done differently
               </Text>
 
               <Stack
@@ -219,4 +238,4 @@ const ResearchAquired = () => {
   );
 };
 
-export default ResearchAquired;
+export default LogbookAquired;

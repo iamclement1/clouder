@@ -3,5 +3,6 @@ export const getStorageAuthItems = () => {
     typeof window !== "undefined" && sessionStorage.getItem("token");
   const refreshToken =
     typeof window !== "undefined" && sessionStorage.getItem("refreshToken");
-  return { token, refreshToken };
+  const role = typeof window !== "undefined" && sessionStorage.getItem("role");
+  return { token, refreshToken, role };
 };

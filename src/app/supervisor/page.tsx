@@ -1,6 +1,7 @@
 "use client";
 import PageLoader from "@/components/common/PageLoader";
 import Typography from "@/components/common/Typograph";
+import LandingPage from "@/components/supervisor/LandingPage";
 import useProfile from "@/hooks/useProfile";
 import { Box } from "@chakra-ui/react";
 import React from "react";
@@ -15,6 +16,7 @@ const SupervisorDashboard = () => {
   return (
     <Box>
       <Typography variant="heading2"> Hello {firstName}</Typography>
+      <LandingPage />
     </Box>
   );
 };

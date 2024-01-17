@@ -10,6 +10,7 @@ import SidebarWithHeader from "@/components/common/Sidebar";
 import InactivityCheck from "@/components/common/IdleCheckModal";
 import { getStorageAuthItems } from "@/utils/lib";
 import { redirect } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function RootLayout({
   children,
@@ -17,9 +18,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   useEffect(() => {
-    const { token } = getStorageAuthItems();
+    const { token, role } = getStorageAuthItems();
 
-    if (!token) return redirect("/auth/login");
+    if (!token || role === "supervisor") {
+      // Remove token from sessionStorage
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("role");
+      // Redirect to login
+      toast.error("Unauthorized, retry with an authorized credentials", {
+        position: "top-right",
+        theme: "dark",
+      });
+      return redirect("/auth/login");
+    }
   }, []);
   return (
     <React.Fragment>

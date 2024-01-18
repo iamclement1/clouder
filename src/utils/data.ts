@@ -723,6 +723,20 @@ export const SupervisorLinkItems: Array<LinkItemProps> = [
   },
 ];
 
+export const logBookRoleData = [
+  {
+    id: 1,
+    roleType: "Observe",
+  },
+  {
+    id: 2,
+    roleType: "Assist",
+  },
+  {
+    id: 3,
+    roleType: "Perform",
+  },
+];
 export const SupervisorCard: Array<SupervisorCardType> = [
   {
     id: 1,

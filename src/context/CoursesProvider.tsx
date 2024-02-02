@@ -79,6 +79,16 @@ export const CoursesProvider = ({ children }: Props) => {
   };
   const handleFillForm = (value: boolean) => {
     setFillForm(value);
+    setCoursesData({
+      courseTitle: "",
+      certificateNo: "",
+      year: "",
+      school: "",
+      imageFile: null,
+      challenges: "",
+      key_points: "",
+      differentAction: "",
+    });
   };
   const handlePreview = (value: boolean) => {
     setPreview(value);

@@ -71,6 +71,15 @@ export const QualificationProvider = ({ children }: Props) => {
   };
   const handleFillForm = (value: boolean) => {
     setFillForm(value);
+    setQualificationData({
+      degree: "",
+      year: "",
+      school: "",
+      imageFile: null,
+      challenges: "",
+      key_points: "",
+      differentAction: "",
+    });
   };
   const handlePreview = (value: boolean) => {
     setPreview(value);

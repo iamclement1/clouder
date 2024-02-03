@@ -3,9 +3,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "@/utils/axiosInstance";
 import { toast } from "react-toastify";
 import { LeadershipPayloadType } from "@/utils/types";
+import { useLeadership } from "@/context/LeadershipProvider";
 
 const useLeadershipMutation = () => {
   const queryClient = useQueryClient();
+  const { handleFormSteps, handleFillForm, handlePreview } = useLeadership();
 
   const mutation = useMutation({
     mutationFn: (leaderships: LeadershipPayloadType) => {
@@ -13,6 +15,9 @@ const useLeadershipMutation = () => {
     },
     onSuccess: ({ data }) => {
       if (data) {
+        handleFormSteps(1);
+        handleFillForm(false);
+        handlePreview(false);
         toast.success("Leadership Form Submitted Successfully", {
           theme: "dark",
         });

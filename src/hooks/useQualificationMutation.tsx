@@ -10,7 +10,7 @@ const useQualificationMutation = () => {
   const queryClient = useQueryClient();
   const { openModal } = useModal();
 
-  const { handleFormSteps, handleFillForm } = useQualification();
+  const { handleFormSteps, handleFillForm, handlePreview } = useQualification();
 
   const mutation = useMutation({
     mutationFn: (qualifications: QualificationPayloadProps) => {
@@ -18,11 +18,12 @@ const useQualificationMutation = () => {
     },
     onSuccess: ({ data }) => {
       if (data) {
+        handleFormSteps(1);
+        handleFillForm(false);
+        handlePreview(false);
         toast.success("Qualification Submitted Successfully", {
           theme: "dark",
         });
-        handleFormSteps(1);
-        handleFillForm(false);
       }
       queryClient.invalidateQueries({ queryKey: ["qualifications"] });
     },

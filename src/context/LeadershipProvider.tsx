@@ -79,6 +79,16 @@ export const LeadershipProvider = ({ children }: Props) => {
   };
   const handleFillForm = (value: boolean) => {
     setFillForm(value);
+    setLeadershipData({
+      leadershipTittle: "",
+      startYear: "",
+      endYear: "",
+
+      solvedPro: "",
+      challenges: "",
+      key_points: "",
+      differentAction: "",
+    });
   };
   const handlePreview = (value: boolean) => {
     setPreview(value);

@@ -100,7 +100,7 @@ const LogbookCaseForm = () => {
               />
               <CustomInput
                 label="Year"
-                placeholder="DD/MM/YY"
+                placeholder="YYYY"
                 name="caseYear"
                 type="number"
                 errors={errors}

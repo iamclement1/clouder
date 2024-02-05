@@ -2,6 +2,7 @@ import CustomButton from "@/components/common/CustomButton";
 import Typography from "@/components/common/Typograph";
 import StatusModal from "@/components/modals/StatusModal";
 import { useLogbook } from "@/context/LogbookProvider";
+import useLogbookMutation from "@/hooks/useLogbookMutation";
 
 import {
   Box,
@@ -18,8 +19,6 @@ import { MdOutlineCancel } from "react-icons/md";
 import { TbEdit } from "react-icons/tb";
 
 const LogbookPreview = () => {
-  // const queryClient = useQueryClient();
-
   const {
     handleFormSteps,
     handleFillForm,
@@ -35,6 +34,27 @@ const LogbookPreview = () => {
     onClose: onCloseStatusModal,
   } = useDisclosure();
 
+  const { handleSubmitLogbook, isLoading } = useLogbookMutation();
+
+  const payload = {
+    action: logbookData?.role,
+    summary: logbookData?.summary,
+    firstTitle: logbookData?.logbookTittle,
+    challenges: logbookData?.challenges,
+    firstYear: logbookData?.year,
+    secondTitle: logbookData?.caseTittle,
+    secondYear: logbookData?.caseYear,
+    doDifferently: logbookData?.differentAction,
+    keyPositives: logbookData?.key_points,
+    logBookType: logbookData?.flag,
+  };
+
+  const handleSubmit = () => {
+    handleSubmitLogbook(payload);
+    console.log("submit");
+  };
+
+  console.log("log book payload ==>", payload);
   return (
     <Box>
       <Flex align="center" justify="space-between" gap="1rem">
@@ -279,8 +299,8 @@ const LogbookPreview = () => {
           <Flex mt="3.75rem" align="center" justify="center">
             <CustomButton
               maxW="26.6rem"
-              // isLoading={isLoading}
-              handleClick={() => onOpenStatusModal()}
+              isLoading={isLoading}
+              handleClick={() => handleSubmit()}
             >
               Save
             </CustomButton>

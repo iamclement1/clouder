@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Button,
@@ -11,37 +11,10 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
-import api from "@/utils/axiosInstance";
-import { toast } from "react-toastify";
-
+import useSignOut from "@/hooks/useSignOut";
 const InactivityCheck: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const router = useRouter();
-  const [signOutLoading, setSignOutLoading] = useState(false);
-
-  const { mutate } = useMutation({
-    mutationFn: () => {
-      return api.get("/user/signout");
-    },
-    onSuccess: ({ data }) => {
-      sessionStorage.removeItem("token");
-      sessionStorage.removeItem("refreshToken");
-      toast.success(data.message, {
-        theme: "dark",
-      });
-      router.push("/");
-      onClose();
-    },
-    onError: (error: { response: { data: { error: string } } }) => {
-      const errorMsg = error.response.data.error;
-      toast.error(errorMsg, {
-        theme: "dark",
-      });
-      setSignOutLoading(false); // Set loading to false on error
-    },
-  });
+  const { isLoading, handleLogOut } = useSignOut();
 
   const inactivityTime = 600000;
   let inactivityTimer: NodeJS.Timeout | null = null;
@@ -78,11 +51,6 @@ const InactivityCheck: React.FC = () => {
     resetInactivityTimer();
   };
 
-  const handleSignOut = () => {
-    setSignOutLoading(true); // Set loading to true before initiating sign-out
-    mutate();
-  };
-
   return (
     <Box>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -99,8 +67,8 @@ const InactivityCheck: React.FC = () => {
             </Button>
             <Button
               colorScheme="red"
-              onClick={handleSignOut}
-              isLoading={signOutLoading}
+              onClick={handleLogOut}
+              isLoading={isLoading}
             >
               Sign Out
             </Button>

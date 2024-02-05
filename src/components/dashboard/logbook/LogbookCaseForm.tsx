@@ -1,6 +1,7 @@
 import CustomButton from "@/components/common/CustomButton";
 import CustomInput from "@/components/common/CustomInput";
-import { logbookDataProps, useLogbook } from "@/context/LogbookProvider";
+import { useLogbook } from "@/context/LogbookProvider";
+import { logbookDataProps } from "@/utils/types";
 
 import { Box, Flex, Text } from "@chakra-ui/react";
 
@@ -99,7 +100,7 @@ const LogbookCaseForm = () => {
               />
               <CustomInput
                 label="Year"
-                placeholder="DD/MM/YY"
+                placeholder="YYYY"
                 name="caseYear"
                 type="number"
                 errors={errors}

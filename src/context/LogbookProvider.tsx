@@ -15,6 +15,7 @@ export type logbookDataProps = {
   differentAction: string;
   caseTittle: string;
   caseYear: string;
+  flag: string;
 };
 
 export type requestFeedBackDataProps = {
@@ -54,6 +55,7 @@ const defaultLogbookValue: passedValueProps = {
   handleFillForm: () => {},
   logbookData: {
     logbookTittle: "",
+    flag: "",
     role: "",
     challenges: "",
     key_points: "",
@@ -95,6 +97,7 @@ export const LogbookProvider = ({ children }: Props) => {
   const [logBookMode, setLogBookMode] = useState<string>("Medical Logbook");
   const [logbookData, setLogbookData] = useState<logbookDataProps>({
     logbookTittle: "",
+    flag: logBookMode,
     role: "",
     challenges: "",
     key_points: "",
@@ -137,6 +140,7 @@ export const LogbookProvider = ({ children }: Props) => {
 
     setLogbookData({
       logbookTittle: "",
+      flag: "",
       role: "",
       challenges: "",
       key_points: "",

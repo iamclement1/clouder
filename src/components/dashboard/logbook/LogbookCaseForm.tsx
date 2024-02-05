@@ -1,6 +1,7 @@
 import CustomButton from "@/components/common/CustomButton";
 import CustomInput from "@/components/common/CustomInput";
-import { logbookDataProps, useLogbook } from "@/context/LogbookProvider";
+import { useLogbook } from "@/context/LogbookProvider";
+import { logbookDataProps } from "@/utils/types";
 
 import { Box, Flex, Text } from "@chakra-ui/react";
 

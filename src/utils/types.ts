@@ -179,6 +179,7 @@ export type logbookDataProps = {
   caseTittle: string;
   caseYear: string;
   flag: string;
+  file?: File | null | Blob | MediaSource;
 };
 
 export type requestFeedBackDataProps = {
@@ -210,6 +211,7 @@ export type passedValueProps = {
   addToAuthor: () => void;
   minusFromAuthor: () => void;
   logBookMode: string;
+  file?: File | null | Blob | MediaSource;
 };
 
 export type LogbookPayloadType = {

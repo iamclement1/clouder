@@ -23,6 +23,7 @@ const defaultLogbookValue: passedValueProps = {
     differentAction: "",
     caseTittle: "",
     caseYear: "",
+    file: null,
   },
   handleLogbookData: () => {},
   preview: true,
@@ -64,6 +65,7 @@ export const LogbookProvider = ({ children }: Props) => {
     differentAction: "",
     caseTittle: "",
     caseYear: "",
+    file: null,
   });
   const handleFormSteps = (value: number) => {
     setFormSteps(value);
@@ -107,6 +109,7 @@ export const LogbookProvider = ({ children }: Props) => {
       differentAction: "",
       caseTittle: "",
       caseYear: "",
+      file: null,
     });
   };
   const handleResetData = () => {
@@ -126,6 +129,7 @@ export const LogbookProvider = ({ children }: Props) => {
       differentAction: "",
       caseTittle: "",
       caseYear: "",
+      file: null,
     });
   };
   const passedValue = useMemo(

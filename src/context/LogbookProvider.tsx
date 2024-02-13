@@ -15,11 +15,11 @@ const defaultLogbookValue: passedValueProps = {
     observation: "",
 
     year: "",
-    author: "",
+
     solvedPro: "",
     summary: "",
     logbookBeneficials: "",
-    logbookArea: "",
+
     differentAction: "",
     caseTittle: "",
     caseYear: "",
@@ -29,13 +29,13 @@ const defaultLogbookValue: passedValueProps = {
   handlePreview: () => {},
   totalData: [],
   handleTotalData: () => {},
+  handleResetData: () => {},
   addToAuthor: () => {},
   minusFromAuthor: () => {},
   noOfAuthor: 1,
   logBookMode: "",
   handleLogbookMode: () => {},
 };
-
 type Props = {
   children: React.ReactNode;
 };
@@ -47,7 +47,7 @@ export const LogbookProvider = ({ children }: Props) => {
   const [preview, setPreview] = useState<boolean>(false);
   const [totalData, setTotalData] = useState<logbookDataProps[]>([]);
   const [noOfAuthor, setNoOfAuthor] = useState<number>(1);
-  const [logBookMode, setLogBookMode] = useState<string>("medical");
+  const [logBookMode, setLogBookMode] = useState<string>("");
   const [logbookData, setLogbookData] = useState<logbookDataProps>({
     logbookTittle: "",
     flag: logBookMode,
@@ -56,11 +56,11 @@ export const LogbookProvider = ({ children }: Props) => {
     key_points: "",
     observation: "",
     year: "",
-    author: "",
+
     solvedPro: "",
     summary: "",
     logbookBeneficials: "",
-    logbookArea: "",
+
     differentAction: "",
     caseTittle: "",
     caseYear: "",
@@ -99,11 +99,30 @@ export const LogbookProvider = ({ children }: Props) => {
       key_points: "",
       observation: "",
       year: "",
-      author: "",
+
       solvedPro: "",
       summary: "",
       logbookBeneficials: "",
-      logbookArea: "",
+
+      differentAction: "",
+      caseTittle: "",
+      caseYear: "",
+    });
+  };
+  const handleResetData = () => {
+    setLogbookData({
+      logbookTittle: "",
+      flag: "",
+      role: "",
+      challenges: "",
+      key_points: "",
+      observation: "",
+      year: "",
+
+      solvedPro: "",
+      summary: "",
+      logbookBeneficials: "",
+
       differentAction: "",
       caseTittle: "",
       caseYear: "",
@@ -121,11 +140,13 @@ export const LogbookProvider = ({ children }: Props) => {
       handlePreview,
       totalData,
       handleTotalData,
+
       noOfAuthor,
       addToAuthor,
       minusFromAuthor,
       logBookMode,
       handleLogbookMode,
+      handleResetData,
     }),
     [
       formSteps,
@@ -143,6 +164,7 @@ export const LogbookProvider = ({ children }: Props) => {
       minusFromAuthor,
       logBookMode,
       handleLogbookMode,
+      handleResetData,
     ],
   );
 

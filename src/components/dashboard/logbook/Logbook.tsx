@@ -73,7 +73,8 @@ const Logbook = () => {
                 <Typography variant="heading2" color="#000">
                   Logbook{" "}
                   <Text as="span" color="grey_1">
-                    ({logBookMode})
+                    {logBookMode === "medical" ? "(Medical Logbook)" : ""}
+                    {logBookMode === "surgical" ? "(Surgical Logbook)" : ""}
                   </Text>
                 </Typography>
 

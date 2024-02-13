@@ -171,11 +171,10 @@ export type logbookDataProps = {
   challenges: string;
   key_points: string;
   observation: string;
-  author: string;
   solvedPro: string;
   summary: string;
   logbookBeneficials: string;
-  logbookArea: string;
+
   differentAction: string;
   caseTittle: string;
   caseYear: string;
@@ -206,6 +205,7 @@ export type passedValueProps = {
   handlePreview: (value: boolean) => void;
   totalData: logbookDataProps[];
   handleTotalData: () => void;
+  handleResetData: () => void;
   noOfAuthor: number;
   addToAuthor: () => void;
   minusFromAuthor: () => void;

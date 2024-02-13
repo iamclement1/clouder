@@ -46,7 +46,7 @@ import useProfile from "@/hooks/useProfile";
 import { BiLogOut } from "react-icons/bi";
 import PageLoader from "./PageLoader";
 import useSignOut from "@/hooks/useSignOut";
-import { useLogbook } from "@/context/LogbookProvider";
+// import { useLogbook } from "@/context/LogbookProvider";
 
 interface SidebarWithHeaderProps {
   passedActive: string;
@@ -139,16 +139,16 @@ const LinkItems: Array<LinkItemProps> = [
       {
         id: 1,
         name: "Medical LogBook",
-        href: "#",
+        href: "/dashboard/logbook/medical_logbook",
         icon: FiSettings,
         btnFunc: () => {
           console.log("Medical LogBook");
         },
       },
       {
-        id: 1,
+        id: 2,
         name: "Surgical Logbook",
-        href: "#",
+        href: "/dashboard/logbook/surgical_logbook",
         icon: FiSettings,
         btnFunc: () => {
           console.log("Surgical Logbook");
@@ -261,7 +261,7 @@ const NavItem = ({
   ...rest
 }: NavItemProps) => {
   const router = useRouter();
-  const { handleLogbookMode } = useLogbook();
+  // const { handleLogbookMode } = useLogbook();
   const [showSubNav, setShowSubNav] = useState<boolean>(false);
   const handleRouteChange: RouteChangeHandler = (newRoute) => {
     router.push(newRoute);
@@ -347,14 +347,14 @@ const NavItem = ({
                     bgColor: "white",
                     cursor: "pointer",
                   }}
-                  key={item.name}
+                  key={item?.name}
                   fontSize="0.9375rem"
                   py="0.47rem"
                   mb="0.47rem"
                   onClick={() => {
-                    if (navType === "Logbook") {
-                      handleLogbookMode(item?.name);
-                      handleRouteChange(href);
+                    if (navType === "Logbook" && item.href) {
+                      // handleLogbookMode(item?.name);
+                      handleRouteChange(item.href);
                     }
                   }}
                 >

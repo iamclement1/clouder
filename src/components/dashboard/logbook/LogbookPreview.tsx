@@ -46,12 +46,13 @@ const LogbookPreview = () => {
     secondYear: logbookData?.caseYear,
     doDifferently: logbookData?.differentAction,
     keyPositives: logbookData?.key_points,
-    logBookType: logbookData?.flag,
+    logBookType: logBookMode,
   };
 
   const handleSubmit = () => {
     handleSubmitLogbook(payload);
-    console.log("submit");
+    console.log("logbookData === Click", logbookData);
+    console.log("payload === Clicked", payload);
   };
 
   console.log("log book payload ==>", payload);

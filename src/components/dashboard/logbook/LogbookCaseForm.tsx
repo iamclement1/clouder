@@ -63,7 +63,7 @@ const LogbookCaseForm = () => {
               errors.caseYear = "Required";
             }
             if (err) {
-              errors.author = "Required";
+              errors.summary = "Required";
             }
 
             return errors;

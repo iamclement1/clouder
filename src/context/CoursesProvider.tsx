@@ -30,6 +30,7 @@ type passedValueProps = {
   handlePreview: (value: boolean) => void;
   totalData: coursesDataProps[];
   handleTotalData: () => void;
+  handleResetForm: () => void;
 };
 
 const defaultCoursesValue: passedValueProps = {
@@ -37,6 +38,7 @@ const defaultCoursesValue: passedValueProps = {
   handleFormSteps: () => {},
   fillForm: false,
   handleFillForm: () => {},
+  handleResetForm: () => {},
   coursesData: {
     courseTitle: "",
     certificateNo: "",
@@ -79,6 +81,8 @@ export const CoursesProvider = ({ children }: Props) => {
   };
   const handleFillForm = (value: boolean) => {
     setFillForm(value);
+  };
+  const handleResetForm = () => {
     setCoursesData({
       courseTitle: "",
       certificateNo: "",
@@ -122,6 +126,7 @@ export const CoursesProvider = ({ children }: Props) => {
     handlePreview,
     totalData,
     handleTotalData,
+    handleResetForm,
   };
 
   return (

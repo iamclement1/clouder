@@ -21,6 +21,7 @@ type passedValueProps = {
   handlePreview: (value: boolean) => void;
   totalData: QualificationData[];
   handleTotalData: () => void;
+  handleResetForm: () => void;
 };
 
 const defaultQualificationValue: passedValueProps = {
@@ -42,6 +43,7 @@ const defaultQualificationValue: passedValueProps = {
   handlePreview: () => {},
   totalData: [],
   handleTotalData: () => {},
+  handleResetForm: () => {},
 };
 
 type Props = {
@@ -69,8 +71,8 @@ export const QualificationProvider = ({ children }: Props) => {
   const handleFormSteps = (value: number) => {
     setFormSteps(value);
   };
-  const handleFillForm = (value: boolean) => {
-    setFillForm(value);
+
+  const handleResetForm = () => {
     setQualificationData({
       degree: "",
       year: "",
@@ -80,6 +82,10 @@ export const QualificationProvider = ({ children }: Props) => {
       key_points: "",
       differentAction: "",
     });
+  };
+
+  const handleFillForm = (value: boolean) => {
+    setFillForm(value);
   };
   const handlePreview = (value: boolean) => {
     setPreview(value);
@@ -113,6 +119,7 @@ export const QualificationProvider = ({ children }: Props) => {
       handlePreview,
       totalData,
       handleTotalData,
+      handleResetForm,
     }),
     [
       formSteps,
@@ -125,6 +132,7 @@ export const QualificationProvider = ({ children }: Props) => {
       handlePreview,
       totalData,
       handleTotalData,
+      handleResetForm,
     ],
   );
 

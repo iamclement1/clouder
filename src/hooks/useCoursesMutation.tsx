@@ -6,7 +6,8 @@ import { CoursesPayloadType } from "@/utils/types";
 import { useCourses } from "@/context/CoursesProvider";
 
 const useCoursesMutation = () => {
-  const { handleFormSteps, handleFillForm, handlePreview } = useCourses();
+  const { handleFormSteps, handleFillForm, handlePreview, handleResetForm } =
+    useCourses();
 
   const queryClient = useQueryClient();
 
@@ -22,6 +23,7 @@ const useCoursesMutation = () => {
         handleFormSteps(1);
         handleFillForm(false);
         handlePreview(false);
+        handleResetForm();
       }
       queryClient.invalidateQueries({ queryKey: ["courses"] });
     },

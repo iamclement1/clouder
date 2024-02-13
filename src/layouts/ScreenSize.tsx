@@ -8,7 +8,6 @@ interface Props {
 }
 
 export default function ScreenSize({ children, ...props }: Props) {
-  // const { children } = props;
   return (
     <Box
       px={["14px", null, "2.5rem", "3rem"]}

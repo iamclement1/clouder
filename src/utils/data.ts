@@ -737,6 +737,16 @@ export const logBookRoleData = [
     roleType: "Perform",
   },
 ];
+export const teachingQualification = [
+  {
+    id: 1,
+    roleType: "Yes",
+  },
+  {
+    id: 2,
+    roleType: "No",
+  },
+];
 export const SupervisorCard: Array<SupervisorCardType> = [
   {
     id: 1,

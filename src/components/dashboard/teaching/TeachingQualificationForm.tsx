@@ -1,7 +1,6 @@
 import CustomButton from "@/components/common/CustomButton";
 import CustomInput from "@/components/common/CustomInput";
 import UploadFile from "@/components/modals/UploadFile";
-
 import { teachingDataProps, useTeaching } from "@/context/TeachingProvider";
 
 import { teachingQualification } from "@/utils/data";
@@ -14,13 +13,7 @@ import React, { useRef, useState } from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
 const TeachingQualificationForm = () => {
-  const {
-    formSteps,
-    handleFormSteps,
-    handlePreview,
-    teachingData,
-    handleTeachingData,
-  } = useTeaching();
+  const { handlePreview, teachingData, handleTeachingData } = useTeaching();
 
   const [err, setErr] = useState<boolean>(false);
   const [optionErr, setOptionErr] = useState<boolean>(false);
@@ -76,7 +69,7 @@ const TeachingQualificationForm = () => {
             teachingQualificationType:
               teachingData?.teachingQualificationType || "",
             qualificationYear: teachingData?.qualificationYear || "",
-            imageFile: teachingData?.imageFile || null,
+            imageFile: teachingData?.imageFile ?? null,
           }}
           validate={(values) => {
             const errors: Partial<teachingDataProps> = {};
@@ -91,13 +84,6 @@ const TeachingQualificationForm = () => {
               errors.key_points = "Required";
             }
 
-            // if (teachingMode === "") {
-            //     errors.role = "Required";
-            //     setErr(true);
-            // } else {
-            //     setErr(false);
-            // }
-
             return errors;
           }}
           onSubmit={(values) => {
@@ -109,8 +95,7 @@ const TeachingQualificationForm = () => {
               ...values,
             });
 
-            handleFormSteps(formSteps + 1);
-            console.log(formSteps);
+            onPreview(text.current);
           }}
         >
           {({ handleSubmit, errors, touched }) => (
@@ -166,7 +151,7 @@ const TeachingQualificationForm = () => {
                   })}
                 </Flex>
               </Box>
-              {/* Input the logbook title */}
+              {/* Input the  title */}
               <CustomInput
                 label="Type of qualification"
                 placeholder="Input the type of qualification"
@@ -236,7 +221,8 @@ const TeachingQualificationForm = () => {
                   border="1px"
                   borderColor="primary"
                   color="primary"
-                  handleClick={() => onPreview(text.current)}
+                  // handleClick={() => onPreview(text.current)}
+                  type="submit"
                 >
                   Preview
                 </CustomButton>

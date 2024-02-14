@@ -52,9 +52,7 @@ const Teaching = () => {
     <Box>
       <Box pb="3rem">
         {preview ? (
-          <>
-            <TeachingPreview />
-          </>
+          <TeachingPreview />
         ) : (
           <>
             <Flex align="center" justify="space-between" gap="1rem">
@@ -116,7 +114,7 @@ const Teaching = () => {
                               <Text
                                 onClick={() =>
                                   router.push(
-                                    `/dashboard/teaching/course_aquired/${item?.year}`,
+                                    `/dashboard/teaching/teaching_aquired/${item?.year}`,
                                   )
                                 }
                                 cursor={"pointer"}

@@ -24,7 +24,6 @@ const TeachingPreview = () => {
   } = useDisclosure();
 
   const handleSubmit = () => {
-    // handleSubmitCourses(payload);
     onOpenStatusModal();
   };
   return (
@@ -56,7 +55,7 @@ const TeachingPreview = () => {
         >
           <Flex align="center" justify="space-between">
             <Text fontSize="1.5rem" fontWeight="700">
-              Courses
+              Teaching
             </Text>
             <Icon
               as={TbEdit}

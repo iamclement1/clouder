@@ -5,13 +5,11 @@ export type teachingDataProps = {
   briefExplanation: string;
   qualificationYear: string;
   year: string;
-  school: string;
   imageFile: File | Blob | MediaSource | null;
   challenges: string;
   teachingQualificationType: string;
   qualified: string;
   key_points: string;
-  differentAction: string;
 };
 
 export type requestFeedBackDataProps = {
@@ -47,13 +45,11 @@ const defaultTeachingValue: passedValueProps = {
     briefExplanation: "",
     qualificationYear: "",
     year: "",
-    school: "",
     imageFile: null,
     challenges: "",
     teachingQualificationType: "",
     qualified: "",
     key_points: "",
-    differentAction: "",
   },
   handleTeachingData: () => {},
   preview: true,
@@ -77,13 +73,11 @@ export const TeachingProvider = ({ children }: Props) => {
     briefExplanation: "",
     qualificationYear: "",
     year: "",
-    school: "",
     imageFile: null,
     challenges: "",
     teachingQualificationType: "",
     qualified: "",
     key_points: "",
-    differentAction: "",
   });
   const handleFormSteps = (value: number) => {
     setFormSteps(value);
@@ -97,13 +91,11 @@ export const TeachingProvider = ({ children }: Props) => {
       briefExplanation: "",
       qualificationYear: "",
       year: "",
-      school: "",
       imageFile: null,
       challenges: "",
       teachingQualificationType: "",
       qualified: "",
       key_points: "",
-      differentAction: "",
     });
   };
   const handlePreview = (value: boolean) => {
@@ -121,13 +113,11 @@ export const TeachingProvider = ({ children }: Props) => {
       briefExplanation: "",
       qualificationYear: "",
       year: "",
-      school: "",
       imageFile: null,
       challenges: "",
       teachingQualificationType: "",
       qualified: "",
       key_points: "",
-      differentAction: "",
     });
   };
   const passedValue = {

@@ -7,7 +7,8 @@ import { useLeadership } from "@/context/LeadershipProvider";
 
 const useLeadershipMutation = () => {
   const queryClient = useQueryClient();
-  const { handleFormSteps, handleFillForm, handlePreview } = useLeadership();
+  const { handleFormSteps, handleFillForm, handlePreview, handleResetForm } =
+    useLeadership();
 
   const mutation = useMutation({
     mutationFn: (leaderships: LeadershipPayloadType) => {
@@ -17,6 +18,7 @@ const useLeadershipMutation = () => {
       if (data) {
         handleFormSteps(1);
         handleFillForm(false);
+        handleResetForm();
         handlePreview(false);
         toast.success("Leadership Form Submitted Successfully", {
           theme: "dark",

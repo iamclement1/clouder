@@ -60,6 +60,7 @@ const LogbookDetailsForm = () => {
             logbookTittle: logbookData?.logbookTittle || "",
             year: logbookData?.year || "",
             role: logbookData?.role || "",
+            file: logbookData?.file || null,
           }}
           validate={(values) => {
             const errors: Partial<logbookDataProps> = {};
@@ -85,6 +86,8 @@ const LogbookDetailsForm = () => {
           }}
           onSubmit={(values) => {
             values.role = selectetdRole;
+            values.file = selectedFile;
+
             handleLogbookData({
               ...logbookData,
               ...values,

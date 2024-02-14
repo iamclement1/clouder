@@ -171,15 +171,15 @@ export type logbookDataProps = {
   challenges: string;
   key_points: string;
   observation: string;
-  author: string;
   solvedPro: string;
   summary: string;
   logbookBeneficials: string;
-  logbookArea: string;
+
   differentAction: string;
   caseTittle: string;
   caseYear: string;
   flag: string;
+  file?: File | null | Blob | MediaSource;
 };
 
 export type requestFeedBackDataProps = {
@@ -206,10 +206,12 @@ export type passedValueProps = {
   handlePreview: (value: boolean) => void;
   totalData: logbookDataProps[];
   handleTotalData: () => void;
+  handleResetData: () => void;
   noOfAuthor: number;
   addToAuthor: () => void;
   minusFromAuthor: () => void;
   logBookMode: string;
+  file?: File | null | Blob | MediaSource;
 };
 
 export type LogbookPayloadType = {

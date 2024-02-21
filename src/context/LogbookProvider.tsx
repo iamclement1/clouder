@@ -1,51 +1,5 @@
-import React, { createContext, useContext, useState } from "react";
-
-export type logbookDataProps = {
-  logbookTittle: string;
-  year: string;
-  role: string;
-  challenges: string;
-  key_points: string;
-  observation: string;
-  author: string;
-  solvedPro: string;
-  summary: string;
-  logbookBeneficials: string;
-  logbookArea: string;
-  differentAction: string;
-  caseTittle: string;
-  caseYear: string;
-};
-
-export type requestFeedBackDataProps = {
-  fullName: string;
-  title: string;
-  role: string;
-  challenges: string;
-  key_points: string;
-  observation: string;
-  email: string;
-  bodyText: string;
-};
-
-type passedValueProps = {
-  formSteps: number;
-  handleFormSteps: (value: number) => void;
-  fillForm: boolean;
-  handleFillForm: (value: boolean) => void;
-  logbookData: logbookDataProps;
-  handleLogbookData: (value: logbookDataProps) => void;
-  handleLogbookMode: (value: string) => void;
-
-  preview: boolean;
-  handlePreview: (value: boolean) => void;
-  totalData: logbookDataProps[];
-  handleTotalData: () => void;
-  noOfAuthor: number;
-  addToAuthor: () => void;
-  minusFromAuthor: () => void;
-  logBookMode: string;
-};
+import { logbookDataProps, passedValueProps } from "@/utils/types";
+import React, { createContext, useContext, useMemo, useState } from "react";
 
 const defaultLogbookValue: passedValueProps = {
   formSteps: 1,
@@ -54,33 +8,35 @@ const defaultLogbookValue: passedValueProps = {
   handleFillForm: () => {},
   logbookData: {
     logbookTittle: "",
+    flag: "",
     role: "",
     challenges: "",
     key_points: "",
     observation: "",
 
     year: "",
-    author: "",
+
     solvedPro: "",
     summary: "",
     logbookBeneficials: "",
-    logbookArea: "",
+
     differentAction: "",
     caseTittle: "",
     caseYear: "",
+    file: null,
   },
   handleLogbookData: () => {},
   preview: true,
   handlePreview: () => {},
   totalData: [],
   handleTotalData: () => {},
+  handleResetData: () => {},
   addToAuthor: () => {},
   minusFromAuthor: () => {},
   noOfAuthor: 1,
   logBookMode: "",
   handleLogbookMode: () => {},
 };
-
 type Props = {
   children: React.ReactNode;
 };
@@ -92,22 +48,24 @@ export const LogbookProvider = ({ children }: Props) => {
   const [preview, setPreview] = useState<boolean>(false);
   const [totalData, setTotalData] = useState<logbookDataProps[]>([]);
   const [noOfAuthor, setNoOfAuthor] = useState<number>(1);
-  const [logBookMode, setLogBookMode] = useState<string>("Medical Logbook");
+  const [logBookMode, setLogBookMode] = useState<string>("");
   const [logbookData, setLogbookData] = useState<logbookDataProps>({
     logbookTittle: "",
+    flag: logBookMode,
     role: "",
     challenges: "",
     key_points: "",
     observation: "",
     year: "",
-    author: "",
+
     solvedPro: "",
     summary: "",
     logbookBeneficials: "",
-    logbookArea: "",
+
     differentAction: "",
     caseTittle: "",
     caseYear: "",
+    file: null,
   });
   const handleFormSteps = (value: number) => {
     setFormSteps(value);
@@ -137,38 +95,82 @@ export const LogbookProvider = ({ children }: Props) => {
 
     setLogbookData({
       logbookTittle: "",
+      flag: "",
       role: "",
       challenges: "",
       key_points: "",
       observation: "",
       year: "",
-      author: "",
+
       solvedPro: "",
       summary: "",
       logbookBeneficials: "",
-      logbookArea: "",
+
       differentAction: "",
       caseTittle: "",
       caseYear: "",
+      file: null,
     });
   };
-  const passedValue = {
-    formSteps,
-    handleFormSteps,
-    fillForm,
-    handleFillForm,
-    logbookData,
-    handleLogbookData,
-    preview,
-    handlePreview,
-    totalData,
-    handleTotalData,
-    noOfAuthor,
-    addToAuthor,
-    minusFromAuthor,
-    logBookMode,
-    handleLogbookMode,
+  const handleResetData = () => {
+    setLogbookData({
+      logbookTittle: "",
+      flag: "",
+      role: "",
+      challenges: "",
+      key_points: "",
+      observation: "",
+      year: "",
+
+      solvedPro: "",
+      summary: "",
+      logbookBeneficials: "",
+
+      differentAction: "",
+      caseTittle: "",
+      caseYear: "",
+      file: null,
+    });
   };
+  const passedValue = useMemo(
+    () => ({
+      formSteps,
+      handleFormSteps,
+      fillForm,
+      handleFillForm,
+      logbookData,
+      handleLogbookData,
+      preview,
+      handlePreview,
+      totalData,
+      handleTotalData,
+
+      noOfAuthor,
+      addToAuthor,
+      minusFromAuthor,
+      logBookMode,
+      handleLogbookMode,
+      handleResetData,
+    }),
+    [
+      formSteps,
+      handleFormSteps,
+      fillForm,
+      handleFillForm,
+      logbookData,
+      handleLogbookData,
+      preview,
+      handlePreview,
+      totalData,
+      handleTotalData,
+      noOfAuthor,
+      addToAuthor,
+      minusFromAuthor,
+      logBookMode,
+      handleLogbookMode,
+      handleResetData,
+    ],
+  );
 
   return (
     <LogbookContext.Provider value={passedValue}>

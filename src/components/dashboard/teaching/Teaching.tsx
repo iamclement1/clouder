@@ -8,17 +8,15 @@ import CustomButton from "@/components/common/CustomButton";
 import { useRouter } from "next/navigation";
 import ReactPaginate from "react-paginate";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
-
-import { useLogbook } from "@/context/LogbookProvider";
-import LogbookForm from "./LogbookForm";
-import LogbookPreview from "./LogbookPreview";
+import { useTeaching } from "@/context/TeachingProvider";
+import TeachingForm from "./TeachingForm";
+import TeachingPreview from "./TeachingPreview";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
 
-const Logbook = () => {
-  const { fillForm, handleFillForm, preview, totalData, logBookMode } =
-    useLogbook();
+const Teaching = () => {
+  const { fillForm, handleFillForm, preview, totalData } = useTeaching();
 
   const router = useRouter();
 
@@ -28,7 +26,7 @@ const Logbook = () => {
 
   const items = totalData;
 
-  const itemsPerPage = 4;
+  const itemsPerPage = 10;
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems = items?.slice(itemOffset, endOffset);
@@ -50,36 +48,15 @@ const Logbook = () => {
   };
   // ******************************************
 
-  // if (isLoading)
-  //   return (
-  //     <Stack>
-  //       <Skeleton height="50px" />
-  //       <Skeleton height="50px" />
-  //       <Skeleton height="50px" />
-  //     </Stack>
-  //   );
-
   return (
     <Box>
       <Box pb="3rem">
         {preview ? (
-          <div>
-            <LogbookPreview />
-          </div>
+          <TeachingPreview />
         ) : (
           <>
             <Flex align="center" justify="space-between" gap="1rem">
-              <Box>
-                <Typography variant="heading2" color="#000">
-                  Logbook{" "}
-                  <Text as="span" color="grey_1">
-                    {logBookMode === "medical" ? "(Medical Logbook)" : ""}
-                    {logBookMode === "surgical" ? "(Surgical Logbook)" : ""}
-                  </Text>
-                </Typography>
-
-                {/* {fillForm && <ResearchRole />} */}
-              </Box>
+              <Typography variant="heading2">Teaching</Typography>
               {totalData?.length >= 1 && fillForm !== true && (
                 <CustomButton
                   bgColor={"transparent"}
@@ -93,11 +70,9 @@ const Logbook = () => {
                   Add New
                 </CustomButton>
               )}
-            </Flex>{" "}
+            </Flex>
             {fillForm ? (
-              <div>
-                <LogbookForm />
-              </div>
+              <TeachingForm />
             ) : (
               <Box
                 mt="1rem"
@@ -105,73 +80,74 @@ const Logbook = () => {
                 minH="80vh"
                 borderRadius="0.46875rem"
               >
-                {currentItems?.length >= 1 ? (
+                {totalData?.length >= 1 ? (
                   <Box py="2.44rem" px="2.39rem">
-                    <Box>
-                      <Flex
-                        justify="center"
-                        align="center"
-                        py="1.125rem"
-                        w="100%"
-                        rounded="0.375rem"
-                        bgColor="grey_14"
-                      >
-                        <Text fontSize="1.125rem" fontWeight="700">
-                          Research Entries
-                        </Text>
-                      </Flex>
-                    </Box>
+                    <Flex
+                      justify="center"
+                      align="center"
+                      py="1.125rem"
+                      w="100%"
+                      rounded="0.375rem"
+                      bgColor="grey_14"
+                    >
+                      <Text fontSize="1.125rem" fontWeight="700">
+                        Teaching Entries
+                      </Text>
+                    </Flex>
 
                     <OrderedList mt="2.2rem">
-                      {currentItems?.map((item) => {
-                        return (
-                          <ListItem
-                            mb={"1rem"}
-                            color="grey_1"
-                            key={item?.logbookTittle}
-                            fontSize="1.125rem"
-                            fontWeight="600"
-                            display="flex"
-                            alignItems="center"
-                            justifyContent={"space-between"}
-                          >
-                            <Text
-                              onClick={() =>
-                                router.push(
-                                  `/dashboard/logbook/logbook_aquired/${item?.logbookTittle}`,
-                                )
-                              }
-                              cursor={"pointer"}
-                            >{`${item?.logbookTittle}
+                      {currentItems
+                        ?.slice()
+                        .reverse() // Reverse the array to display the recent data first
+                        .map((item) => {
+                          return (
+                            <ListItem
+                              mb={"1rem"}
+                              color="grey_1"
+                              key={item?.year}
+                              fontSize="1.125rem"
+                              fontWeight="600"
+                              display="flex"
+                              alignItems="center"
+                              justifyContent={"space-between"}
+                            >
+                              <Text
+                                onClick={() =>
+                                  router.push(
+                                    `/dashboard/teaching/teaching_aquired/${item?.year}`,
+                                  )
+                                }
+                                cursor={"pointer"}
+                              >{`${item?.teachingTitle}
                                                             `}</Text>
 
-                            <Text
-                              bgColor="danger_2"
-                              fontSize="0.75rem"
-                              color="danger_1"
-                              fontWeight="normal"
-                              w="fit-content"
-                              p="0.8rem 1rem"
-                              rounded={"1.35938rem"}
-                              cursor="pointer"
-                              as="a"
-                              href={`/dashboard/logbook/request_feed_back/${item?.logbookTittle}`}
-                            >
-                              Request feedback
-                            </Text>
-                          </ListItem>
-                        );
-                      })}
+                              <Text
+                                bgColor="danger_2"
+                                fontSize="0.75rem"
+                                color="danger_1"
+                                fontWeight="normal"
+                                w="fit-content"
+                                p="0.8rem 1rem"
+                                rounded={"1.35938rem"}
+                                cursor="pointer"
+                                as="a"
+                                href={`/dashboard/teaching/request_feed_back/${item?.year}`}
+                              >
+                                Request feedback
+                              </Text>
+                            </ListItem>
+                          );
+                        })}
                     </OrderedList>
                   </Box>
                 ) : (
                   <Flex align="center" justify="center" flexDir={"column"}>
                     <Text fontSize="1.3125rem" color="grey_1" mt="3.75rem">
-                      {" "}
                       You currently do not have any data supplied
                     </Text>
 
                     <Flex
+                      as="button"
                       mt="1rem"
                       gap="0.38rem"
                       fontSize={"0.84375rem"}
@@ -179,14 +155,17 @@ const Logbook = () => {
                       cursor={"pointer"}
                       align="center"
                       fontWeight="600"
-                      onClick={() => handleFillForm(true)}
+                      onClick={() => {
+                        handleFillForm(true);
+                      }}
                     >
-                      <Icon as={MdOutlineAddCircleOutline} /> Add Activities
+                      <Icon as={MdOutlineAddCircleOutline} />
+                      Add Teaching
                     </Flex>
                   </Flex>
                 )}
               </Box>
-            )}{" "}
+            )}
           </>
         )}
       </Box>
@@ -221,4 +200,4 @@ const Logbook = () => {
     </Box>
   );
 };
-export default Logbook;
+export default Teaching;

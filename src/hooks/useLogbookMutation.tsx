@@ -2,30 +2,28 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "@/utils/axiosInstance";
 import { toast } from "react-toastify";
-import { CoursesPayloadType } from "@/utils/types";
+import { LogbookPayloadType } from "@/utils/types";
 import { useCourses } from "@/context/CoursesProvider";
 
-const useCoursesMutation = () => {
-  const { handleFormSteps, handleFillForm, handlePreview, handleResetForm } =
-    useCourses();
+const useLogbookMutation = () => {
+  const { handleFormSteps, handleFillForm, handlePreview } = useCourses();
 
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (courses: CoursesPayloadType) => {
-      return api.post("/courses", courses);
+    mutationFn: (logbooks: LogbookPayloadType) => {
+      return api.post("/logbooks", logbooks);
     },
     onSuccess: ({ data }) => {
       if (data) {
-        toast.success("Course Submitted Successfully", {
+        toast.success("Logbook Submitted Successfully", {
           theme: "dark",
         });
         handleFormSteps(1);
         handleFillForm(false);
         handlePreview(false);
-        handleResetForm();
       }
-      queryClient.invalidateQueries({ queryKey: ["courses"] });
+      queryClient.invalidateQueries({ queryKey: ["logbooks"] });
     },
     onError: (error: { response: { data: { error: string } } }) => {
       const errorMsg = error.response.data.error;
@@ -35,14 +33,14 @@ const useCoursesMutation = () => {
     },
   });
 
-  const handleSubmitCourses = (payload: CoursesPayloadType) => {
+  const handleSubmitLogbook = (payload: LogbookPayloadType) => {
     mutation.mutate(payload);
   };
 
   return {
     ...mutation,
-    handleSubmitCourses,
+    handleSubmitLogbook,
   };
 };
 
-export default useCoursesMutation;
+export default useLogbookMutation;

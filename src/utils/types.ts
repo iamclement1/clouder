@@ -162,6 +162,73 @@ export type CoursesPayloadType = {
   doDifferently?: string;
 };
 
+// logbook types
+
+export type logbookDataProps = {
+  logbookTittle: string;
+  year: string;
+  role: string;
+  challenges: string;
+  key_points: string;
+  observation: string;
+  solvedPro: string;
+  summary: string;
+  logbookBeneficials: string;
+
+  differentAction: string;
+  caseTittle: string;
+  caseYear: string;
+  flag: string;
+  file?: File | null | Blob | MediaSource;
+};
+
+export type requestFeedBackDataProps = {
+  fullName: string;
+  title: string;
+  role: string;
+  challenges: string;
+  key_points: string;
+  observation: string;
+  email: string;
+  bodyText: string;
+};
+
+export type passedValueProps = {
+  formSteps: number;
+  handleFormSteps: (value: number) => void;
+  fillForm: boolean;
+  handleFillForm: (value: boolean) => void;
+  logbookData: logbookDataProps;
+  handleLogbookData: (value: logbookDataProps) => void;
+  handleLogbookMode: (value: string) => void;
+
+  preview: boolean;
+  handlePreview: (value: boolean) => void;
+  totalData: logbookDataProps[];
+  handleTotalData: () => void;
+  handleResetData: () => void;
+  noOfAuthor: number;
+  addToAuthor: () => void;
+  minusFromAuthor: () => void;
+  logBookMode: string;
+  file?: File | null | Blob | MediaSource;
+};
+
+export type LogbookPayloadType = {
+  action?: string;
+  firstTitle?: string;
+  firstYear?: string;
+  secondTitle?: string;
+  secondYear?: string;
+  summary?: string;
+  challenges?: string;
+  keyPositives?: string;
+  doDifferently?: string;
+  secondDocument?: File | Blob | MediaSource | null;
+  firstDocument?: File | Blob | MediaSource | null;
+  logBookType?: string;
+};
+
 export type SupervisorCardType = {
   icon: React.ReactNode;
   id: number;

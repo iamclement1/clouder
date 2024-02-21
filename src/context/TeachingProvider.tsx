@@ -1,14 +1,15 @@
 import React, { createContext, useContext, useState } from "react";
 
-export type coursesDataProps = {
-  courseTitle: string;
-  certificateNo: string;
+export type teachingDataProps = {
+  teachingTitle: string;
+  briefExplanation: string;
+  qualificationYear: string;
   year: string;
-  school: string;
   imageFile: File | Blob | MediaSource | null;
   challenges: string;
+  teachingQualificationType: string;
+  qualified: string;
   key_points: string;
-  differentAction: string;
 };
 
 export type requestFeedBackDataProps = {
@@ -24,32 +25,33 @@ type passedValueProps = {
   handleFormSteps: (value: number) => void;
   fillForm: boolean;
   handleFillForm: (value: boolean) => void;
-  coursesData: coursesDataProps;
-  handleCoursesData: (value: coursesDataProps) => void;
+  teachingData: teachingDataProps;
+  handleTeachingData: (value: teachingDataProps) => void;
   preview: boolean;
   handlePreview: (value: boolean) => void;
-  totalData: coursesDataProps[];
+  totalData: teachingDataProps[];
   handleTotalData: () => void;
   handleResetForm: () => void;
 };
 
-const defaultCoursesValue: passedValueProps = {
+const defaultTeachingValue: passedValueProps = {
   formSteps: 1,
   handleFormSteps: () => {},
   fillForm: false,
   handleFillForm: () => {},
   handleResetForm: () => {},
-  coursesData: {
-    courseTitle: "",
-    certificateNo: "",
+  teachingData: {
+    teachingTitle: "",
+    briefExplanation: "",
+    qualificationYear: "",
     year: "",
-    school: "",
     imageFile: null,
     challenges: "",
+    teachingQualificationType: "",
+    qualified: "",
     key_points: "",
-    differentAction: "",
   },
-  handleCoursesData: () => {},
+  handleTeachingData: () => {},
   preview: true,
   handlePreview: () => {},
   totalData: [],
@@ -59,22 +61,23 @@ const defaultCoursesValue: passedValueProps = {
 type Props = {
   children: React.ReactNode;
 };
-const CoursesContext = createContext(defaultCoursesValue);
+const TeachingContext = createContext(defaultTeachingValue);
 
-export const CoursesProvider = ({ children }: Props) => {
+export const TeachingProvider = ({ children }: Props) => {
   const [formSteps, setFormSteps] = useState<number>(1);
   const [fillForm, setFillForm] = useState<boolean>(false);
   const [preview, setPreview] = useState<boolean>(false);
-  const [totalData, setTotalData] = useState<coursesDataProps[]>([]);
-  const [coursesData, setCoursesData] = useState<coursesDataProps>({
-    courseTitle: "",
-    certificateNo: "",
+  const [totalData, setTotalData] = useState<teachingDataProps[]>([]);
+  const [teachingData, setTeachingData] = useState<teachingDataProps>({
+    teachingTitle: "",
+    briefExplanation: "",
+    qualificationYear: "",
     year: "",
-    school: "",
     imageFile: null,
     challenges: "",
+    teachingQualificationType: "",
+    qualified: "",
     key_points: "",
-    differentAction: "",
   });
   const handleFormSteps = (value: number) => {
     setFormSteps(value);
@@ -83,36 +86,38 @@ export const CoursesProvider = ({ children }: Props) => {
     setFillForm(value);
   };
   const handleResetForm = () => {
-    setCoursesData({
-      courseTitle: "",
-      certificateNo: "",
+    setTeachingData({
+      teachingTitle: "",
+      briefExplanation: "",
+      qualificationYear: "",
       year: "",
-      school: "",
       imageFile: null,
       challenges: "",
+      teachingQualificationType: "",
+      qualified: "",
       key_points: "",
-      differentAction: "",
     });
   };
   const handlePreview = (value: boolean) => {
     setPreview(value);
   };
 
-  const handleCoursesData = (value: coursesDataProps) => {
-    setCoursesData(value);
+  const handleTeachingData = (value: teachingDataProps) => {
+    setTeachingData(value);
   };
   const handleTotalData = () => {
-    setTotalData((prevData) => [...prevData, coursesData]);
+    setTotalData((prevData) => [...prevData, teachingData]);
 
-    setCoursesData({
-      courseTitle: "",
-      certificateNo: "",
+    setTeachingData({
+      teachingTitle: "",
+      briefExplanation: "",
+      qualificationYear: "",
       year: "",
-      school: "",
       imageFile: null,
       challenges: "",
+      teachingQualificationType: "",
+      qualified: "",
       key_points: "",
-      differentAction: "",
     });
   };
   const passedValue = {
@@ -120,8 +125,8 @@ export const CoursesProvider = ({ children }: Props) => {
     handleFormSteps,
     fillForm,
     handleFillForm,
-    coursesData,
-    handleCoursesData,
+    teachingData,
+    handleTeachingData,
     preview,
     handlePreview,
     totalData,
@@ -130,12 +135,12 @@ export const CoursesProvider = ({ children }: Props) => {
   };
 
   return (
-    <CoursesContext.Provider value={passedValue}>
+    <TeachingContext.Provider value={passedValue}>
       {children}
-    </CoursesContext.Provider>
+    </TeachingContext.Provider>
   );
 };
 
-export const useCourses = () => {
-  return useContext(CoursesContext);
+export const useTeaching = () => {
+  return useContext(TeachingContext);
 };

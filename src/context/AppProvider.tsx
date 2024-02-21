@@ -10,6 +10,7 @@ import { CoursesProvider } from "./CoursesProvider";
 import { LeadershipProvider } from "./LeadershipProvider";
 import { ResearchProvider } from "./ResearchProvider";
 import { LogbookProvider } from "./LogbookProvider";
+import { TeachingProvider } from "./TeachingProvider";
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -21,7 +22,9 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
             <LeadershipProvider>
               <ResearchProvider>
                 <LogbookProvider>
-                  <ModalProvider>{children}</ModalProvider>
+                  <TeachingProvider>
+                    <ModalProvider>{children}</ModalProvider>
+                  </TeachingProvider>
                 </LogbookProvider>
               </ResearchProvider>
             </LeadershipProvider>

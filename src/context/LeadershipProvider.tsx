@@ -30,6 +30,7 @@ type passedValueProps = {
   handlePreview: (value: boolean) => void;
   totalData: leadershipDataProps[];
   handleTotalData: () => void;
+  handleResetForm: () => void;
 };
 
 const defaultLeadershipValue: passedValueProps = {
@@ -52,6 +53,7 @@ const defaultLeadershipValue: passedValueProps = {
   handlePreview: () => {},
   totalData: [],
   handleTotalData: () => {},
+  handleResetForm: () => {},
 };
 
 type Props = {
@@ -68,7 +70,6 @@ export const LeadershipProvider = ({ children }: Props) => {
     leadershipTittle: "",
     startYear: "",
     endYear: "",
-
     solvedPro: "",
     challenges: "",
     key_points: "",
@@ -79,19 +80,21 @@ export const LeadershipProvider = ({ children }: Props) => {
   };
   const handleFillForm = (value: boolean) => {
     setFillForm(value);
+  };
+  const handlePreview = (value: boolean) => {
+    setPreview(value);
+  };
+
+  const handleResetForm = () => {
     setLeadershipData({
       leadershipTittle: "",
       startYear: "",
       endYear: "",
-
       solvedPro: "",
       challenges: "",
       key_points: "",
       differentAction: "",
     });
-  };
-  const handlePreview = (value: boolean) => {
-    setPreview(value);
   };
 
   const handleLeadershipData = (value: leadershipDataProps) => {
@@ -104,7 +107,6 @@ export const LeadershipProvider = ({ children }: Props) => {
       leadershipTittle: "",
       startYear: "",
       endYear: "",
-
       solvedPro: "",
       challenges: "",
       key_points: "",
@@ -122,6 +124,7 @@ export const LeadershipProvider = ({ children }: Props) => {
     handlePreview,
     totalData,
     handleTotalData,
+    handleResetForm,
   };
 
   return (

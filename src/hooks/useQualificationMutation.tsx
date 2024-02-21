@@ -10,7 +10,8 @@ const useQualificationMutation = () => {
   const queryClient = useQueryClient();
   const { openModal } = useModal();
 
-  const { handleFormSteps, handleFillForm, handlePreview } = useQualification();
+  const { handleFormSteps, handleFillForm, handlePreview, handleResetForm } =
+    useQualification();
 
   const mutation = useMutation({
     mutationFn: (qualifications: QualificationPayloadProps) => {
@@ -21,6 +22,7 @@ const useQualificationMutation = () => {
         handleFormSteps(1);
         handleFillForm(false);
         handlePreview(false);
+        handleResetForm();
         toast.success("Qualification Submitted Successfully", {
           theme: "dark",
         });

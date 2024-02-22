@@ -1,5 +1,13 @@
 import Typography from "@/components/common/Typograph";
-import { Box, Flex, Icon, ListItem, OrderedList, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Icon,
+  ListItem,
+  OrderedList,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 
@@ -18,7 +26,7 @@ interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
 }
 
 const QualityImprovement = () => {
-  const { fillForm, handleFillForm, preview, totalData } =
+  const { fillForm, handleFillForm, preview, totalData, activityType } =
     useQualityImprovement();
 
   const router = useRouter();
@@ -56,7 +64,12 @@ const QualityImprovement = () => {
             <Flex align="center" justify="space-between" gap="1rem">
               <Box>
                 <Typography variant="heading2">
-                  Quality improvement activity
+                  Quality improvement activity{" "}
+                  {activityType ? (
+                    <Text as="span">({activityType})</Text>
+                  ) : (
+                    <Spinner size={"sm"} />
+                  )}
                 </Typography>
               </Box>
               {totalData?.length >= 1 && fillForm !== true && (

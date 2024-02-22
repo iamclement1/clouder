@@ -4,6 +4,7 @@ export type qualityImprovementDataProps = {
   qualityImprovementTitle: string;
   year: string;
   experience: string;
+
   challenges: string;
   key_points: string;
   differentAction: string;
@@ -20,6 +21,8 @@ export type requestFeedBackDataProps = {
 type passedValueProps = {
   formSteps: number;
   handleFormSteps: (value: number) => void;
+
+  handleActivityType: (value: string) => void;
   fillForm: boolean;
   handleFillForm: (value: boolean) => void;
   qualityImprovementData: qualityImprovementDataProps;
@@ -29,17 +32,20 @@ type passedValueProps = {
   totalData: qualityImprovementDataProps[];
   handleTotalData: () => void;
   handleResetForm: () => void;
+  activityType: string;
 };
 
 const defaultQualityImprovementValue: passedValueProps = {
   formSteps: 1,
   handleFormSteps: () => {},
+  handleActivityType: () => {},
   fillForm: false,
   handleFillForm: () => {},
   qualityImprovementData: {
     qualityImprovementTitle: "",
     year: "",
     experience: "",
+
     challenges: "",
     key_points: "",
     differentAction: "",
@@ -50,6 +56,7 @@ const defaultQualityImprovementValue: passedValueProps = {
   totalData: [],
   handleTotalData: () => {},
   handleResetForm: () => {},
+  activityType: "",
 };
 
 type Props = {
@@ -61,18 +68,23 @@ export const QualityImprovementProvider = ({ children }: Props) => {
   const [formSteps, setFormSteps] = useState<number>(1);
   const [fillForm, setFillForm] = useState<boolean>(false);
   const [preview, setPreview] = useState<boolean>(false);
+  const [activityType, setActivityType] = useState<string>("");
   const [totalData, setTotalData] = useState<qualityImprovementDataProps[]>([]);
   const [qualityImprovementData, setQualityImprovementData] =
     useState<qualityImprovementDataProps>({
       qualityImprovementTitle: "",
       year: "",
       experience: "",
+
       challenges: "",
       key_points: "",
       differentAction: "",
     });
   const handleFormSteps = (value: number) => {
     setFormSteps(value);
+  };
+  const handleActivityType = (value: string) => {
+    setActivityType(value);
   };
   const handleFillForm = (value: boolean) => {
     setFillForm(value);
@@ -86,6 +98,7 @@ export const QualityImprovementProvider = ({ children }: Props) => {
       qualityImprovementTitle: "",
       year: "",
       experience: "",
+
       challenges: "",
       key_points: "",
       differentAction: "",
@@ -102,6 +115,7 @@ export const QualityImprovementProvider = ({ children }: Props) => {
       qualityImprovementTitle: "",
       year: "",
       experience: "",
+
       challenges: "",
       key_points: "",
       differentAction: "",
@@ -110,6 +124,8 @@ export const QualityImprovementProvider = ({ children }: Props) => {
   const passedValue = {
     formSteps,
     handleFormSteps,
+    activityType,
+    handleActivityType,
     fillForm,
     handleFillForm,
     qualityImprovementData,

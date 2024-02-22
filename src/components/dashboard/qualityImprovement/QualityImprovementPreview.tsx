@@ -25,6 +25,7 @@ const QualityImprovementPreview = () => {
     qualityImprovementData,
     handlePreview,
     handleTotalData,
+    activityType,
   } = useQualityImprovement();
 
   // const { handleSubmitLeadership, isLoading } = useLeadershipMutation();
@@ -73,7 +74,7 @@ const QualityImprovementPreview = () => {
         >
           <Flex align="center" justify="space-between">
             <Text fontSize="1.5rem" fontWeight="700">
-              Quality improvement activity (Morbidity/Mortality)
+              Quality improvement activity ({activityType})
             </Text>
             <Icon
               as={TbEdit}

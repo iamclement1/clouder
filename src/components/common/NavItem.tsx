@@ -36,6 +36,7 @@ const NavItem = ({
           //         handleRouteChange(href);
           //     }
           // }}
+          display="block"
           style={{ textDecoration: "none" }}
           _focus={{ boxShadow: "none" }}
         >
@@ -168,7 +169,8 @@ const NavItem = ({
             <Box>
               {subNav.map((item) => (
                 <Link
-                  href={href}
+                  display={"block"}
+                  href={item?.href}
                   pl="4rem"
                   _hover={{
                     bgColor: "white",

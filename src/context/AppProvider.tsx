@@ -11,6 +11,7 @@ import { LeadershipProvider } from "./LeadershipProvider";
 import { ResearchProvider } from "./ResearchProvider";
 import { LogbookProvider } from "./LogbookProvider";
 import { TeachingProvider } from "./TeachingProvider";
+import { QualityImprovementProvider } from "./QualityImprovement";
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -18,17 +19,19 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
       <ChakraProvider theme={theme}>
         <CSSReset />
         <QualificationProvider>
-          <CoursesProvider>
-            <LeadershipProvider>
-              <ResearchProvider>
-                <LogbookProvider>
-                  <TeachingProvider>
-                    <ModalProvider>{children}</ModalProvider>
-                  </TeachingProvider>
-                </LogbookProvider>
-              </ResearchProvider>
-            </LeadershipProvider>
-          </CoursesProvider>
+          <QualityImprovementProvider>
+            <CoursesProvider>
+              <LeadershipProvider>
+                <ResearchProvider>
+                  <LogbookProvider>
+                    <TeachingProvider>
+                      <ModalProvider>{children}</ModalProvider>
+                    </TeachingProvider>
+                  </LogbookProvider>
+                </ResearchProvider>
+              </LeadershipProvider>
+            </CoursesProvider>
+          </QualityImprovementProvider>
         </QualificationProvider>
       </ChakraProvider>
     </CacheProvider>

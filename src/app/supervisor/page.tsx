@@ -8,6 +8,7 @@ import React from "react";
 
 const SupervisorDashboard = () => {
   const { data: userData, isLoading } = useProfile();
+
   if (isLoading) return <PageLoader />;
   const fullName = userData?.data.fullName;
   const nameParts = fullName?.split(" ");

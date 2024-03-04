@@ -235,3 +235,12 @@ export type SupervisorCardType = {
   title: string;
   num: number;
 };
+
+export type TeachingPayloadType = {
+  title: string;
+  year: string;
+  qualificationYear: string;
+  summary: string;
+  keyTakeaway: string;
+  d?: File | Blob | MediaSource | null;
+};

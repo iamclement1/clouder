@@ -2,12 +2,9 @@
 import React, { useState } from "react";
 import {
   IconButton,
-  // Avatar,
   Box,
   CloseButton,
   Flex,
-  // HStack,
-  // VStack,
   Icon,
   useColorModeValue,
   Text,
@@ -16,11 +13,6 @@ import {
   useDisclosure,
   BoxProps,
   FlexProps,
-  // Menu,
-  // MenuButton,
-  // MenuDivider,
-  // MenuItem,
-  // MenuList,
   Image,
   Link,
   DrawerBody,
@@ -35,19 +27,16 @@ import {
 } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { BsFillCaretDownFill } from "react-icons/bs";
-// import {  } from "react-icons/bi";
 import { FaRegEnvelope } from "react-icons/fa";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import SearchBox from "../dashboard/navigation/SearchBox";
 import UserImage from "../dashboard/navigation/UserImage";
-// import { useRouter } from "next/navigation";
 import Share from "../modals/Share";
 import useProfile from "@/hooks/useProfile";
 import { BiLogOut, BiBell } from "react-icons/bi";
 import PageLoader from "./PageLoader";
 import useSignOut from "@/hooks/useSignOut";
 import NavItem from "./NavItem";
-// import { useLogbook } from "@/context/LogbookProvider";
 
 interface SidebarWithHeaderProps {
   passedActive: string;
@@ -251,142 +240,6 @@ const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {
     </Box>
   );
 };
-
-// const NavItem = ({
-//     icon,
-//     passedActive,
-//     subNav,
-//     navName,
-//     href,
-//     navType,
-//     ...rest
-// }: NavItemProps) => {
-//     const router = useRouter();
-//     // const { handleLogbookMode } = useLogbook();
-//     const [showSubNav, setShowSubNav] = useState<boolean>(false);
-//     const handleRouteChange: RouteChangeHandler = (newRoute) => {
-//         router.push(newRoute);
-//     };
-
-//     const handleShowSubNav = () => {
-//         setShowSubNav(!showSubNav);
-//     };
-
-//     return (
-//         <Box>
-//             <Box
-//                 onClick={() => {
-//                     if (subNav) {
-//                         handleShowSubNav();
-//                     } else {
-//                         handleRouteChange(href);
-//                     }
-//                 }}
-//                 style={{ textDecoration: "none" }}
-//                 _focus={{ boxShadow: "none" }}
-//             >
-//                 <Flex
-//                     align="center"
-//                     p="4"
-//                     px="4"
-//                     borderRadius="lg"
-//                     role="group"
-//                     cursor="pointer"
-//                     color="grey_1"
-//                     bgColor={
-//                         passedActive === href || showSubNav ? "white" : "grey_9"
-//                     }
-//                     _hover={{
-//                         bg: "white",
-//                     }}
-//                     gap="0.9rem"
-//                     {...rest}
-//                 >
-//                     {icon && (
-//                         <Flex
-//                             align="center"
-//                             justify="center"
-//                             minW="2rem"
-//                             minH="2rem"
-//                             rounded="full"
-//                             bgColor={
-//                                 passedActive === href || showSubNav
-//                                     ? "primary"
-//                                     : "white"
-//                             }
-//                             _groupHover={{
-//                                 bgColor: "primary",
-//                             }}
-//                         >
-//                             <Icon
-//                                 fontSize="16"
-//                                 _groupHover={{
-//                                     color: "white",
-//                                 }}
-//                                 as={icon}
-//                                 color={
-//                                     passedActive === href || showSubNav
-//                                         ? "white"
-//                                         : "primary"
-//                                 }
-//                             />
-//                         </Flex>
-//                     )}
-//                     <Text
-//                         fontSize="0.9375rem"
-//                         color={
-//                             passedActive === href || showSubNav
-//                                 ? "black"
-//                                 : "grey_1"
-//                         }
-//                         fontWeight={
-//                             passedActive === href || showSubNav
-//                                 ? "700"
-//                                 : "normal"
-//                         }
-//                     >
-//                         {navName}
-//                     </Text>
-
-//                     {subNav && <Icon as={BsChevronDown} />}
-//                 </Flex>
-//             </Box>
-//             {subNav && (
-//                 <>
-//                     {showSubNav && (
-//                         <Box>
-//                             {subNav.map((item) => (
-//                                 <Box
-//                                     pl="4rem"
-//                                     _hover={{
-//                                         bgColor: "white",
-//                                         cursor: "pointer",
-//                                     }}
-//                                     key={item?.name}
-//                                     fontSize="0.9375rem"
-//                                     py="0.47rem"
-//                                     mb="0.47rem"
-//                                     onClick={() => {
-//                                         if (
-//                                             navType === "Logbook" &&
-//                                             item.href
-//                                         ) {
-//                                             // handleLogbookMode(item?.name);
-//                                             handleRouteChange(item.href);
-//                                         }
-//                                     }}
-//                                 >
-//                                     {" "}
-//                                     {item?.name}{" "}
-//                                 </Box>
-//                             ))}
-//                         </Box>
-//                     )}
-//                 </>
-//             )}
-//         </Box>
-//     );
-// };
 
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const { data } = useProfile();

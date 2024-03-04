@@ -4,5 +4,7 @@ export const getStorageAuthItems = () => {
   const refreshToken =
     typeof window !== "undefined" && sessionStorage.getItem("refreshToken");
   const role = typeof window !== "undefined" && sessionStorage.getItem("role");
-  return { token, refreshToken, role };
+  const plan = typeof window !== "undefined" && sessionStorage.getItem("plan");
+
+  return { token, refreshToken, role, plan };
 };

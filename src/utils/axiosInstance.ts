@@ -41,7 +41,6 @@ api.interceptors.response.use(
       errConfig._retry = true;
       try {
         const { refreshToken } = getStorageAuthItems();
-        console.log(refreshToken);
 
         // Use Axios to make a request to refresh the token
         const {

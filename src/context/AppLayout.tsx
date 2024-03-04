@@ -28,7 +28,18 @@ const AppLayout = ({ children }: RootLayoutProps) => {
         <BackToTop />
       </TanstackProvider>
       <Analytics />
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </Box>
   );
 };

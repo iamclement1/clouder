@@ -51,8 +51,6 @@ const LogbookPreview = () => {
 
   const handleSubmit = () => {
     handleSubmitLogbook(payload);
-    console.log("logbookData === Click", logbookData);
-    console.log("payload === Clicked", payload);
   };
 
   console.log("log book payload ==>", payload);

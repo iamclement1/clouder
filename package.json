@@ -1,77 +1,77 @@
 {
-    "name": "clouder",
-    "version": "0.1.0",
-    "private": true,
-    "scripts": {
-        "dev": "next dev -p 3945",
-        "build": "next build",
-        "start": "next start -p 3945",
-        "lint": "next lint",
-        "prepare": "husky install"
-    },
-    "dependencies": {
-        "@chakra-ui/icons": "^2.1.0",
-        "@chakra-ui/next-js": "^2.1.5",
-        "@chakra-ui/react": "^2.8.0",
-        "@emotion/react": "^11.11.1",
-        "@emotion/styled": "^11.11.0",
-        "@tanstack/react-query": "^4.35.3",
-        "@tanstack/react-query-devtools": "^4.35.3",
-        "@types/js-cookie": "^3.0.4",
-        "@types/node": "20.10.0",
-        "@types/react": "18.2.20",
-        "@types/react-dom": "18.2.7",
-        "@vercel/analytics": "^1.1.1",
-        "axios": "^1.6.2",
-        "chart.js": "^4.4.0",
-        "country-state-city": "^3.2.0",
-        "eslint-config-next": "13.4.13",
-        "formik": "^2.4.3",
-        "framer-motion": "^10.16.1",
-        "js-cookie": "^3.0.5",
-        "next": "14.0.3",
-        "next-pwa": "^5.6.0",
-        "prettier": "^3.1.0",
-        "react": "18.2.0",
-        "react-contenteditable": "^3.3.7",
-        "react-datepicker": "^4.20.0",
-        "react-dom": "18.2.0",
-        "react-icons": "^4.10.1",
-        "react-paginate": "^8.2.0",
-        "react-quill": "^2.0.0",
-        "react-slick": "^0.29.0",
-        "react-toastify": "^9.1.3",
-        "sanitize-html": "^2.11.0",
-        "sharp": "^0.32.5",
-        "slick-carousel": "^1.8.1",
-        "typescript": "5.1.6",
-        "yup": "^1.2.0"
-    },
-    "devDependencies": {
-        "@commitlint/cli": "^18.4.3",
-        "@commitlint/config-conventional": "^17.7.0",
-        "@tanstack/eslint-plugin-query": "^5.8.4",
-        "@types/react-datepicker": "^4.15.2",
-        "@types/react-slick": "^0.23.10",
-        "@typescript-eslint/eslint-plugin": "^6.4.1",
-        "@typescript-eslint/parser": "^6.4.1",
-        "eslint": "^8.54.0",
-        "eslint-plugin-react": "^7.33.2",
-        "husky": "^8.0.3",
-        "lint-staged": "^15.1.0"
-    },
-    "lint-staged": {
-        "src/**/*.{js,jsx,ts,tsx,md}": [
-            "eslint --max-warnings=0",
-            "prettier --write"
-        ],
-        "src/**/*.{json,css,scss,md}": [
-            "prettier --write"
-        ]
-    },
-    "husky": {
-        "hooks": {
-            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-        }
-    }
+   "name": "clouder",
+   "version": "0.1.0",
+   "private": true,
+   "scripts": {
+      "dev": "next dev -p 3945",
+      "build": "next build",
+      "start": "next start -p 3945",
+      "lint": "next lint",
+      "prepare": "husky install"
+   },
+   "dependencies": {
+      "@chakra-ui/icons": "^2.1.0",
+      "@chakra-ui/next-js": "^2.1.5",
+      "@chakra-ui/react": "^2.8.0",
+      "@emotion/react": "^11.11.1",
+      "@emotion/styled": "^11.11.0",
+      "@tanstack/react-query": "^4.35.3",
+      "@tanstack/react-query-devtools": "^4.35.3",
+      "@types/js-cookie": "^3.0.4",
+      "@types/node": "20.10.0",
+      "@types/react": "18.2.20",
+      "@types/react-dom": "18.2.7",
+      "@vercel/analytics": "^1.1.1",
+      "axios": "^1.6.2",
+      "chart.js": "^4.4.0",
+      "country-state-city": "^3.2.0",
+      "eslint-config-next": "13.4.13",
+      "formik": "^2.4.3",
+      "framer-motion": "^10.16.1",
+      "js-cookie": "^3.0.5",
+      "next": "14.0.3",
+      "next-pwa": "^5.6.0",
+      "prettier": "^3.1.0",
+      "react": "18.2.0",
+      "react-contenteditable": "^3.3.7",
+      "react-datepicker": "^4.20.0",
+      "react-dom": "18.2.0",
+      "react-icons": "^4.10.1",
+      "react-paginate": "^8.2.0",
+      "react-quill": "^2.0.0",
+      "react-slick": "^0.29.0",
+      "react-toastify": "^10.0.4",
+      "sanitize-html": "^2.11.0",
+      "sharp": "^0.32.5",
+      "slick-carousel": "^1.8.1",
+      "typescript": "5.1.6",
+      "yup": "^1.2.0"
+   },
+   "devDependencies": {
+      "@commitlint/cli": "^18.4.3",
+      "@commitlint/config-conventional": "^17.7.0",
+      "@tanstack/eslint-plugin-query": "^5.8.4",
+      "@types/react-datepicker": "^4.15.2",
+      "@types/react-slick": "^0.23.10",
+      "@typescript-eslint/eslint-plugin": "^6.4.1",
+      "@typescript-eslint/parser": "^6.4.1",
+      "eslint": "^8.54.0",
+      "eslint-plugin-react": "^7.33.2",
+      "husky": "^8.0.3",
+      "lint-staged": "^15.1.0"
+   },
+   "lint-staged": {
+      "src/**/*.{js,jsx,ts,tsx,md}": [
+         "eslint --max-warnings=0",
+         "prettier --write"
+      ],
+      "src/**/*.{json,css,scss,md}": [
+         "prettier --write"
+      ]
+   },
+   "husky": {
+      "hooks": {
+         "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+      }
+   }
 }

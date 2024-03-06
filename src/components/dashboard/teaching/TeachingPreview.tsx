@@ -2,6 +2,8 @@ import CustomButton from "@/components/common/CustomButton";
 import Typography from "@/components/common/Typograph";
 import StatusModal from "@/components/modals/StatusModal";
 import { useTeaching } from "@/context/TeachingProvider";
+import useTeachingMutation from "@/hooks/useTeachingMutation";
+import { TeachingPayloadType } from "@/utils/types";
 
 import { Box, Flex, Text, Icon, Stack, useDisclosure } from "@chakra-ui/react";
 import React from "react";
@@ -16,6 +18,17 @@ const TeachingPreview = () => {
     handlePreview,
     handleTotalData,
   } = useTeaching();
+  console.log(teachingData);
+
+  const payload: TeachingPayloadType = {
+    title: teachingData?.teachingTitle,
+    year: teachingData?.year,
+    qualificationYear: teachingData?.qualificationYear,
+    summary: teachingData?.challenges,
+    keyTakeaway: teachingData?.key_points,
+  };
+
+  const { handleSubmitTeaching, isLoading } = useTeachingMutation();
 
   const {
     isOpen: isOpenStatusModal,
@@ -24,7 +37,8 @@ const TeachingPreview = () => {
   } = useDisclosure();
 
   const handleSubmit = () => {
-    onOpenStatusModal();
+    handleSubmitTeaching(payload);
+    handleFormSteps(1);
   };
   return (
     <Box>
@@ -177,7 +191,7 @@ const TeachingPreview = () => {
           <Flex mt="3.75rem" align="center" justify="center">
             <CustomButton
               maxW="26.6rem"
-              // isLoading={isLoading}
+              isLoading={isLoading}
               handleClick={() => handleSubmit()}
             >
               Save

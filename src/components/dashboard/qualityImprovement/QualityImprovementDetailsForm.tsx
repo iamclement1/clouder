@@ -25,9 +25,8 @@ const QualityImprovementDetailsForm = () => {
 
   const [err, setErr] = useState<boolean>(false);
 
-  //   const navigate = useRouter();
   const text = useRef("");
-  // text.current = "";
+
   text.current = qualityImprovementData?.experience;
   const handleChange = (event: ContentEditableEvent) => {
     text.current = event.target.value;
@@ -92,8 +91,6 @@ const QualityImprovementDetailsForm = () => {
             });
 
             handleFormSteps(formSteps + 1);
-            console.log(qualityImprovementData);
-            console.log(formSteps);
           }}
         >
           {({ handleSubmit, errors, touched }) => (

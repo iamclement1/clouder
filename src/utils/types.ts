@@ -244,3 +244,38 @@ export type TeachingPayloadType = {
   keyTakeaway: string;
   d?: File | Blob | MediaSource | null;
 };
+
+export type QualityPayloadType = {
+  title: string;
+  year: string;
+  details: string;
+  challenges: string;
+  keyPositives: string;
+  doDifferently: string;
+  type: string;
+};
+
+export type QualityDataItem = {
+  createdAt: number;
+  updatedAt: number;
+  id: string;
+  title: string;
+  year: string;
+  type: string;
+  details: string;
+  challenges: string;
+  keyPositives: string;
+  doDifferently: string;
+  owner: {
+    id: string;
+    fullName: string;
+    img: string;
+    email: string;
+    plan: string;
+    emailStatus: string;
+    phone: string;
+    location: string;
+    status: string;
+    role: string;
+  };
+};

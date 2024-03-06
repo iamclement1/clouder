@@ -21,6 +21,9 @@ import { useQualityImprovement } from "@/context/QualityImprovement";
 import QualityImprovementForm from "./QualityImprovementForm";
 
 import QualityImprovementPreview from "./QualityImprovementPreview";
+import useQuality from "@/hooks/useQuality";
+import LoadingSkeleton from "@/components/common/Skeleton";
+import { QualityDataItem } from "@/utils/types";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
@@ -29,7 +32,24 @@ const QualityImprovement = () => {
   const { fillForm, handleFillForm, preview, totalData, activityType } =
     useQualityImprovement();
 
+  const { isLoading, data } = useQuality();
+
+  const qualityData = data?.data?.message;
+
   const router = useRouter();
+
+  const filteredQualityData = qualityData?.filter((item: QualityDataItem) => {
+    switch (activityType) {
+      case "Morbidity & Mortality":
+        return item.type === "morbidity";
+      case "Clinical Audit":
+        return item.type === "clinical";
+      case "Case Review":
+        return item.type === "case";
+      default:
+        return false;
+    }
+  });
 
   // ******************************************
   const [itemOffset, setItemOffset] = useState(0);
@@ -46,13 +66,14 @@ const QualityImprovement = () => {
   // Run when user click to request another page.
   const handlePageClick = (event: CustomPageClickEvent) => {
     setCurrentPage(event.selected);
-    const newOffset = (event.selected * itemsPerPage) % items?.length;
+    const newOffset =
+      (event.selected * itemsPerPage) % filteredQualityData?.length;
 
     setItemOffset(newOffset);
   };
   // ******************************************
 
-  // if (isLoading) return <LoadingSkeleton />;
+  if (isLoading) return <LoadingSkeleton />;
 
   return (
     <Box>
@@ -72,7 +93,7 @@ const QualityImprovement = () => {
                   )}
                 </Typography>
               </Box>
-              {totalData?.length >= 1 && fillForm !== true && (
+              {filteredQualityData?.length >= 1 && fillForm !== true && (
                 <CustomButton
                   bgColor={"transparent"}
                   border="1px"
@@ -95,7 +116,7 @@ const QualityImprovement = () => {
                 minH="80vh"
                 borderRadius="0.46875rem"
               >
-                {totalData?.length >= 1 ? (
+                {filteredQualityData?.length >= 1 ? (
                   <Box py="2.44rem" px="2.39rem">
                     <Box>
                       <Flex
@@ -113,15 +134,15 @@ const QualityImprovement = () => {
                     </Box>
 
                     <OrderedList mt="2.2rem">
-                      {totalData
+                      {filteredQualityData
                         ?.slice()
                         .reverse()
-                        .map((item, i) => {
+                        .map((item: QualityDataItem) => {
                           return (
                             <ListItem
                               mb={"1rem"}
                               color="grey_1"
-                              key={i}
+                              key={item?.id}
                               fontSize="1.125rem"
                               fontWeight="600"
                               display="flex"
@@ -131,12 +152,12 @@ const QualityImprovement = () => {
                               <Text
                                 onClick={() =>
                                   router.push(
-                                    `/dashboard/quality_improvement/activity_aquired/${"item?.id"}`,
+                                    `/dashboard/quality_improvement/activity_aquired/${item?.id}`,
                                   )
                                 }
                                 cursor={"pointer"}
                               >
-                                {`${item?.qualityImprovementTitle}
+                                {`${item?.title}
                                                             `}
                               </Text>
 

@@ -41,15 +41,15 @@ export default function RootLayout({
         case "trial":
           allowedRoutes = [
             "/dashboard",
-            "/qualification",
-            "/logbook/medical",
-            "/logbook/surgical",
+            "/dashboard/qualification",
+            "/dashboard/logbook/medical",
+            "/dashboard/logbook/surgical",
           ];
           break;
         case "basic":
           allowedRoutes = [
             "/dashboard",
-            "/dashboard/qualification",
+            "/dashboard/qualifications",
             "/dashboard/logbook/medical",
             "/dashboard/logbook/surgical",
           ];
@@ -57,7 +57,8 @@ export default function RootLayout({
         case "premium":
           allowedRoutes = [
             "/dashboard",
-            "/dashboard/qualification",
+            "/dashboard/courses",
+            "/dashboard/qualifications",
             "/dashboard/logbook/medical",
             "/dashboard/logbook/surgical",
             "/dashboard/research",
@@ -67,8 +68,8 @@ export default function RootLayout({
         case "infinite":
           allowedRoutes = [
             "/dashboard",
-            "/dashboard/qualification",
-            "/dashboard/course",
+            "/dashboard/qualifications",
+            "/dashboard/courses",
             "/dashboard/quality_improvement/mobility",
             "/dashboard/quality_improvement/clinical_audit",
             "/dashboard/quality_improvement/case_review",
@@ -83,7 +84,7 @@ export default function RootLayout({
           // Default to trial plan if plan is not recognized
           allowedRoutes = [
             "/dashboard",
-            "/dashboard/qualification",
+            "/dashboard/qualifications",
             "/dashboard/logbook/medical",
             "/dashboard/logbook/surgical",
           ];

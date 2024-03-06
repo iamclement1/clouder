@@ -1,8 +1,8 @@
-// import LoadingSkeleton from "@/components/common/Skeleton";
-// import useLeadershipById from "@/hooks/useLeadershipById";
-// import { ParamsType } from "@/utils/types";
+import LoadingSkeleton from "@/components/common/Skeleton";
+import { ParamsType } from "@/utils/types";
+import useQualityById from "@/hooks/useQualityById";
 import { Box, Button, Flex, Icon, Stack, Text } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import React from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
@@ -10,11 +10,11 @@ import { MdOutlineAddCircleOutline } from "react-icons/md";
 const ActivityAquired = () => {
   const noFeedBack = false;
   const router = useRouter();
-  // const { index } = useParams<ParamsType>();
+  const { index } = useParams<ParamsType>();
 
-  // const { leadershipById, isLoading } = useLeadershipById(index);
+  const { qualityById, isLoading } = useQualityById(index);
 
-  // if (isLoading) return <LoadingSkeleton />;
+  if (isLoading) return <LoadingSkeleton />;
 
   return (
     <Box mb="4rem">
@@ -45,13 +45,7 @@ const ActivityAquired = () => {
                 px="1.69rem"
                 py="2rem"
               >
-                <Text>
-                  Improved communication and collaboration: M&M reviews often
-                  involve a team approach, with multiple healthcare
-                  professionals contributing to the analysis of a case. This has
-                  improve communication and collaboration among healthcare team
-                  members, leading to better patient outcomes.
-                </Text>
+                <Text>{qualityById?.title}</Text>
               </Stack>
             </Box>
 
@@ -68,14 +62,7 @@ const ActivityAquired = () => {
                 px="1.69rem"
                 py="2rem"
               >
-                <Text>
-                  Difficulty in identifying root causes: Identifying the
-                  underlying causes of an unexpected outcome or adverse event
-                  can be challenging, particularly if there are multiple factors
-                  involved. Fear of liability: M&M reviews can be associated
-                  with a fear of liability or litigation, particularly if a
-                  review reveals potential areas of liability.
-                </Text>
+                <Text>{qualityById?.challenges}</Text>
               </Stack>
             </Box>
             {/* Key Positives  */}
@@ -92,21 +79,7 @@ const ActivityAquired = () => {
                 py="2rem"
               >
                 {/* <Text>{leadershipById?.challenges}</Text> */}
-                <Text>
-                  Improved patient safety: By identifying areas where
-                  improvements can be made and implementing changes to clinical
-                  practice, M&M reviews can ultimately lead to improved patient
-                  safety and better patient outcomes. Enhanced quality of care:
-                  M&M reviews can help healthcare organizations identify areas
-                  where the quality of care can be improved. This can lead to
-                  changes in clinical protocols, improved communication among
-                  healthcare team members, and increased staff training.
-                  Increased collaboration and teamwork: M&M reviews often
-                  involve a team approach, with multiple healthcare
-                  professionals contributing to the analysis of a case. This can
-                  improve collaboration and teamwork among healthcare team
-                  members.
-                </Text>
+                <Text>{qualityById?.keyPositives}</Text>
               </Stack>
             </Box>
 
@@ -124,21 +97,7 @@ const ActivityAquired = () => {
                 py="2rem"
               >
                 {/* <Text>{leadershipById?.keyPositives}</Text> */}
-                <Text>
-                  {" "}
-                  Take a non-judgmental approach: It is important for me to take
-                  a non-judgmental approach when reviewing cases. This means
-                  focusing on the facts and circumstances surrounding the case,
-                  rather than assigning blame or pointing fingers. Focus on
-                  system issues: Rather than focusing solely on individual
-                  errors or mistakes, i can use M&M reviews as an opportunity to
-                  identify and address system issues that may have contributed
-                  to an adverse event or unexpected outcome. Be open to
-                  feedback: i would be open to feedback from my colleagues and
-                  healthcare team members during the M&M review process. This
-                  can help to identify areas where improvements can be made and
-                  lead to better patient outcomes.
-                </Text>
+                <Text> {qualityById?.doDifferently}</Text>
               </Stack>
             </Box>
 

@@ -1,49 +1,65 @@
 import CustomButton from "@/components/common/CustomButton";
 import Typography from "@/components/common/Typograph";
-import StatusModal from "@/components/modals/StatusModal";
 
 import { useQualityImprovement } from "@/context/QualityImprovement";
-// import useLeadershipMutation from "@/hooks/useLeadershipMutation";
-// import { LeadershipPayloadType } from "@/utils/types";
+import useQualityMutation from "@/hooks/useQualityMutation";
+import { QualityPayloadType } from "@/utils/types";
 import {
   Box,
   Flex,
   Text,
   Icon,
   Stack,
-  useDisclosure,
   //  useDisclosure
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import { TbEdit } from "react-icons/tb";
 
 const QualityImprovementPreview = () => {
+  const [type, setType] = useState("");
+
   const {
     handleFormSteps,
     handleFillForm,
     qualityImprovementData,
     handlePreview,
-    handleTotalData,
     activityType,
   } = useQualityImprovement();
 
-  // const { handleSubmitLeadership, isLoading } = useLeadershipMutation();
+  useEffect(() => {
+    let newType = "";
+    switch (activityType) {
+      case "Morbidity & Mortality":
+        newType = "morbidity";
+        break;
+      case "Clinical Audit":
+        newType = "clinical";
+        break;
+      case "Case Review":
+        newType = "case";
+        break;
+      default:
+        break;
+    }
+    setType(newType);
+  }, [activityType]);
 
-  // const payload: LeadershipPayloadType = {
-  //     title: qualityImprovementData?.leadershipTittle,
-  //     startYear: qualityImprovementData?.startYear,
-  //     endYear: qualityImprovementData?.endYear,
-  //     challenges: qualityImprovementData?.challenges,
-  //     keyPositives: qualityImprovementData?.key_points,
-  //     doDifferently: qualityImprovementData?.differentAction,
-  // };
+  const { isLoading, handleSubmitQuality } = useQualityMutation();
 
-  const {
-    isOpen: isOpenStatusModal,
-    onOpen: onOpenStatusModal,
-    onClose: onCloseStatusModal,
-  } = useDisclosure();
+  const payload: QualityPayloadType = {
+    title: qualityImprovementData?.qualityImprovementTitle,
+    year: qualityImprovementData?.year,
+    details: qualityImprovementData?.experience,
+    challenges: qualityImprovementData?.challenges,
+    keyPositives: qualityImprovementData?.key_points,
+    doDifferently: qualityImprovementData?.differentAction,
+    type: type,
+  };
+
+  const handleSubmit = () => {
+    handleSubmitQuality(payload);
+  };
 
   return (
     <Box>
@@ -249,25 +265,14 @@ const QualityImprovementPreview = () => {
           <Flex mt="3.75rem" align="center" justify="center">
             <CustomButton
               maxW="26.6rem"
-              // isLoading={isLoading}
-              handleClick={onOpenStatusModal}
+              isLoading={isLoading}
+              handleClick={handleSubmit}
             >
               Save
             </CustomButton>
           </Flex>
         </Box>
       </Box>
-      {/* Available Status */}
-      <StatusModal
-        isOpen={isOpenStatusModal}
-        onOpen={onOpenStatusModal}
-        onClose={onCloseStatusModal}
-        status="success"
-        handleTotalData={handleTotalData}
-        handleFormSteps={handleFormSteps}
-        handleFillForm={handleFillForm}
-        handlePreview={handlePreview}
-      />
     </Box>
   );
 };

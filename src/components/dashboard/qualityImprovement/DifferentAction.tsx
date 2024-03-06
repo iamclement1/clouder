@@ -1,75 +1,60 @@
 import CustomButton from "@/components/common/CustomButton";
 import { useQualityImprovement } from "@/context/QualityImprovement";
-// import { useCourses } from "@/context/CoursesProvider";
-// import api from "@/utils/axiosInstance";
-
+import useQualityMutation from "@/hooks/useQualityMutation";
+import { QualityPayloadType } from "@/utils/types";
 import { Box, Text, Flex } from "@chakra-ui/react";
-// import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
-// import { toast } from "react-toastify";
 
 const DifferentAction = () => {
   const [err, setErr] = useState<boolean>(false);
-  // const queryClient = useQueryClient();
+  const [type, setType] = useState("");
+
   const {
     qualityImprovementData,
     handleQualityImprovementData,
     handlePreview,
+    activityType,
   } = useQualityImprovement();
+
+  const { isLoading, handleSubmitQuality } = useQualityMutation();
+
+  useEffect(() => {
+    let newType = "";
+    switch (activityType) {
+      case "Morbidity & Mortality":
+        newType = "morbidity";
+        break;
+      case "Clinical Audit":
+        newType = "clinical";
+        break;
+      case "Case Review":
+        newType = "case";
+        break;
+      default:
+        break;
+    }
+    setType(newType);
+  }, [activityType]);
 
   const text = useRef("");
   text.current = qualityImprovementData?.differentAction;
 
-  // type Payload = {
-  //     courseTitle: string;
-  //     institution: string;
-  //     year: string;
-  //     certificateNo: string;
-  //     challenges: string;
-  //     document: File | Blob | MediaSource | null;
-  //     keyPositives?: string;
-  //     doDifferently?: string;
-  // };
+  const payload: QualityPayloadType = {
+    title: qualityImprovementData?.qualityImprovementTitle,
+    year: qualityImprovementData?.year,
+    details: qualityImprovementData?.experience,
+    challenges: qualityImprovementData?.challenges,
+    keyPositives: qualityImprovementData?.key_points,
+    doDifferently: qualityImprovementData?.differentAction,
+    type: type,
+  };
 
-  // const { mutate, isLoading } = useMutation({
-  //   mutationFn: (courses: Payload) => {
-  //     return api.post("/courses", courses);
-  //   },
-  //   onSuccess: ({ data }) => {
-  //     if (data) {
-  //       toast.success("Course Submitted Successfully", {
-  //         theme: "dark",
-  //       });
-  //       handleFormSteps(1);
-  //       handleFillForm(false);
-  //     }
-  //     queryClient.invalidateQueries({ queryKey: ["courses"] });
-  //   },
-  //   onError: (error: { response: { data: { error: string } } }) => {
-  //     const errorMsg = error.response.data.error;
-  //     toast.error(errorMsg, {
-  //       theme: "dark",
-  //     });
-  //   },
-  // });
-
-  // const payload: Payload = {
-  //   courseTitle: qualityImprovementData?.courseTitle,
-  //   institution: qualityImprovementData?.school,
-  //   certificateNo: qualityImprovementData?.certificateNo,
-  //   challenges: qualityImprovementData?.challenges,
-  //   year: qualityImprovementData?.year,
-  //   document: qualityImprovementData?.imageFile,
-  //   keyPositives: qualityImprovementData?.key_points,
-  //   doDifferently: qualityImprovementData?.differentAction,
-  // };
-
-  // const handlePayload = () => {
-  //   mutate(payload);
-  // };
+  const handlePayload = () => {
+    handleSubmitQuality(payload);
+  };
 
   const handleChange = (evt: ContentEditableEvent) => {
     text.current = evt.target.value;
@@ -95,7 +80,7 @@ const DifferentAction = () => {
   const handleSubmit = () => {
     if (text.current !== "") {
       setErr(false);
-      // handlePayload();
+      handlePayload();
     } else {
       setErr(true);
     }
@@ -135,7 +120,7 @@ const DifferentAction = () => {
       </Box>
 
       <Flex maxW="35rem" mx="auto" gap="1.12rem" mt="3rem">
-        <CustomButton w="100%" handleClick={handleSubmit}>
+        <CustomButton w="100%" handleClick={handleSubmit} isLoading={isLoading}>
           Save
         </CustomButton>
         <CustomButton

@@ -1,6 +1,7 @@
 import CustomButton from "@/components/common/CustomButton";
 import { useLogbook } from "@/context/LogbookProvider";
 import useLogbookMutation from "@/hooks/useLogbookMutation";
+import { LogbookPayloadType } from "@/utils/types";
 
 import { Box, Text, Flex } from "@chakra-ui/react";
 
@@ -10,14 +11,15 @@ import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
 const DifferentAction = () => {
   const [err, setErr] = useState<boolean>(false);
-  const { logbookData, handleLogbookData, handlePreview } = useLogbook();
+  const { logbookData, handleLogbookData, handlePreview, logBookMode } =
+    useLogbook();
 
   const text = useRef("");
   text.current = logbookData?.differentAction;
 
   const { handleSubmitLogbook, isLoading } = useLogbookMutation();
 
-  const payload = {
+  const payload: LogbookPayloadType = {
     action: logbookData?.role,
     summary: logbookData?.summary,
     firstTitle: logbookData?.logbookTittle,
@@ -27,11 +29,11 @@ const DifferentAction = () => {
     secondYear: logbookData?.caseYear,
     doDifferently: logbookData?.differentAction,
     keyPositives: logbookData?.key_points,
-    logBookType: logbookData?.flag,
+    logBookType: logBookMode,
+    firstDocument: logbookData?.file,
   };
 
   const handlePayload = () => {
-    console.log(logbookData);
     handleSubmitLogbook(payload);
   };
   const handleChange = (event: ContentEditableEvent) => {
@@ -59,8 +61,6 @@ const DifferentAction = () => {
     if (text.current !== "") {
       setErr(false);
       handlePayload();
-
-      console.log("logbookData", logbookData);
     } else {
       setErr(true);
     }

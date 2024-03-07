@@ -12,6 +12,9 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { useLogbook } from "@/context/LogbookProvider";
 import LogbookForm from "./LogbookForm";
 import LogbookPreview from "./LogbookPreview";
+import useFetchLogbook from "@/hooks/useLogbook";
+import LoadingSkeleton from "@/components/common/Skeleton";
+import { logbookResponseType } from "@/utils/types";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
@@ -20,18 +23,31 @@ const Logbook = () => {
   const { fillForm, handleFillForm, preview, totalData, logBookMode } =
     useLogbook();
 
+  const { data, isLoading } = useFetchLogbook();
+  const logbook = data?.data;
   const router = useRouter();
 
+  const filteredLogbookData = logbook?.filter((item: logbookResponseType) => {
+    switch (logBookMode) {
+      case "medical":
+        return item.logBookType === "medical";
+      case "surgical":
+        return item.logBookType === "surgical";
+      default:
+        return false;
+    }
+  });
+
   // ******************************************
-  const [itemOffset, setItemOffset] = useState(0);
+  // const [itemOffset, setItemOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState<number>(0);
 
   const items = totalData;
 
   const itemsPerPage = 4;
-  const endOffset = itemOffset + itemsPerPage;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = items?.slice(itemOffset, endOffset);
+  // const endOffset = itemOffset + itemsPerPage;
+  // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+  // const currentItems = items?.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(items?.length / itemsPerPage);
 
   // Run when user click to request another page.
@@ -46,18 +62,11 @@ const Logbook = () => {
       } and total page is ${pageCount}`,
     );
 
-    setItemOffset(newOffset);
+    // setItemOffset(newOffset);
   };
   // ******************************************
 
-  // if (isLoading)
-  //   return (
-  //     <Stack>
-  //       <Skeleton height="50px" />
-  //       <Skeleton height="50px" />
-  //       <Skeleton height="50px" />
-  //     </Stack>
-  //   );
+  if (isLoading) return <LoadingSkeleton />;
 
   return (
     <Box>
@@ -80,7 +89,7 @@ const Logbook = () => {
 
                 {/* {fillForm && <ResearchRole />} */}
               </Box>
-              {totalData?.length >= 1 && fillForm !== true && (
+              {filteredLogbookData?.length >= 1 && fillForm !== true && (
                 <CustomButton
                   bgColor={"transparent"}
                   border="1px"
@@ -105,7 +114,7 @@ const Logbook = () => {
                 minH="80vh"
                 borderRadius="0.46875rem"
               >
-                {currentItems?.length >= 1 ? (
+                {filteredLogbookData?.length >= 1 ? (
                   <Box py="2.44rem" px="2.39rem">
                     <Box>
                       <Flex
@@ -123,12 +132,12 @@ const Logbook = () => {
                     </Box>
 
                     <OrderedList mt="2.2rem">
-                      {currentItems?.map((item) => {
+                      {filteredLogbookData?.map((item: logbookResponseType) => {
                         return (
                           <ListItem
                             mb={"1rem"}
                             color="grey_1"
-                            key={item?.logbookTittle}
+                            key={item?.firstTitle}
                             fontSize="1.125rem"
                             fontWeight="600"
                             display="flex"
@@ -138,11 +147,11 @@ const Logbook = () => {
                             <Text
                               onClick={() =>
                                 router.push(
-                                  `/dashboard/logbook/logbook_aquired/${item?.logbookTittle}`,
+                                  `/dashboard/logbook/logbook_aquired/${item?.firstTitle}`,
                                 )
                               }
                               cursor={"pointer"}
-                            >{`${item?.logbookTittle}
+                            >{`${item?.firstTitle}
                                                             `}</Text>
 
                             <Text
@@ -155,7 +164,7 @@ const Logbook = () => {
                               rounded={"1.35938rem"}
                               cursor="pointer"
                               as="a"
-                              href={`/dashboard/logbook/request_feed_back/${item?.logbookTittle}`}
+                              href={`/dashboard/logbook/request_feed_back/${item?.firstTitle}`}
                             >
                               Request feedback
                             </Text>

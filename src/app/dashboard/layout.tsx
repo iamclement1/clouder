@@ -42,16 +42,16 @@ export default function RootLayout({
           allowedRoutes = [
             "/dashboard",
             "/dashboard/qualification",
-            "/dashboard/logbook/medical",
-            "/dashboard/logbook/surgical",
+            "/dashboard/logbook/medical_logbook",
+            "/dashboard/logbook/surgical_logbook",
           ];
           break;
         case "basic":
           allowedRoutes = [
             "/dashboard",
             "/dashboard/qualifications",
-            "/dashboard/logbook/medical",
-            "/dashboard/logbook/surgical",
+            "/dashboard/logbook/medical_logbook",
+            "/dashboard/logbook/surgical_logbook",
           ];
           break;
         case "premium":
@@ -59,8 +59,8 @@ export default function RootLayout({
             "/dashboard",
             "/dashboard/courses",
             "/dashboard/qualifications",
-            "/dashboard/logbook/medical",
-            "/dashboard/logbook/surgical",
+            "/dashboard/logbook/medical_logbook",
+            "/dashboard/logbook/surgical_logbook",
             "/dashboard/research",
             "/dashboard/teaching",
           ];
@@ -75,19 +75,12 @@ export default function RootLayout({
             "/dashboard/quality_improvement/case_review",
             "/dashboard/leadership",
             "/dashboard/research",
-            "/dashboard/logbook/medical",
-            "/dashboard/logbook/surgical",
+            "/dashboard/logbook/medical_logbook",
+            "/dashboard/logbook/surgical_logbook",
             "/dashboard/teaching",
           ];
           break;
         default:
-          // Default to trial plan if plan is not recognized
-          allowedRoutes = [
-            "/dashboard",
-            "/dashboard/qualifications",
-            "/dashboard/logbook/medical",
-            "/dashboard/logbook/surgical",
-          ];
           break;
       }
     }

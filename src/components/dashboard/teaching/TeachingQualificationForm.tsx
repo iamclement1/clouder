@@ -13,7 +13,14 @@ import React, { useRef, useState } from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
 const TeachingQualificationForm = () => {
-  const { handlePreview, teachingData, handleTeachingData } = useTeaching();
+  const {
+    handlePreview,
+    teachingData,
+    handleTeachingData,
+    handleTotalData,
+    handleFormSteps,
+    handleFillForm,
+  } = useTeaching();
 
   const [err, setErr] = useState<boolean>(false);
   const [optionErr, setOptionErr] = useState<boolean>(false);
@@ -60,7 +67,11 @@ const TeachingQualificationForm = () => {
       setErr(true);
     }
   };
-
+  const handleSave = () => {
+    handleTotalData();
+    handleFormSteps(1);
+    handleFillForm(false);
+  };
   return (
     <Box>
       <Box>
@@ -95,7 +106,7 @@ const TeachingQualificationForm = () => {
               ...values,
             });
 
-            onPreview(text.current);
+            // onPreview(text.current);
           }}
         >
           {({ handleSubmit, errors, touched }) => (
@@ -211,7 +222,7 @@ const TeachingQualificationForm = () => {
                 <CustomButton
                   w="100%"
                   // isLoading={isLoading}
-                  handleClick={handleSubmit}
+                  handleClick={handleSave}
                 >
                   Save
                 </CustomButton>
@@ -221,7 +232,7 @@ const TeachingQualificationForm = () => {
                   border="1px"
                   borderColor="primary"
                   color="primary"
-                  // handleClick={() => onPreview(text.current)}
+                  handleClick={() => onPreview(text.current)}
                   type="submit"
                 >
                   Preview

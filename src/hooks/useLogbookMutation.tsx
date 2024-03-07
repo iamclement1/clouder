@@ -1,12 +1,13 @@
-// hooks/useCoursesMutation.tsx
+// hooks/useLogbookMutation.tsx
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "@/utils/axiosInstance";
 import { toast } from "react-toastify";
 import { LogbookPayloadType } from "@/utils/types";
-import { useCourses } from "@/context/CoursesProvider";
+import { useLogbook } from "@/context/LogbookProvider";
 
 const useLogbookMutation = () => {
-  const { handleFormSteps, handleFillForm, handlePreview } = useCourses();
+  const { handleFormSteps, handleFillForm, handlePreview, handleResetData } =
+    useLogbook();
 
   const queryClient = useQueryClient();
 
@@ -22,6 +23,7 @@ const useLogbookMutation = () => {
         handleFormSteps(1);
         handleFillForm(false);
         handlePreview(false);
+        handleResetData();
       }
       queryClient.invalidateQueries({ queryKey: ["logbooks"] });
     },

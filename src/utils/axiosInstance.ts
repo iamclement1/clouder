@@ -41,13 +41,13 @@ api.interceptors.response.use(
       errConfig._retry = true;
       try {
         const { refreshToken } = getStorageAuthItems();
-
         const response = await api.post("/auth/refresh", {
           refresh: refreshToken,
         });
 
-        const { accessToken } = response.data;
-        const token = accessToken?.access;
+        const accessToken = response?.data?.accessToken?.access;
+
+        const token = accessToken;
 
         if (token) {
           sessionStorage.setItem("token", token);

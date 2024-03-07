@@ -182,6 +182,22 @@ export type logbookDataProps = {
   file?: File | null | Blob | MediaSource;
 };
 
+export type logbookResponseType = {
+  id: string;
+  action: string;
+  logBookType: string;
+  firstTitle: string;
+  firstYear: string;
+  firstDocument: File | null | Blob | MediaSource;
+  secondTitle: string;
+  secondYear: string;
+  secondDocument: File | null | Blob | MediaSource;
+  summary: string;
+  challenges: string;
+  keyPositives: string;
+  doDifferently: string;
+};
+
 export type requestFeedBackDataProps = {
   fullName: string;
   title: string;

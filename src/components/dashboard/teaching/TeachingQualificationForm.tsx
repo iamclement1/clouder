@@ -23,9 +23,10 @@ const TeachingQualificationForm = () => {
   } = useTeaching();
 
   const [err, setErr] = useState<boolean>(false);
+  const [submitionStatus, setSubmitionStatus] = useState<string>("");
   const [optionErr, setOptionErr] = useState<boolean>(false);
   const [teachingMode, setTeachingMode] = useState<string>(
-    teachingData?.qualified,
+    teachingData?.qualified || "Yes",
   );
   const text = useRef("");
   text.current = teachingData?.key_points;
@@ -77,6 +78,9 @@ const TeachingQualificationForm = () => {
       <Box>
         <Formik
           initialValues={{
+            teachingTitle: teachingData?.teachingTitle,
+            year: teachingData?.year,
+            briefExplanation: teachingData?.briefExplanation,
             teachingQualificationType:
               teachingData?.teachingQualificationType || "",
             qualificationYear: teachingData?.qualificationYear || "",
@@ -85,13 +89,13 @@ const TeachingQualificationForm = () => {
           validate={(values) => {
             const errors: Partial<teachingDataProps> = {};
 
-            if (!values.teachingQualificationType) {
+            if (teachingMode === "Yes" && !values.teachingQualificationType) {
               errors.teachingQualificationType = "Required";
             }
-            if (!values.qualificationYear) {
+            if (teachingMode === "Yes" && !values.qualificationYear) {
               errors.qualificationYear = "Required";
             }
-            if (err) {
+            if (teachingMode === "Yes" && err) {
               errors.key_points = "Required";
             }
 
@@ -107,10 +111,19 @@ const TeachingQualificationForm = () => {
             });
 
             // onPreview(text.current);
+
+            if (submitionStatus === "submit") {
+              handleSave();
+              // console.log("form submitted", values);
+            } else {
+              onPreview(text.current);
+              // console.log("Currently on preview", values);
+            }
           }}
         >
           {({ handleSubmit, errors, touched }) => (
             <Form onSubmit={handleSubmit}>
+              {/* <Form onSubmit={handleSubmit}> */}
               {/* procediure */}
               <Box>
                 <Text
@@ -162,67 +175,77 @@ const TeachingQualificationForm = () => {
                   })}
                 </Flex>
               </Box>
-              {/* Input the  title */}
-              <CustomInput
-                label="Type of qualification"
-                placeholder="Input the type of qualification"
-                name="teachingQualificationType"
-                type="text"
-                errors={errors}
-                touched={touched}
-              />
-              <CustomInput
-                label="Year"
-                placeholder="YYYY"
-                name="qualificationYear"
-                type="number"
-                errors={errors}
-                touched={touched}
-              />{" "}
-              <Flex mt="1.08rem" justify={"space-between"}>
-                <UploadFile
-                  selectedFile={selectedFile}
-                  setSelectedFile={setSelectedFile}
-                />
-              </Flex>
-              {/* ********** Authour Section  ********** */}
-              <Box mt="3.75rem">
+
+              {teachingMode === "Yes" ? (
                 <Box>
-                  <Flex align="center" justify="space-between" mb="1rem">
-                    <Text
-                      fontSize="1rem"
-                      color="grey_1"
-                      fontWeight="700"
-                      maxW="31rem"
-                    >
-                      What are your key takeaways from this teaching
-                    </Text>
-                  </Flex>
-                  <ContentEditable
-                    className={`texteditor ${err ? "errMode" : ""}`}
-                    html={text.current}
-                    onBlur={handleBlur}
-                    onChange={handleChange}
+                  <CustomInput
+                    label="Type of qualification"
+                    placeholder="Input the type of qualification"
+                    name="teachingQualificationType"
+                    type="text"
+                    errors={errors}
+                    touched={touched}
                   />
-                  {err && (
-                    <Text
-                      color="red"
-                      fontSize="12px"
-                      mt="2"
-                      px="2px"
-                      fontWeight="500"
-                    >
-                      Required
-                    </Text>
-                  )}
+                  <CustomInput
+                    label="Year"
+                    placeholder="YYYY"
+                    name="qualificationYear"
+                    type="number"
+                    errors={errors}
+                    touched={touched}
+                  />{" "}
+                  <Flex mt="1.08rem" justify={"space-between"}>
+                    <UploadFile
+                      selectedFile={selectedFile}
+                      setSelectedFile={setSelectedFile}
+                    />
+                  </Flex>
+                  {/* ********** Authour Section  ********** */}
+                  <Box mt="3.75rem">
+                    <Box>
+                      <Flex align="center" justify="space-between" mb="1rem">
+                        <Text
+                          fontSize="1rem"
+                          color="grey_1"
+                          fontWeight="700"
+                          maxW="31rem"
+                        >
+                          What are your key takeaways from this teaching
+                        </Text>
+                      </Flex>
+                      <ContentEditable
+                        className={`texteditor ${err ? "errMode" : ""}`}
+                        html={text.current}
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                      />
+                      {err && (
+                        <Text
+                          color="red"
+                          fontSize="12px"
+                          mt="2"
+                          px="2px"
+                          fontWeight="500"
+                        >
+                          Required
+                        </Text>
+                      )}
+                    </Box>
+                  </Box>
                 </Box>
-              </Box>
+              ) : (
+                ""
+              )}
+              {/* Input the  title */}
               {/* *** Submit buttom *** */}
               <Flex maxW="35rem" mx="auto" gap="1.12rem" mt="3rem">
                 <CustomButton
                   w="100%"
                   // isLoading={isLoading}
-                  handleClick={handleSave}
+                  handleClick={() => {
+                    setSubmitionStatus("submit");
+                    handleSubmit();
+                  }}
                 >
                   Save
                 </CustomButton>
@@ -232,8 +255,12 @@ const TeachingQualificationForm = () => {
                   border="1px"
                   borderColor="primary"
                   color="primary"
-                  handleClick={() => onPreview(text.current)}
-                  type="submit"
+                  // handleClick={() => onPreview(text.current)}
+                  handleClick={() => {
+                    setSubmitionStatus("preview");
+                    handleSubmit();
+                  }}
+                  // type="submit"
                 >
                   Preview
                 </CustomButton>

@@ -13,12 +13,17 @@ import ResearchPreview from "./ResearchPreview";
 import ResearchRole from "./ResearchRole";
 import ResearchForm from "./ResearchForm";
 import { useResearch } from "@/context/ResearchProvider";
+import useGetResearch from "@/hooks/useGetResearch";
+import LoadingSkeleton from "@/components/common/Skeleton";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
 
 const Research = () => {
   const { fillForm, handleFillForm, preview, totalData } = useResearch();
+  const { isLoading, data } = useGetResearch();
+
+  console.log(data?.data);
 
   const router = useRouter();
 
@@ -50,14 +55,7 @@ const Research = () => {
   };
   // ******************************************
 
-  // if (isLoading)
-  //   return (
-  //     <Stack>
-  //       <Skeleton height="50px" />
-  //       <Skeleton height="50px" />
-  //       <Skeleton height="50px" />
-  //     </Stack>
-  //   );
+  if (isLoading) return <LoadingSkeleton />;
 
   return (
     <Box>

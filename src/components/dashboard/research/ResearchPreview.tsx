@@ -3,6 +3,8 @@ import Typography from "@/components/common/Typograph";
 import StatusModal from "@/components/modals/StatusModal";
 
 import { useResearch } from "@/context/ResearchProvider";
+import useResearchMutation from "@/hooks/useResearchMutation";
+import { ResearchPayloadTypes } from "@/utils/types";
 import {
   Box,
   Flex,
@@ -28,53 +30,34 @@ const ResearchPreview = () => {
     handleTotalData,
   } = useResearch();
 
-  // type Payload = {
-  //     courseTitle: string;
-  //     institution: string;
-  //     year: string;
-  //     certificateNo: string;
-  //     challenges: string;
-  //     document: File | Blob | MediaSource | null;
-  //     keyPositives?: string;
-  //     doDifferently?: string;
-  // };
+  console.log("research data: ", researchData);
+  const { isLoading, handleSubmitResearch } = useResearchMutation();
 
-  // const { mutate, isLoading } = useMutation({
-  //     mutationFn: (courses: Payload) => {
-  //         return api.post("/courses", courses);
-  //     },
-  //     onSuccess: ({ data }) => {
-  //         if (data) {
-  //             toast.success("Course Submitted Successfully", {
-  //                 theme: "dark",
-  //             });
-  //         }
-  //         queryClient.invalidateQueries({ queryKey: ["courses"] });
-  //     },
-  //     onError: (error: { response: { data: { error: string } } }) => {
-  //         const errorMsg = error.response.data.error;
-  //         toast.error(errorMsg, {
-  //             theme: "dark",
-  //         });
-  //     },
-  // });
+  const payload: ResearchPayloadTypes = {
+    title: researchData?.researchTittle,
+    year: researchData?.year,
+    authors: [
+      researchData?.author,
+      researchData?.authorII,
+      researchData?.authorIII,
+      researchData?.authorIV,
+    ],
+    summary: researchData?.summary,
+    findings: researchData?.differentAction,
+    area: researchData?.researchArea,
+    beneficiary: researchData?.researchBeneficials,
+  };
 
-  // const payload: Payload = {
-  //     courseTitle: researchData?.courseTitle,
-  //     institution: researchData?.school,
-  //     certificateNo: researchData?.certificateNo,
-  //     challenges: researchData?.challenges,
-  //     year: researchData?.year,
-  //     document: researchData?.imageFile,
-  //     keyPositives: researchData?.key_points,
-  //     doDifferently: researchData?.differentAction,
-  // };
-
+  console.log(payload);
   const {
     isOpen: isOpenStatusModal,
     onOpen: onOpenStatusModal,
     onClose: onCloseStatusModal,
   } = useDisclosure();
+
+  const handleSubmit = () => {
+    handleSubmitResearch(payload);
+  };
 
   return (
     <Box>
@@ -248,8 +231,8 @@ const ResearchPreview = () => {
           <Flex mt="3.75rem" align="center" justify="center">
             <CustomButton
               maxW="26.6rem"
-              // isLoading={isLoading}
-              handleClick={() => onOpenStatusModal()}
+              isLoading={isLoading}
+              handleClick={handleSubmit}
             >
               Save
             </CustomButton>

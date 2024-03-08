@@ -1,6 +1,8 @@
 import CustomButton from "@/components/common/CustomButton";
 
 import { useResearch } from "@/context/ResearchProvider";
+import useResearchMutation from "@/hooks/useResearchMutation";
+import { ResearchPayloadTypes } from "@/utils/types";
 
 import { Box, Text, Flex } from "@chakra-ui/react";
 
@@ -11,6 +13,23 @@ import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 const ResearchAreas = () => {
   const [err, setErr] = useState<boolean>(false);
   const { researchData, handleResearchData, handlePreview } = useResearch();
+
+  const { isLoading, handleSubmitResearch } = useResearchMutation();
+
+  const payload: ResearchPayloadTypes = {
+    title: researchData?.researchTittle,
+    year: researchData?.year,
+    authors: [
+      researchData?.author,
+      researchData?.authorII,
+      researchData?.authorIII,
+      researchData?.authorIV,
+    ],
+    summary: researchData?.summary,
+    findings: researchData?.differentAction,
+    area: researchData?.researchArea,
+    beneficiary: researchData?.researchBeneficials,
+  };
 
   const text = useRef("");
   text.current = researchData?.researchArea;
@@ -38,8 +57,7 @@ const ResearchAreas = () => {
   const handleSubmit = () => {
     if (text.current !== "") {
       setErr(false);
-
-      console.log("researchData", researchData);
+      handleSubmitResearch(payload);
     } else {
       setErr(true);
     }
@@ -81,11 +99,7 @@ const ResearchAreas = () => {
       </Box>
 
       <Flex maxW="35rem" mx="auto" gap="1.12rem" mt="3rem">
-        <CustomButton
-          w="100%"
-          // isLoading={isLoading}
-          handleClick={handleSubmit}
-        >
+        <CustomButton w="100%" isLoading={isLoading} handleClick={handleSubmit}>
           Save
         </CustomButton>
         <CustomButton

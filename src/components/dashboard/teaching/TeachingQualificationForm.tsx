@@ -57,7 +57,7 @@ const TeachingQualificationForm = () => {
   >(null);
 
   const onPreview = (values: string) => {
-    if (text.current !== "") {
+    if (teachingMode === "Yes" && text.current !== "") {
       setErr(false);
       handleTeachingData({
         ...teachingData,

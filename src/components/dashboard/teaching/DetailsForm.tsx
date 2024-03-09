@@ -74,6 +74,7 @@ const DetailsForm = () => {
               ...teachingData,
               ...values,
             });
+            console.log(values);
 
             handleFormSteps(formSteps + 1);
           }}

@@ -295,3 +295,13 @@ export type QualityDataItem = {
     role: string;
   };
 };
+
+export type ResearchPayloadTypes = {
+  title: string;
+  year: string;
+  authors: string[];
+  summary: string;
+  findings: string;
+  area: string;
+  beneficiary: string;
+};

@@ -87,7 +87,7 @@ const ResearchDetailsForm = () => {
               />
               <CustomInput
                 label="Year"
-                placeholder="DD/MM/YY"
+                placeholder="YYYY"
                 name="year"
                 type="number"
                 errors={errors}

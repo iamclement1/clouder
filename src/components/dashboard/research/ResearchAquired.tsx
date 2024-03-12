@@ -1,5 +1,8 @@
+import LoadingSkeleton from "@/components/common/Skeleton";
+import useResearchById from "@/hooks/useResearchById";
+import { ParamsType } from "@/utils/types";
 import { Box, Button, Flex, Icon, Stack, Text } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import React from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
@@ -7,11 +10,17 @@ import { MdOutlineAddCircleOutline } from "react-icons/md";
 const ResearchAquired = () => {
   const noFeedBack = false;
   const router = useRouter();
+  const { index } = useParams<ParamsType>();
+
+  const { researchById, isLoading } = useResearchById(index);
+
+  if (isLoading) return <LoadingSkeleton />;
+
   return (
     <Box mb="4rem">
       <Box>
         <Text fontWeight={"600"} fontSize={"1.5rem"} mb="1.88rem">
-          Research Title
+          Research
         </Text>
 
         {/* Research TitleSECTION */}
@@ -25,9 +34,9 @@ const ResearchAquired = () => {
           >
             {/* Education  */}
             <Box>
-              <Text fontWeight={"600"} fontSize={"1.5rem"} mb="1rem">
-                Research Title
-              </Text>
+              {/* <Text fontWeight={"600"} fontSize={"1.5rem"} mb="1rem">
+                {researchById?.title}
+              </Text> */}
 
               <Stack
                 border={"1px"}
@@ -46,8 +55,7 @@ const ResearchAquired = () => {
                     fontWeight="400"
                     // color="grey_1"
                   >
-                    Effects of Physical Exercise on Mental Health in Adults: A
-                    Randomized Controlled Trial
+                    {researchById?.title}
                   </Text>
                 </Flex>
                 <Flex gap="0.38rem">
@@ -59,7 +67,7 @@ const ResearchAquired = () => {
                     fontWeight="400"
                     // color="grey_1"
                   >
-                    29/07/2021
+                    {researchById?.year}
                   </Text>
                 </Flex>
                 <Flex gap="0.38rem">
@@ -71,7 +79,16 @@ const ResearchAquired = () => {
                     fontWeight="400"
                     // color="grey_1"
                   >
-                    John Doe, Dayo Alabi
+                    {researchById?.authors?.map(
+                      (author: string, index: number) => (
+                        <React.Fragment key={index}>
+                          {index !== 0 && ", "}
+                          {author}
+                          {/* Add a dot after the last author */}
+                          {index === researchById.authors.length - 1 && "."}
+                        </React.Fragment>
+                      ),
+                    )}
                   </Text>
                 </Flex>
               </Stack>
@@ -90,15 +107,7 @@ const ResearchAquired = () => {
                 px="1.69rem"
                 py="2rem"
               >
-                <Text>
-                  The researchers conducted a randomized controlled trial with a
-                  total of 200 adults aged 25-45 years. The participants were
-                  randomly assigned to either an exercise group or a control
-                  group. The exercise group participated in supervised physical
-                  exercise sessions three times a week for a duration of 12
-                  weeks, while the control group maintained their usual daily
-                  activities without any structured exercise intervention.
-                </Text>
+                <Text>{researchById?.summary}</Text>
               </Stack>
             </Box>
             {/* What you learnt from the Research  */}
@@ -114,12 +123,7 @@ const ResearchAquired = () => {
                 px="1.69rem"
                 py="2rem"
               >
-                <Text>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Quibusdam nihil tenetur facilis iure aperiam quod, minima
-                  voluptatem fugiat iusto dolorum ab inventore ad corrupti
-                  tempora hic similique, dolor molestiae magni!
-                </Text>
+                <Text>{researchById?.findings}</Text>
               </Stack>
             </Box>
 

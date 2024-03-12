@@ -305,3 +305,14 @@ export type ResearchPayloadTypes = {
   area: string;
   beneficiary: string;
 };
+
+export type ResearchResponseType = {
+  id: string;
+  title: string;
+  year: string;
+  authors: string[];
+  summary: string;
+  findings: string;
+  area: string;
+  beneficiary: string;
+};

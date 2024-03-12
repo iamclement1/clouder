@@ -15,6 +15,7 @@ import ResearchForm from "./ResearchForm";
 import { useResearch } from "@/context/ResearchProvider";
 import useGetResearch from "@/hooks/useGetResearch";
 import LoadingSkeleton from "@/components/common/Skeleton";
+import { ResearchResponseType } from "@/utils/types";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
@@ -23,7 +24,9 @@ const Research = () => {
   const { fillForm, handleFillForm, preview, totalData } = useResearch();
   const { isLoading, data } = useGetResearch();
 
-  console.log(data?.data);
+  const research = data?.data;
+
+  console.log(research);
 
   const router = useRouter();
 
@@ -36,7 +39,7 @@ const Research = () => {
   const itemsPerPage = 4;
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = items?.slice(itemOffset, endOffset);
+  // const currentItems = items?.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(items?.length / itemsPerPage);
 
   // Run when user click to request another page.
@@ -70,7 +73,7 @@ const Research = () => {
 
                 {fillForm && <ResearchRole />}
               </Box>
-              {totalData?.length >= 1 && fillForm !== true && (
+              {research?.length >= 1 && fillForm !== true && (
                 <CustomButton
                   bgColor={"transparent"}
                   border="1px"
@@ -93,7 +96,7 @@ const Research = () => {
                 minH="80vh"
                 borderRadius="0.46875rem"
               >
-                {currentItems?.length >= 1 ? (
+                {research?.length >= 1 ? (
                   <Box py="2.44rem" px="2.39rem">
                     <Box>
                       <Flex
@@ -111,12 +114,12 @@ const Research = () => {
                     </Box>
 
                     <OrderedList mt="2.2rem">
-                      {currentItems?.map((item) => {
+                      {research?.map((item: ResearchResponseType) => {
                         return (
                           <ListItem
                             mb={"1rem"}
                             color="grey_1"
-                            key={item?.researchTittle}
+                            key={item?.id}
                             fontSize="1.125rem"
                             fontWeight="600"
                             display="flex"
@@ -126,11 +129,11 @@ const Research = () => {
                             <Text
                               onClick={() =>
                                 router.push(
-                                  `/dashboard/research/research_aquired/${item?.researchTittle}`,
+                                  `/dashboard/research/research_aquired/${item?.id}`,
                                 )
                               }
                               cursor={"pointer"}
-                            >{`${item?.researchTittle}
+                            >{`${item?.title}
                                                             `}</Text>
 
                             <Text
@@ -143,7 +146,7 @@ const Research = () => {
                               rounded={"1.35938rem"}
                               cursor="pointer"
                               as="a"
-                              href={`/dashboard/research/request_feed_back/${item?.researchTittle}`}
+                              href={`/dashboard/research/request_feed_back/${item?.id}`}
                             >
                               Request feedback
                             </Text>

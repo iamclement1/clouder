@@ -21,7 +21,9 @@ const LogbookDetailsForm = () => {
     handleLogbookData,
   } = useLogbook();
 
-  const [selectetdRole, setSelectetdRole] = useState<string>(logbookData?.role);
+  const [selectetdRole, setSelectetdRole] = useState<string>(
+    logbookData?.role || "Observe",
+  );
   const [err, setErr] = useState<boolean>(false);
 
   const text = useRef("");

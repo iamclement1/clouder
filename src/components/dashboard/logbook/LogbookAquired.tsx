@@ -1,5 +1,8 @@
+import LoadingSkeleton from "@/components/common/Skeleton";
+import useLogbookById from "@/hooks/useLogbookById";
+import { ParamsType } from "@/utils/types";
 import { Box, Button, Flex, Icon, Stack, Text } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import React from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
@@ -7,6 +10,12 @@ import { MdOutlineAddCircleOutline } from "react-icons/md";
 const LogbookAquired = () => {
   const noFeedBack = false;
   const router = useRouter();
+  const { index } = useParams<ParamsType>();
+
+  const { logbookById, isLoading } = useLogbookById(index);
+
+  if (isLoading) return <LoadingSkeleton />;
+
   return (
     <Box mb="4rem">
       <Box>
@@ -25,9 +34,9 @@ const LogbookAquired = () => {
           >
             {/* Education  */}
             <Box>
-              <Text fontWeight={"700"} fontSize={"1.3rem"} mb="1rem">
+              {/* <Text fontWeight={"700"} fontSize={"1.3rem"} mb="1rem">
                 Medical Logbook
-              </Text>
+              </Text> */}
 
               <Stack
                 border={"1px"}
@@ -36,18 +45,32 @@ const LogbookAquired = () => {
                 px="1.69rem"
                 py="2rem"
               >
-                <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
-                  Procedure (Observe)
-                </Text>
                 <Flex gap="0.38rem">
+                  <Text
+                    fontWeight={"700"}
+                    fontSize={"1.3rem"}
+                    alignItems={"center"}
+                    justifyContent={"center"}
+                  >
+                    Title
+                  </Text>
                   <Text
                     fontSize="1.125rem"
                     fontWeight="400"
                     // color="grey_1"
                   >
-                    Malaria
+                    {logbookById?.firstTitle}
                   </Text>
                 </Flex>
+                {/* <Flex gap="0.38rem">
+                  <Text
+                    fontSize="1.125rem"
+                    fontWeight="400"
+                  // color="grey_1"
+                  >
+                    Malaria
+                  </Text>
+                </Flex> */}
                 <Flex gap="0.38rem">
                   <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
                     Year:
@@ -57,7 +80,7 @@ const LogbookAquired = () => {
                     fontWeight="400"
                     // color="grey_1"
                   >
-                    29/07/2021
+                    {logbookById?.firstYear}
                   </Text>
                 </Flex>
 
@@ -66,7 +89,6 @@ const LogbookAquired = () => {
                 <Text fontWeight={"700"} fontSize={"1.3rem"} mb="1rem">
                   Presentation Summary
                 </Text>
-
                 <Flex gap="0.38rem">
                   <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
                     Title:
@@ -76,7 +98,20 @@ const LogbookAquired = () => {
                     fontWeight="400"
                     // color="grey_1"
                   >
-                    Malaria
+                    {logbookById?.secondTitle}
+                  </Text>
+                </Flex>
+
+                <Flex gap="0.38rem">
+                  <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
+                    Summary:
+                  </Text>
+                  <Text
+                    fontSize="1.125rem"
+                    fontWeight="400"
+                    // color="grey_1"
+                  >
+                    {logbookById?.summary}
                   </Text>
                 </Flex>
 
@@ -89,7 +124,7 @@ const LogbookAquired = () => {
                     fontWeight="400"
                     // color="grey_1"
                   >
-                    29/07/2021
+                    {logbookById?.secondYear}
                   </Text>
                 </Flex>
               </Stack>
@@ -108,15 +143,7 @@ const LogbookAquired = () => {
                 px="1.69rem"
                 py="2rem"
               >
-                <Text>
-                  The researchers conducted a randomized controlled trial with a
-                  total of 200 adults aged 25-45 years. The participants were
-                  randomly assigned to either an exercise group or a control
-                  group. The exercise group participated in supervised physical
-                  exercise sessions three times a week for a duration of 12
-                  weeks, while the control group maintained their usual daily
-                  activities without any structured exercise intervention.
-                </Text>
+                <Text>{logbookById?.challenges}</Text>
               </Stack>
             </Box>
 
@@ -133,12 +160,7 @@ const LogbookAquired = () => {
                 px="1.69rem"
                 py="2rem"
               >
-                <Text>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Quibusdam nihil tenetur facilis iure aperiam quod, minima
-                  voluptatem fugiat iusto dolorum ab inventore ad corrupti
-                  tempora hic similique, dolor molestiae magni!
-                </Text>
+                <Text>{logbookById?.keyPositives}</Text>
               </Stack>
             </Box>
 
@@ -155,12 +177,7 @@ const LogbookAquired = () => {
                 px="1.69rem"
                 py="2rem"
               >
-                <Text>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Quibusdam nihil tenetur facilis iure aperiam quod, minima
-                  voluptatem fugiat iusto dolorum ab inventore ad corrupti
-                  tempora hic similique, dolor molestiae magni!
-                </Text>
+                <Text>{logbookById?.doDifferently}</Text>
               </Stack>
             </Box>
 

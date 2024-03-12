@@ -137,7 +137,7 @@ const Logbook = () => {
                           <ListItem
                             mb={"1rem"}
                             color="grey_1"
-                            key={item?.firstTitle}
+                            key={item?.id}
                             fontSize="1.125rem"
                             fontWeight="600"
                             display="flex"
@@ -147,7 +147,7 @@ const Logbook = () => {
                             <Text
                               onClick={() =>
                                 router.push(
-                                  `/dashboard/logbook/logbook_aquired/${item?.firstTitle}`,
+                                  `/dashboard/logbook/logbook_aquired/${item?.id}`,
                                 )
                               }
                               cursor={"pointer"}

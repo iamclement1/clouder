@@ -2,7 +2,7 @@ import { Box, Button, Text, Flex } from "@chakra-ui/react";
 import React, { useState } from "react";
 
 const LeadershipRole = () => {
-  const [selectetdRole, setSelectetdRole] = useState<string>("");
+  const [selectetdRole, setSelectetdRole] = useState<string>("Academic role");
   return (
     <Box mt="0.87rem">
       <Text fontSize="1.125rem">

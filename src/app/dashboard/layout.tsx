@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import SidebarWithHeader from "@/components/common/Sidebar";
 import InactivityCheck from "@/components/common/IdleCheckModal";
 import { getStorageAuthItems } from "@/utils/lib";
-import { redirect, usePathname } from "next/navigation";
+import { redirect, useParams, usePathname } from "next/navigation";
 import { toast } from "react-toastify";
 
 export default function RootLayout({
@@ -16,14 +16,17 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
   let pageAlreadyRendered = false;
+  const { id } = useParams();
 
   useEffect(() => {
     const { token, role, plan } = getStorageAuthItems();
 
-    if (!token || role === "supervisor") {
+    if (!token || (role === "supervisor" && pageAlreadyRendered)) {
       // Remove token from sessionStorage
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("role");
+      sessionStorage.removeItem("plan");
+      sessionStorage.removeItem("refreshToken");
       // Redirect to login
       toast.error("Unauthorized, retry with an authorized credentials");
       return redirect("/auth/login");
@@ -61,6 +64,7 @@ export default function RootLayout({
             "/dashboard/qualifications",
             "/dashboard/logbook/medical_logbook",
             "/dashboard/logbook/surgical_logbook",
+            `/dashboard/logbook/logbook_aquired/${id}`,
             "/dashboard/research",
             "/dashboard/teaching",
           ];
@@ -75,8 +79,10 @@ export default function RootLayout({
             "/dashboard/quality_improvement/case_review",
             "/dashboard/leadership",
             "/dashboard/research",
+            `/dashboard/research/research_aquired/${id}`,
             "/dashboard/logbook/medical_logbook",
             "/dashboard/logbook/surgical_logbook",
+            `/dashboard/logbook/logbook_aquired/${id}`,
             "/dashboard/teaching",
           ];
           break;

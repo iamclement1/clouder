@@ -1,6 +1,8 @@
 import CustomButton from "@/components/common/CustomButton";
 import StatusModal from "@/components/modals/StatusModal";
 import { useTeaching } from "@/context/TeachingProvider";
+import useTeachingMutation from "@/hooks/useTeachingMutation";
+import { TeachingPayloadType } from "@/utils/types";
 
 import { Box, Text, Flex, useDisclosure } from "@chakra-ui/react";
 
@@ -19,6 +21,17 @@ const KeyPoints = () => {
     handleTotalData,
   } = useTeaching();
 
+  const { handleSubmitTeaching, isLoading } = useTeachingMutation();
+
+  const payload: TeachingPayloadType = {
+    title: teachingData?.teachingTitle,
+    year: teachingData?.year,
+    qualificationYear: teachingData?.qualificationYear,
+    summary: teachingData?.challenges,
+    keyTakeaway: teachingData?.key_points,
+    qualificationType: teachingData?.teachingQualificationType,
+    document: teachingData?.imageFile,
+  };
   const text = useRef("");
   text.current = teachingData?.key_points;
 
@@ -43,15 +56,10 @@ const KeyPoints = () => {
     }
   };
 
-  const handlePayload = () => {
-    console.log(teachingData);
-  };
-
   const handleSubmit = () => {
     if (text.current !== "") {
       setErr(false);
-
-      handlePayload();
+      handleSubmitTeaching(payload);
     } else {
       setErr(true);
     }
@@ -98,11 +106,7 @@ const KeyPoints = () => {
       </Box>
 
       <Flex maxW="35rem" mx="auto" gap="1.12rem" mt="3rem">
-        <CustomButton
-          w="100%"
-          // isLoading={isLoading}
-          handleClick={handleSubmit}
-        >
+        <CustomButton w="100%" isLoading={isLoading} handleClick={handleSubmit}>
           Save
         </CustomButton>
         <CustomButton

@@ -1,20 +1,28 @@
-// import LoadingSkeleton from "@/components/common/Skeleton";
-// import useCoursesById from "@/hooks/useCoursesById";
-// import { ParamsType } from "@/utils/types";
+import LoadingSkeleton from "@/components/common/Skeleton";
+import useTeachingById from "@/hooks/useTeachingById";
+import { ParamsType } from "@/utils/types";
 import { Box, Button, Flex, Icon, Stack, Text } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const TeachingAquired = () => {
   const noFeedBack = true;
   const router = useRouter();
 
-  // const { index } = useParams<ParamsType>();
+  const { index } = useParams<ParamsType>();
+  let isErrorShown = false;
+  const { teachingById, isLoading, error } = useTeachingById(index);
 
-  // const { coursesById, isLoading } = useCoursesById(index);
-  // if (isLoading) return <LoadingSkeleton />;
+  useEffect(() => {
+    if (error && !isErrorShown) {
+      toast.error("Error fetching data");
+      isErrorShown = true;
+    }
+  }, [error, isErrorShown]);
+  if (isLoading) return <LoadingSkeleton />;
   return (
     <Box mb="4rem">
       <Box>
@@ -54,8 +62,7 @@ const TeachingAquired = () => {
                     fontWeight="600"
                     // color="grey_1"
                   >
-                    {/* {coursesById?.courseTitle} */}
-                    Malaria
+                    {teachingById?.title}
                   </Text>
                 </Flex>
                 <Flex gap="0.38rem">
@@ -67,8 +74,7 @@ const TeachingAquired = () => {
                     fontWeight="600"
                     // color="grey_1"
                   >
-                    {/* {coursesById?.institution} */}
-                    20/10/2020
+                    {teachingById?.year}
                   </Text>
                 </Flex>
                 {/* Qualification:  */}
@@ -77,6 +83,13 @@ const TeachingAquired = () => {
                   <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
                     Qualification:
                   </Text>
+                  <Text
+                    fontSize="1.125rem"
+                    fontWeight="600"
+                    // color="grey_1"
+                  >
+                    {teachingById?.qualificationType}
+                  </Text>
                 </Flex>
                 <Flex gap="0.38rem">
                   <Text fontSize="1.125rem" fontWeight="600" color="grey_1">
@@ -87,8 +100,7 @@ const TeachingAquired = () => {
                     fontWeight="600"
                     // color="grey_1"
                   >
-                    {/* {coursesById?.year} */}
-                    20/10/2020
+                    {teachingById?.qualificationYear}
                   </Text>
                 </Flex>
               </Stack>
@@ -107,27 +119,7 @@ const TeachingAquired = () => {
                 px="1.69rem"
                 py="2rem"
               >
-                <Text>
-                  {/* {coursesById?.challenges} */}
-                  History of Present Illness: The patient, a 32-year-old male
-                  travel photographer, presents with a chief complaint of high
-                  fever, chills, and body aches for the past two days. He
-                  recently returned from a month-long photography assignment in
-                  a malaria-endemic region of sub-Saharan Africa. The symptoms
-                  started approximately one week after his return. The patient
-                  describes the fever as intermittent, with peaks occurring
-                  every 48 hours. He experiences severe chills during the
-                  febrile episodes, accompanied by profuse sweating afterward.
-                  He reports feeling fatigued and complains of generalized body
-                  aches, headaches, and a decreased appetite. He denies
-                  experiencing any cough, sore throat, or respiratory symptoms.
-                  Upon further inquiry, the patient admits to not taking any
-                  prophylactic antimalarial medication during his trip. He did
-                  use mosquito repellent but recalls several mosquito bites
-                  throughout his stay. He also stayed in basic accommodations
-                  without air conditioning and frequently ventured into rural
-                  areas with dense vegetation.
-                </Text>
+                <Text>{teachingById?.summary}</Text>
               </Stack>
             </Box>
 
@@ -144,22 +136,7 @@ const TeachingAquired = () => {
                 px="1.69rem"
                 py="2rem"
               >
-                <Text>
-                  {/* {coursesById?.keyPositives} */}
-                  Improved patient safety: By identifying areas where
-                  improvements can be made and implementing changes to clinical
-                  practice, M&M reviews can ultimately lead to improved patient
-                  safety and better patient outcomes. Enhanced quality of care:
-                  M&M reviews can help healthcare organizations identify areas
-                  where the quality of care can be improved. This can lead to
-                  changes in clinical protocols, improved communication among
-                  healthcare team members, and increased staff training.
-                  Increased collaboration and teamwork: M&M reviews often
-                  involve a team approach, with multiple healthcare
-                  professionals contributing to the analysis of a case. This can
-                  improve collaboration and teamwork among healthcare team
-                  members.
-                </Text>
+                <Text>{teachingById?.keyTakeaway}</Text>
               </Stack>
             </Box>
 

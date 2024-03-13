@@ -47,6 +47,7 @@ export default function RootLayout({
             "/dashboard/qualification",
             "/dashboard/logbook/medical_logbook",
             "/dashboard/logbook/surgical_logbook",
+            `/dashboard/logbook/logbook_aquired/${id}`,
           ];
           break;
         case "basic":
@@ -55,6 +56,7 @@ export default function RootLayout({
             "/dashboard/qualifications",
             "/dashboard/logbook/medical_logbook",
             "/dashboard/logbook/surgical_logbook",
+            `/dashboard/logbook/logbook_aquired/${id}`,
           ];
           break;
         case "premium":
@@ -67,6 +69,7 @@ export default function RootLayout({
             `/dashboard/logbook/logbook_aquired/${id}`,
             "/dashboard/research",
             "/dashboard/teaching",
+            `/dashboard/teaching/teaching_aquired/${id}`,
           ];
           break;
         case "infinite":
@@ -84,6 +87,7 @@ export default function RootLayout({
             "/dashboard/logbook/surgical_logbook",
             `/dashboard/logbook/logbook_aquired/${id}`,
             "/dashboard/teaching",
+            `/dashboard/teaching/teaching_aquired/${id}`,
           ];
           break;
         default:

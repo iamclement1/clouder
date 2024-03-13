@@ -112,9 +112,19 @@ const TeachingPreview = () => {
                 </Text>
               </Flex>
 
-              <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
-                Qualification:
-              </Text>
+              <Flex gap="0.38rem" align="center">
+                <Text fontSize="0.9rem" fontWeight="600" color="grey_1">
+                  Qualification Type:
+                </Text>
+                <Text
+                  fontSize="1.125rem"
+                  fontWeight="600"
+                  // color="grey_1"
+                >
+                  {teachingData?.teachingQualificationType}
+                </Text>
+              </Flex>
+              <Text fontSize="0.9rem" fontWeight="600" color="grey_1"></Text>
 
               <Flex gap="0.38rem" align="center">
                 <Text fontSize="0.9rem" fontWeight="600" color="grey_1">

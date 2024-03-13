@@ -1,140 +1,115 @@
-// import {
+import * as React from "react";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  chakra,
+  Box,
+  Text,
+} from "@chakra-ui/react";
+import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
+import {
+  useReactTable,
+  flexRender,
+  getCoreRowModel,
+  ColumnDef,
+  SortingState,
+  getSortedRowModel,
+} from "@tanstack/react-table";
+import { useRouter } from "next/navigation";
 
-//     Box,
-//     Flex,
-//     Icon,
-//     Table,
-//     Tbody,
-//     Td,
-//     Text,
-//     Th,
-//     Thead,
-//     Tr,
-// } from "@chakra-ui/react";
-// import React from "react";
-// import { BsPenFill, BsThreeDots, BsTrash3Fill } from "react-icons/bs";
-// import { useTable } from "@tanstack/react-table";
-
-// const columns = [
-//     {
-//         Header: "User’s Name",
-//         accessor: "userName",
-//     },
-
-//     {
-//         Header: "Phone Number",
-//         accessor: "phoneNumber",
-//     },
-//     {
-//         Header: "Email",
-//         accessor: "email",
-//     },
-//     {
-//         Header: "Location",
-//         accessor: "location",
-//     },
-//     {
-//         Header: "Status",
-//         accessor: "status",
-//     },
-
-//     {
-//         Header: "Action",
-//         accessor: (row) => (
-//             <Flex
-//                 // boxSize={"1.3rem"}
-//                 // bgColor={"status_2"}
-//                 px="3px"
-//                 py="2px"
-//                 align="center"
-//                 justify="center"
-//                 rounded="3px"
-//                 cursor="pointer"
-//             >
-//                 <Text>Active</Text>
-//             </Flex>
-//         ),
-//     },
-// ];
-
-// const DataTable = () => {
-//     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-//         useTable({
-//             columns,
-//             data,
-//         });
-
-//     return (
-//         <Box bgColor={"blue_3"}>
-//             <Flex
-//                 p="1.25rem"
-//                 style={{ borderBottom: "1px solid  #292d44" }}
-//                 align={"center"}
-//                 justify="space-between"
-//                 gap="1rem"
-//             >
-//                 <Text fontSize={"1.125rem"} fontWeight={"700"}>
-//                     Products
-//                 </Text>
-//             </Flex>
-
-//             <Box p="2rem">
-//                 <Table {...getTableProps()}>
-//                     <Thead>
-//                         {headerGroups.map((headerGroup) => (
-//                             <Tr
-//                                 key={headerGroup.id}
-//                                 style={{ borderTop: "1px solid #292d44" }}
-//                             >
-//                                 {headerGroup.headers.map((column) => (
-//                                     <Th key={column.id} border="none">
-//                                         {column.render("Header")}
-//                                     </Th>
-//                                 ))}
-//                             </Tr>
-//                         ))}
-//                     </Thead>
-//                     <Tbody
-//                         {...getTableBodyProps()}
-//                         style={{ borderTop: "1px solid #292d44" }}
-//                     >
-//                         {rows.map((row, i) => {
-//                             prepareRow(row);
-//                             return (
-//                                 <Tr
-//                                     key={i}
-//                                     {...row.getRowProps()}
-//                                     borderBottom="1px solid #292d44"
-//                                 >
-//                                     {row.cells.map((cell) => (
-//                                         <Td
-//                                             key={cell.id}
-//                                             border="none"
-//                                             fontSize="0.875rem"
-//                                         >
-//                                             {cell.render("Cell")}
-//                                         </Td>
-//                                     ))}
-//                                 </Tr>
-//                             );
-//                         })}
-//                     </Tbody>
-//                 </Table>
-//             </Box>
-//         </Box>
-//     );
-// };
-
-// export default DataTable;
-
-//  const products = [
-
-//  ];
-
-import React from "react";
-
-const DataTable = () => {
-  return <div>DataTable</div>;
+export type DataTableProps<Data extends object> = {
+  data: Data[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  columns: ColumnDef<Data, any>[];
 };
 
-export default DataTable;
+export function DataTable<Data extends object>({
+  data,
+  columns,
+}: DataTableProps<Data>) {
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const table = useReactTable({
+    columns,
+    data,
+    getCoreRowModel: getCoreRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    state: {
+      sorting,
+    },
+  });
+
+  const navigate = useRouter();
+
+  return (
+    <Box p="2rem" overflowX={"auto"}>
+      <Table>
+        <Thead textAlign="center">
+          {table.getHeaderGroups().map((headerGroup) => (
+            <Tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => {
+                // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
+                // const meta: unknown = header.column.columnDef.meta;
+                return (
+                  <Th
+                    textAlign="center"
+                    key={header.id}
+                    onClick={header.column.getToggleSortingHandler()}
+                    fontSize="0.625rem"
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext(),
+                    )}
+
+                    <chakra.span pl="4">
+                      {header.column.getIsSorted() ? (
+                        header.column.getIsSorted() === "desc" ? (
+                          <TriangleDownIcon aria-label="sorted descending" />
+                        ) : (
+                          <TriangleUpIcon aria-label="sorted ascending" />
+                        )
+                      ) : null}
+                    </chakra.span>
+                  </Th>
+                );
+              })}
+            </Tr>
+          ))}
+        </Thead>
+        <Tbody>
+          {table.getRowModel().rows.map((row) => (
+            <Tr
+              key={row.id}
+              cursor="pointer"
+              onClick={() => {
+                navigate.push(`/supervisor/users/${"row?.original?.id"}`);
+              }}
+            >
+              {row.getVisibleCells().map((cell) => {
+                // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
+                // const meta: any = cell.column.columnDef.meta;
+                return (
+                  <Td key={cell.id} textAlign="center" fontSize="0.875rem">
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </Td>
+                );
+              })}
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+
+      <Box mt="2.8125rem">
+        <Text fontSize="0.75rem" color="#B5B7C0">
+          {" "}
+          {`Showing data ${1} to ${8} of  ${256}K entries`}{" "}
+        </Text>
+      </Box>
+    </Box>
+  );
+}

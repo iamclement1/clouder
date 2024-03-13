@@ -1,10 +1,7 @@
 import CustomButton from "@/components/common/CustomButton";
 import CustomInput from "@/components/common/CustomInput";
-
 import { teachingDataProps, useTeaching } from "@/context/TeachingProvider";
-
 import { Box, Flex, Text } from "@chakra-ui/react";
-// import { State } from "country-state-city";
 import { Form, Formik } from "formik";
 import React, { useRef, useState } from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
@@ -74,7 +71,6 @@ const DetailsForm = () => {
               ...teachingData,
               ...values,
             });
-            console.log(values);
 
             handleFormSteps(formSteps + 1);
           }}

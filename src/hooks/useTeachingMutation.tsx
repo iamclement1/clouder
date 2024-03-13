@@ -23,9 +23,7 @@ const useTeachingMutation = () => {
     onSuccess: ({ data }) => {
       if (data) {
         handleFormSteps(1);
-        toast.success("Teaching Submitted Successfully", {
-          theme: "dark",
-        });
+        toast.success("Teaching Submitted Successfully");
       }
       queryClient.invalidateQueries({ queryKey: ["teaching"] });
     },

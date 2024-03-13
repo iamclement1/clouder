@@ -26,6 +26,8 @@ const TeachingPreview = () => {
     qualificationYear: teachingData?.qualificationYear,
     summary: teachingData?.challenges,
     keyTakeaway: teachingData?.key_points,
+    document: teachingData?.imageFile,
+    qualificationType: teachingData?.teachingQualificationType,
   };
 
   const { handleSubmitTeaching, isLoading } = useTeachingMutation();

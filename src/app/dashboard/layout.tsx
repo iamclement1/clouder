@@ -16,19 +16,24 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
   let pageAlreadyRendered = false;
+  let authErrorShown = false;
   const { id } = useParams();
 
   useEffect(() => {
     const { token, role, plan } = getStorageAuthItems();
 
-    if (!token || (role === "supervisor" && pageAlreadyRendered)) {
+    if (!token || (role === "supervisor" && authErrorShown)) {
       // Remove token from sessionStorage
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("role");
       sessionStorage.removeItem("plan");
       sessionStorage.removeItem("refreshToken");
       // Redirect to login
-      toast.error("Unauthorized, retry with an authorized credentials");
+      if (!authErrorShown) {
+        // Show auth error toast only if it hasn't been shown already
+        toast.error("Unauthorized, retry with an authorized credentials");
+        authErrorShown = true;
+      }
       return redirect("/auth/login");
     }
 

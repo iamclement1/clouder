@@ -262,6 +262,17 @@ export type TeachingPayloadType = {
   qualificationType: string;
 };
 
+export type TeachingResType = {
+  id: string;
+  title: string;
+  year: string;
+  qualificationYear: string;
+  qualificationType: string;
+  document: File | Blob | MediaSource | null;
+  summary: string;
+  keyTakeaway: string;
+};
+
 export type QualityPayloadType = {
   title: string;
   year: string;

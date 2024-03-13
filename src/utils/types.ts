@@ -258,7 +258,8 @@ export type TeachingPayloadType = {
   qualificationYear: string;
   summary: string;
   keyTakeaway: string;
-  d?: File | Blob | MediaSource | null;
+  document: File | Blob | MediaSource | null;
+  qualificationType: string;
 };
 
 export type QualityPayloadType = {

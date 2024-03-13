@@ -6,7 +6,8 @@ import { LogbookPayloadType } from "@/utils/types";
 import { useResearch } from "@/context/ResearchProvider";
 
 const useResearchMutation = () => {
-  const { handleFormSteps, handleFillForm, handlePreview } = useResearch();
+  const { handleFormSteps, handleFillForm, handlePreview, handleTotalData } =
+    useResearch();
 
   const queryClient = useQueryClient();
 
@@ -19,6 +20,7 @@ const useResearchMutation = () => {
         toast.success("Research Submitted Successfully", {
           theme: "dark",
         });
+        handleTotalData();
         handleFormSteps(1);
         handleFillForm(false);
         handlePreview(false);

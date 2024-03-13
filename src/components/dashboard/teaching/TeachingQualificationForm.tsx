@@ -2,9 +2,9 @@ import CustomButton from "@/components/common/CustomButton";
 import CustomInput from "@/components/common/CustomInput";
 import UploadFile from "@/components/modals/UploadFile";
 import { teachingDataProps, useTeaching } from "@/context/TeachingProvider";
-
+import useTeachingMutation from "@/hooks/useTeachingMutation";
 import { teachingQualification } from "@/utils/data";
-// import { teachingDataProps } from "@/utils/types";
+import { TeachingPayloadType } from "@/utils/types";
 
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 
@@ -30,6 +30,18 @@ const TeachingQualificationForm = () => {
   );
   const text = useRef("");
   text.current = teachingData?.key_points;
+
+  const { isLoading, handleSubmitTeaching } = useTeachingMutation();
+
+  const payload: TeachingPayloadType = {
+    title: teachingData?.teachingTitle,
+    year: teachingData?.briefExplanation,
+    qualificationYear: teachingData?.qualificationYear,
+    summary: teachingData?.briefExplanation,
+    keyTakeaway: teachingData?.key_points,
+    document: teachingData?.imageFile,
+    qualificationType: teachingData?.teachingQualificationType,
+  };
 
   const handleBlur = () => {
     if (text.current !== "") {
@@ -72,6 +84,7 @@ const TeachingQualificationForm = () => {
     handleTotalData();
     handleFormSteps(1);
     handleFillForm(false);
+    handleSubmitTeaching(payload);
   };
   return (
     <Box>
@@ -241,10 +254,11 @@ const TeachingQualificationForm = () => {
               <Flex maxW="35rem" mx="auto" gap="1.12rem" mt="3rem">
                 <CustomButton
                   w="100%"
+                  isLoading={isLoading}
                   // isLoading={isLoading}
                   handleClick={() => {
                     setSubmitionStatus("submit");
-                    handleSubmit();
+                    handleSubmit;
                   }}
                 >
                   Save

@@ -258,7 +258,8 @@ export type TeachingPayloadType = {
   qualificationYear: string;
   summary: string;
   keyTakeaway: string;
-  d?: File | Blob | MediaSource | null;
+  document: File | Blob | MediaSource | null;
+  qualificationType: string;
 };
 
 export type QualityPayloadType = {
@@ -297,6 +298,17 @@ export type QualityDataItem = {
 };
 
 export type ResearchPayloadTypes = {
+  title: string;
+  year: string;
+  authors: string[];
+  summary: string;
+  findings: string;
+  area: string;
+  beneficiary: string;
+};
+
+export type ResearchResponseType = {
+  id: string;
   title: string;
   year: string;
   authors: string[];

@@ -8,13 +8,8 @@ import { useTeaching } from "@/context/TeachingProvider";
 const useTeachingMutation = () => {
   const queryClient = useQueryClient();
 
-  const {
-    handleFormSteps,
-    // handleFillForm,
-    // teachingData,
-    // handlePreview,
-    // handleTotalData,
-  } = useTeaching();
+  const { handleFormSteps, handleFillForm, handlePreview, handleTotalData } =
+    useTeaching();
 
   const mutation = useMutation({
     mutationFn: (teaching: TeachingPayloadType) => {
@@ -23,12 +18,15 @@ const useTeachingMutation = () => {
     onSuccess: ({ data }) => {
       if (data) {
         handleFormSteps(1);
+        handleFillForm(false);
+        handlePreview(false);
+        handleTotalData();
         toast.success("Teaching Submitted Successfully");
       }
       queryClient.invalidateQueries({ queryKey: ["teaching"] });
     },
-    onError: (error: { response: { data: { error: string } } }) => {
-      const errorMsg = error.response.data.error;
+    onError: (error: { response: { data: { message: string } } }) => {
+      const errorMsg = error.response.data.message;
       toast.error(errorMsg);
     },
   });

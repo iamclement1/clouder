@@ -12,7 +12,7 @@ const SupervisorDashboard = () => {
   if (isLoading) return <PageLoader />;
   const fullName = userData?.data.fullName;
   const nameParts = fullName?.split(" ");
-  const firstName = nameParts[0]?.trim();
+  const firstName = nameParts?.[0]?.trim();
 
   return (
     <Box>

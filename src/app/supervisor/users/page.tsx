@@ -1,12 +1,13 @@
 "use client";
-import AllUsers from "@/components/supervisor/AllUsers";
+
+import Users from "@/components/supervisor/Users/Users";
 
 import React from "react";
 
 const page = () => {
   return (
     <div>
-      <AllUsers />
+      <Users />
     </div>
   );
 };

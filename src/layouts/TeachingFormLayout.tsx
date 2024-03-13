@@ -46,7 +46,7 @@ const TeachingFormLayout = ({
           </Box>
           <Box>
             <Text fontSize={"0.84375rem"} fontWeight="600" color="grey_1">
-              {formSteps} of 2
+              {formSteps} of 3
             </Text>
           </Box>
         </Flex>

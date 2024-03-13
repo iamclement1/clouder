@@ -1,6 +1,6 @@
 import Typography from "@/components/common/Typograph";
 import { Box, Flex, Icon, ListItem, OrderedList, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 
 import CustomButton from "@/components/common/CustomButton";
@@ -11,6 +11,10 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { useTeaching } from "@/context/TeachingProvider";
 import TeachingForm from "./TeachingForm";
 import TeachingPreview from "./TeachingPreview";
+import useGetTeaching from "@/hooks/useGetTeaching";
+import LoadingSkeleton from "@/components/common/Skeleton";
+import { TeachingResType } from "@/utils/types";
+import { toast } from "react-toastify";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
@@ -19,7 +23,17 @@ const Teaching = () => {
   const { fillForm, handleFillForm, preview, totalData } = useTeaching();
 
   const router = useRouter();
+  let isErrorShown = false;
+  const { isLoading, error, data } = useGetTeaching();
 
+  useEffect(() => {
+    if (error && !isErrorShown) {
+      toast.error("Error fetching data");
+      isErrorShown = true;
+    }
+  }, [error, isErrorShown]);
+
+  const teaching = data?.data;
   // ******************************************
   const [itemOffset, setItemOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState<number>(0);
@@ -29,7 +43,7 @@ const Teaching = () => {
   const itemsPerPage = 10;
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-  const currentItems = items?.slice(itemOffset, endOffset);
+  // const currentItems = items?.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(items?.length / itemsPerPage);
 
   // Run when user click to request another page.
@@ -48,6 +62,7 @@ const Teaching = () => {
   };
   // ******************************************
 
+  if (isLoading) return <LoadingSkeleton />;
   return (
     <Box>
       <Box pb="3rem">
@@ -57,7 +72,7 @@ const Teaching = () => {
           <>
             <Flex align="center" justify="space-between" gap="1rem">
               <Typography variant="heading2">Teaching</Typography>
-              {totalData?.length >= 1 && fillForm !== true && (
+              {teaching?.length >= 1 && fillForm !== true && (
                 <CustomButton
                   bgColor={"transparent"}
                   border="1px"
@@ -80,7 +95,7 @@ const Teaching = () => {
                 minH="80vh"
                 borderRadius="0.46875rem"
               >
-                {totalData?.length >= 1 ? (
+                {teaching?.length >= 1 ? (
                   <Box py="2.44rem" px="2.39rem">
                     <Flex
                       justify="center"
@@ -96,15 +111,15 @@ const Teaching = () => {
                     </Flex>
 
                     <OrderedList mt="2.2rem">
-                      {currentItems
+                      {teaching
                         ?.slice()
                         .reverse() // Reverse the array to display the recent data first
-                        .map((item) => {
+                        .map((item: TeachingResType) => {
                           return (
                             <ListItem
                               mb={"1rem"}
                               color="grey_1"
-                              key={item?.year}
+                              key={item?.id}
                               fontSize="1.125rem"
                               fontWeight="600"
                               display="flex"
@@ -114,11 +129,11 @@ const Teaching = () => {
                               <Text
                                 onClick={() =>
                                   router.push(
-                                    `/dashboard/teaching/teaching_aquired/${item?.year}`,
+                                    `/dashboard/teaching/teaching_aquired/${item?.id}`,
                                   )
                                 }
                                 cursor={"pointer"}
-                              >{`${item?.teachingTitle}
+                              >{`${item?.title}
                                                             `}</Text>
 
                               <Text
@@ -131,7 +146,7 @@ const Teaching = () => {
                                 rounded={"1.35938rem"}
                                 cursor="pointer"
                                 as="a"
-                                href={`/dashboard/teaching/request_feed_back/${item?.year}`}
+                                href={`/dashboard/teaching/request_feed_back/${item?.id}`}
                               >
                                 Request feedback
                               </Text>

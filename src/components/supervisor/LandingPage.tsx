@@ -1,19 +1,39 @@
 import React from "react";
-// import useAllUser from "@/hooks/useAllUser";
-// import useSupervisorDashboard from "@/hooks/useSupervisorDashboard";
-import { SupervisorCard } from "@/utils/data";
 import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import AllUsers from "./AllUsers";
+import { FiUsers } from "react-icons/fi";
+import { SupervisorCardType } from "@/utils/types";
+import useSupervisorDashboard from "@/hooks/useSupervisorDashboard";
+import LoadingSkeleton from "../common/Skeleton";
 
 const LandingPage = () => {
-  // const { data: AllUserProfile } = useAllUser();
-  // const { data: Supervisor } = useSupervisorDashboard();
+  const { data: Supervisor, isLoading } = useSupervisorDashboard();
 
-  // console.log(AllUserProfile?.data.data);
+  const { totalUsers, totalVerifiedUsers, totalActiveUsers } =
+    Supervisor?.data.data || {};
 
-  // const { totalUsers, totalVerifiedUsers, totalActiveUsers } =
-  //     Supervisor?.data.data || {};
+  const SupervisorCard: Array<SupervisorCardType> = [
+    {
+      id: 1,
+      icon: FiUsers,
+      title: "Total Users",
+      num: totalUsers,
+    },
+    {
+      id: 2,
+      icon: FiUsers,
+      title: "Total Verified Users",
+      num: totalVerifiedUsers,
+    },
+    {
+      id: 3,
+      icon: FiUsers,
+      title: "Total Active Users",
+      num: totalActiveUsers,
+    },
+  ];
 
+  if (isLoading) return <LoadingSkeleton />;
   return (
     <Box>
       <Box my={"18px"}>

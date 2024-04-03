@@ -2,8 +2,12 @@ import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BsChevronDown, BsChevronRight } from "react-icons/bs";
 import UserDetails from "./UserDetails";
+import { useParams } from "next/navigation";
+import { ParamsType } from "@/utils/types";
 
 const SingleUser = () => {
+  const { index } = useParams<ParamsType>();
+  console.log(index);
   const [sortMenu, setSortMenu] = useState<boolean>(false);
 
   return (

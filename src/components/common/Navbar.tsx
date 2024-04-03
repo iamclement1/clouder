@@ -81,12 +81,12 @@ export default function Navbar() {
             </HStack>
 
             <CustomButton
-              handleClick={() => navigate.push("/auth/register")}
+              handleClick={() => navigate.push("/auth/login")}
               maxW="fit-content"
               display={["none", null, "block"]}
               h="2.5rem"
             >
-              Register Now
+              Login
             </CustomButton>
 
             {/* humbuger  */}

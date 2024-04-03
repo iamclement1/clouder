@@ -34,6 +34,7 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
   return (
     <html lang="en">
       <body className={inter.className}>
+        <link rel="icon" href="/icon-192x192.png" sizes="any" />
         <AppLayout>{children}</AppLayout>
       </body>
     </html>

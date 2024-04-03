@@ -249,7 +249,7 @@ export type SupervisorCardType = {
   icon: React.ReactNode;
   id: number;
   title: string;
-  num: number;
+  num: string;
 };
 
 export type TeachingPayloadType = {
@@ -327,4 +327,28 @@ export type ResearchResponseType = {
   findings: string;
   area: string;
   beneficiary: string;
+};
+
+export type SupervisorDataType = {
+  data: {
+    data: {
+      totalUsers?: number;
+      totalVerifiedUsers?: number;
+      totalActiveUsers?: number;
+    };
+  };
+  isLoading: boolean;
+};
+
+export type UserDataType = {
+  id: string;
+  fullName: string;
+  img: string;
+  email: string;
+  plan: string;
+  emailStatus: string;
+  phone: string;
+  location: string;
+  status: string;
+  role: string;
 };

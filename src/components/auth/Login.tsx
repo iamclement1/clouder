@@ -16,6 +16,9 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Login",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 const Login: React.FC = () => {

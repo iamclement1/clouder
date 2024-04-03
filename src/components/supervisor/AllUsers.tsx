@@ -4,6 +4,8 @@ import { BsChevronDown, BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { DataTable } from "./Tables/DataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import ReactPaginate from "react-paginate";
+import useAllUser from "@/hooks/useAllUser";
+import LoadingSkeleton from "../common/Skeleton";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
@@ -12,59 +14,28 @@ const AllUsers = () => {
   const [sortMenu, setSortMenu] = useState<boolean>(false);
   const [sortOption, setSortOption] = useState<string>("Newest");
 
+  const { data: AllUserProfile, isLoading } = useAllUser();
+
+  const allUsers = AllUserProfile?.data?.data;
+
   // Table pased data
   type UserDetailsType = {
     id: number;
-    userName: string;
-    phoneNo: string;
+    fullName: string;
+    phone: string;
     email: string;
     location: string;
     status: string;
   };
 
-  const data: UserDetailsType[] = [
-    {
-      id: 1,
-      userName: "Tunde idiagbon",
-      phoneNo: "millimetres (mm)",
-      email: "jane@microsoft.com",
-      location: "Kwara State",
-      status: "Active",
-    },
-    {
-      id: 2,
-      userName: "Tunde idiagbon",
-      phoneNo: "millimetres (mm)",
-      email: "jane@microsoft.com",
-      location: "Kwara State",
-      status: "Active",
-    },
-    {
-      id: 3,
-      userName: "Tunde idiagbon",
-      phoneNo: "millimetres (mm)",
-      email: "jane@microsoft.com",
-      location: "Kwara State",
-      status: "Inactive",
-    },
-    {
-      id: 4,
-      userName: "Tunde idiagbon",
-      phoneNo: "millimetres (mm)",
-      email: "jane@microsoft.com",
-      location: "Active",
-      status: "Inactive",
-    },
-  ];
-
   const columnHelper = createColumnHelper<UserDetailsType>();
 
   const columns = [
-    columnHelper.accessor("userName", {
+    columnHelper.accessor("fullName", {
       cell: (info) => info.getValue(),
       header: "User’s Name",
     }),
-    columnHelper.accessor("phoneNo", {
+    columnHelper.accessor("phone", {
       cell: (info) => info.getValue(),
       header: "Phone Number",
     }),
@@ -81,19 +52,19 @@ const AllUsers = () => {
       cell: (info) => {
         const currentStatus = info.getValue();
         return (
-          <>
+          <Box>
             <Button
               h="auto"
-              color={currentStatus === "Active" ? "#008767" : "#DF0404"}
+              color={currentStatus === "active" ? "#008767" : "#DF0404"}
               fontSize="0.75rem"
               w="5.5625rem"
               bgColor={
-                currentStatus === "Active"
+                currentStatus === "active"
                   ? "rgba(22, 192,152,38%)"
                   : "rgb(255,197,197)"
               }
               border="1px"
-              borderColor={currentStatus === "Active" ? "#00B087" : "#DF0404"}
+              borderColor={currentStatus === "active" ? "#00B087" : "#DF0404"}
               py="3px"
               fontWeight={"medium"}
               rounded="14px"
@@ -103,7 +74,7 @@ const AllUsers = () => {
             >
               {info.getValue()}
             </Button>
-          </>
+          </Box>
         );
       },
       header: "Status",
@@ -116,7 +87,7 @@ const AllUsers = () => {
   // const [itemOffset, setItemOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState<number>(0);
 
-  const items = data;
+  const items = allUsers;
 
   const itemsPerPage = 4;
   // const endOffset = itemOffset + itemsPerPage;
@@ -140,6 +111,7 @@ const AllUsers = () => {
   };
   // ******************************************
 
+  if (isLoading) return <LoadingSkeleton />;
   return (
     <Box>
       <Box bgColor="white" rounded="0.5625rem">
@@ -236,7 +208,7 @@ const AllUsers = () => {
 
         {/* Table Gangan */}
 
-        <DataTable columns={columns} data={data} />
+        <DataTable columns={columns} data={allUsers} />
       </Box>
 
       {/* Pagination */}

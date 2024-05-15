@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import AllUsers from "./AllUsers";
-import { FiUsers } from "react-icons/fi";
+import { UsersRound } from "lucide-react";
 import { SupervisorCardType } from "@/utils/types";
 import useSupervisorDashboard from "@/hooks/useSupervisorDashboard";
 import LoadingSkeleton from "../common/Skeleton";
@@ -15,19 +15,19 @@ const LandingPage = () => {
   const SupervisorCard: Array<SupervisorCardType> = [
     {
       id: 1,
-      icon: FiUsers,
+      icon: <UsersRound />,
       title: "Total Users",
       num: totalUsers,
     },
     {
       id: 2,
-      icon: FiUsers,
+      icon: <UsersRound />,
       title: "Total Verified Users",
       num: totalVerifiedUsers,
     },
     {
       id: 3,
-      icon: FiUsers,
+      icon: <UsersRound />,
       title: "Total Active Users",
       num: totalActiveUsers,
     },

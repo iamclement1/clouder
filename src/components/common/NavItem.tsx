@@ -1,8 +1,9 @@
 import { NavItemProps } from "@/utils/types";
 import { Box, Flex, Icon, Link, Text } from "@chakra-ui/react";
-// import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { BsChevronDown } from "react-icons/bs";
+import clsx from "clsx";
 
 const NavItem = ({
   icon,
@@ -19,7 +20,7 @@ const NavItem = ({
   // const handleRouteChange: RouteChangeHandler = (newRoute) => {
   //     router.push(newRoute);
   // };
-
+  const pathname = usePathname();
   const handleShowSubNav = () => {
     setShowSubNav(!showSubNav);
   };
@@ -48,7 +49,7 @@ const NavItem = ({
             role="group"
             cursor="pointer"
             color="grey_1"
-            bgColor={passedActive === href || showSubNav ? "white" : "grey_9"}
+            bgColor={clsx(pathname === href || showSubNav ? "white" : "grey_9")}
             _hover={{
               bg: "white",
             }}

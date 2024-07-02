@@ -22,9 +22,9 @@ interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
 
 const Research = () => {
   const { fillForm, handleFillForm, preview, totalData } = useResearch();
-  const { isLoading, data, error } = useGetResearch();
+  const { isLoading, data } = useGetResearch();
 
-  console.log("error research", error);
+  // console.log("error research", error);
 
   const research = data?.data;
 

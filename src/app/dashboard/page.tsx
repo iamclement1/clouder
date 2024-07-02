@@ -2,7 +2,6 @@
 import PageLoader from "@/components/common/PageLoader";
 import Typography from "@/components/common/Typograph";
 import AdminSupport from "@/components/dashboard/AdminSupport";
-import DashboardType from "@/components/dashboard/DashboardType";
 import LogBookEntries from "@/components/dashboard/LogBookEntries";
 import TodayActivities from "@/components/dashboard/TodayActivities";
 import UpcomingEvent from "@/components/dashboard/UpcomingEvent";
@@ -31,7 +30,7 @@ const Dashboard = () => {
             Welcome back, {firstName} 😊
           </Typography>
 
-          <DashboardType />
+          {/* <DashboardType /> */}
         </Flex>
 
         {/* DaSboard CoMponents */}

@@ -16,13 +16,12 @@ import {
 } from "@chakra-ui/react";
 import { FiMenu } from "react-icons/fi";
 import { BsChevronDown, BsFillCaretDownFill } from "react-icons/bs";
-import { BiBell } from "react-icons/bi";
+import { BiBell, BiLogOut } from "react-icons/bi";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import SearchBox from "../dashboard/navigation/SearchBox";
 import UserImage from "../dashboard/navigation/UserImage";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import useProfile from "@/hooks/useProfile";
-import { BiLogOut } from "react-icons/bi";
 import PageLoader from "./PageLoader";
 import useSignOut from "@/hooks/useSignOut";
 import {
@@ -33,6 +32,7 @@ import {
   SidebarWithHeaderProps,
 } from "@/utils/types";
 import { SupervisorLinkItems } from "@/utils/data";
+import clsx from "clsx";
 
 const SupervisorSidebarContent = ({
   onClose,
@@ -132,6 +132,8 @@ const NavItem = ({
     router.push(newRoute);
   };
 
+  const pathname = usePathname();
+
   const handleShowSubNav = () => {
     setShowSubNav(!showSubNav);
   };
@@ -157,7 +159,7 @@ const NavItem = ({
           role="group"
           cursor="pointer"
           color="grey_1"
-          bgColor={passedActive === href || showSubNav ? "white" : "grey_9"}
+          bgColor={clsx(pathname === href || showSubNav ? "white" : "grey_9")}
           _hover={{
             bg: "white",
           }}

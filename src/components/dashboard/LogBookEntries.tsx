@@ -1,8 +1,12 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Skeleton, Text } from "@chakra-ui/react";
 import React from "react";
 import Typography from "../common/Typograph";
+import useFetchLogbook from "@/hooks/useLogbook";
 
 const LogBookEntries = () => {
+  const { data: logbook, isLoading: isLogbookLoading } = useFetchLogbook();
+  const log = logbook?.data?.data?.length;
+
   return (
     <Box
       maxW="22rem"
@@ -22,14 +26,22 @@ const LogBookEntries = () => {
         Logbook Entries
       </Typography>
       <Box>
-        <Text
-          color="green_3"
-          fontSize={"5.19494rem"}
-          fontWeight={600}
-          textAlign={"center"}
-        >
-          10
-        </Text>
+        {isLogbookLoading ? (
+          <>
+            <Skeleton height="0.15rem" />
+            <Skeleton height="0.15rem" />
+            <Skeleton height="0.15rem" />
+          </>
+        ) : (
+          <Text
+            color="green_3"
+            fontSize={"5.19494rem"}
+            fontWeight={600}
+            textAlign={"center"}
+          >
+            {log ?? "0"}
+          </Text>
+        )}
       </Box>
     </Box>
   );

@@ -1,9 +1,22 @@
 "use client";
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { Box, Skeleton, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import Typography from "../common/Typograph";
+import useGetResearch from "@/hooks/useGetResearch";
+import useGetTeaching from "@/hooks/useGetTeaching";
+import useFetchLogbook from "@/hooks/useLogbook";
 
 const TodayActivities = () => {
+  const { data: research, isLoading: isResearchLoading } = useGetResearch();
+  const { data: teaching, isLoading: isTeachingLoading } = useGetTeaching();
+  const { data: logbook, isLoading: isLogbookLoading } = useFetchLogbook();
+  const log = logbook?.data?.data?.length;
+  const teach = teaching?.data?.length;
+  const res = research?.data?.length;
+
+  const loading = isResearchLoading || isTeachingLoading || isLogbookLoading;
+
+  const getEntryText = (count: number) => (count > 1 ? "entries" : "entry");
   return (
     <Box
       maxW="22rem"
@@ -24,15 +37,26 @@ const TodayActivities = () => {
       </Typography>
 
       <Stack spacing={"0.38rem"} mt="1.12rem">
-        <Text fontSize={"0.75rem"} color="grey_1" noOfLines={1}>
-          You’ve made 10 logbook entry’s
-        </Text>
-        <Text fontSize={"0.75rem"} color="grey_1" noOfLines={1}>
-          You’ve made 2 entry’s into Research
-        </Text>
-        <Text fontSize={"0.75rem"} color="grey_1" noOfLines={1}>
-          You’ve made 4 entry’s into Teaching
-        </Text>
+        {loading ? (
+          <>
+            <Skeleton height="0.15rem" />
+            <Skeleton height="0.15rem" />
+            <Skeleton height="0.15rem" />
+          </>
+        ) : (
+          <>
+            <Text fontSize={"0.75rem"} color="grey_1" noOfLines={1}>
+              You’ve made {log ?? "0"} logbook {getEntryText(log ?? 0)}
+            </Text>
+            <Text fontSize={"0.75rem"} color="grey_1" noOfLines={1}>
+              You’ve made {res ?? "0"} {getEntryText(res ?? 0)} into Research
+            </Text>
+            <Text fontSize={"0.75rem"} color="grey_1" noOfLines={1}>
+              You’ve made {teach ?? "0"} {getEntryText(teach ?? 0)} into
+              Teaching
+            </Text>
+          </>
+        )}
       </Stack>
     </Box>
   );

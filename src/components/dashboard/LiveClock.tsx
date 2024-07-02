@@ -25,9 +25,12 @@ export const LiveClock = () => {
       <Flex justifyContent="center" alignItems="center">
         <Clock
           format={"h:mm:ssa"}
-          style={{ fontSize: "3.5em", color: "#6164C1", fontWeight: "bold" }}
+          style={{ fontSize: "3.0em", color: "#6164C1", fontWeight: "bold" }}
           ticking={true}
         />
+      </Flex>
+      <Flex justifyContent="center" alignItems="center" stroke={"lightblue"}>
+        Date upcoming
       </Flex>
     </Box>
   );

@@ -24,11 +24,11 @@ const AdminSupport = () => {
     >
       <Typography fontSize={"0.9375rem"} fontWeight={"600"}>
         {" "}
-        Logbook Entries
+        Admin Support
       </Typography>
       <Box mt="1.88rem">
         <Textarea
-          placeholder="Type in your queries here..."
+          placeholder="Experiencing troubles? Kindly share your concerns with us."
           minH="11rem"
           fontSize="0.76731rem"
           rounded="0.21925rem"

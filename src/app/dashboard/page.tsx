@@ -2,9 +2,10 @@
 import PageLoader from "@/components/common/PageLoader";
 import Typography from "@/components/common/Typograph";
 import AdminSupport from "@/components/dashboard/AdminSupport";
+import { LiveClock } from "@/components/dashboard/LiveClock";
 import LogBookEntries from "@/components/dashboard/LogBookEntries";
 import TodayActivities from "@/components/dashboard/TodayActivities";
-import UpcomingEvent from "@/components/dashboard/UpcomingEvent";
+
 import useProfile from "@/hooks/useProfile";
 
 import { Box, Flex, Image, SimpleGrid } from "@chakra-ui/react";
@@ -39,7 +40,7 @@ const Dashboard = () => {
             <TodayActivities />
             <LogBookEntries />
 
-            <UpcomingEvent />
+            <LiveClock />
           </SimpleGrid>
 
           <Flex mt={["3rem"]} flexDir={["column", "row"]} gap="1.22rem">

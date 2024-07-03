@@ -1,5 +1,13 @@
 import Typography from "@/components/common/Typograph";
-import { Box, Flex, Icon, ListItem, OrderedList, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Icon,
+  ListItem,
+  OrderedList,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 
@@ -13,12 +21,14 @@ import { CourseItem } from "@/utils/types";
 import ReactPaginate from "react-paginate";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import LoadingSkeleton from "@/components/common/Skeleton";
+import RequestFeedbackModal from "./RequestFeedbackModal";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
 
 const Courses = () => {
   const { fillForm, handleFillForm, preview } = useCourses();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const router = useRouter();
 
@@ -27,6 +37,7 @@ const Courses = () => {
   // ******************************************
   const [itemOffset, setItemOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState<number>(0);
+  const [selectedCourseId, setSelectedCourseId] = useState<string>("");
 
   const items = courses;
 
@@ -127,20 +138,40 @@ const Courses = () => {
                               >{`${item?.institution}
                                                             `}</Text>
 
-                              <Text
-                                bgColor="danger_2"
-                                fontSize="0.75rem"
-                                color="danger_1"
-                                fontWeight="normal"
-                                w="fit-content"
-                                p="0.8rem 1rem"
-                                rounded={"1.35938rem"}
-                                cursor="pointer"
-                                as="a"
-                                href={`/dashboard/courses/request_feed_back/${item?.year}`}
-                              >
-                                Request feedback
-                              </Text>
+                              <Flex gap={"10px"}>
+                                <Text
+                                  bgColor="#03A9F4"
+                                  fontSize="0.75rem"
+                                  color="white"
+                                  fontWeight="normal"
+                                  w="fit-content"
+                                  p="0.8rem 1rem"
+                                  rounded={"1.35938rem"}
+                                  cursor="pointer"
+                                  as="a"
+                                  href={`/dashboard/courses/add_feedback/${item?.year}`}
+                                >
+                                  Add feedback
+                                </Text>
+                                <Text
+                                  bgColor="white"
+                                  fontSize="0.75rem"
+                                  color="#03A9F4"
+                                  fontWeight="normal"
+                                  w="fit-content"
+                                  p="0.8rem 1rem"
+                                  rounded={"1.35938rem"}
+                                  border={"1px solid #03A9F4"}
+                                  cursor="pointer"
+                                  as="button"
+                                  onClick={() => {
+                                    setSelectedCourseId(item?.id);
+                                    onOpen();
+                                  }}
+                                >
+                                  Request feedback
+                                </Text>
+                              </Flex>
                             </ListItem>
                           );
                         })}
@@ -200,6 +231,15 @@ const Courses = () => {
           // hrefAllControls
         />
       </Flex>
+      {/* open add feedback modal */}
+      {/* courseId={course?.data?.[0]?.id} */}
+      {isOpen && (
+        <RequestFeedbackModal
+          isOpen={isOpen}
+          onClose={onClose}
+          courseId={selectedCourseId}
+        />
+      )}
     </Box>
   );
 };

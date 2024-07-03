@@ -26,14 +26,11 @@ import {
   FiMenu,
 } from "react-icons/fi";
 import { IconType } from "react-icons";
-import { BsFillCaretDownFill } from "react-icons/bs";
-import { FaRegEnvelope } from "react-icons/fa";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import SearchBox from "../dashboard/navigation/SearchBox";
 import UserImage from "../dashboard/navigation/UserImage";
-import Share from "../modals/Share";
 import useProfile from "@/hooks/useProfile";
-import { BiLogOut, BiBell } from "react-icons/bi";
+import { BiLogOut } from "react-icons/bi";
 import PageLoader from "./PageLoader";
 import useSignOut from "@/hooks/useSignOut";
 import NavItem from "./NavItem";
@@ -278,21 +275,21 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         <SearchBox display={{ base: "none", md: "block" }} />
 
         <Flex align={"center"} gap={"20px"}>
-          <Share />
-          <Flex
+          {/* <Share /> */}
+          {/* <Flex
             gap="10px"
             align={"center"}
             fontSize={"0.65625rem"}
             display={{ base: "none", md: "block" }}
           >
             English <Icon as={BsFillCaretDownFill} cursor={"pointer"} />{" "}
-          </Flex>
+          </Flex> */}
 
-          <Link href="/dashboard/notification">
+          {/* <Link href="/dashboard/notification">
             <Icon as={BiBell} />
-          </Link>
+          </Link> */}
 
-          <Icon as={FaRegEnvelope} cursor={"pointer"} />
+          {/* <Icon as={FaRegEnvelope} cursor={"pointer"} /> */}
           {/* <Link href=""> */}
           <Box pos="relative">
             <Flex

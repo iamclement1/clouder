@@ -68,6 +68,7 @@ export default function RootLayout({
           allowedRoutes = [
             "/dashboard",
             "/dashboard/courses",
+            `/dashboard/courses/add_feedback/${id}`,
             "/dashboard/qualifications",
             "/dashboard/logbook/medical_logbook",
             "/dashboard/logbook/surgical_logbook",
@@ -82,7 +83,7 @@ export default function RootLayout({
             "/dashboard",
             "/dashboard/qualifications",
             "/dashboard/courses",
-            "/dashboard/quality_improvement/mobility",
+            `/dashboard/courses/add_feedback/${id}`,
             "/dashboard/quality_improvement/clinical_audit",
             "/dashboard/quality_improvement/case_review",
             "/dashboard/leadership",

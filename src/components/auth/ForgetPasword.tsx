@@ -1,5 +1,5 @@
 "use client";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex, Link } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import React from "react";
 import CustomInput from "../common/CustomInput";
@@ -103,6 +103,19 @@ const ForgetPasword: React.FC = () => {
               </Form>
             )}
           </Formik>
+          <Box mt="0.5rem">
+            <Flex>
+              {/* return to sign page */}
+              <Link
+                href="/auth/login"
+                display="block"
+                color="grey_6"
+                fontSize="0.65625rem"
+              >
+                Return to sign in
+              </Link>
+            </Flex>
+          </Box>
         </Box>
       </Box>
     </Box>

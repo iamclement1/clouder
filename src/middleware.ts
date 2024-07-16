@@ -10,8 +10,7 @@ import {
 
 export function middleware(request: NextRequest) {
   const currentUser = request.cookies.get("token")?.value;
-  const plan = request.cookies.get("plan")?.value;
-  console.log("plan", plan);
+  // const plan = request.cookies.get("plan")?.value;
 
   // If the route is protected and there is no current user, redirect to login
   if (protectedRoutes.includes(request.nextUrl.pathname) && !currentUser) {

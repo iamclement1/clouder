@@ -1,9 +1,9 @@
 // hooks/useQualificationMutation.ts
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "@/utils/axiosInstance";
-import { toast } from "react-toastify";
 import { TeachingPayloadType } from "@/utils/types";
 import { useTeaching } from "@/context/TeachingProvider";
+import { toast } from "sonner";
 
 const useTeachingMutation = () => {
   const queryClient = useQueryClient();

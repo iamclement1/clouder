@@ -1,9 +1,9 @@
 // hooks/useLogbookMutation.tsx
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "@/utils/axiosInstance";
-import { toast } from "react-toastify";
 import { LogbookPayloadType } from "@/utils/types";
 import { useLogbook } from "@/context/LogbookProvider";
+import { toast } from "sonner";
 
 const useLogbookMutation = () => {
   const { handleFormSteps, handleFillForm, handlePreview, handleResetData } =
@@ -17,9 +17,7 @@ const useLogbookMutation = () => {
     },
     onSuccess: ({ data }) => {
       if (data) {
-        toast.success("Logbook Submitted Successfully", {
-          theme: "dark",
-        });
+        toast.success("Logbook Submitted Successfully");
         handleFormSteps(1);
         handleFillForm(false);
         handlePreview(false);
@@ -29,9 +27,7 @@ const useLogbookMutation = () => {
     },
     onError: (error: { response: { data: { error: string } } }) => {
       const errorMsg = error.response.data.error;
-      toast.error(errorMsg, {
-        theme: "dark",
-      });
+      toast.error(errorMsg);
     },
   });
 

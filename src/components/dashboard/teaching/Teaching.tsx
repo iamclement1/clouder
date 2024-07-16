@@ -14,7 +14,7 @@ import TeachingPreview from "./TeachingPreview";
 import useGetTeaching from "@/hooks/useGetTeaching";
 import LoadingSkeleton from "@/components/common/Skeleton";
 import { TeachingResType } from "@/utils/types";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }

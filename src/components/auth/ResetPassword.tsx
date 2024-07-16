@@ -76,84 +76,82 @@ const ResetPassword: React.FC = () => {
     // },
   });
   return (
-    <>
-      <Box bgColor="white" rounded="0.46875rem" maxW="34.3rem" mx="auto">
-        <Box
-          px="16px"
-          maxW="28.2rem"
-          mx="auto"
-          py={["1.8rem", "2.8rem", "3.8rem"]}
-        >
-          <Typography variant="heading3"> New Password </Typography>
-          <Typography color="grey_1" fontSize={["0.74rem", "0.84375rem"]}>
-            Set the new password for your account so you can login and access
-            all features.
-          </Typography>
-          <Box mt="1.62rem" w="100%">
-            <Formik
-              initialValues={{
-                password: "",
-                confirmPassword: "",
-              }}
-              validate={(values: FormValues) => {
-                const errors: Partial<FormValues> = {};
+    <Box bgColor="white" rounded="0.46875rem" maxW="34.3rem" mx="auto">
+      <Box
+        px="16px"
+        maxW="28.2rem"
+        mx="auto"
+        py={["1.8rem", "2.8rem", "3.8rem"]}
+      >
+        <Typography variant="heading3"> New Password </Typography>
+        <Typography color="grey_1" fontSize={["0.74rem", "0.84375rem"]}>
+          Set the new password for your account so you can login and access all
+          features.
+        </Typography>
+        <Box mt="1.62rem" w="100%">
+          <Formik
+            initialValues={{
+              password: "",
+              confirmPassword: "",
+            }}
+            validate={(values: FormValues) => {
+              const errors: Partial<FormValues> = {};
 
-                if (!values.password) {
-                  errors.password = "Required";
-                }
-                if (values.confirmPassword !== values.password) {
-                  errors.confirmPassword = "Password does not match";
-                }
+              if (!values.password) {
+                errors.password = "Required";
+              }
+              if (values.confirmPassword !== values.password) {
+                errors.confirmPassword = "Password does not match";
+              }
 
-                return errors;
-              }}
-              onSubmit={(values: FormValues) => {
-                // Extract password from values
-                const { password } = values;
-                const payload = {
-                  token,
-                  password,
-                };
+              return errors;
+            }}
+            onSubmit={(values: FormValues) => {
+              // Extract password from values
+              const { password } = values;
+              const payload = {
+                token,
+                password,
+              };
 
-                mutate(payload);
-              }}
-            >
-              {({ handleSubmit, errors, touched }) => (
-                <Form onSubmit={handleSubmit}>
-                  {/* Email Address */}
-                  <CustomInput
-                    label="Enter new password"
-                    placeholder="********"
-                    name="password"
-                    type="password"
-                    errors={errors}
-                    touched={touched}
-                  />
+              mutate(payload);
+            }}
+          >
+            {({ handleSubmit, errors, touched }) => (
+              <Form onSubmit={handleSubmit}>
+                {/* Email Address */}
+                <CustomInput
+                  label="Enter new password"
+                  placeholder="********"
+                  name="password"
+                  type="password"
+                  errors={errors}
+                  touched={touched}
+                />
 
-                  <CustomInput
-                    label="Confirm new password"
-                    placeholder="********"
-                    name="confirmPassword"
-                    type="password"
-                    errors={errors}
-                    touched={touched}
-                  />
+                <CustomInput
+                  label="Confirm new password"
+                  placeholder="********"
+                  name="confirmPassword"
+                  type="password"
+                  errors={errors}
+                  touched={touched}
+                />
 
-                  <CustomButton
-                    type="submit"
-                    mt="1.59rem"
-                    h="3.2rem"
-                    isLoading={isLoading}
-                  >
-                    Continue
-                  </CustomButton>
-                </Form>
-              )}
-            </Formik>
-          </Box>
+                <CustomButton
+                  type="submit"
+                  mt="1.59rem"
+                  h="3.2rem"
+                  isLoading={isLoading}
+                >
+                  Continue
+                </CustomButton>
+              </Form>
+            )}
+          </Formik>
         </Box>
       </Box>
-    </>
+    </Box>
   );
 };
 

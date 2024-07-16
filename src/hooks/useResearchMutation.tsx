@@ -1,9 +1,9 @@
 // hooks/useLogbookMutation.tsx
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "@/utils/axiosInstance";
-import { toast } from "react-toastify";
 import { LogbookPayloadType } from "@/utils/types";
 import { useResearch } from "@/context/ResearchProvider";
+import { toast } from "sonner";
 
 const useResearchMutation = () => {
   const { handleFormSteps, handleFillForm, handlePreview, handleTotalData } =
@@ -17,9 +17,7 @@ const useResearchMutation = () => {
     },
     onSuccess: ({ data }) => {
       if (data) {
-        toast.success("Research Submitted Successfully", {
-          theme: "dark",
-        });
+        toast.success("Research Submitted Successfully");
         handleTotalData();
         handleFormSteps(1);
         handleFillForm(false);

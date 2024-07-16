@@ -8,7 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useState, useRef } from "react";
 
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 const DifferentAction = () => {
   const [err, setErr] = useState<boolean>(false);
@@ -41,9 +41,7 @@ const DifferentAction = () => {
     },
     onSuccess: ({ data }) => {
       if (data) {
-        toast.success("Course Submitted Successfully", {
-          theme: "dark",
-        });
+        toast.success("Course Submitted Successfully");
         handleFormSteps(1);
         handleFillForm(false);
       }
@@ -51,9 +49,7 @@ const DifferentAction = () => {
     },
     onError: (error: { response: { data: { error: string } } }) => {
       const errorMsg = error.response.data.error;
-      toast.error(errorMsg, {
-        theme: "dark",
-      });
+      toast.error(errorMsg);
     },
   });
 

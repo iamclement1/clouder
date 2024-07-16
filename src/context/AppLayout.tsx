@@ -7,7 +7,7 @@ import Footer from "@/components/common/Footer";
 import BackToTop from "@/components/common/BackToTop";
 import { Analytics } from "@vercel/analytics/react";
 import { usePathname } from "next/navigation";
-import { ToastContainer } from "react-toastify";
+import { Toaster } from "sonner";
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -28,18 +28,7 @@ const AppLayout = ({ children }: RootLayoutProps) => {
         <BackToTop />
       </TanstackProvider>
       <Analytics />
-      <ToastContainer
-        position="bottom-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
+      <Toaster position="bottom-right" richColors />
     </Box>
   );
 };

@@ -1,9 +1,9 @@
 // hooks/useQualityMutation.tsx
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "@/utils/axiosInstance";
-import { toast } from "react-toastify";
 import { QualityPayloadType } from "@/utils/types";
 import { useQualityImprovement } from "@/context/QualityImprovement";
+import { toast } from "sonner";
 
 const useQualityMutation = () => {
   const queryClient = useQueryClient();

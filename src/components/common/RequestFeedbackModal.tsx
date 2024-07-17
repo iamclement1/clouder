@@ -58,7 +58,7 @@ export const RequestFeedbackModal = ({
                 <FormLabel>Full Name</FormLabel>
                 <Input
                   placeholder="Enter Full name"
-                  _focus={""}
+                  _focus={{}}
                   name="fullName"
                   value={feedback.fullName}
                   onChange={handleFeedbackChange}
@@ -68,7 +68,7 @@ export const RequestFeedbackModal = ({
                 <FormLabel>Title</FormLabel>
                 <Input
                   placeholder="Title of the project"
-                  _focus={""}
+                  _focus={{}}
                   name="projectTitle"
                   value={feedback.projectTitle}
                   onChange={handleFeedbackChange}
@@ -78,7 +78,7 @@ export const RequestFeedbackModal = ({
                 <FormLabel>Role</FormLabel>
                 <Input
                   placeholder="Role played in the project"
-                  _focus={""}
+                  _focus={{}}
                   name="role"
                   value={feedback.role}
                   onChange={handleFeedbackChange}
@@ -88,7 +88,7 @@ export const RequestFeedbackModal = ({
                 <FormLabel>Email</FormLabel>
                 <Input
                   placeholder="Lecturer Email Address"
-                  _focus={""}
+                  _focus={{}}
                   type="email"
                   name="email"
                   value={feedback.email}

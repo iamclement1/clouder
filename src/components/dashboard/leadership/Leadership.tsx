@@ -1,5 +1,13 @@
 import Typography from "@/components/common/Typograph";
-import { Box, Flex, Icon, ListItem, OrderedList, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Icon,
+  ListItem,
+  OrderedList,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 
@@ -15,6 +23,7 @@ import LeadershipRole from "./LeadershipRole";
 import useLeaderships from "@/hooks/useLeadership";
 import { LeadershipItem } from "@/utils/types";
 import LoadingSkeleton from "@/components/common/Skeleton";
+import RequestFeedbackModal from "@/components/common/RequestFeedbackModal";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
@@ -22,6 +31,12 @@ interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
 const Leadership = () => {
   const { fillForm, handleFillForm, preview, totalData } = useLeadership();
   const { data: leadership, isLoading } = useLeaderships();
+  const [selectedId, setSelectedId] = useState("");
+  const {
+    onOpen: onOpenRequestModal,
+    onClose: onCloseRequestModal,
+    isOpen: isOpenRequestModal,
+  } = useDisclosure();
 
   const leadershipInfo: LeadershipItem[] = leadership?.data.data;
 
@@ -134,23 +149,49 @@ const Leadership = () => {
                                   )
                                 }
                                 cursor={"pointer"}
-                              >{`${item?.title}
-                                                            `}</Text>
-
-                              <Text
-                                bgColor="danger_2"
-                                fontSize="0.75rem"
-                                color="danger_1"
-                                fontWeight="normal"
-                                w="fit-content"
-                                p="0.8rem 1rem"
-                                rounded={"1.35938rem"}
-                                cursor="pointer"
-                                as="a"
-                                href={`/dashboard/leadership/request_feed_back/${item?.id}`}
                               >
-                                Request feedback
+                                {item?.title}
                               </Text>
+
+                              <Flex gap={"10px"}>
+                                <Text
+                                  bgColor="#03A9F4"
+                                  fontSize="0.75rem"
+                                  color="white"
+                                  fontWeight="normal"
+                                  w="fit-content"
+                                  minW="136px"
+                                  p="0.8rem 1rem"
+                                  rounded={"1.35938rem"}
+                                  display="flex"
+                                  alignItems="center"
+                                  justifyContent="center"
+                                  cursor="pointer"
+                                  as="a"
+                                  href={`/dashboard/leadership/request_feed_back/${item?.id}`}
+                                >
+                                  Add feedback
+                                </Text>
+
+                                <Text
+                                  bgColor="white"
+                                  fontSize="0.75rem"
+                                  color="#03A9F4"
+                                  fontWeight="normal"
+                                  w="fit-content"
+                                  p="0.8rem 1rem"
+                                  rounded={"1.35938rem"}
+                                  border={"1px solid #03A9F4"}
+                                  cursor="pointer"
+                                  as="button"
+                                  onClick={() => {
+                                    setSelectedId(item?.id);
+                                    onOpenRequestModal();
+                                  }}
+                                >
+                                  Request feedback
+                                </Text>
+                              </Flex>
                             </ListItem>
                           );
                         })}
@@ -211,6 +252,14 @@ const Leadership = () => {
         />
         {currentPage}
       </Flex>
+
+      {isOpenRequestModal && (
+        <RequestFeedbackModal
+          isOpen={isOpenRequestModal}
+          onClose={onCloseRequestModal}
+          selectedId={selectedId}
+        />
+      )}
     </Box>
   );
 };

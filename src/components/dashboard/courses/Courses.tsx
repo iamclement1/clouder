@@ -21,7 +21,8 @@ import { CourseItem } from "@/utils/types";
 import ReactPaginate from "react-paginate";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import LoadingSkeleton from "@/components/common/Skeleton";
-import RequestFeedbackModal from "./RequestFeedbackModal";
+import RequestFeedbackModal from "@/components/common/RequestFeedbackModal";
+
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
@@ -145,8 +146,12 @@ const Courses = () => {
                                   color="white"
                                   fontWeight="normal"
                                   w="fit-content"
+                                  minW="136px"
                                   p="0.8rem 1rem"
                                   rounded={"1.35938rem"}
+                                  display="flex"
+                                  alignItems="center"
+                                  justifyContent="center"
                                   cursor="pointer"
                                   as="a"
                                   href={`/dashboard/courses/add_feedback/${item?.year}`}
@@ -237,7 +242,7 @@ const Courses = () => {
         <RequestFeedbackModal
           isOpen={isOpen}
           onClose={onClose}
-          courseId={selectedCourseId}
+          selectedId={selectedCourseId}
         />
       )}
     </Box>

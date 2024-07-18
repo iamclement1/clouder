@@ -1,5 +1,13 @@
 import Typography from "@/components/common/Typograph";
-import { Box, Flex, Icon, ListItem, OrderedList, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Icon,
+  ListItem,
+  OrderedList,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 
@@ -16,6 +24,7 @@ import { useResearch } from "@/context/ResearchProvider";
 import useGetResearch from "@/hooks/useGetResearch";
 import LoadingSkeleton from "@/components/common/Skeleton";
 import { ResearchResponseType } from "@/utils/types";
+import RequestFeedbackModal from "@/components/common/RequestFeedbackModal";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
@@ -23,6 +32,12 @@ interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
 const Research = () => {
   const { fillForm, handleFillForm, preview, totalData } = useResearch();
   const { isLoading, data } = useGetResearch();
+  const [selectedId, setSelectedId] = useState("");
+  const {
+    onOpen: onOpenRequestModal,
+    onClose: onCloseRequestModal,
+    isOpen: isOpenRequestModal,
+  } = useDisclosure();
 
   // console.log("error research", error);
 
@@ -133,23 +148,47 @@ const Research = () => {
                                 )
                               }
                               cursor={"pointer"}
-                            >{`${item?.title}
-                                                            `}</Text>
-
-                            <Text
-                              bgColor="danger_2"
-                              fontSize="0.75rem"
-                              color="danger_1"
-                              fontWeight="normal"
-                              w="fit-content"
-                              p="0.8rem 1rem"
-                              rounded={"1.35938rem"}
-                              cursor="pointer"
-                              as="a"
-                              href={`/dashboard/research/request_feed_back/${item?.id}`}
                             >
-                              Request feedback
+                              {item?.title}
                             </Text>
+                            <Flex gap="10px">
+                              <Text
+                                bgColor="#03A9F4"
+                                fontSize="0.75rem"
+                                color="white"
+                                fontWeight="normal"
+                                w="fit-content"
+                                minW="136px"
+                                p="0.8rem 1rem"
+                                rounded={"1.35938rem"}
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="center"
+                                cursor="pointer"
+                                as="a"
+                                href={`/dashboard/research/request_feed_back/${item?.id}`}
+                              >
+                                Add feedback
+                              </Text>
+                              <Text
+                                bgColor="white"
+                                fontSize="0.75rem"
+                                color="#03A9F4"
+                                fontWeight="normal"
+                                w="fit-content"
+                                p="0.8rem 1rem"
+                                rounded={"1.35938rem"}
+                                border={"1px solid #03A9F4"}
+                                cursor="pointer"
+                                as="button"
+                                onClick={() => {
+                                  setSelectedId(item?.id);
+                                  onOpenRequestModal();
+                                }}
+                              >
+                                Request feedback
+                              </Text>
+                            </Flex>
                           </ListItem>
                         );
                       })}
@@ -209,6 +248,13 @@ const Research = () => {
           // hrefAllControls
         />
       </Flex>
+      {isOpenRequestModal && (
+        <RequestFeedbackModal
+          isOpen={isOpenRequestModal}
+          onClose={onCloseRequestModal}
+          selectedId={selectedId}
+        />
+      )}
     </Box>
   );
 };

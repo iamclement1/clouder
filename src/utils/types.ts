@@ -353,4 +353,4 @@ export type UserDataType = {
   role: string;
 };
 
-export type Plan = "trial" | "basic" | "premium" | "infinite";
+export type PlanType = "trial" | "basic" | "premium" | "infinite";

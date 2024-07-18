@@ -16,6 +16,7 @@ const useSignOut = () => {
       sessionStorage.removeItem("token");
       sessionStorage.removeItem("refreshToken");
       sessionStorage.removeItem("role");
+      sessionStorage.removeItem("plan");
 
       deleteCookie("token");
       deleteCookie("refreshToken");

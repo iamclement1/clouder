@@ -12,7 +12,8 @@ import axios from "@/utils/axiosInstance";
 import { useRouter } from "next/navigation";
 import { RegisterFormValues } from "@/utils/types";
 import { useModal } from "@/context/ModalContext";
-import { toast } from "react-toastify";
+import { LOGIN_URL } from "@/config/route";
+import { toast } from "sonner";
 
 const Register: React.FC = () => {
   const [isAccept, setIsAccept] = useState<boolean>(true);
@@ -39,14 +40,12 @@ const Register: React.FC = () => {
           buttonType: "fill",
           buttonText: "Continue",
         });
-        router.push("/auth/login");
+        router.push(LOGIN_URL);
       }
     },
     onError: (error: { response: { data: { message: string } } }) => {
       const errorMsg = error.response.data.message;
-      toast.error(errorMsg, {
-        theme: "dark",
-      });
+      toast.error(errorMsg);
     },
   });
 

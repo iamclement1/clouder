@@ -18,7 +18,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 const UpdateProfile: React.FC = () => {
   const queryClient = useQueryClient();
@@ -142,8 +142,8 @@ const UpdateProfile: React.FC = () => {
                   name="fullName"
                   placeholder="Eg John Doe"
                   type="text"
-                  errors={errors}
-                  touched={touched}
+                  errors={errors as { [key: string]: string | undefined }}
+                  touched={touched as { [key: string]: boolean | undefined }}
                 />
 
                 {/* Email Address */}
@@ -151,8 +151,8 @@ const UpdateProfile: React.FC = () => {
                   label="Email address"
                   name="email"
                   type="email"
-                  errors={errors}
-                  touched={touched}
+                  errors={errors as { [key: string]: string | undefined }}
+                  touched={touched as { [key: string]: boolean | undefined }}
                   disabled={true}
                 />
 
@@ -167,8 +167,8 @@ const UpdateProfile: React.FC = () => {
                     name="phone"
                     placeholder="+234"
                     type="text"
-                    errors={errors}
-                    touched={touched}
+                    errors={errors as { [key: string]: string | undefined }}
+                    touched={touched as { [key: string]: boolean | undefined }}
                   />
                 </Flex>
               </Stack>

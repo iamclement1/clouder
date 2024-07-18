@@ -1,7 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 import api from "@/utils/axiosInstance";
+import { HOME_URL } from "@/config/route";
+import { toast } from "sonner";
+import { deleteCookie } from "cookies-next";
 
 const useSignOut = () => {
   const router = useRouter();
@@ -15,16 +17,17 @@ const useSignOut = () => {
       sessionStorage.removeItem("refreshToken");
       sessionStorage.removeItem("role");
 
-      toast.success(data.message && "Logout Successful", {
-        theme: "dark",
-      });
-      router.push("/");
+      deleteCookie("token");
+      deleteCookie("refreshToken");
+      deleteCookie("role");
+      deleteCookie("plan");
+
+      toast.success(data.message && "Logout Successful");
+      router.push(HOME_URL);
     },
     onError: (error: { response: { data: { error: string } } }) => {
       const errorMsg = error.response.data.error;
-      toast.error(errorMsg, {
-        theme: "dark",
-      });
+      toast.error(errorMsg);
     },
   });
 

@@ -7,10 +7,11 @@ import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
 import { useMutation } from "@tanstack/react-query";
 import axios from "@/utils/axiosInstance";
-import { toast } from "react-toastify";
 import Seo from "../common/SEO";
 import { useModal } from "@/context/ModalContext";
 import { useRouter } from "next/navigation";
+import { LOGIN_URL } from "@/config/route";
+import { toast } from "sonner";
 
 interface FormValues {
   email: string;
@@ -34,14 +35,12 @@ const ForgetPasword: React.FC = () => {
           buttonType: "fill",
           buttonText: "Continue",
         });
-        router.push("/auth/login");
+        router.push(LOGIN_URL);
       }
     },
     onError: (error: { response: { data: { message: string } } }) => {
       const errorMsg = error.response.data.message;
-      toast.error(errorMsg, {
-        theme: "dark",
-      });
+      toast.error(errorMsg);
     },
   });
 

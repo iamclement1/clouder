@@ -1,13 +1,13 @@
 import { getStorageAuthItems } from "@/utils/lib";
 import { redirect, usePathname } from "next/navigation";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 const AuthGuard = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const userAuthToken = getStorageAuthItems();
 
   // Check if user is logged in
-  if (!userAuthToken || !userAuthToken.token) {
+  if (!userAuthToken?.token) {
     // If not logged in, redirect to login page
     return redirect("/auth/login");
   }

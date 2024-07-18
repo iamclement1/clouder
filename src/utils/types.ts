@@ -352,3 +352,5 @@ export type UserDataType = {
   status: string;
   role: string;
 };
+
+export type Plan = "trial" | "basic" | "premium" | "infinite";

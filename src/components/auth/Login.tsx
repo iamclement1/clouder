@@ -7,18 +7,10 @@ import Typography from "../common/Typograph";
 import CustomButton from "../common/CustomButton";
 import LoginWithIcon from "./LoginWithIcon";
 import { LoginFormValues } from "@/utils/types";
-import { useMutation } from "@tanstack/react-query";
-import api from "@/utils/axiosInstance";
-import { useRouter } from "next/navigation";
 import Seo from "../common/SEO";
 import { Metadata } from "next";
-import {
-  DASHBOARD_URL,
-  FORGET_PASSWORD_URL,
-  SUPERVISOR_DASHBOARD_URL,
-} from "@/config/route";
-import { toast } from "sonner";
-import { setCookie } from "cookies-next";
+import { FORGET_PASSWORD_URL, REGISTER_URL } from "@/config/route";
+import useLoginMutation from "@/hooks/useLoginMutation";
 
 export const metadata: Metadata = {
   title: "Login",
@@ -28,41 +20,7 @@ export const metadata: Metadata = {
 };
 
 const Login: React.FC = () => {
-  const router = useRouter();
-
-  const { mutate, isLoading } = useMutation({
-    mutationFn: (user: LoginFormValues) => {
-      return api.post("/auth/signin", user);
-    },
-    onSuccess: ({ data }) => {
-      const userToken = data.access;
-      const refreshToken = data.refresh;
-      const role = data.role;
-      const plan = data.plan;
-
-      setCookie("token", JSON.stringify(userToken));
-      setCookie("refreshToken", JSON.stringify(refreshToken));
-      setCookie("role", JSON.stringify(role));
-      setCookie("plan", JSON.stringify(plan));
-
-      sessionStorage.setItem("token", userToken);
-      sessionStorage.setItem("refreshToken", refreshToken);
-      sessionStorage.setItem("role", role);
-      sessionStorage.setItem("plan", plan);
-
-      if (role === "client") {
-        router.push(DASHBOARD_URL);
-      } else {
-        router.push(SUPERVISOR_DASHBOARD_URL);
-      }
-      toast.success("Login Successful");
-    },
-    onError: (error: { response: { data: { error: string } } }) => {
-      console.log("error:", error);
-      const errorMsg = error.response.data.error;
-      toast.error(errorMsg);
-    },
-  });
+  const { mutate, isLoading } = useLoginMutation(); // Use the custom hook
 
   return (
     <Box px="16px">
@@ -158,7 +116,7 @@ const Login: React.FC = () => {
             Don’t have an account?
             <Text
               as="a"
-              href="/auth/register"
+              href={REGISTER_URL}
               display="inline"
               fontSize={"0.75rem"}
               color="black_2"

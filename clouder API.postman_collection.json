@@ -1,0 +1,2217 @@
+{
+	"info": {
+		"_postman_id": "5783408f-01d7-44c0-a7f5-fe8e2af468cf",
+		"name": "clouder API",
+		"description": "This is the API for the medical app, clouder.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11510710",
+		"_collection_link": "https://winter-eclipse-489063.postman.co/workspace/Clouder-API~b9ce7130-7154-46c1-9779-88377630c915/collection/11510710-5783408f-01d7-44c0-a7f5-fe8e2af468cf?action=share&source=collection_link&creator=11510710"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"blessedmarcel1@gmail.com\",\r\n    \"password\": \"vanlenny\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/auth/signin",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullName\": \"Lennox Charles\",\r\n    \"email\": \"yngcharliebankz2@gmail.com\",\r\n    \"phone\": \"09124802297\",\r\n    \"location\": \"Lagos\",\r\n    \"password\": \"vanlenny\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/auth/signup",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmMGFjYjllZWNmNjFlY2I2NTc3NmFjIiwiZnVsbE5hbWUiOiJMZW5ub3ggQ2hhcmxlcyIsImVtYWlsIjoieW5nY2hhcmxpZWJhbmt6MkBnbWFpbC5jb20iLCJwaG9uZSI6IjA5MTI0ODAyMjk3IiwibG9jYXRpb24iOiJMYWdvcyIsInJvbGUiOiJjbGllbnQiLCJzdGF0dXMiOiJhY3RpdmUiLCJlbWFpbFN0YXR1cyI6InZlcmlmaWVkIiwicGxhbiI6ImluZmluaXRlIiwic3Vic2NyaXB0aW9ucyI6MH0sImlzc3VlciI6ImNsb3VkZXIiLCJpYXQiOjE3MTA2MDU0MjcsImV4cCI6MTcxMDc3ODIyN30.jovzQKZUCMkb3lPsZbLmqsIJmmlyCKUsiKgMFfN0En0\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/auth/refresh",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pricing",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER}}/pricing",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"pricing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgot password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"lenny@dev.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/auth/forgot_password",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"auth",
+								"forgot_password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resend link",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "reset password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"\",\r\n    \"password\": \"vanlenny\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/auth/reset_password",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"auth",
+								"reset_password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVmMGFjYjllZWNmNjFlY2I2NTc3NmFjIiwiZW1haWwiOiJ5bmdjaGFybGllYmFua3oyQGdtYWlsLmNvbSIsImZ1bGxOYW1lIjoiTGVubm94IENoYXJsZXMiLCJwaG9uZSI6IjA5MTI0ODAyMjk3IiwibG9jYXRpb24iOiJMYWdvcyIsInJvbGUiOiJjbGllbnQiLCJzdGF0dXMiOiJhY3RpdmUiLCJlbWFpbFN0YXR1cyI6InZlcmlmaWVkIiwicGxhbiI6ImluZmluaXRlIiwic3Vic2NyaXB0aW9ucyI6MH0sImlzc3VlciI6ImNsb3VkZXIiLCJpYXQiOjE3MTA2MDU1MjAsImV4cCI6MTcxMDYwOTEyMH0.oVdSIB8nDrzf7AcPad8Gynvl5npgJifUB8mfkaQSQzY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER}}/user/profile",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signout",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/user/signout",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"user",
+								"signout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU1MzUyNTlmMmExYjMwMDMyODRlN2ZmIiwiZnVsbE5hbWUiOiJMZW5ub3ggQ2hhcmxlcyIsImVtYWlsIjoieW5nY2hhcmxpZWJhbmt6MkBnbWFpbC5jb20iLCJwaG9uZSI6IjA5MTI0ODAyMjk3IiwibG9jYXRpb24iOiJBYmlhIn0sImlzc3VlciI6ImNsb3VkZXIiLCJpYXQiOjE3MDExNzMzNTQsImV4cCI6MTcwMTE3Njk1NH0.5Ov3qVPIQcaKm1rXfN4CDho-LoErsORQKVGDFwXxnaM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "Lennox Charlessssss",
+									"type": "text"
+								},
+								{
+									"key": "location",
+									"value": "Lagos",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "09124802297",
+									"type": "text"
+								},
+								{
+									"key": "userImg",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/user/update",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "qualification",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"education\": [\r\n\t\t{\r\n\t\t\t\"degree\": \"B.Sc\",\r\n\t\t\t\"year\": \"2053\",\r\n\t\t\t\"institution\": \"kwasu\",\r\n\t\t\t\"certificate\": \"second-class\"\r\n\t\t},\r\n        {\r\n\t\t\t\"degree\": \"B.Sc\",\r\n\t\t\t\"year\": \"2043\",\r\n\t\t\t\"institution\": \"kwasu\",\r\n\t\t\t\"certificate\": \"second-class\"\r\n\t\t}\r\n\t],\r\n\t\"challenges\": \"None to say\",\r\n\t\"keyPositives\": \"All positives!\",\r\n\t\"doDifferently\": \"I will be better\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/qualifications",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"qualifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/qualifications/650a27d1c421fb00328a866f",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"qualifications",
+								"650a27d1c421fb00328a866f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetch",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/qualifications",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"qualifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"education\": [\r\n\t\t{\r\n\t\t\t\"degree\": \"B.Sc\",\r\n\t\t\t\"year\": \"2022\",\r\n\t\t\t\"institution\": \"kwasu\",\r\n\t\t\t\"certificate\": \"second-upper\"\r\n\t\t},\r\n        {\r\n\t\t\t\"degree\": \"B.Sc\",\r\n\t\t\t\"year\": \"2023\",\r\n\t\t\t\"institution\": \"kwasu\",\r\n\t\t\t\"certificate\": \"second-class\"\r\n\t\t}\r\n\t],\r\n\t\"challenges\": \"None to say\",\r\n\t\"keyPositives\": \"All positives!\",\r\n\t\"doDifferently\": \"I will be better\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/qualifications/650a27d1c421fb00328a866f",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"qualifications",
+								"650a27d1c421fb00328a866f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/qualifications/650a27d1c421fb00328a866f",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"qualifications",
+								"650a27d1c421fb00328a866f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "logbook",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "action",
+									"value": "Observe",
+									"type": "text"
+								},
+								{
+									"key": "firstTitle",
+									"value": "My First",
+									"type": "text"
+								},
+								{
+									"key": "firstYear",
+									"value": "2001",
+									"type": "text"
+								},
+								{
+									"key": "secondTitle",
+									"value": "My second",
+									"type": "text"
+								},
+								{
+									"key": "secondYear",
+									"value": "2002",
+									"type": "text"
+								},
+								{
+									"key": "summary",
+									"value": "This is a summary!",
+									"type": "text"
+								},
+								{
+									"key": "challenges",
+									"value": "These are challenges",
+									"type": "text"
+								},
+								{
+									"key": "keyPositives",
+									"value": "These are positives to know",
+									"type": "text"
+								},
+								{
+									"key": "doDifferently",
+									"value": "What we will do differently",
+									"type": "text"
+								},
+								{
+									"key": "secondDocument",
+									"type": "file",
+									"src": "test.pdf"
+								},
+								{
+									"key": "firstDocument",
+									"type": "file",
+									"src": "test.pdf"
+								},
+								{
+									"key": "logBookType",
+									"value": "medical",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/logbooks",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"logbooks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/logbooks/65e9fee6f2a5d2a508372ca3",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"logbooks",
+								"65e9fee6f2a5d2a508372ca3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetch",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/logbooks",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"logbooks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "firstTitle",
+									"value": "This is first",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/logbooks/6514c90d7251380033e9ba78",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"logbooks",
+								"6514c90d7251380033e9ba78"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/logbooks/6514c90d7251380033e9ba78",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"logbooks",
+								"6514c90d7251380033e9ba78"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "course",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "courseTitle",
+									"value": "This is title",
+									"type": "text"
+								},
+								{
+									"key": "institution",
+									"value": "KWASU",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "2023",
+									"type": "text"
+								},
+								{
+									"key": "certificateNo",
+									"value": "12345678",
+									"type": "text"
+								},
+								{
+									"key": "challenges",
+									"value": "Suffer too much",
+									"type": "text"
+								},
+								{
+									"key": "keyPositives",
+									"value": "Nothing oh",
+									"type": "text"
+								},
+								{
+									"key": "doDifferently",
+									"value": "The same the same",
+									"type": "text"
+								},
+								{
+									"key": "document",
+									"type": "file",
+									"src": "test.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/courses",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "institution",
+									"value": "KWASU-ASUU",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/courses/651830735e484c32d8bbd8c4",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"courses",
+								"651830735e484c32d8bbd8c4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER}}/courses/651830735e484c32d8bbd8c4",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"courses",
+								"651830735e484c32d8bbd8c4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER}}/courses",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER}}/courses/65182e2fb9a82e26bc18cb4d",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"courses",
+								"65182e2fb9a82e26bc18cb4d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "leadership",
+			"item": [
+				{
+					"name": "fetch",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/leaderships",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"leaderships"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/leaderships/659961f8a6257e4c099d9fbc",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"leaderships",
+								"659961f8a6257e4c099d9fbc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/leaderships/659961f8a6257e4c099d9fbc",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"leaderships",
+								"659961f8a6257e4c099d9fbc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"University Prefect\",\r\n    \"startYear\": \"27/12/2023\",\r\n    \"endYear\": \"27/12/2024\",\r\n    \"challenges\": \"none\",\r\n    \"keyPositives\": \"none\",\r\n    \"doDifferently\": \"none\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/leaderships/65995d249bf56140ba900704",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"leaderships",
+								"65995d249bf56140ba900704"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"School Prefect\",\n    \"startYear\": \"27/12/2023\",\n    \"endYear\": \"27/12/2024\",\n    \"challenges\": \"none\",\n    \"keyPositives\": \"none\",\n    \"doDifferently\": \"none\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/leaderships",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"leaderships"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "quality improvement",
+			"item": [
+				{
+					"name": "fetch",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/quality",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"quality"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/quality/659967000043dc54fb15b21b",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"quality",
+								"659967000043dc54fb15b21b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/qualifications/650a27d1c421fb00328a866f",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"qualifications",
+								"650a27d1c421fb00328a866f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"This is title and fun\",\r\n    \"year\": \"27/19/2024\",\r\n    \"details\": \"This is the details\",\r\n    \"challenges\": \"No challenges\",\r\n    \"keyPositives\": \"Nothing oh\",\r\n    \"doDifferently\": \"The same\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/quality/659967000043dc54fb15b21b",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"quality",
+								"659967000043dc54fb15b21b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"This is title\",\r\n    \"year\": \"27/19/2024\",\r\n    \"details\": \"This is the details\",\r\n    \"challenges\": \"No challenges\",\r\n    \"keyPositives\": \"Nothing oh\",\r\n    \"doDifferently\": \"The same\",\r\n    \"type\": \"morbidity\"\r\n}\r\n// type: isIn: [\"morbidity\", \"clinical\", \"case\"],",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/quality",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"quality"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "dashboard",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVhNjM2ODJhYjhmYjIwMDQzMzQxZDI1IiwiZnVsbE5hbWUiOiJMZW5ub3ggQ2hhcmxlcyIsImVtYWlsIjoieW5nY2hhcmxpZWJhbmt6MkBnbWFpbC5jb20iLCJwaG9uZSI6IjA5MTI0ODAyMjk3IiwibG9jYXRpb24iOiJMYWdvcyIsInJvbGUiOiJjbGllbnQiLCJzdGF0dXMiOiJhY3RpdmUiLCJlbWFpbFN0YXR1cyI6InZlcmlmaWVkIn0sImlzc3VlciI6ImNsb3VkZXIiLCJpYXQiOjE3MDUzOTI0MjUsImV4cCI6MTcwNTM5NjAyNX0.sasXm-cfEdfYEAuxYMLnwIMJV0-6Cnb-tCqldPyZ90Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER}}/admin/dashboard",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"admin",
+								"dashboard"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER}}/admin/dashboard",
+									"host": [
+										"{{SERVER}}"
+									],
+									"path": [
+										"admin",
+										"dashboard"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 03 Apr 2024 16:44:38 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "CF-Ray",
+									"value": "86ea86432d6d0720-CPT"
+								},
+								{
+									"key": "CF-Cache-Status",
+									"value": "DYNAMIC"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"83-BESQLgGdfOkOZE7Ref12boJy9kU\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding, Accept-Encoding"
+								},
+								{
+									"key": "ratelimit-limit",
+									"value": "1000"
+								},
+								{
+									"key": "ratelimit-remaining",
+									"value": "997"
+								},
+								{
+									"key": "ratelimit-reset",
+									"value": "115"
+								},
+								{
+									"key": "rndr-id",
+									"value": "fbd47fb6-79e6-4b30"
+								},
+								{
+									"key": "x-exit",
+									"value": "success"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Sails <sailsjs.com>"
+								},
+								{
+									"key": "x-render-origin-server",
+									"value": "Render"
+								},
+								{
+									"key": "Server",
+									"value": "cloudflare"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "alt-svc",
+									"value": "h3=\":443\"; ma=86400"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"message\": \"Admin dashboard fetched successfully\",\n    \"data\": {\n        \"totalUsers\": 4,\n        \"totalActiveUsers\": 4,\n        \"totalVerifiedUsers\": 4\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVhNThhYmFkMDYwNzUwZDE0Y2EwYTcxIiwiZnVsbE5hbWUiOiJMZW5ub3ggQ2hhcmxlcyIsImVtYWlsIjoieW5nY2hhcmxpZWJhbmt6MkBnbWFpbC5jb20iLCJwaG9uZSI6IjA5MTI0ODAyMjk3IiwibG9jYXRpb24iOiJMYWdvcyIsInJvbGUiOiJzdXBlcnZpc29yIiwic3RhdHVzIjoiYWN0aXZlIiwiZW1haWxTdGF0dXMiOiJ2ZXJpZmllZCJ9LCJpc3N1ZXIiOiJzYWlscyBjbG91ZGVyIiwiaWF0IjoxNzA1MzQ5NjUwLCJleHAiOjE3MDUzNTMyNTB9.qlDK70ROMaMoy8jY0yiboLb1aFr6hqN4R6eDDqRvRIU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER}}/admin/users",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVhNThhYmFkMDYwNzUwZDE0Y2EwYTcxIiwiZnVsbE5hbWUiOiJMZW5ub3ggQ2hhcmxlcyIsImVtYWlsIjoieW5nY2hhcmxpZWJhbmt6MkBnbWFpbC5jb20iLCJwaG9uZSI6IjA5MTI0ODAyMjk3IiwibG9jYXRpb24iOiJMYWdvcyIsInJvbGUiOiJzdXBlcnZpc29yIiwic3RhdHVzIjoiYWN0aXZlIiwiZW1haWxTdGF0dXMiOiJ2ZXJpZmllZCJ9LCJpc3N1ZXIiOiJzYWlscyBjbG91ZGVyIiwiaWF0IjoxNzA1MzQ5NjUwLCJleHAiOjE3MDUzNTMyNTB9.qlDK70ROMaMoy8jY0yiboLb1aFr6hqN4R6eDDqRvRIU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/admin/users/65a595764df6bf34f8d783b6/status",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"admin",
+								"users",
+								"65a595764df6bf34f8d783b6",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVhNThhYmFkMDYwNzUwZDE0Y2EwYTcxIiwiZnVsbE5hbWUiOiJMZW5ub3ggQ2hhcmxlcyIsImVtYWlsIjoieW5nY2hhcmxpZWJhbmt6MkBnbWFpbC5jb20iLCJwaG9uZSI6IjA5MTI0ODAyMjk3IiwibG9jYXRpb24iOiJMYWdvcyIsInJvbGUiOiJzdXBlcnZpc29yIiwic3RhdHVzIjoiYWN0aXZlIiwiZW1haWxTdGF0dXMiOiJ2ZXJpZmllZCJ9LCJpc3N1ZXIiOiJzYWlscyBjbG91ZGVyIiwiaWF0IjoxNzA1MzQ5NjUwLCJleHAiOjE3MDUzNTMyNTB9.qlDK70ROMaMoy8jY0yiboLb1aFr6hqN4R6eDDqRvRIU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"role\": \"supervisor\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/admin/users/65a595764df6bf34f8d783b6/role",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"admin",
+								"users",
+								"65a595764df6bf34f8d783b6",
+								"role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVhNThhYmFkMDYwNzUwZDE0Y2EwYTcxIiwiZnVsbE5hbWUiOiJMZW5ub3ggQ2hhcmxlcyIsImVtYWlsIjoieW5nY2hhcmxpZWJhbmt6MkBnbWFpbC5jb20iLCJwaG9uZSI6IjA5MTI0ODAyMjk3IiwibG9jYXRpb24iOiJMYWdvcyIsInJvbGUiOiJzdXBlcnZpc29yIiwic3RhdHVzIjoiYWN0aXZlIiwiZW1haWxTdGF0dXMiOiJ2ZXJpZmllZCJ9LCJpc3N1ZXIiOiJzYWlscyBjbG91ZGVyIiwiaWF0IjoxNzA1MzQ5NjUwLCJleHAiOjE3MDUzNTMyNTB9.qlDK70ROMaMoy8jY0yiboLb1aFr6hqN4R6eDDqRvRIU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailStatus\": \"verified\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/admin/users/65a595764df6bf34f8d783b6/verify",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"admin",
+								"users",
+								"65a595764df6bf34f8d783b6",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "teaching",
+			"item": [
+				{
+					"name": "fetch",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVhNjM2ODJhYjhmYjIwMDQzMzQxZDI1IiwiZnVsbE5hbWUiOiJMZW5ub3ggQ2hhcmxlcyIsImVtYWlsIjoieW5nY2hhcmxpZWJhbmt6MkBnbWFpbC5jb20iLCJwaG9uZSI6IjA5MTI0ODAyMjk3IiwibG9jYXRpb24iOiJMYWdvcyIsInJvbGUiOiJzdXBlcnZpc29yIiwic3RhdHVzIjoiYWN0aXZlIiwiZW1haWxTdGF0dXMiOiJ2ZXJpZmllZCIsInBsYW4iOiJiYXNpYyJ9LCJpc3N1ZXIiOiJzYWlscyBjbG91ZGVyIiwiaWF0IjoxNzA5MTUwMjUxLCJleHAiOjE3MDkxNTM4NTF9.gQOsWKwrvuYdZuxY4vpWBa1yDIcE8A7rU-16nkVIxYE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/teaching",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"teaching"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVhNjM2ODJhYjhmYjIwMDQzMzQxZDI1IiwiZnVsbE5hbWUiOiJMZW5ub3ggQ2hhcmxlcyIsImVtYWlsIjoieW5nY2hhcmxpZWJhbmt6MkBnbWFpbC5jb20iLCJwaG9uZSI6IjA5MTI0ODAyMjk3IiwibG9jYXRpb24iOiJMYWdvcyIsInJvbGUiOiJzdXBlcnZpc29yIiwic3RhdHVzIjoiYWN0aXZlIiwiZW1haWxTdGF0dXMiOiJ2ZXJpZmllZCIsInBsYW4iOiJiYXNpYyJ9LCJpc3N1ZXIiOiJzYWlscyBjbG91ZGVyIiwiaWF0IjoxNzA5MTUwMjUxLCJleHAiOjE3MDkxNTM4NTF9.gQOsWKwrvuYdZuxY4vpWBa1yDIcE8A7rU-16nkVIxYE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/teaching/65df907b3e7904668b3f6ec1",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"teaching",
+								"65df907b3e7904668b3f6ec1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/teaching/659961f8a6257e4c099d9fbc",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"teaching",
+								"659961f8a6257e4c099d9fbc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVhNjM2ODJhYjhmYjIwMDQzMzQxZDI1IiwiZnVsbE5hbWUiOiJMZW5ub3ggQ2hhcmxlcyIsImVtYWlsIjoieW5nY2hhcmxpZWJhbmt6MkBnbWFpbC5jb20iLCJwaG9uZSI6IjA5MTI0ODAyMjk3IiwibG9jYXRpb24iOiJMYWdvcyIsInJvbGUiOiJzdXBlcnZpc29yIiwic3RhdHVzIjoiYWN0aXZlIiwiZW1haWxTdGF0dXMiOiJ2ZXJpZmllZCIsInBsYW4iOiJiYXNpYyJ9LCJpc3N1ZXIiOiJzYWlscyBjbG91ZGVyIiwiaWF0IjoxNzA5MTUwMjUxLCJleHAiOjE3MDkxNTM4NTF9.gQOsWKwrvuYdZuxY4vpWBa1yDIcE8A7rU-16nkVIxYE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "This is title",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "10/20/2024",
+									"type": "text"
+								},
+								{
+									"key": "qualificationYear",
+									"value": "10/20/2024",
+									"type": "text"
+								},
+								{
+									"key": "summary",
+									"value": "This is summary",
+									"type": "text"
+								},
+								{
+									"key": "keyTakeaway",
+									"value": "This is key takeaway",
+									"type": "text"
+								},
+								{
+									"key": "document",
+									"type": "file",
+									"src": "/C:/Users/USER/Downloads/download.htm"
+								},
+								{
+									"key": "qualificationType",
+									"value": "B.sc",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/teaching",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"teaching"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVhNjM2ODJhYjhmYjIwMDQzMzQxZDI1IiwiZnVsbE5hbWUiOiJMZW5ub3ggQ2hhcmxlcyIsImVtYWlsIjoieW5nY2hhcmxpZWJhbmt6MkBnbWFpbC5jb20iLCJwaG9uZSI6IjA5MTI0ODAyMjk3IiwibG9jYXRpb24iOiJMYWdvcyIsInJvbGUiOiJzdXBlcnZpc29yIiwic3RhdHVzIjoiYWN0aXZlIiwiZW1haWxTdGF0dXMiOiJ2ZXJpZmllZCIsInBsYW4iOiJiYXNpYyJ9LCJpc3N1ZXIiOiJzYWlscyBjbG91ZGVyIiwiaWF0IjoxNzA5MTUwMjUxLCJleHAiOjE3MDkxNTM4NTF9.gQOsWKwrvuYdZuxY4vpWBa1yDIcE8A7rU-16nkVIxYE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "This is titles",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "10/20/2024",
+									"type": "text"
+								},
+								{
+									"key": "qualificationYear",
+									"value": "10/20/2024",
+									"type": "text"
+								},
+								{
+									"key": "summary",
+									"value": "This is summary",
+									"type": "text"
+								},
+								{
+									"key": "keyTakeaway",
+									"value": "This is key takeaway",
+									"type": "text"
+								},
+								{
+									"key": "document",
+									"type": "file",
+									"src": "/C:/Users/USER/Downloads/download.htm"
+								},
+								{
+									"key": "qualificationType",
+									"value": "B.sc",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/teaching/65df907b3e7904668b3f6ec1",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"teaching",
+								"65df907b3e7904668b3f6ec1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "research",
+			"item": [
+				{
+					"name": "fetch",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVlYTIyODIyZGI3Yzk0NDhlMWZmYzI4IiwiZnVsbE5hbWUiOiJMZW5ub3ggQ2hhcmxlcyIsImVtYWlsIjoieW5nY2hhcmxpZWJhbmt6MkBnbWFpbC5jb20iLCJwaG9uZSI6IjA5MTI0ODAyMjk3IiwibG9jYXRpb24iOiJMYWdvcyIsInJvbGUiOiJjbGllbnQiLCJzdGF0dXMiOiJhY3RpdmUiLCJlbWFpbFN0YXR1cyI6InZlcmlmaWVkIiwicGxhbiI6ImluZmluaXRlIn0sImlzc3VlciI6ImNsb3VkZXIiLCJpYXQiOjE3MTAyNjMyNTcsImV4cCI6MTcxMDI2Njg1N30.U5TqINjfADSyVEyMoUDqUFSAAbBNDEZhaX7zF6Q-5vM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/research",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"research"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVhNjM2ODJhYjhmYjIwMDQzMzQxZDI1IiwiZnVsbE5hbWUiOiJMZW5ub3ggQ2hhcmxlcyIsImVtYWlsIjoieW5nY2hhcmxpZWJhbmt6MkBnbWFpbC5jb20iLCJwaG9uZSI6IjA5MTI0ODAyMjk3IiwibG9jYXRpb24iOiJMYWdvcyIsInJvbGUiOiJzdXBlcnZpc29yIiwic3RhdHVzIjoiYWN0aXZlIiwiZW1haWxTdGF0dXMiOiJ2ZXJpZmllZCIsInBsYW4iOiJiYXNpYyJ9LCJpc3N1ZXIiOiJzYWlscyBjbG91ZGVyIiwiaWF0IjoxNzA5MTUwMjUxLCJleHAiOjE3MDkxNTM4NTF9.gQOsWKwrvuYdZuxY4vpWBa1yDIcE8A7rU-16nkVIxYE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/research/65df953a90f91820dd99e363",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"research",
+								"65df953a90f91820dd99e363"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/research/65df953a90f91820dd99e363",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"research",
+								"65df953a90f91820dd99e363"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVlYTIyODIyZGI3Yzk0NDhlMWZmYzI4IiwiZnVsbE5hbWUiOiJMZW5ub3ggQ2hhcmxlcyIsImVtYWlsIjoieW5nY2hhcmxpZWJhbmt6MkBnbWFpbC5jb20iLCJwaG9uZSI6IjA5MTI0ODAyMjk3IiwibG9jYXRpb24iOiJMYWdvcyIsInJvbGUiOiJjbGllbnQiLCJzdGF0dXMiOiJhY3RpdmUiLCJlbWFpbFN0YXR1cyI6InZlcmlmaWVkIiwicGxhbiI6ImluZmluaXRlIn0sImlzc3VlciI6ImNsb3VkZXIiLCJpYXQiOjE3MTAyNjI3MjIsImV4cCI6MTcxMDI2NjMyMn0.NTUX1IJE6CoS5fRJnHv5ZRtGIu-PwRzGPtw5GfgyGEE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"This is title\",\r\n    \"year\": \"10/10/2024\",\r\n    \"authors\": [\"Lennox\", \"Charles\"],\r\n    \"summary\": \"This is summary\",\r\n    \"findings\": \"These are lessons learnt\",\r\n    \"area\": \"Area to focus\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/research",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"research"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVhNjM2ODJhYjhmYjIwMDQzMzQxZDI1IiwiZnVsbE5hbWUiOiJMZW5ub3ggQ2hhcmxlcyIsImVtYWlsIjoieW5nY2hhcmxpZWJhbmt6MkBnbWFpbC5jb20iLCJwaG9uZSI6IjA5MTI0ODAyMjk3IiwibG9jYXRpb24iOiJMYWdvcyIsInJvbGUiOiJzdXBlcnZpc29yIiwic3RhdHVzIjoiYWN0aXZlIiwiZW1haWxTdGF0dXMiOiJ2ZXJpZmllZCIsInBsYW4iOiJiYXNpYyJ9LCJpc3N1ZXIiOiJzYWlscyBjbG91ZGVyIiwiaWF0IjoxNzA5MTUwMjUxLCJleHAiOjE3MDkxNTM4NTF9.gQOsWKwrvuYdZuxY4vpWBa1yDIcE8A7rU-16nkVIxYE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"This is titles\",\r\n    \"year\": \"10/10/2024\",\r\n    \"authors\": [\"Lennox\", \"Charles\"],\r\n    \"summary\": \"This is summary\",\r\n    \"findings\": \"These are lessons learnt\",\r\n    \"area\": \"Area to focus\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/research/65df953a90f91820dd99e363",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"research",
+								"65df953a90f91820dd99e363"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "feedback",
+			"item": [
+				{
+					"name": "request feedback",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Lennox Charles\",\r\n    \"title\": \"Professor\",\r\n    \"role\": \"Lecturer\",\r\n    // \"email\": \"lennyaiko17@gmail.com\"\r\n    \"email\": \"iamnnamdiclement@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/feedbacks/668c3d83149585c5fa28e6fc?option=courses",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"feedbacks",
+								"668c3d83149585c5fa28e6fc"
+							],
+							"query": [
+								{
+									"key": "option",
+									"value": "courses"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "submit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"feedback\": \"This is my feedback\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/feedbacks/submit/668c3d83149585c5fa28e6fc?option=courses",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"feedbacks",
+								"submit",
+								"668c3d83149585c5fa28e6fc"
+							],
+							"query": [
+								{
+									"key": "option",
+									"value": "courses"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "fetch feedback",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER}}/feedbacks/668c3d83149585c5fa28e6fc?option=courses",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"feedbacks",
+								"668c3d83149585c5fa28e6fc"
+							],
+							"query": [
+								{
+									"key": "option",
+									"value": "courses"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY4YzNiZTYxNDk1ODVjNWZhMjhlNmY5IiwiZnVsbE5hbWUiOiJMZW5ub3ggQ2hhcmxlcyIsImVtYWlsIjoieW5nY2hhcmxpZWJhbmt6MkBnbWFpbC5jb20iLCJwaG9uZSI6IjA5MTI0ODAyMjk3IiwibG9jYXRpb24iOiJMYWdvcyIsInJvbGUiOiJjbGllbnQiLCJzdGF0dXMiOiJhY3RpdmUiLCJlbWFpbFN0YXR1cyI6InZlcmlmaWVkIiwicGxhbiI6InRyaWFsIiwic3Vic2NyaXB0aW9ucyI6MH0sImlzc3VlciI6ImNsb3VkZXIiLCJpYXQiOjE3MjA5NzEyMTksImV4cCI6MTcyMDk3NDgxOX0.8JVKd2PNDknJM9bHO-dn20oYYZ2g-IEDGLpre5ai_wc",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "SERVER",
+			"value": "https://clouder-lkvb.onrender.com",
+			"type": "string"
+		}
+	]
+}

@@ -1,5 +1,13 @@
 import Typography from "@/components/common/Typograph";
-import { Box, Flex, Icon, ListItem, OrderedList, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Icon,
+  ListItem,
+  OrderedList,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 
@@ -15,12 +23,19 @@ import useGetTeaching from "@/hooks/useGetTeaching";
 import LoadingSkeleton from "@/components/common/Skeleton";
 import { TeachingResType } from "@/utils/types";
 import { toast } from "sonner";
+import RequestFeedbackModal from "@/components/common/RequestFeedbackModal";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
 
 const Teaching = () => {
   const { fillForm, handleFillForm, preview, totalData } = useTeaching();
+  const [selectedId, setSelectedId] = useState("");
+  const {
+    onOpen: onOpenRequestModal,
+    onClose: onCloseRequestModal,
+    isOpen: isOpenRequestModal,
+  } = useDisclosure();
 
   const router = useRouter();
   let isErrorShown = false;
@@ -136,20 +151,44 @@ const Teaching = () => {
                               >{`${item?.title}
                                                             `}</Text>
 
-                              <Text
-                                bgColor="danger_2"
-                                fontSize="0.75rem"
-                                color="danger_1"
-                                fontWeight="normal"
-                                w="fit-content"
-                                p="0.8rem 1rem"
-                                rounded={"1.35938rem"}
-                                cursor="pointer"
-                                as="a"
-                                href={`/dashboard/teaching/request_feed_back/${item?.id}`}
-                              >
-                                Request feedback
-                              </Text>
+                              <Flex gap="10px">
+                                <Text
+                                  bgColor="#03A9F4"
+                                  fontSize="0.75rem"
+                                  color="white"
+                                  fontWeight="normal"
+                                  w="fit-content"
+                                  minW="136px"
+                                  p="0.8rem 1rem"
+                                  rounded={"1.35938rem"}
+                                  display="flex"
+                                  alignItems="center"
+                                  justifyContent="center"
+                                  cursor="pointer"
+                                  as="a"
+                                  href={`/dashboard/teaching/request_feed_back/${item?.id}`}
+                                >
+                                  Add feedback
+                                </Text>
+                                <Text
+                                  bgColor="white"
+                                  fontSize="0.75rem"
+                                  color="#03A9F4"
+                                  fontWeight="normal"
+                                  w="fit-content"
+                                  p="0.8rem 1rem"
+                                  rounded={"1.35938rem"}
+                                  border={"1px solid #03A9F4"}
+                                  cursor="pointer"
+                                  as="button"
+                                  onClick={() => {
+                                    setSelectedId(item?.id);
+                                    onOpenRequestModal();
+                                  }}
+                                >
+                                  Request feedback
+                                </Text>
+                              </Flex>
                             </ListItem>
                           );
                         })}
@@ -212,6 +251,14 @@ const Teaching = () => {
           // hrefAllControls
         />
       </Flex>
+
+      {isOpenRequestModal && (
+        <RequestFeedbackModal
+          isOpen={isOpenRequestModal}
+          onClose={onCloseRequestModal}
+          selectedId={selectedId}
+        />
+      )}
     </Box>
   );
 };

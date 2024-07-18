@@ -7,6 +7,7 @@ import {
   OrderedList,
   Spinner,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
@@ -24,6 +25,7 @@ import QualityImprovementPreview from "./QualityImprovementPreview";
 import useQuality from "@/hooks/useQuality";
 import LoadingSkeleton from "@/components/common/Skeleton";
 import { QualityDataItem } from "@/utils/types";
+import RequestFeedbackModal from "@/components/common/RequestFeedbackModal";
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
 }
@@ -31,6 +33,12 @@ interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
 const QualityImprovement = () => {
   const { fillForm, handleFillForm, preview, totalData, activityType } =
     useQualityImprovement();
+  const [selectedId, setSelectedId] = useState("");
+  const {
+    onOpen: onOpenRequestModal,
+    onClose: onCloseRequestModal,
+    isOpen: isOpenRequestModal,
+  } = useDisclosure();
 
   const { isLoading, data } = useQuality();
 
@@ -157,24 +165,47 @@ const QualityImprovement = () => {
                                 }
                                 cursor={"pointer"}
                               >
-                                {`${item?.title}
-                                                            `}
+                                {item?.title}
                               </Text>
-
-                              <Text
-                                bgColor="danger_2"
-                                fontSize="0.75rem"
-                                color="danger_1"
-                                fontWeight="normal"
-                                w="fit-content"
-                                p="0.8rem 1rem"
-                                rounded={"1.35938rem"}
-                                cursor="pointer"
-                                as="a"
-                                href={`/dashboard/quality_improvement/request_feed_back/${"dd"}`}
-                              >
-                                Request feedback
-                              </Text>
+                              {/* Request section buttons */}
+                              <Flex gap={"10px"}>
+                                <Text
+                                  bgColor="#03A9F4"
+                                  fontSize="0.75rem"
+                                  color="white"
+                                  fontWeight="normal"
+                                  w="fit-content"
+                                  minW="136px"
+                                  p="0.8rem 1rem"
+                                  rounded={"1.35938rem"}
+                                  display="flex"
+                                  alignItems="center"
+                                  justifyContent="center"
+                                  cursor="pointer"
+                                  as="a"
+                                  href={`/dashboard/quality_improvement/request_feed_back/${item?.id}`}
+                                >
+                                  Add feedback
+                                </Text>
+                                <Text
+                                  bgColor="white"
+                                  fontSize="0.75rem"
+                                  color="#03A9F4"
+                                  fontWeight="normal"
+                                  w="fit-content"
+                                  p="0.8rem 1rem"
+                                  rounded={"1.35938rem"}
+                                  border={"1px solid #03A9F4"}
+                                  cursor="pointer"
+                                  as="button"
+                                  onClick={() => {
+                                    setSelectedId(item?.id);
+                                    onOpenRequestModal();
+                                  }}
+                                >
+                                  Request feedback
+                                </Text>
+                              </Flex>
                             </ListItem>
                           );
                         })}
@@ -235,6 +266,14 @@ const QualityImprovement = () => {
         />
         {currentPage}
       </Flex>
+
+      {isOpenRequestModal && (
+        <RequestFeedbackModal
+          isOpen={isOpenRequestModal}
+          onClose={onCloseRequestModal}
+          selectedId={selectedId}
+        />
+      )}
     </Box>
   );
 };

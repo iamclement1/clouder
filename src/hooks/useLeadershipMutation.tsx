@@ -1,9 +1,9 @@
 // hooks/useLeadershipMutation.tsx
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "@/utils/axiosInstance";
-import { toast } from "react-toastify";
 import { LeadershipPayloadType } from "@/utils/types";
 import { useLeadership } from "@/context/LeadershipProvider";
+import { toast } from "sonner";
 
 const useLeadershipMutation = () => {
   const queryClient = useQueryClient();
@@ -20,17 +20,13 @@ const useLeadershipMutation = () => {
         handleFillForm(false);
         handleResetForm();
         handlePreview(false);
-        toast.success("Leadership Form Submitted Successfully", {
-          theme: "dark",
-        });
+        toast.success("Leadership Form Submitted Successfully");
       }
       queryClient.invalidateQueries({ queryKey: ["leaderships"] });
     },
     onError: (error: { response: { data: { error: string } } }) => {
       const errorMsg = error.response.data.error;
-      toast.error(errorMsg, {
-        theme: "dark",
-      });
+      toast.error(errorMsg);
     },
   });
 

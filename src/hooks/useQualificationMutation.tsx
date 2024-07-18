@@ -1,10 +1,10 @@
 // hooks/useQualificationMutation.ts
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "@/utils/axiosInstance";
-import { toast } from "react-toastify";
 import { QualificationPayloadProps } from "@/utils/types";
 import { useModal } from "@/context/ModalContext";
 import { useQualification } from "@/context/QualificationProvider";
+import { toast } from "sonner";
 
 const useQualificationMutation = () => {
   const queryClient = useQueryClient();
@@ -23,9 +23,7 @@ const useQualificationMutation = () => {
         handleFillForm(false);
         handlePreview(false);
         handleResetForm();
-        toast.success("Qualification Submitted Successfully", {
-          theme: "dark",
-        });
+        toast.success("Qualification Submitted Successfully");
       }
       queryClient.invalidateQueries({ queryKey: ["qualifications"] });
     },

@@ -3,10 +3,9 @@ import useTeachingById from "@/hooks/useTeachingById";
 import { ParamsType } from "@/utils/types";
 import { Box, Button, Flex, Icon, Stack, Text } from "@chakra-ui/react";
 import { useParams, useRouter } from "next/navigation";
-
 import React, { useEffect } from "react";
 import { MdOutlineAddCircleOutline } from "react-icons/md";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 const TeachingAquired = () => {
   const noFeedBack = true;

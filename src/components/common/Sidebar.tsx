@@ -34,6 +34,25 @@ import { BiLogOut } from "react-icons/bi";
 import PageLoader from "./PageLoader";
 import useSignOut from "@/hooks/useSignOut";
 import NavItem from "./NavItem";
+import {
+  basicRoutes,
+  COURSES_URL,
+  DASHBOARD_URL,
+  infiniteRoutes,
+  LEADERSHIP_URL,
+  LOGBOOK_URL,
+  MEDICAL_LOGBOOK_URL,
+  premiumRoutes,
+  QUALIFICATION_URL,
+  QUALITY_IMPROVEMENT_CASE_REVIEW_URL,
+  QUALITY_IMPROVEMENT_CLINICAL_AUDIT_URL,
+  QUALITY_IMPROVEMENTS_URL,
+  RESEARCH_URL,
+  SURGICAL_LOGBOOK_URL,
+  TEACHING_URL,
+  trialRoutes,
+} from "@/config/route";
+import { getStorageAuthItems } from "@/utils/lib";
 
 interface SidebarWithHeaderProps {
   passedActive: string;
@@ -71,18 +90,18 @@ interface SidebarProps extends BoxProps {
 // type RouteChangeHandler = (newRoute: string) => void;
 
 const LinkItems: Array<LinkItemProps> = [
-  { id: 1, name: "Dashboard", href: "/dashboard", icon: FiHome },
+  { id: 1, name: "Dashboard", href: DASHBOARD_URL, icon: FiHome },
   {
     id: 2,
     name: "Qualifications",
-    href: "/dashboard/qualifications",
+    href: QUALIFICATION_URL,
     icon: FiTrendingUp,
   },
-  { id: 3, name: "Courses", href: "/dashboard/courses", icon: FiCompass },
+  { id: 3, name: "Courses", href: COURSES_URL, icon: FiCompass },
   {
     id: 4,
     name: "Quality Improvement Activity",
-    href: "/dashboard/quality_improvement",
+    href: QUALITY_IMPROVEMENTS_URL,
     icon: FiStar,
     children: [
       {
@@ -94,13 +113,13 @@ const LinkItems: Array<LinkItemProps> = [
       {
         id: 2,
         name: "Clinical audit",
-        href: "/dashboard/quality_improvement/clinical_audit",
+        href: QUALITY_IMPROVEMENT_CLINICAL_AUDIT_URL,
         icon: FiStar,
       },
       {
         id: 3,
         name: "Case review",
-        href: "/dashboard/quality_improvement/case_review",
+        href: QUALITY_IMPROVEMENT_CASE_REVIEW_URL,
         icon: FiStar,
       },
     ],
@@ -108,25 +127,25 @@ const LinkItems: Array<LinkItemProps> = [
   {
     id: 4,
     name: "Leadership",
-    href: "/dashboard/leadership",
+    href: LEADERSHIP_URL,
     icon: FiSettings,
   },
   {
     id: 5,
     name: "Research",
-    href: "/dashboard/research",
+    href: RESEARCH_URL,
     icon: FiSettings,
   },
   {
     id: 6,
     name: "Logbook",
-    href: "/dashboard/logbook",
+    href: LOGBOOK_URL,
     icon: FiSettings,
     children: [
       {
         id: 1,
         name: "Medical LogBook",
-        href: "/dashboard/logbook/medical_logbook",
+        href: MEDICAL_LOGBOOK_URL,
         icon: FiSettings,
         btnFunc: () => {
           console.log("Medical LogBook");
@@ -135,7 +154,7 @@ const LinkItems: Array<LinkItemProps> = [
       {
         id: 2,
         name: "Surgical Logbook",
-        href: "/dashboard/logbook/surgical_logbook",
+        href: SURGICAL_LOGBOOK_URL,
         icon: FiSettings,
         btnFunc: () => {
           console.log("Surgical Logbook");
@@ -146,13 +165,38 @@ const LinkItems: Array<LinkItemProps> = [
   {
     id: 7,
     name: "Teaching",
-    href: "/dashboard/teaching",
+    href: TEACHING_URL,
     icon: FiSettings,
   },
   // { id: 8, name: "Log out", href: "/dashboard/logout", icon: FiSettings },
 ];
 const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {
   const { isLoading, handleLogOut } = useSignOut();
+  // const [userPlan, setUserPlan] = useState<string>();
+
+  // Retrieve the user plan from session storage
+  const { plan } = getStorageAuthItems();
+
+  // Determine allowed routes based on user's plan
+  const allowedRoutes = (() => {
+    switch (plan) {
+      case "trial":
+        return trialRoutes;
+      case "basic":
+        return basicRoutes;
+      case "premium":
+        return premiumRoutes;
+      case "infinite":
+        return infiniteRoutes;
+      default:
+        return [];
+    }
+  })();
+
+  // Filter LinkItems based on allowedRoutes and handle undefined href
+  const filteredLinkItems = LinkItems.filter((link) =>
+    link.href ? allowedRoutes.includes(link.href) : false,
+  );
 
   if (isLoading) return <PageLoader />;
 
@@ -187,7 +231,7 @@ const SidebarContent = ({ onClose, passedActive, ...rest }: SidebarProps) => {
       </Box>
 
       <Box mt="1.25rem">
-        {LinkItems.map((link) => (
+        {filteredLinkItems.map((link) => (
           <NavItem
             key={link.name}
             // navType={link.name}
@@ -334,7 +378,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 };
 
 const SidebarWithHeader = ({
-  passedActive = "/dashboard",
+  passedActive = DASHBOARD_URL,
   children,
 }: SidebarWithHeaderProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();

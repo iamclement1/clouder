@@ -61,6 +61,7 @@ export const protectedRoutes = [
   RESEARCH_REQUIRED_URL,
   SUPERVISOR_DASHBOARD_URL,
   SUPERVISOR_USER_URL,
+  PROFILE_URL,
 ];
 
 export const trialRoutes = [
@@ -69,6 +70,7 @@ export const trialRoutes = [
   MEDICAL_LOGBOOK_URL,
   SURGICAL_LOGBOOK_URL,
   LOGBOOK_ACQUIRED_URL,
+  PROFILE_URL,
 ];
 export const basicRoutes = [
   ...trialRoutes, // Include trial routes

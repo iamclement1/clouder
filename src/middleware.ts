@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 import {
   authRoutes,
   basicRoutes,
+  COURSES_URL,
   DASHBOARD_URL,
   infiniteRoutes,
   LOGIN_URL,
@@ -20,6 +21,12 @@ const accessRoutes = {
   infinite: infiniteRoutes,
 };
 
+const dynamicRoutes = [
+  `${COURSES_URL}/add_feedback/:id`,
+  // Add other dynamic routes here
+];
+
+console.log(dynamicRoutes);
 export function middleware(request: NextRequest) {
   const currentUser = request.cookies.get("token")?.value;
   const plan = parsePlanCookie(request);
@@ -43,10 +50,16 @@ export function middleware(request: NextRequest) {
   if (currentUser && plan) {
     const userAccessRoutes = accessRoutes[plan];
 
-    if (!userAccessRoutes.includes(route)) {
+    const staticUserAccessRoutes = userAccessRoutes.filter(
+      (route) => typeof route === "string",
+    );
+
+    if (!hasAccessToRoute(staticUserAccessRoutes, route)) {
       return redirectToDashboardWithMessage(request);
     }
   }
+
+  return NextResponse.next();
 }
 
 function parsePlanCookie(request: NextRequest): PlanType | null {
@@ -95,4 +108,26 @@ function redirectToDashboardWithMessage(request: NextRequest): NextResponse {
     "You do not have access to this plan. Please update your plan.",
   );
   return response;
+}
+
+function hasAccessToRoute(accessRoutes: string[], route: string): boolean {
+  for (const accessRoute of accessRoutes) {
+    if (accessRoute === route) {
+      return true;
+    }
+
+    for (const dynamicRoute of dynamicRoutes) {
+      const dynamicRoutePattern = new RegExp(
+        `^${dynamicRoute.replace(/:\w+/g, "([^/]+)")}$`,
+      );
+      const match = RegExp(dynamicRoutePattern).exec(route);
+      if (match) {
+        const id = match[1]; // Extracted id from the route
+        console.log(`Extracted id: ${id}`);
+        return true;
+      }
+    }
+  }
+
+  return false;
 }

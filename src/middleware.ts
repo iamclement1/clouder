@@ -12,6 +12,7 @@ import {
   protectedRoutes,
   publicRoutes,
   RESEARCH_URL,
+  TEACHING_URL,
   trialRoutes,
 } from "./config/route";
 import { PlanType } from "./utils/types";
@@ -33,6 +34,8 @@ const dynamicRoutes = [
   `${DASHBOARD_URL}/quality_improvement/activity_required/:id`,
   `${RESEARCH_URL}/requested_feed_back/:id`,
   `${RESEARCH_URL}/research_aquired/:id`,
+  `${TEACHING_URL}/research_aquired/:id`,
+  `${TEACHING_URL}/requested_feed_back/:id`,
 ];
 
 console.log(dynamicRoutes);

@@ -6,10 +6,12 @@ import {
   COURSES_URL,
   DASHBOARD_URL,
   infiniteRoutes,
+  LEADERSHIP_URL,
   LOGIN_URL,
   premiumRoutes,
   protectedRoutes,
   publicRoutes,
+  RESEARCH_URL,
   trialRoutes,
 } from "./config/route";
 import { PlanType } from "./utils/types";
@@ -23,7 +25,14 @@ const accessRoutes = {
 
 const dynamicRoutes = [
   `${COURSES_URL}/add_feedback/:id`,
-  // Add other dynamic routes here
+  `${LEADERSHIP_URL}/request_feed_back/:id`,
+  `$${LEADERSHIP_URL}/leadership_aquired/:id`,
+  `${DASHBOARD_URL}/logbook/logbook_aquired/:id`,
+  `${DASHBOARD_URL}/logbook/request_feed_back/:id`,
+  `${DASHBOARD_URL}/quality_improvement/request_feed_back/:id`,
+  `${DASHBOARD_URL}/quality_improvement/activity_required/:id`,
+  `${RESEARCH_URL}/requested_feed_back/:id`,
+  `${RESEARCH_URL}/research_aquired/:id`,
 ];
 
 console.log(dynamicRoutes);

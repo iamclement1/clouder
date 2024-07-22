@@ -354,3 +354,15 @@ export type UserDataType = {
 };
 
 export type PlanType = "trial" | "basic" | "premium" | "infinite";
+
+export type FeedbackPayload = {
+  name: string;
+  title: string;
+  role: string;
+  email: string;
+  selectedId: string;
+};
+
+export type SubmitFeedback = {
+  feedback: string;
+};

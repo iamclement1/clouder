@@ -1,3 +1,5 @@
+import useAddFeedback from "@/hooks/useAddFeedback";
+import { FeedbackPayload } from "@/utils/types";
 import {
   Box,
   Button,
@@ -13,7 +15,7 @@ import {
   ModalOverlay,
   Stack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 type Props = {
   isOpen: boolean;
@@ -26,13 +28,19 @@ export const RequestFeedbackModal = ({
   onClose,
   selectedId,
 }: Props) => {
-  const [feedback, setFeedback] = useState({
-    fullName: "",
-    projectTitle: "",
+  const [feedback, setFeedback] = useState<FeedbackPayload>({
+    name: "",
+    title: "",
     role: "",
     email: "",
-    selectedId: selectedId,
+    selectedId: "",
   });
+
+  useEffect(() => {
+    setFeedback((prevFeedback) => ({ ...prevFeedback, selectedId }));
+  }, [selectedId]);
+
+  console.log(selectedId);
 
   const handleFeedbackChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
@@ -40,7 +48,12 @@ export const RequestFeedbackModal = ({
     setFeedback({ ...feedback, [e.target.name]: e.target.value });
   };
 
+  const { handleAddRequest, isLoading } = useAddFeedback(selectedId);
+
+  console.log();
+
   const handleSubmitFeedback = () => {
+    handleAddRequest(feedback);
     console.log("Feedback submitted:", feedback);
     onClose();
   };
@@ -59,8 +72,8 @@ export const RequestFeedbackModal = ({
                 <Input
                   placeholder="Enter Full name"
                   _focus={{}}
-                  name="fullName"
-                  value={feedback.fullName}
+                  name="name"
+                  value={feedback.name}
                   onChange={handleFeedbackChange}
                 />
               </FormControl>
@@ -69,8 +82,8 @@ export const RequestFeedbackModal = ({
                 <Input
                   placeholder="Title of the project"
                   _focus={{}}
-                  name="projectTitle"
-                  value={feedback.projectTitle}
+                  name="title"
+                  value={feedback.title}
                   onChange={handleFeedbackChange}
                 />
               </FormControl>
@@ -114,6 +127,14 @@ export const RequestFeedbackModal = ({
               color={"white"}
               mr={3}
               onClick={handleSubmitFeedback}
+              isLoading={isLoading}
+              disabled={
+                !feedback.name ||
+                !feedback.title ||
+                !feedback.role ||
+                !feedback.email ||
+                isLoading
+              }
             >
               Submit
             </Button>

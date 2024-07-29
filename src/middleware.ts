@@ -1,145 +1,111 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import {
-  authRoutes,
-  basicRoutes,
-  COURSES_URL,
-  DASHBOARD_URL,
-  infiniteRoutes,
-  LEADERSHIP_URL,
   LOGIN_URL,
-  premiumRoutes,
-  protectedRoutes,
-  publicRoutes,
-  RESEARCH_URL,
-  TEACHING_URL,
+  DASHBOARD_URL,
+  SUPERVISOR_DASHBOARD_URL,
   trialRoutes,
+  basicRoutes,
+  premiumRoutes,
+  infiniteRoutes,
+  PLAN_URL,
 } from "./config/route";
 import { PlanType } from "./utils/types";
 
-const accessRoutes = {
-  trial: trialRoutes,
-  basic: basicRoutes,
-  premium: premiumRoutes,
-  infinite: infiniteRoutes,
-};
-
-const dynamicRoutes = [
-  `${COURSES_URL}/add_feedback/:id`,
-  `${LEADERSHIP_URL}/request_feed_back/:id`,
-  `$${LEADERSHIP_URL}/leadership_aquired/:id`,
-  `${DASHBOARD_URL}/logbook/logbook_aquired/:id`,
-  `${DASHBOARD_URL}/logbook/request_feed_back/:id`,
-  `${DASHBOARD_URL}/quality_improvement/request_feed_back/:id`,
-  `${DASHBOARD_URL}/quality_improvement/activity_required/:id`,
-  `${RESEARCH_URL}/requested_feed_back/:id`,
-  `${RESEARCH_URL}/research_aquired/:id`,
-  `${TEACHING_URL}/research_aquired/:id`,
-  `${TEACHING_URL}/requested_feed_back/:id`,
-];
-
-console.log(dynamicRoutes);
+// Middleware function
 export function middleware(request: NextRequest) {
-  const currentUser = request.cookies.get("token")?.value;
-  const plan = parsePlanCookie(request);
+  const currentUser = parseCookie(request.cookies.get("token")?.value);
+  const role = parseCookie(request.cookies.get("role")?.value);
+  const plan = parsePlanCookie(parseCookie(request.cookies.get("plan")?.value));
   const route = request.nextUrl.pathname;
 
-  if (shouldIgnoreUrl(route)) {
-    return NextResponse.next();
-  }
+  // console.log({ currentUser, plan, route, role });
 
-  if (!currentUser && protectedRoutes.includes(route)) {
+  if (!currentUser) {
     return redirectToLogin(request);
   }
 
-  if (
-    currentUser &&
-    (authRoutes.includes(route) || publicRoutes.includes(route))
-  ) {
-    return redirectToDashboard(request);
+  if (currentUser && role === "client") {
+    return handleClientRole(route, request);
   }
 
-  if (currentUser && plan) {
-    const userAccessRoutes = accessRoutes[plan];
+  if (currentUser && role === "supervisor") {
+    return handleSupervisorRole(route, request);
+  }
 
-    const staticUserAccessRoutes = userAccessRoutes.filter(
-      (route) => typeof route === "string",
-    );
-
-    if (!hasAccessToRoute(staticUserAccessRoutes, route)) {
-      return redirectToDashboardWithMessage(request);
-    }
+  if (!isRouteAccessibleByPlan(route, plan)) {
+    return NextResponse.redirect(new URL(PLAN_URL, request.url));
   }
 
   return NextResponse.next();
 }
 
-function parsePlanCookie(request: NextRequest): PlanType | null {
-  let plan = request.cookies.get("plan")?.value;
-
-  if (plan && plan.startsWith('"') && plan.endsWith('"')) {
-    plan = JSON.parse(plan);
+// Function to parse and clean cookie values
+function parseCookie(cookie: string | undefined): string | null {
+  if (!cookie) return null;
+  if (cookie.startsWith('"') && cookie.endsWith('"')) {
+    cookie = cookie.slice(1, -1);
   }
-
-  return plan?.trim() as PlanType | null;
+  return cookie.trim() || null;
 }
 
-function shouldIgnoreUrl(url: string): boolean {
-  const ignoredExtensions = [
-    ".png",
-    ".jpg",
-    ".jpeg",
-    ".gif",
-    ".svg",
-    ".css",
-    ".js",
-    ".ico",
-    ".json",
-  ];
-  return ignoredExtensions.some((ext) => url.endsWith(ext));
+// Function to parse plan cookie and convert to PlanType
+function parsePlanCookie(cookie: string | null): PlanType | null {
+  if (!cookie) return null;
+  return cookie as PlanType;
 }
 
-function redirectToLogin(request: NextRequest): NextResponse {
-  const response = NextResponse.redirect(new URL(LOGIN_URL, request.url));
-  response.cookies.delete("token");
-  response.cookies.delete("plan");
-  response.cookies.delete("role");
-  response.cookies.delete("refreshToken");
-
-  return response;
+// Function to redirect to login page
+function redirectToLogin(request: NextRequest) {
+  return NextResponse.redirect(new URL(LOGIN_URL, request.url));
 }
 
-function redirectToDashboard(request: NextRequest): NextResponse {
-  return NextResponse.redirect(new URL(DASHBOARD_URL, request.url));
+// Function to handle redirection for client role
+function handleClientRole(route: string, request: NextRequest) {
+  if (route.startsWith("/supervisor")) {
+    return NextResponse.redirect(new URL(DASHBOARD_URL, request.url));
+  }
+  return NextResponse.next();
 }
 
-function redirectToDashboardWithMessage(request: NextRequest): NextResponse {
-  const response = NextResponse.redirect(new URL(DASHBOARD_URL, request.url));
-  response.cookies.set(
-    "message",
-    "You do not have access to this plan. Please update your plan.",
+// Function to handle redirection for supervisor role
+function handleSupervisorRole(route: string, request: NextRequest) {
+  if (route.startsWith("/dashboard")) {
+    return NextResponse.redirect(
+      new URL(SUPERVISOR_DASHBOARD_URL, request.url),
+    );
+  }
+  return NextResponse.next();
+}
+
+// Function to check if a route is accessible by the user's plan
+function isRouteAccessibleByPlan(
+  route: string,
+  plan: PlanType | null,
+): boolean {
+  const accessibleRoutes = getRoutesByPlan(plan);
+  return accessibleRoutes.some((accessibleRoute) =>
+    route.startsWith(accessibleRoute),
   );
-  return response;
 }
 
-function hasAccessToRoute(accessRoutes: string[], route: string): boolean {
-  for (const accessRoute of accessRoutes) {
-    if (accessRoute === route) {
-      return true;
-    }
-
-    for (const dynamicRoute of dynamicRoutes) {
-      const dynamicRoutePattern = new RegExp(
-        `^${dynamicRoute.replace(/:\w+/g, "([^/]+)")}$`,
-      );
-      const match = RegExp(dynamicRoutePattern).exec(route);
-      if (match) {
-        const id = match[1]; // Extracted id from the route
-        console.log(`Extracted id: ${id}`);
-        return true;
-      }
-    }
+// Function to get routes by plan
+function getRoutesByPlan(plan: PlanType | null): string[] {
+  switch (plan) {
+    case "trial":
+      return trialRoutes as string[];
+    case "basic":
+      return basicRoutes as string[];
+    case "premium":
+      return premiumRoutes as string[];
+    case "infinite":
+      return infiniteRoutes as string[];
+    default:
+      return [];
   }
-
-  return false;
 }
+
+// See "Matching Paths" below to learn more
+export const config = {
+  matcher: ["/dashboard/:path*", "/supervisor/:path*"],
+};

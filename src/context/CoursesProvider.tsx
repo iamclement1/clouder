@@ -12,10 +12,10 @@ export type coursesDataProps = {
 };
 
 export type requestFeedBackDataProps = {
-  fullName: string;
-  title: string;
-  role: string;
-  email: string;
+  // fullName: string;
+  // title: string;
+  // role: string;
+  // email: string;
   bodyText: string;
 };
 

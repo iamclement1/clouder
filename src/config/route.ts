@@ -16,25 +16,32 @@ const FAQ_URL: string = "/faq";
 
 // DASHBOARD_URL constants
 const DASHBOARD_URL: string = "/dashboard";
-const COURSES_URL: string = "/dashboard/courses";
-const LEADERSHIP_URL: string = "/dashboard/leadership";
-const LOGBOOK_URL: string = "/dashboard/logbook";
-const PROFILE_URL: string = "/dashboard/profile";
-const QUALIFICATION_URL: string = "/dashboard/qualifications";
-const RESEARCH_URL: string = "/dashboard/research";
-const SETTINGS_URL: string = "/dashboard/settings";
-const TEACHING_URL: string = "/dashboard/teaching";
-const QUALITY_IMPROVEMENTS_URL: string = "/dashboard/quality_improvement";
-const MEDICAL_LOGBOOK_URL: string = "/dashboard/logbook/medical_logbook";
-const SURGICAL_LOGBOOK_URL: string = "/dashboard/logbook/surgical_logbook";
-const COURSES_ADD_FEEDBACK_URL: string = "/dashboard/courses/add_feedback";
-const LOGBOOK_ACQUIRED_URL: string = "/dashboard/logbook/logbook_aquired";
-const TEACHING_REQUIRED_URL: string = "/dashboard/teaching/teaching_aquired";
-const QUALITY_IMPROVEMENT_CLINICAL_AUDIT_URL: string =
-  "/dashboard/quality_improvement/clinical_audit";
-const QUALITY_IMPROVEMENT_CASE_REVIEW_URL: string =
-  "/dashboard/quality_improvement/case_review";
-const RESEARCH_REQUIRED_URL: string = "/dashboard/research/research_aquired";
+const COURSES_URL: string = `${DASHBOARD_URL}/courses`;
+const LEADERSHIP_URL: string = `${DASHBOARD_URL}/leadership`;
+const LEADERSHIP_AQURIED_URL = (id: string) =>
+  `${DASHBOARD_URL}/leadership/leadership_aquired/${id}`;
+const LEADERSHIP_REQUEST_FEEDBACK_URL = (id: string) =>
+  `${LEADERSHIP_URL}/leadership_aquired/${id}`;
+const LOGBOOK_URL: string = `${DASHBOARD_URL}/logbook`;
+const PROFILE_URL: string = `${DASHBOARD_URL}/profile`;
+const QUALIFICATION_URL: string = `${DASHBOARD_URL}/qualifications`;
+const RESEARCH_URL: string = `${DASHBOARD_URL}/research`;
+const SETTINGS_URL: string = `${DASHBOARD_URL}/settings`;
+const TEACHING_URL: string = `${DASHBOARD_URL}/teaching`;
+const QUALITY_IMPROVEMENTS_URL: string = `${DASHBOARD_URL}/quality_improvement`;
+const MEDICAL_LOGBOOK_URL: string = `${DASHBOARD_URL}/logbook/medical_logbook`;
+const SURGICAL_LOGBOOK_URL: string = `${DASHBOARD_URL}/logbook/surgical_logbook`;
+const COURSES_ADD_FEEDBACK_URL = (id: string) =>
+  `${DASHBOARD_URL}/courses/add_feedback/${id}`;
+const COURSES_AQUIRED_URL = (id: string) =>
+  `${DASHBOARD_URL}/courses/course_aquired/${id}`;
+const LOGBOOK_ACQUIRED_URL: string = `${DASHBOARD_URL}/logbook/logbook_aquired`;
+const TEACHING_REQUIRED_URL: string = `${DASHBOARD_URL}/teaching/teaching_aquired`;
+const QUALITY_IMPROVEMENT_CLINICAL_AUDIT_URL: string = `${DASHBOARD_URL}/quality_improvement/clinical_audit`;
+const QUALITY_IMPROVEMENT_CASE_REVIEW_URL: string = `${DASHBOARD_URL}/quality_improvement/case_review`;
+const QUALITY_MOBILITY_URL: string = `${QUALITY_IMPROVEMENTS_URL}/mobility`;
+const RESEARCH_REQUIRED_URL: string = `${RESEARCH_URL}/research_aquired`;
+const PLAN_URL: string = `${DASHBOARD_URL}/pricing`;
 
 //SUPERVISOR CONSTANTS
 const SUPERVISOR_DASHBOARD_URL: string = "/supervisor";
@@ -54,10 +61,15 @@ export const protectedRoutes = [
   MEDICAL_LOGBOOK_URL,
   SURGICAL_LOGBOOK_URL,
   COURSES_ADD_FEEDBACK_URL,
+  COURSES_AQUIRED_URL,
+  LEADERSHIP_AQURIED_URL,
+  LEADERSHIP_REQUEST_FEEDBACK_URL,
   LOGBOOK_ACQUIRED_URL,
   TEACHING_REQUIRED_URL,
   QUALITY_IMPROVEMENT_CLINICAL_AUDIT_URL,
   QUALITY_IMPROVEMENT_CASE_REVIEW_URL,
+  QUALITY_MOBILITY_URL,
+  PLAN_URL,
   RESEARCH_REQUIRED_URL,
   SUPERVISOR_DASHBOARD_URL,
   SUPERVISOR_USER_URL,
@@ -69,6 +81,11 @@ export const trialRoutes = [
   QUALIFICATION_URL,
   MEDICAL_LOGBOOK_URL,
   SURGICAL_LOGBOOK_URL,
+  LOGBOOK_URL,
+  MEDICAL_LOGBOOK_URL,
+  SURGICAL_LOGBOOK_URL,
+  COURSES_ADD_FEEDBACK_URL,
+  COURSES_AQUIRED_URL,
   LOGBOOK_ACQUIRED_URL,
   PROFILE_URL,
 ];
@@ -79,7 +96,6 @@ export const basicRoutes = [
 export const premiumRoutes = [
   ...basicRoutes, // Include basic routes
   COURSES_URL,
-  COURSES_ADD_FEEDBACK_URL,
   RESEARCH_URL,
   TEACHING_URL,
   TEACHING_REQUIRED_URL,
@@ -88,6 +104,10 @@ export const premiumRoutes = [
 export const infiniteRoutes = [
   ...premiumRoutes, // Include premium routes
   LEADERSHIP_URL,
+  QUALITY_IMPROVEMENTS_URL,
+  QUALITY_MOBILITY_URL,
+  QUALITY_IMPROVEMENT_CLINICAL_AUDIT_URL,
+  QUALITY_IMPROVEMENT_CASE_REVIEW_URL,
   RESEARCH_REQUIRED_URL,
 ];
 
@@ -128,6 +148,7 @@ export {
   MEDICAL_LOGBOOK_URL,
   SURGICAL_LOGBOOK_URL,
   COURSES_ADD_FEEDBACK_URL,
+  COURSES_AQUIRED_URL,
   LOGBOOK_ACQUIRED_URL,
   TEACHING_REQUIRED_URL,
   QUALITY_IMPROVEMENT_CLINICAL_AUDIT_URL,
@@ -141,4 +162,8 @@ export {
   PRIVACY_POLICY_URL,
   TERMS_OF_SERVICE_URL,
   FAQ_URL,
+  PLAN_URL,
+  LEADERSHIP_AQURIED_URL,
+  LEADERSHIP_REQUEST_FEEDBACK_URL,
+  QUALITY_MOBILITY_URL,
 };

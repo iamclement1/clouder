@@ -1,6 +1,6 @@
 import CustomButton from "@/components/common/CustomButton";
 import CustomInput from "@/components/common/CustomInput";
-import { requestFeedBackDataProps } from "@/context/CoursesProvider";
+import { QUALITY_IMPROVEMENTS_URL } from "@/config/route";
 import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
@@ -51,37 +51,10 @@ const RequestFeedBack = () => {
             email: "",
             bodyText: "",
           }}
-          validate={(values) => {
-            const errors: Partial<requestFeedBackDataProps> = {};
-
-            if (!values.fullName) {
-              errors.fullName = "Required";
-            }
-            if (!values.title) {
-              errors.title = "Required";
-            }
-
-            if (!values.role) {
-              errors.role = "Required";
-            }
-            if (!values.email) {
-              errors.email = "Required";
-            }
-            if (err) {
-              setErr(true);
-              errors.bodyText = "Required";
-            } else {
-              setErr(false);
-            }
-
-            console.log(err);
-
-            return errors;
-          }}
           onSubmit={(values) => {
             console.log(values);
             values.bodyText = text.current;
-            navigate.push("/dashboard/courses");
+            navigate.push(QUALITY_IMPROVEMENTS_URL);
           }}
           // validateOnChange
         >

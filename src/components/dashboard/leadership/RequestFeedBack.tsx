@@ -1,6 +1,5 @@
 import CustomButton from "@/components/common/CustomButton";
 import CustomInput from "@/components/common/CustomInput";
-import { requestFeedBackDataProps } from "@/context/CoursesProvider";
 import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
@@ -45,38 +44,7 @@ const RequestFeedBack = () => {
       >
         <Formik
           initialValues={{
-            fullName: "",
-            title: "",
-            role: "",
-            email: "",
             bodyText: "",
-          }}
-          validate={(values) => {
-            const errors: Partial<requestFeedBackDataProps> = {};
-
-            if (!values.fullName) {
-              errors.fullName = "Required";
-            }
-            if (!values.title) {
-              errors.title = "Required";
-            }
-
-            if (!values.role) {
-              errors.role = "Required";
-            }
-            if (!values.email) {
-              errors.email = "Required";
-            }
-            if (err) {
-              setErr(true);
-              errors.bodyText = "Required";
-            } else {
-              setErr(false);
-            }
-
-            console.log(err);
-
-            return errors;
           }}
           onSubmit={(values) => {
             console.log(values);

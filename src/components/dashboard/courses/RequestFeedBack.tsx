@@ -1,14 +1,19 @@
 import CustomButton from "@/components/common/CustomButton";
-import CustomInput from "@/components/common/CustomInput";
-import { requestFeedBackDataProps } from "@/context/CoursesProvider";
+import { COURSES_URL } from "@/config/route";
+import useSubmitFeedback from "@/hooks/useSubmitFeedback";
 import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
 const RequestFeedBack = () => {
   const [err, setErr] = useState<boolean>(false);
+  const param = useParams();
+  // console.log("param", param?.index);
+  const id = param?.index as string;
+
+  const { handleSubmitFeedback, isLoading } = useSubmitFeedback(id);
 
   const navigate = useRouter();
   const text = useRef("");
@@ -45,79 +50,30 @@ const RequestFeedBack = () => {
       >
         <Formik
           initialValues={{
-            fullName: "",
-            title: "",
-            role: "",
-            email: "",
             bodyText: "",
           }}
-          validate={(values) => {
-            const errors: Partial<requestFeedBackDataProps> = {};
-
-            if (!values.fullName) {
-              errors.fullName = "Required";
-            }
-            if (!values.title) {
-              errors.title = "Required";
-            }
-
-            if (!values.role) {
-              errors.role = "Required";
-            }
-            if (!values.email) {
-              errors.email = "Required";
-            }
-            if (err) {
-              setErr(true);
-              errors.bodyText = "Required";
-            } else {
-              setErr(false);
-            }
-
-            console.log(err);
-
-            return errors;
-          }}
+          // validate={(values) => {
+          //   const errors: Partial<requestFeedBackDataProps> = {};
+          //   if (err) {
+          //     setErr(true);
+          //     errors.bodyText = "Required";
+          //   } else {
+          //     setErr(false);
+          //   }
+          //   return errors;
+          // }}
           onSubmit={(values) => {
             console.log(values);
+            const payload = {
+              feedback: text.current,
+            };
             values.bodyText = text.current;
-            navigate.push("/dashboard/courses");
+            handleSubmitFeedback(payload);
           }}
           // validateOnChange
         >
-          {({ handleSubmit, errors, touched }) => (
+          {({ handleSubmit }) => (
             <Form onSubmit={handleSubmit}>
-              <Box>
-                <CustomInput
-                  label="Full name"
-                  name="fullName"
-                  type="number"
-                  errors={errors}
-                  touched={touched}
-                />
-                <CustomInput
-                  label="Title"
-                  name="title"
-                  type="number"
-                  errors={errors}
-                  touched={touched}
-                />
-                <CustomInput
-                  label="Role"
-                  name="role"
-                  type="number"
-                  errors={errors}
-                  touched={touched}
-                />{" "}
-                <CustomInput
-                  label="Email"
-                  name="email"
-                  type="email"
-                  errors={errors}
-                  touched={touched}
-                />
-              </Box>
-
               <Stack mt="1rem">
                 <Box>
                   <Text
@@ -126,7 +82,7 @@ const RequestFeedBack = () => {
                     fontWeight={"normal"}
                     mb="1rem"
                   >
-                    Body Text{" "}
+                    Write your feedback{" "}
                   </Text>
                   <ContentEditable
                     className={`texteditor ${err ? "errMode" : ""}`}
@@ -153,11 +109,17 @@ const RequestFeedBack = () => {
                   border="1px"
                   borderColor="grey_1"
                   color="grey_1"
-                  handleClick={() => navigate.push("/dashboard/courses")}
+                  handleClick={() => navigate.push(COURSES_URL)}
                 >
                   Cancel
                 </CustomButton>
-                <CustomButton type="submit">Next</CustomButton>
+                <CustomButton
+                  type="submit"
+                  disabled={isLoading}
+                  isLoading={isLoading}
+                >
+                  Submit
+                </CustomButton>
               </Flex>
             </Form>
           )}

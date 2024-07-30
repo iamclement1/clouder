@@ -22,6 +22,7 @@ import ReactPaginate from "react-paginate";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import LoadingSkeleton from "@/components/common/Skeleton";
 import RequestFeedbackModal from "@/components/common/RequestFeedbackModal";
+import { COURSES_ADD_FEEDBACK_URL } from "@/config/route";
 
 interface CustomPageClickEvent extends React.MouseEvent<HTMLButtonElement> {
   selected: number;
@@ -154,7 +155,7 @@ const Courses = () => {
                                   justifyContent="center"
                                   cursor="pointer"
                                   as="a"
-                                  href={`/dashboard/courses/add_feedback/${item?.year}`}
+                                  href={COURSES_ADD_FEEDBACK_URL(item?.id)}
                                 >
                                   Add feedback
                                 </Text>
